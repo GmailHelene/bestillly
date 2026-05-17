@@ -13,6 +13,7 @@ export type OnepageContent = {
   sections?: {
     aboutText?: string;
     showOpeningHours?: boolean;
+    showContactForm?: boolean;
   };
   header?: {
     tagline?: string;
@@ -55,6 +56,7 @@ export function parseOnepageContent(raw: unknown): OnepageContent {
     sections: {
       aboutText: str(sections.aboutText),
       showOpeningHours: sections.showOpeningHours === true,
+      showContactForm: sections.showContactForm === true,
     },
     header: {
       tagline: str(header.tagline),

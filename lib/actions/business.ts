@@ -19,6 +19,9 @@ export async function updateBusinessProfile(
   if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
 
   const name = String(formData.get("name") ?? "").trim();
+  const email = String(formData.get("email") ?? "")
+    .trim()
+    .toLowerCase();
   const description = String(formData.get("description") ?? "").trim();
   const address = String(formData.get("address") ?? "").trim();
   const phone = String(formData.get("phone") ?? "").trim();
@@ -26,6 +29,9 @@ export async function updateBusinessProfile(
   const template = isThemeId(themeInput) ? themeInput : DEFAULT_THEME;
 
   if (!name) return { error: "Bedriftsnavn er påkrevd." };
+  if (!email.includes("@")) {
+    return { error: "Fyll inn en gyldig e-postadresse." };
+  }
 
   const field = (key: string) =>
     String(formData.get(key) ?? "").trim() || undefined;
@@ -44,6 +50,7 @@ export async function updateBusinessProfile(
     sections: {
       aboutText: field("aboutText"),
       showOpeningHours: formData.get("showOpeningHours") != null,
+      showContactForm: formData.get("showContactForm") != null,
     },
     header: {
       tagline: field("tagline"),
@@ -65,6 +72,7 @@ export async function updateBusinessProfile(
     .update(businesses)
     .set({
       name,
+      email,
       description: description || null,
       address: address || null,
       phone: phone || null,

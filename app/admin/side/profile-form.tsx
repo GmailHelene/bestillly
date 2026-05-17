@@ -10,6 +10,8 @@ const inputClass =
 
 type Profile = {
   name: string;
+  email: string;
+  showContactForm: boolean;
   description: string | null;
   address: string | null;
   phone: string | null;
@@ -68,6 +70,22 @@ export function ProfileForm({ profile }: { profile: Profile }) {
           defaultValue={profile.name}
           className={inputClass}
         />
+      </div>
+      <div className="space-y-1">
+        <label htmlFor="email" className="text-sm font-medium">
+          E-post
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          defaultValue={profile.email}
+          className={inputClass}
+        />
+        <p className="text-xs text-gray-400">
+          Brukes til varsler og meldinger fra kontaktskjemaet.
+        </p>
       </div>
       <div className="space-y-1">
         <label htmlFor="description" className="text-sm font-medium">
@@ -178,6 +196,14 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             defaultChecked={profile.showOpeningHours}
           />
           Vis åpningstider på siden
+        </label>
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            name="showContactForm"
+            defaultChecked={profile.showContactForm}
+          />
+          Vis kontaktskjema på siden
         </label>
       </div>
 

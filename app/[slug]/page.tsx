@@ -9,6 +9,7 @@ import { OnepageHero } from "@/components/onepage-hero";
 import { OnepageFooter } from "@/components/onepage-footer";
 import { BookingWidget } from "./booking-widget";
 import { Shop } from "./shop";
+import { ContactSection } from "./contact-section";
 
 const WEEKDAYS: [number, string][] = [
   [1, "Mandag"],
@@ -96,6 +97,7 @@ export default async function PublicBusinessPage({
   const gallery = content.media?.gallery ?? [];
   const aboutText = content.sections?.aboutText;
   const showOpeningHours = content.sections?.showOpeningHours ?? false;
+  const showContactForm = content.sections?.showContactForm ?? false;
   const hours = showOpeningHours
     ? await db.query.workingHours.findMany({
         where: eq(workingHours.businessId, business.id),
@@ -274,6 +276,18 @@ export default async function PublicBusinessPage({
               inStock: p.inStock,
             }))}
           />
+        </section>
+      )}
+
+      {showContactForm && (
+        <section className="space-y-3">
+          <h2
+            className="text-lg font-semibold"
+            style={{ fontFamily: theme.headingFont }}
+          >
+            Kontakt oss
+          </h2>
+          <ContactSection slug={business.slug} accentColor={theme.accent} />
         </section>
       )}
 

@@ -50,6 +50,8 @@ export default async function SidePage() {
       <ProfileForm
         profile={{
           name: business.name,
+          email: business.email,
+          showContactForm: content.sections?.showContactForm ?? false,
           description: business.description,
           address: business.address,
           phone: business.phone,
