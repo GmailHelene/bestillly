@@ -31,7 +31,7 @@ const poppins = Poppins({
 
 const siteTitle = "bestilly — bookingsystem for enkeltpersonforetak";
 const siteDescription =
-  "Bookingsystem laget for enkeltpersonforetak: booking, kalender, Vipps og regnskapsklar eksport. Time inn, faktura ut, ferdig regnskapsgrunnlag — én fast årspris.";
+  "Bookingsystem laget for enkeltpersonforetak: booking, kalender, regnskapseksport og markedsføringsverktøy. Time inn, faktura ut, ferdig regnskapsgrunnlag — én fast årspris.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(

@@ -13,7 +13,7 @@ const jsonLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "Bookingsystem laget for enkeltpersonforetak — booking, kalender, Vipps og regnskapsklar eksport. Én fast årspris.",
+    "Bookingsystem laget for enkeltpersonforetak — booking, kalender, regnskapseksport og markedsføringsverktøy. Én fast årspris.",
   offers: {
     "@type": "Offer",
     price: String(ANNUAL_PRICE_NOK),
@@ -104,6 +104,39 @@ const included = [
   "Nettbutikk, blogg og nyhetsbrev",
   "AI-markedsføringshub med kredittpott inkludert",
   "Ingen oppstartsavgift eller gebyr per booking",
+];
+
+const marketingTools = [
+  {
+    title: "SEO-analyse",
+    description:
+      "Søkeord og konkrete forslag som hjelper deg å bli funnet på Google.",
+  },
+  {
+    title: "Innlegg til sosiale medier",
+    description:
+      "Ferdige innlegg tilpasset Facebook, Instagram, TikTok, Snapchat og YouTube — skreddersydd for hver kanal.",
+  },
+  {
+    title: "Blogg og SEO-tekster",
+    description:
+      "SEO-optimaliserte blogginnlegg rett i bloggen din, og korte tekster til nettsiden.",
+  },
+  {
+    title: "AI-bilder",
+    description:
+      "Bildeforslag som passer innlegget, i riktig format for hver kanal.",
+  },
+  {
+    title: "Markedsanalyse",
+    description:
+      "Hvilke kanaler du bør satse på, hvor ofte du bør poste, og hva budsjettet bør gå til.",
+  },
+  {
+    title: "Publiseringsplan",
+    description:
+      "En ferdig plan for hva du bør poste, og når — på tvers av kanalene.",
+  },
 ];
 
 const faq = [
@@ -202,8 +235,8 @@ export default function Home() {
                 </h1>
                 <p className="mt-5 text-balance text-lg text-gray-600">
                   Time inn, faktura ut, ferdig regnskapsgrunnlag. bestilly
-                  samler booking, kalender, Vipps og regnskapsklar eksport —
-                  laget for deg som driver alene. Én fast årspris, ingen
+                  samler booking, kalender, regnskapseksport og markedsføring
+                  — laget for deg som driver alene. Én fast årspris, ingen
                   månedlige overraskelser.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
@@ -249,6 +282,38 @@ export default function Home() {
               regnskapsføreren din kan ta imot — eller importerer den rett i
               regnskapsprogrammet ditt. Time inn, faktura ut, ferdig
               grunnlag.
+            </p>
+          </div>
+        </section>
+
+        {/* Markedsføring */}
+        <section className="bg-[#f5f3ff]">
+          <div className="mx-auto max-w-4xl px-6 py-20">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Markedsføring uten å være markedsfører
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-gray-600">
+                Driver du alene, er markedsføring ofte det første som ryker.
+                bestilly har en AI-markedsføringshub innebygd — så du slipper å
+                stirre på et blankt felt.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {marketingTools.map((tool) => (
+                <div
+                  key={tool.title}
+                  className="rounded-2xl bg-white p-5 shadow-sm"
+                >
+                  <h3 className="font-semibold">{tool.title}</h3>
+                  <p className="mt-1 text-sm text-gray-600">
+                    {tool.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 text-center text-sm text-gray-500">
+              Inkludert i årsprisen, med en månedlig kredittpott.
             </p>
           </div>
         </section>
