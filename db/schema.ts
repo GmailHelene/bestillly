@@ -177,9 +177,40 @@ export const posts = pgTable(
   (t) => [index("posts_business_slug_idx").on(t.businessId, t.slug)],
 );
 
+// Nyhetsbrev-abonnenter (Fase 2).
+export const subscribers = pgTable(
+  "subscribers",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    businessId: uuid("business_id")
+      .notNull()
+      .references(() => businesses.id, { onDelete: "cascade" }),
+    email: text("email").notNull(),
+    unsubscribeToken: uuid("unsubscribe_token").notNull().defaultRandom(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [index("subscribers_business_idx").on(t.businessId)],
+);
+
+// Sendte nyhetsbrev — historikk.
+export const newsletters = pgTable("newsletters", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  businessId: uuid("business_id")
+    .notNull()
+    .references(() => businesses.id, { onDelete: "cascade" }),
+  subject: text("subject").notNull(),
+  content: text("content").notNull(),
+  recipientCount: integer("recipient_count").notNull().default(0),
+  sentAt: timestamp("sent_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 export type Business = typeof businesses.$inferSelect;
 export type Service = typeof services.$inferSelect;
 export type Booking = typeof bookings.$inferSelect;
 export type Product = typeof products.$inferSelect;
 export type Order = typeof orders.$inferSelect;
 export type Post = typeof posts.$inferSelect;
+export type Subscriber = typeof subscribers.$inferSelect;
+export type Newsletter = typeof newsletters.$inferSelect;

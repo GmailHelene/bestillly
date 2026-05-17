@@ -11,6 +11,7 @@ import { OnepageFooter } from "@/components/onepage-footer";
 import { BookingWidget } from "./booking-widget";
 import { Shop } from "./shop";
 import { ContactSection } from "./contact-section";
+import { NewsletterSignup } from "./newsletter-signup";
 
 const WEEKDAYS: [number, string][] = [
   [1, "Mandag"],
@@ -108,6 +109,7 @@ export default async function PublicBusinessPage({
   const showOpeningHours = content.sections?.showOpeningHours ?? false;
   const showContactForm = content.sections?.showContactForm ?? false;
   const showBlog = content.sections?.showBlog ?? false;
+  const showNewsletter = content.sections?.showNewsletter ?? false;
   const hours = showOpeningHours
     ? await db.query.workingHours.findMany({
         where: eq(workingHours.businessId, business.id),
@@ -320,6 +322,24 @@ export default async function PublicBusinessPage({
               </Link>
             ))}
           </div>
+        </section>
+      )}
+
+      {showNewsletter && (
+        <section className="space-y-3">
+          <h2
+            className="text-lg font-semibold"
+            style={{ fontFamily: theme.headingFont }}
+          >
+            Nyhetsbrev
+          </h2>
+          <p className="text-sm text-gray-600">
+            Meld deg på, så holder vi deg oppdatert.
+          </p>
+          <NewsletterSignup
+            slug={business.slug}
+            accentColor={theme.accent}
+          />
         </section>
       )}
 

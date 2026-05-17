@@ -15,6 +15,7 @@ export type OnepageContent = {
     showOpeningHours?: boolean;
     showContactForm?: boolean;
     showBlog?: boolean;
+    showNewsletter?: boolean;
   };
   header?: {
     tagline?: string;
@@ -59,6 +60,7 @@ export function parseOnepageContent(raw: unknown): OnepageContent {
       showOpeningHours: sections.showOpeningHours === true,
       showContactForm: sections.showContactForm === true,
       showBlog: sections.showBlog === true,
+      showNewsletter: sections.showNewsletter === true,
     },
     header: {
       tagline: str(header.tagline),

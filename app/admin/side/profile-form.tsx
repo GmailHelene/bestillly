@@ -13,6 +13,7 @@ type Profile = {
   email: string;
   showContactForm: boolean;
   showBlog: boolean;
+  showNewsletter: boolean;
   description: string | null;
   address: string | null;
   phone: string | null;
@@ -213,6 +214,14 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             defaultChecked={profile.showBlog}
           />
           Vis blogg på siden
+        </label>
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            name="showNewsletter"
+            defaultChecked={profile.showNewsletter}
+          />
+          Vis nyhetsbrev-påmelding på siden
         </label>
       </div>
 
