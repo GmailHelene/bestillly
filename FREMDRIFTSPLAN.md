@@ -3,7 +3,7 @@
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
 Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant.
 
-**Status pr. 2026-05-22:** Steg 1–7 ferdig. Neste: steg 7b (bookingkalender).
+**Status pr. 2026-05-22:** Steg 1–7b ferdig. Neste: steg 8.
 
 ---
 
@@ -71,8 +71,8 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 - [x] E-post til begge parter ved avbestilling
 - [x] Bedrift kan avbestille fra admin
 
-### Steg 7b — Bookingkalender i admin ⬜
-- [ ] Månedskalendervisning av bookinger i admin (i tillegg til listen)
+### Steg 7b — Bookingkalender i admin ✅
+- [x] Månedskalendervisning av bookinger i admin (i tillegg til listen)
 
 ### Steg 8 — Onepage-redigering + SEO ⬜
 - [ ] Bedrift redigerer onepage (tekst, bilder, malvalg)

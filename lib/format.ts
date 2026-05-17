@@ -18,3 +18,8 @@ export function formatDateShort(date: Date): string {
 export function formatTime(date: Date): string {
   return formatInTimeZone(date, TIMEZONE, "HH:mm");
 }
+
+// Datonøkkel i norsk tid på formen "YYYY-MM-DD" — for gruppering i kalender.
+export function formatDateKey(date: Date): string {
+  return formatInTimeZone(date, TIMEZONE, "yyyy-MM-dd");
+}

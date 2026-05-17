@@ -4,7 +4,8 @@ import { bookings, services } from "@/db/schema";
 import { requireBusinessId } from "@/lib/session";
 import { BackLink } from "@/components/back-link";
 import { CancelBookingButton } from "@/components/cancel-booking-button";
-import { formatDateTime } from "@/lib/format";
+import { formatDateKey, formatDateTime, formatTime } from "@/lib/format";
+import { BookingsCalendar } from "./bookings-calendar";
 
 type BookingRow = typeof bookings.$inferSelect;
 
@@ -71,15 +72,32 @@ export default async function BookingsPage() {
     .sort((a, b) => a.startsAt.getTime() - b.startsAt.getTime());
   const past = list.filter((b) => b.startsAt < now);
 
+  const calendarBookings = list.map((b) => ({
+    dateKey: formatDateKey(b.startsAt),
+    time: formatTime(b.startsAt),
+    serviceName: serviceName.get(b.serviceId) ?? "Ukjent behandling",
+    customerName: b.customerName,
+    cancelled: b.status === "cancelled",
+  }));
+  const initialMonth = formatDateKey(now).slice(0, 7);
+
   return (
-    <div className="mx-auto max-w-3xl space-y-8">
+    <div className="mx-auto max-w-4xl space-y-8">
       <div className="space-y-3">
         <BackLink href="/admin" label="Tilbake til oversikt" />
         <h1 className="text-2xl font-bold">Bookinger</h1>
         <p className="text-sm text-gray-500">
-          Kommende og tidligere avtaler for bedriften din.
+          Kalenderoversikt og liste over avtaler for bedriften din.
         </p>
       </div>
+
+      <section className="space-y-3">
+        <h2 className="font-semibold">Kalender</h2>
+        <BookingsCalendar
+          bookings={calendarBookings}
+          initialMonth={initialMonth}
+        />
+      </section>
 
       <section className="space-y-3">
         <h2 className="font-semibold">
