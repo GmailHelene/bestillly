@@ -267,33 +267,53 @@ export default async function PublicBusinessPage({
         </section>
       )}
 
-      {showOpeningHours && (
-        <section className="space-y-3">
-          <h2
-          className="text-lg font-semibold"
-          style={{ fontFamily: theme.headingFont }}
-        >Åpningstider</h2>
-          <ul
-            className={`max-w-md divide-y divide-gray-200 border border-gray-200 bg-white ${theme.radius}`}
-          >
-            {WEEKDAYS.map(([weekday, label]) => {
-              const wh = hours.find((h) => h.weekday === weekday);
-              return (
-                <li
-                  key={weekday}
-                  className="flex justify-between p-3 text-sm"
-                >
-                  <span>{label}</span>
-                  <span className="text-gray-500">
-                    {wh
-                      ? `${wh.startTime.slice(0, 5)}–${wh.endTime.slice(0, 5)}`
-                      : "Stengt"}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
+      {(showOpeningHours || showContactForm) && (
+        <div className="grid gap-8 sm:grid-cols-2">
+          {showOpeningHours && (
+            <section className="space-y-3">
+              <h2
+                className="text-lg font-semibold"
+                style={{ fontFamily: theme.headingFont }}
+              >
+                Åpningstider
+              </h2>
+              <ul
+                className={`divide-y divide-gray-200 border border-gray-200 bg-white ${theme.radius}`}
+              >
+                {WEEKDAYS.map(([weekday, label]) => {
+                  const wh = hours.find((h) => h.weekday === weekday);
+                  return (
+                    <li
+                      key={weekday}
+                      className="flex justify-between p-3 text-sm"
+                    >
+                      <span>{label}</span>
+                      <span className="text-gray-500">
+                        {wh
+                          ? `${wh.startTime.slice(0, 5)}–${wh.endTime.slice(0, 5)}`
+                          : "Stengt"}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          )}
+          {showContactForm && (
+            <section className="space-y-3">
+              <h2
+                className="text-lg font-semibold"
+                style={{ fontFamily: theme.headingFont }}
+              >
+                Kontakt oss
+              </h2>
+              <ContactSection
+                slug={business.slug}
+                accentColor={theme.accent}
+              />
+            </section>
+          )}
+        </div>
       )}
 
       <section
@@ -392,18 +412,6 @@ export default async function PublicBusinessPage({
             slug={business.slug}
             accentColor={theme.accent}
           />
-        </section>
-      )}
-
-      {showContactForm && (
-        <section className="space-y-3">
-          <h2
-            className="text-lg font-semibold"
-            style={{ fontFamily: theme.headingFont }}
-          >
-            Kontakt oss
-          </h2>
-          <ContactSection slug={business.slug} accentColor={theme.accent} />
         </section>
       )}
 
