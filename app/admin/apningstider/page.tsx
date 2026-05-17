@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { availabilityExceptions, workingHours } from "@/db/schema";
 import { requireBusinessId } from "@/lib/session";
+import { BackLink } from "@/components/back-link";
 import { WorkingHoursForm } from "./working-hours-form";
 import { ExceptionsSection } from "./exceptions-section";
 
@@ -18,7 +19,8 @@ export default async function OpeningHoursPage() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
-      <div className="space-y-1">
+      <div className="space-y-3">
+        <BackLink href="/admin" label="Tilbake til oversikt" />
         <h1 className="text-2xl font-bold">Åpningstider</h1>
         <p className="text-sm text-gray-500">
           Den faste ukerytmen og eventuelle avvik styrer hvilke tider kunder

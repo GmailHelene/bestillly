@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
+import { Calendar } from "@/components/calendar";
 import { getSlots } from "@/lib/actions/availability";
 import { createBooking } from "@/lib/actions/bookings";
 
@@ -122,37 +123,26 @@ export function BookingWidget({
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div className="space-y-1">
-          <label htmlFor="service" className="text-sm font-medium">
-            Behandling
-          </label>
-          <select
-            id="service"
-            value={serviceId}
-            onChange={(e) => setServiceId(e.target.value)}
-            className={controlClass}
-          >
-            {services.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name} ({s.durationMinutes} min)
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="space-y-1">
-          <label htmlFor="date" className="text-sm font-medium">
-            Dato
-          </label>
-          <input
-            id="date"
-            type="date"
-            value={date}
-            min={todayInOslo()}
-            onChange={(e) => setDate(e.target.value)}
-            className={controlClass}
-          />
-        </div>
+      <div className="space-y-1">
+        <label htmlFor="service" className="text-sm font-medium">
+          Behandling
+        </label>
+        <select
+          id="service"
+          value={serviceId}
+          onChange={(e) => setServiceId(e.target.value)}
+          className={controlClass}
+        >
+          {services.map((s) => (
+            <option key={s.id} value={s.id}>
+              {s.name} ({s.durationMinutes} min)
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="space-y-1">
+        <p className="text-sm font-medium">Dato</p>
+        <Calendar value={date} min={todayInOslo()} onChange={setDate} />
       </div>
 
       <div>
@@ -234,9 +224,11 @@ export function BookingWidget({
               />
             </div>
           </div>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-500">
             Ved å bestille godtar du at bedriften lagrer kontaktinfoen din for
-            å håndtere timen.
+            å håndtere timen. Avbestilling må skje senest 24 timer før avtalt
+            tid — timer som avbestilles senere, eller ikke benyttes,
+            faktureres med full pris.
           </p>
           <div className="flex items-center gap-3">
             <button
@@ -249,7 +241,7 @@ export function BookingWidget({
             <button
               type="button"
               onClick={() => setSelectedTime(null)}
-              className="text-sm font-medium text-gray-500 hover:text-gray-900"
+              className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               Avbryt
             </button>
