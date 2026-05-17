@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { businesses } from "@/db/schema";
 import { requireBusinessId } from "@/lib/session";
 import { parseMarketingProfile } from "@/lib/marketing";
+import { readUsage } from "@/lib/ai-quota";
 import { BackLink } from "@/components/back-link";
 import { MarketingProfileForm } from "./profile-form";
 import { CrawlPanel } from "./crawl-panel";
@@ -20,6 +21,11 @@ export default async function MarketingPage() {
     where: eq(businesses.id, businessId),
   });
   const profile = parseMarketingProfile(business?.marketingProfile);
+  const usage = readUsage({
+    aiPeriod: business?.aiPeriod ?? null,
+    aiTextUsed: business?.aiTextUsed ?? 0,
+    aiImagesUsed: business?.aiImagesUsed ?? 0,
+  });
 
   const tabs: MarketingTab[] = [
     {
@@ -85,7 +91,61 @@ export default async function MarketingPage() {
         </p>
       </div>
 
+      <div className="space-y-3 rounded-xl border border-gray-200 p-4">
+        <div className="flex items-baseline justify-between">
+          <h2 className="text-sm font-semibold">AI-forbruk denne måneden</h2>
+          <span className="text-xs text-gray-400">Fornyes ved månedsskifte</span>
+        </div>
+        <UsageBar
+          label="AI-kreditter (tekst)"
+          used={usage.textUsed}
+          limit={usage.textLimit}
+        />
+        <UsageBar
+          label="Bilder"
+          used={usage.imagesUsed}
+          limit={usage.imageLimit}
+        />
+        <p className="text-xs text-gray-500">
+          Kreditter er inkludert i årsprisen. Trenger du mer før måneden er
+          omme, ta kontakt på{" "}
+          <a href="mailto:support@bestilly.no" className="underline">
+            support@bestilly.no
+          </a>
+          .
+        </p>
+      </div>
+
       <MarketingTabs tabs={tabs} />
+    </div>
+  );
+}
+
+function UsageBar({
+  label,
+  used,
+  limit,
+}: {
+  label: string;
+  used: number;
+  limit: number;
+}) {
+  const pct = limit > 0 ? Math.min(100, Math.round((used / limit) * 100)) : 0;
+  const full = used >= limit;
+  return (
+    <div className="space-y-1">
+      <div className="flex justify-between text-xs">
+        <span className="font-medium text-gray-600">{label}</span>
+        <span className={full ? "font-medium text-red-600" : "text-gray-500"}>
+          {used} / {limit}
+        </span>
+      </div>
+      <div className="h-2 overflow-hidden rounded-full bg-gray-100">
+        <div
+          className={`h-full rounded-full ${full ? "bg-red-500" : "bg-gray-900"}`}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
     </div>
   );
 }

@@ -33,6 +33,11 @@ import {
 } from "@/lib/marketing-blog";
 import { generateSnippets } from "@/lib/marketing-snippet";
 import { getSnippetType } from "@/lib/snippet-types";
+import {
+  consumeCredits,
+  refundCredits,
+  TEXT_COST,
+} from "@/lib/ai-quota";
 
 export type MarketingProfileState =
   | { error: string }
@@ -152,6 +157,9 @@ export async function generateSeoAction(): Promise<SeoState> {
     where: eq(products.businessId, businessId),
   });
 
+  const credit = await consumeCredits(businessId, "text", TEXT_COST.seo);
+  if (!credit.ok) return { error: credit.error };
+
   try {
     const { result } = await generateSeo({
       businessName: business.name,
@@ -175,6 +183,7 @@ export async function generateSeoAction(): Promise<SeoState> {
     revalidatePath("/admin/markedsforing");
     return { ok: true, seo: result };
   } catch {
+    await refundCredits(businessId, "text", TEXT_COST.seo);
     return {
       error:
         "Klarte ikke å lage SEO-anbefalingen akkurat nå. Prøv igjen om litt.",
@@ -208,6 +217,9 @@ export async function generateAnalysisAction(): Promise<AnalysisState> {
     where: eq(products.businessId, businessId),
   });
 
+  const credit = await consumeCredits(businessId, "text", TEXT_COST.analysis);
+  if (!credit.ok) return { error: credit.error };
+
   try {
     const { result } = await generateAnalysis({
       businessName: business.name,
@@ -234,6 +246,7 @@ export async function generateAnalysisAction(): Promise<AnalysisState> {
     revalidatePath("/admin/markedsforing");
     return { ok: true, analysis: result };
   } catch {
+    await refundCredits(businessId, "text", TEXT_COST.analysis);
     return {
       error:
         "Klarte ikke å lage markedsanalysen akkurat nå. Prøv igjen om litt.",
@@ -285,6 +298,10 @@ export async function generateContentAction(
     publicUrl: `${baseUrl}/${business.slug}`,
   };
 
+  const cost = channels.length * TEXT_COST.contentPerPost;
+  const credit = await consumeCredits(businessId, "text", cost);
+  if (!credit.ok) return { error: credit.error };
+
   const posts: GeneratedPost[] = [];
   const failedChannels: string[] = [];
   for (const channelId of channels) {
@@ -294,6 +311,15 @@ export async function generateContentAction(
     } catch {
       failedChannels.push(CHANNEL_STRATEGIES[channelId].name);
     }
+  }
+
+  // Refunder kreditter for kanaler som ikke ga noe innlegg.
+  if (failedChannels.length > 0) {
+    await refundCredits(
+      businessId,
+      "text",
+      failedChannels.length * TEXT_COST.contentPerPost,
+    );
   }
 
   if (posts.length === 0) {
@@ -330,10 +356,14 @@ export async function generateImageAction(
       ? CHANNEL_STRATEGIES[channelId as ChannelId].imageAspectRatio
       : "1:1";
 
+  const credit = await consumeCredits(businessId, "image", 1);
+  if (!credit.ok) return { error: credit.error };
+
   try {
     const urls = await generateImage({ prompt: cleanPrompt, aspectRatio });
     const replicateUrl = urls[0];
     if (!replicateUrl) {
+      await refundCredits(businessId, "image", 1);
       return { error: "Bildemotoren returnerte ingen bilde." };
     }
 
@@ -349,6 +379,7 @@ export async function generateImageAction(
     }
     return { ok: true, imageUrl: replicateUrl };
   } catch {
+    await refundCredits(businessId, "image", 1);
     return {
       error: "Klarte ikke å lage bildet akkurat nå. Prøv igjen om litt.",
     };
@@ -394,6 +425,9 @@ export async function generatePlanAction(
     where: eq(products.businessId, businessId),
   });
 
+  const credit = await consumeCredits(businessId, "text", TEXT_COST.plan);
+  if (!credit.ok) return { error: credit.error };
+
   try {
     const { result } = await generatePlan({
       businessName: business.name,
@@ -420,6 +454,7 @@ export async function generatePlanAction(
     revalidatePath("/admin/markedsforing");
     return { ok: true, plan };
   } catch {
+    await refundCredits(businessId, "text", TEXT_COST.plan);
     return {
       error:
         "Klarte ikke å lage publiseringsplanen akkurat nå. Prøv igjen om litt.",
@@ -461,6 +496,10 @@ export async function generateBlogPostAction(
   });
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://bestilly.no";
+
+  const credit = await consumeCredits(businessId, "text", TEXT_COST.blog);
+  if (!credit.ok) return { error: credit.error };
+
   try {
     const { result } = await generateBlogPost({
       businessName: business.name,
@@ -475,6 +514,7 @@ export async function generateBlogPostAction(
     });
     return { ok: true, post: result };
   } catch {
+    await refundCredits(businessId, "text", TEXT_COST.blog);
     return {
       error:
         "Klarte ikke å lage blogginnlegget akkurat nå. Prøv igjen om litt.",
@@ -556,6 +596,9 @@ export async function generateSnippetAction(
     where: eq(products.businessId, businessId),
   });
 
+  const credit = await consumeCredits(businessId, "text", TEXT_COST.snippet);
+  if (!credit.ok) return { error: credit.error };
+
   try {
     const { variants } = await generateSnippets({
       snippetTypeId,
@@ -571,6 +614,7 @@ export async function generateSnippetAction(
     });
     return { ok: true, variants };
   } catch {
+    await refundCredits(businessId, "text", TEXT_COST.snippet);
     return {
       error: "Klarte ikke å lage tekstene akkurat nå. Prøv igjen om litt.",
     };

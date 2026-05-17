@@ -48,6 +48,10 @@ export const businesses = pgTable("businesses", {
   shippingLabel: text("shipping_label"),
   // Markedsføringsprofil (Fase 3).
   marketingProfile: jsonb("marketing_profile").$type<MarketingProfile>(),
+  // AI-kreditter (Fase 3) — månedlig pott, nullstilles ved månedsskifte.
+  aiPeriod: text("ai_period"),
+  aiTextUsed: integer("ai_text_used").notNull().default(0),
+  aiImagesUsed: integer("ai_images_used").notNull().default(0),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
