@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { bookings, services } from "@/db/schema";
 import { requireBusinessId } from "@/lib/session";
 import { BackLink } from "@/components/back-link";
+import { CancelBookingButton } from "@/components/cancel-booking-button";
 import { formatDateTime } from "@/lib/format";
 
 type BookingRow = typeof bookings.$inferSelect;
@@ -10,9 +11,11 @@ type BookingRow = typeof bookings.$inferSelect;
 function BookingCard({
   booking,
   serviceName,
+  cancellable = false,
 }: {
   booking: BookingRow;
   serviceName: string;
+  cancellable?: boolean;
 }) {
   const cancelled = booking.status === "cancelled";
   return (
@@ -41,6 +44,11 @@ function BookingCard({
           <p className="text-gray-500">{booking.customerPhone}</p>
         </div>
       </div>
+      {cancellable && !cancelled && (
+        <div className="mt-3 flex justify-end border-t border-gray-100 pt-3">
+          <CancelBookingButton bookingId={booking.id} />
+        </div>
+      )}
     </div>
   );
 }
@@ -87,6 +95,7 @@ export default async function BookingsPage() {
               key={b.id}
               booking={b}
               serviceName={serviceName.get(b.serviceId) ?? "Ukjent behandling"}
+              cancellable
             />
           ))
         )}

@@ -13,10 +13,13 @@ import {
 import { computeAvailableSlots, dayBounds, slotInstant } from "@/lib/availability";
 import { formatDateTime } from "@/lib/format";
 import { sendEmail } from "@/lib/email";
+import { requireBusinessId } from "@/lib/session";
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_PATTERN = /^\d{2}:\d{2}$/;
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export type BookingResult = { ok: true } | { error: string };
 
@@ -111,17 +114,22 @@ export async function createBooking(
     startsAt.getTime() + service.durationMinutes * 60_000,
   );
 
-  await db.insert(bookings).values({
-    businessId: business.id,
-    serviceId: service.id,
-    customerName,
-    customerEmail,
-    customerPhone,
-    startsAt,
-    endsAt,
-  });
+  const [booking] = await db
+    .insert(bookings)
+    .values({
+      businessId: business.id,
+      serviceId: service.id,
+      customerName,
+      customerEmail,
+      customerPhone,
+      startsAt,
+      endsAt,
+    })
+    .returning();
 
   const when = formatDateTime(startsAt);
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
+  const cancelUrl = `${baseUrl}/avbestill/${booking.cancellationToken}`;
 
   await sendEmail({
     to: customerEmail,
@@ -136,6 +144,8 @@ export async function createBooking(
         <li><strong>Varighet:</strong> ${service.durationMinutes} min</li>
         <li><strong>Pris:</strong> ${service.priceNok} kr</li>
       </ul>
+      <p>Trenger du å avbestille? <a href="${cancelUrl}">Avbestill timen her</a>.
+      Avbestilling senere enn 24 timer før timen kan medføre full betaling.</p>
       <p>Vi gleder oss til å se deg!</p>
     `,
   });
@@ -157,4 +167,87 @@ export async function createBooking(
 
   revalidatePath("/admin/bookinger");
   return { ok: true };
+}
+
+type BookingRow = typeof bookings.$inferSelect;
+
+async function sendCancellationEmails(booking: BookingRow): Promise<void> {
+  const business = await db.query.businesses.findFirst({
+    where: eq(businesses.id, booking.businessId),
+  });
+  const service = await db.query.services.findFirst({
+    where: eq(services.id, booking.serviceId),
+  });
+  if (!business || !service) return;
+
+  const when = formatDateTime(booking.startsAt);
+
+  await sendEmail({
+    to: booking.customerEmail,
+    subject: `Avbestilt: time hos ${business.name}`,
+    html: `
+      <h2>Timen din er avbestilt</h2>
+      <p>Hei ${booking.customerName},</p>
+      <p>Følgende time hos <strong>${business.name}</strong> er avbestilt:</p>
+      <ul>
+        <li><strong>Behandling:</strong> ${service.name}</li>
+        <li><strong>Tidspunkt:</strong> ${when}</li>
+      </ul>
+    `,
+  });
+
+  await sendEmail({
+    to: business.email,
+    subject: `Avbestilling: ${service.name} — ${when}`,
+    html: `
+      <h2>En booking er avbestilt</h2>
+      <ul>
+        <li><strong>Behandling:</strong> ${service.name}</li>
+        <li><strong>Tidspunkt:</strong> ${when}</li>
+        <li><strong>Kunde:</strong> ${booking.customerName}</li>
+        <li><strong>E-post:</strong> ${booking.customerEmail}</li>
+        <li><strong>Telefon:</strong> ${booking.customerPhone}</li>
+      </ul>
+    `,
+  });
+}
+
+// Avbestilling fra kundens lenke i bekreftelses-e-posten (uten innlogging).
+export async function cancelBookingByToken(formData: FormData): Promise<void> {
+  const token = String(formData.get("token") ?? "");
+  if (!UUID_PATTERN.test(token)) return;
+
+  const booking = await db.query.bookings.findFirst({
+    where: eq(bookings.cancellationToken, token),
+  });
+  if (!booking || booking.status === "cancelled") return;
+
+  await db
+    .update(bookings)
+    .set({ status: "cancelled" })
+    .where(eq(bookings.id, booking.id));
+  await sendCancellationEmails(booking);
+
+  revalidatePath(`/avbestill/${token}`);
+  revalidatePath("/admin/bookinger");
+}
+
+// Avbestilling fra bedriftens admin-panel.
+export async function cancelBookingByAdmin(formData: FormData): Promise<void> {
+  const businessId = await requireBusinessId();
+  const id = String(formData.get("id") ?? "");
+  if (!UUID_PATTERN.test(id)) return;
+
+  const booking = await db.query.bookings.findFirst({
+    where: and(eq(bookings.id, id), eq(bookings.businessId, businessId)),
+  });
+  if (!booking || booking.status === "cancelled") return;
+
+  await db
+    .update(bookings)
+    .set({ status: "cancelled" })
+    .where(eq(bookings.id, booking.id));
+  await sendCancellationEmails(booking);
+
+  revalidatePath("/admin/bookinger");
 }

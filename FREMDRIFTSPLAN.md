@@ -3,7 +3,7 @@
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
 Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant.
 
-**Status pr. 2026-05-22:** Steg 1–6 ferdig. Neste: steg 7.
+**Status pr. 2026-05-22:** Steg 1–7 ferdig. Neste: steg 7b (bookingkalender).
 
 ---
 
@@ -17,7 +17,7 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 | 4 | Åpningstider (ukerytme + ferieavvik) | ✅ Ferdig |
 | 5 | Offentlig onepage + ledighetskalender | ✅ Ferdig |
 | 6 | Booking-flyt + e-postvarsling | ✅ Ferdig |
-| 7 | Avbestilling via lenke | ⬜ Neste |
+| 7 | Avbestilling via lenke | ✅ Ferdig |
 | 8 | Onepage-redigering + SEO | ⬜ |
 | 9 | Salgsside + demo | ⬜ |
 | 10 | Lansering (deploy + domene) | ⬜ |
@@ -65,12 +65,14 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 - [ ] Brevo: verifisere @bestilly.no-avsender før lansering *(bruker midlertidig gmail-avsender nå)*
 - [x] Bookingoversikt i admin (kommende / tidligere)
 
-### Steg 7 — Avbestilling ⬜
-- [ ] Avbestillingslenke med token i bekreftelses-e-post
-- [ ] Kunde kan avbestille uten innlogging
-- [ ] E-post til begge parter ved avbestilling
-- [ ] Bedrift kan avbestille fra admin
-- [ ] Evt. avbestillingsfrist
+### Steg 7 — Avbestilling ✅
+- [x] Avbestillingslenke med token i bekreftelses-e-post
+- [x] Kunde kan avbestille uten innlogging
+- [x] E-post til begge parter ved avbestilling
+- [x] Bedrift kan avbestille fra admin
+
+### Steg 7b — Bookingkalender i admin ⬜
+- [ ] Månedskalendervisning av bookinger i admin (i tillegg til listen)
 
 ### Steg 8 — Onepage-redigering + SEO ⬜
 - [ ] Bedrift redigerer onepage (tekst, bilder, malvalg)
