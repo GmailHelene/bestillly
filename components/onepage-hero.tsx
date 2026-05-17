@@ -29,11 +29,18 @@ export function OnepageHero({
   business,
   theme,
   tagline,
+  logoUrl,
 }: {
   business: HeroBusiness;
   theme: Theme;
   tagline?: string;
+  logoUrl?: string;
 }) {
+  const logo = logoUrl ? (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={logoUrl} alt="" className="h-16 w-auto object-contain" />
+  ) : null;
+
   const eyebrow = tagline ? (
     <p className="text-xs font-semibold uppercase tracking-widest">
       {tagline}
@@ -55,6 +62,7 @@ export function OnepageHero({
         className={`${theme.radius} px-6 py-14 text-center text-white`}
         style={{ background: theme.heroGradient }}
       >
+        {logo && <div className="mb-4 flex justify-center">{logo}</div>}
         {eyebrow && <div className="mb-2 text-white/70">{eyebrow}</div>}
         {heading}
         {business.description && (
@@ -76,6 +84,7 @@ export function OnepageHero({
         className={`${theme.radius} px-6 py-14 text-center`}
         style={{ background: theme.accentSoft }}
       >
+        {logo && <div className="mb-4 flex justify-center">{logo}</div>}
         {eyebrow && (
           <div className="mb-2 opacity-70" style={{ color: theme.accent }}>
             {eyebrow}
@@ -97,6 +106,7 @@ export function OnepageHero({
 
   return (
     <header className="space-y-3">
+      {logo}
       {eyebrow && <div style={{ color: theme.accent }}>{eyebrow}</div>}
       <div
         className="h-1.5 w-12 rounded-full"

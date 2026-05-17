@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { updateBusinessProfile } from "@/lib/actions/business";
 import { DEFAULT_THEME, THEMES, isThemeId } from "@/lib/themes";
+import { GalleryUploader, LogoUploader } from "./media-uploader";
 
 const inputClass =
   "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-900";
@@ -24,6 +25,8 @@ type Profile = {
   tagline: string;
   orgNumber: string;
   footerNote: string;
+  logoUrl: string;
+  gallery: string[];
 };
 
 export function ProfileForm({ profile }: { profile: Profile }) {
@@ -104,6 +107,11 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             className={inputClass}
           />
         </div>
+      </div>
+
+      <div className="space-y-4 border-t border-gray-100 pt-4">
+        <LogoUploader initialUrl={profile.logoUrl} />
+        <GalleryUploader initialUrls={profile.gallery} />
       </div>
 
       <div className="space-y-3 border-t border-gray-100 pt-4">

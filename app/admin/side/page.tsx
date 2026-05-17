@@ -65,6 +65,8 @@ export default async function SidePage() {
           tagline: content.header?.tagline ?? "",
           orgNumber: content.footer?.orgNumber ?? "",
           footerNote: content.footer?.note ?? "",
+          logoUrl: content.media?.logoUrl ?? "",
+          gallery: content.media?.gallery ?? [],
         }}
       />
 

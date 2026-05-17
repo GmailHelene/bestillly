@@ -70,6 +70,8 @@ export default async function PublicBusinessPage({
   const content = parseOnepageContent(business.onepageContent);
   const social = content.social ?? {};
   const tagline = content.header?.tagline;
+  const logoUrl = content.media?.logoUrl;
+  const gallery = content.media?.gallery ?? [];
   const aboutText = content.sections?.aboutText;
   const showOpeningHours = content.sections?.showOpeningHours ?? false;
   const hours = showOpeningHours
@@ -102,7 +104,12 @@ export default async function PublicBusinessPage({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <OnepageHero business={business} theme={theme} tagline={tagline} />
+        <OnepageHero
+          business={business}
+          theme={theme}
+          tagline={tagline}
+          logoUrl={logoUrl}
+        />
 
       {aboutText && (
         <section className="space-y-2">
@@ -149,6 +156,28 @@ export default async function PublicBusinessPage({
           </div>
         )}
       </section>
+
+      {gallery.length > 0 && (
+        <section className="space-y-3">
+          <h2
+            className="text-lg font-semibold"
+            style={{ fontFamily: theme.headingFont }}
+          >
+            Bilder
+          </h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {gallery.map((url) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={url}
+                src={url}
+                alt=""
+                className={`aspect-square w-full object-cover ${theme.radius}`}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {showOpeningHours && (
         <section className="space-y-3">

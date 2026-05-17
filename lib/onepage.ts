@@ -21,6 +21,10 @@ export type OnepageContent = {
     orgNumber?: string;
     note?: string;
   };
+  media?: {
+    logoUrl?: string;
+    gallery?: string[];
+  };
 };
 
 function str(value: unknown): string | undefined {
@@ -36,6 +40,7 @@ export function parseOnepageContent(raw: unknown): OnepageContent {
   const sections = (obj.sections ?? {}) as Record<string, unknown>;
   const header = (obj.header ?? {}) as Record<string, unknown>;
   const footer = (obj.footer ?? {}) as Record<string, unknown>;
+  const media = (obj.media ?? {}) as Record<string, unknown>;
   return {
     social: {
       instagram: str(social.instagram),
@@ -57,6 +62,12 @@ export function parseOnepageContent(raw: unknown): OnepageContent {
     footer: {
       orgNumber: str(footer.orgNumber),
       note: str(footer.note),
+    },
+    media: {
+      logoUrl: str(media.logoUrl),
+      gallery: Array.isArray(media.gallery)
+        ? media.gallery.filter((x): x is string => typeof x === "string")
+        : [],
     },
   };
 }

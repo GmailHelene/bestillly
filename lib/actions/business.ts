@@ -50,6 +50,13 @@ export async function updateBusinessProfile(
       orgNumber: field("orgNumber"),
       note: field("footerNote"),
     },
+    media: {
+      logoUrl: field("logoUrl"),
+      gallery: formData
+        .getAll("galleryImage")
+        .map(String)
+        .filter(Boolean),
+    },
   };
 
   await db
