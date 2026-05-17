@@ -33,6 +33,12 @@ export default async function AdminLayout({
           </Link>
         </div>
       )}
+      {business?.status === "paused" && (
+        <div className="bg-red-100 px-6 py-2 text-center text-sm text-red-900">
+          Kontoen din er satt på pause grunnet manglende betaling. Den
+          offentlige siden er utilgjengelig til fakturaen er betalt.
+        </div>
+      )}
       <header className="flex items-center justify-between border-b border-gray-200 px-6 py-3">
         <div className="flex items-center gap-6">
           <Link href="/admin">

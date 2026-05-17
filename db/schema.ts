@@ -27,6 +27,10 @@ export const businesses = pgTable("businesses", {
   description: text("description"),
   template: text("template").notNull().default("default"),
   onepageContent: jsonb("onepage_content").$type<OnepageContent>(),
+  // Kontostatus: "active" eller "paused" (ved manglende betaling).
+  status: text("status").notNull().default("active"),
+  // Dato abonnementet er betalt til (informativt).
+  activeUntil: date("active_until"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

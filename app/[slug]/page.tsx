@@ -58,6 +58,22 @@ export default async function PublicBusinessPage({
   const business = await getBusiness(slug);
   if (!business) notFound();
 
+  if (business.status === "paused") {
+    return (
+      <div className="flex flex-1 items-center justify-center px-6 py-20">
+        <div className="max-w-md text-center">
+          <h1 className="text-2xl font-bold tracking-tight">
+            Siden er midlertidig utilgjengelig
+          </h1>
+          <p className="mt-3 text-gray-600">
+            Denne siden er for øyeblikket ikke tilgjengelig for booking. Ta
+            gjerne kontakt med {business.name} direkte.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const serviceList = await db.query.services.findMany({
     where: and(
       eq(services.businessId, business.id),

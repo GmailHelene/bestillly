@@ -68,6 +68,12 @@ export async function createBooking(
   });
   if (!service) return { error: "Behandlingen er ikke tilgjengelig." };
 
+  if (business.status === "paused") {
+    return {
+      error: "Denne bedriften tar ikke imot bookinger for øyeblikket.",
+    };
+  }
+
   // Demo-bedriften: vis vellykket booking uten å lagre eller sende e-post.
   if (business.slug === DEMO_SLUG) return { ok: true };
 
