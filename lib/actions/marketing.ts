@@ -18,6 +18,11 @@ import {
   generateAnalysis,
   type MarketAnalysis,
 } from "@/lib/marketing-analysis";
+import {
+  generatePost,
+  type GeneratedPost,
+} from "@/lib/marketing-content";
+import { CHANNEL_STRATEGIES, type ChannelId } from "@/lib/marketing-platforms";
 
 export type MarketingProfileState =
   | { error: string }
@@ -223,4 +228,65 @@ export async function generateAnalysisAction(): Promise<AnalysisState> {
         "Klarte ikke å lage markedsanalysen akkurat nå. Prøv igjen om litt.",
     };
   }
+}
+
+export type ContentState =
+  | { error: string }
+  | { ok: true; posts: GeneratedPost[]; failedChannels: string[] }
+  | undefined;
+
+// F3.5 — genererer ett innlegg per valgt kanal, tilpasset hver kanal.
+export async function generateContentAction(
+  topic: string,
+  channelIds: string[],
+): Promise<ContentState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (!hasAnthropicKey()) {
+    return { error: "AI-tjenesten er ikke konfigurert ennå." };
+  }
+
+  const cleanTopic = topic.trim();
+  if (cleanTopic.length < 3) {
+    return { error: "Skriv inn et tema for innholdet." };
+  }
+  const channels = channelIds.filter(
+    (id): id is ChannelId => id in CHANNEL_STRATEGIES,
+  );
+  if (channels.length === 0) {
+    return { error: "Velg minst én kanal." };
+  }
+
+  const business = await db.query.businesses.findFirst({
+    where: eq(businesses.id, businessId),
+  });
+  if (!business) return { error: "Fant ikke bedriften." };
+  const profile = parseMarketingProfile(business.marketingProfile);
+
+  const input = {
+    businessName: business.name,
+    description: business.description ?? undefined,
+    audience: profile.audience,
+    tone: profile.tone,
+    topic: cleanTopic,
+    seoKeywords: profile.seo?.keywords,
+  };
+
+  const posts: GeneratedPost[] = [];
+  const failedChannels: string[] = [];
+  for (const channelId of channels) {
+    try {
+      const { post } = await generatePost(channelId, input);
+      posts.push(post);
+    } catch {
+      failedChannels.push(CHANNEL_STRATEGIES[channelId].name);
+    }
+  }
+
+  if (posts.length === 0) {
+    return {
+      error: "Klarte ikke å lage innhold akkurat nå. Prøv igjen om litt.",
+    };
+  }
+  return { ok: true, posts, failedChannels };
 }

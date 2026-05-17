@@ -1,0 +1,216 @@
+"use client";
+
+import { useState, useTransition } from "react";
+import { generateContentAction } from "@/lib/actions/marketing";
+import { MARKETING_CHANNELS } from "@/lib/marketing";
+import type { GeneratedPost } from "@/lib/marketing-content";
+
+const inputClass =
+  "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-900";
+
+function CopyButton({ text, label }: { text: string; label: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1500);
+        } catch {
+          // utelat — clipboard kan være blokkert
+        }
+      }}
+      className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-50"
+    >
+      {copied ? "Kopiert ✓" : label}
+    </button>
+  );
+}
+
+function PostCard({ post }: { post: GeneratedPost }) {
+  const hashtagText = post.hashtags.map((h) => `#${h}`).join(" ");
+  const fullText = hashtagText
+    ? `${post.caption}\n\n${hashtagText}`
+    : post.caption;
+
+  return (
+    <div className="space-y-3 rounded-lg border border-gray-200 p-3">
+      <div className="flex items-center justify-between">
+        <span className="font-semibold text-gray-800">
+          {post.channelName}
+        </span>
+        <span className="text-xs text-gray-400">{post.pixelSize}</span>
+      </div>
+
+      <div className="space-y-1">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-medium text-gray-500">
+            Bildetekst
+          </span>
+          <CopyButton text={fullText} label="Kopier tekst" />
+        </div>
+        <p className="whitespace-pre-wrap rounded-md bg-gray-50 px-3 py-2 text-sm text-gray-700">
+          {post.caption}
+        </p>
+      </div>
+
+      {post.hashtags.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {post.hashtags.map((h) => (
+            <span
+              key={h}
+              className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600"
+            >
+              #{h}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {post.imageIdea && (
+        <div className="space-y-1 text-sm">
+          <span className="text-xs font-medium text-gray-500">Bildeidé</span>
+          <p className="text-gray-600">{post.imageIdea}</p>
+          {post.imagePrompt && (
+            <p className="text-xs text-gray-400">
+              Bilde-prompt: {post.imagePrompt}
+            </p>
+          )}
+        </div>
+      )}
+
+      {post.bestTime && (
+        <p className="text-xs text-gray-500">
+          <span className="font-medium">Beste tidspunkt:</span>{" "}
+          {post.bestTime}
+        </p>
+      )}
+
+      {post.tips.length > 0 && (
+        <ul className="list-disc space-y-0.5 pl-5 text-xs text-gray-500">
+          {post.tips.map((t, i) => (
+            <li key={i}>{t}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export function ContentPanel({
+  defaultChannels,
+}: {
+  defaultChannels: string[];
+}) {
+  const [topic, setTopic] = useState("");
+  const [selected, setSelected] = useState<string[]>(
+    defaultChannels.length
+      ? defaultChannels
+      : MARKETING_CHANNELS.map((c) => c.id),
+  );
+  const [posts, setPosts] = useState<GeneratedPost[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [note, setNote] = useState<string | null>(null);
+  const [pending, startTransition] = useTransition();
+
+  function toggle(id: string) {
+    setSelected((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+    );
+  }
+
+  function handleGenerate() {
+    setError(null);
+    setNote(null);
+    startTransition(async () => {
+      const result = await generateContentAction(topic, selected);
+      if (result && "ok" in result) {
+        setPosts(result.posts);
+        if (result.failedChannels.length > 0) {
+          setNote(
+            `Klarte ikke å lage innhold for: ${result.failedChannels.join(
+              ", ",
+            )}. Prøv igjen for disse.`,
+          );
+        }
+      } else if (result && "error" in result) {
+        setError(result.error);
+      }
+    });
+  }
+
+  return (
+    <div className="space-y-3 rounded-xl border border-gray-200 p-4">
+      <div>
+        <h2 className="font-semibold">Innholdsgenerator</h2>
+        <p className="text-sm text-gray-500">
+          Skriv et tema, velg kanaler — så lager vi ett innlegg tilpasset hver
+          kanal, med bildetekst, hashtags og bildeidé.
+        </p>
+      </div>
+
+      <div className="space-y-1">
+        <label htmlFor="topic" className="text-sm font-medium">
+          Tema for innholdet
+        </label>
+        <textarea
+          id="topic"
+          rows={2}
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+          placeholder="F.eks. «Vi har ledige timer denne uka» eller «Tips: slik holder du fargen lenger»"
+          className={inputClass}
+        />
+      </div>
+
+      <div className="space-y-1">
+        <span className="text-sm font-medium">Kanaler</span>
+        <div className="flex flex-wrap gap-3">
+          {MARKETING_CHANNELS.map((channel) => (
+            <label
+              key={channel.id}
+              className="flex items-center gap-2 text-sm"
+            >
+              <input
+                type="checkbox"
+                checked={selected.includes(channel.id)}
+                onChange={() => toggle(channel.id)}
+              />
+              {channel.label}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {error && (
+        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+          {error}
+        </p>
+      )}
+      {note && (
+        <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
+          {note}
+        </p>
+      )}
+
+      <button
+        type="button"
+        onClick={handleGenerate}
+        disabled={pending}
+        className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+      >
+        {pending ? "Lager innhold…" : "Lag innhold"}
+      </button>
+
+      {posts.length > 0 && (
+        <div className="space-y-3">
+          {posts.map((post) => (
+            <PostCard key={post.channelId} post={post} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

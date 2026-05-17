@@ -8,6 +8,7 @@ import { MarketingProfileForm } from "./profile-form";
 import { CrawlPanel } from "./crawl-panel";
 import { SeoPanel } from "./seo-panel";
 import { AnalysisPanel } from "./analysis-panel";
+import { ContentPanel } from "./content-panel";
 
 export default async function MarketingPage() {
   const businessId = await requireBusinessId();
@@ -42,8 +43,10 @@ export default async function MarketingPage() {
         hasChannels={(profile.channels ?? []).length > 0}
       />
 
+      <ContentPanel defaultChannels={profile.channels ?? []} />
+
       <p className="rounded-xl border border-dashed border-gray-300 p-4 text-center text-sm text-gray-500">
-        Kommer: innholdsgenerator og publiseringsplan.
+        Kommer: AI-bilder til innleggene, blogggenerator og publiseringsplan.
       </p>
     </div>
   );
