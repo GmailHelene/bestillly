@@ -6,9 +6,20 @@ import { businesses } from "@/db/schema";
 // F3.10 — AI-kreditter. Hver bedrift har en månedlig pott inkludert i
 // årsprisen. Tekst og bilder telles separat. Potten nullstilles automatisk
 // ved månedsskifte.
+//
+// Kalibrering av grensene (mai 2026):
+//   Årspris 2490 kr (~$230). Vi setter et tak på ~$20/år (~8 % av prisen)
+//   til variabel AI-kostnad per kunde.
+//   Tekst (Claude Sonnet): ~$0,03 per handling. 60 kreditter i verste fall
+//     som 60 enkeltinnlegg ≈ $1,80/mnd ≈ $22/år.
+//   Bilder (Replicate Flux Schnell): ~$0,003 per bilde. 25 bilder ≈
+//     $0,08/mnd.
+//   Verste fall samlet ~$1,9/mnd — innenfor taket.
+// Tallene er et forsvarlig estimat, ikke en måling. Følg med på faktisk
+// API-forbruk hos Anthropic/Replicate de første månedene og juster her.
 
-export const MONTHLY_TEXT_CREDITS = 100;
-export const MONTHLY_IMAGE_CREDITS = 40;
+export const MONTHLY_TEXT_CREDITS = 60;
+export const MONTHLY_IMAGE_CREDITS = 25;
 
 // Hva hver handling koster i tekst-kreditter.
 export const TEXT_COST = {

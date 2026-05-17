@@ -1,66 +1,94 @@
-# Bestillly
+# Bestilly
 
-Et rimelig, enkelt bookingsystem for små bedrifter og salonger. Bygget som SaaS med fokus på lav terskel for ikke-tekniske brukere, forutsigbar prissetting (fast årsabonnement, ingen transaksjonsavgift), og rask oppsett uten konfigurasjons-overhead.
+Bookingsystem laget for **enkeltpersonforetak** — én person, én kalender,
+full kontroll. Time inn, faktura ut, ferdig regnskapsgrunnlag. Bygget som
+SaaS med fokus på lav terskel for ikke-tekniske brukere og forutsigbar
+prissetting: fast årsabonnement, ingen transaksjonsavgift.
 
 **Produksjon:** [bestilly.no](https://bestilly.no)
 
 ## Kjernefunksjonalitet
 
-- **Bookingadministrasjon** — kunder bestiller time online, bedriften ser bookinger i ett dashboard, kunder får automatisk bekreftelse og påminnelse på e-post.
-- **Designmaler** — flere ferdige booking-sider tilpasset frisør, neglesalong, massasjeterapeut osv. Kunden velger mal og fyller inn egne tjenester/priser uten å skrive kode.
-- **Kundeadministrasjon** — historikk per kunde, notater, kontaktinfo.
-- **Betalingsintegrasjon** — Vipps for norske kunder.
-- **E-postvarsling** — transaksjons-e-poster sendt via Nodemailer med tilpasningsbare maler.
+- **Booking** — kundene bestiller time selv, døgnet rundt. Bedriften ser alt
+  i en kalender, og begge får bekreftelse på e-post. Avbestilling via lenke.
+- **Egen nettside** — en enkel onepage per bedrift med valgbare design, logo
+  og bildegalleri, på `bestilly.no/[bedrift]`.
+- **Regnskapseksport** — last ned bookinger og salg for en valgt måned som
+  CSV, klar for regnskapsfører eller import i regnskapsprogram.
+- **Nettbutikk** — selg produkter med betaling via Vipps.
+- **Blogg og nyhetsbrev** — innlegg med egne SEO-sider, og blokkbasert
+  nyhetsbrev til abonnenter.
+- **AI-markedsføringshub** — SEO-analyse, markedsanalyse, innlegg til sosiale
+  medier, blogginnlegg, SEO-tekster, bildegenerering og publiseringsplan.
+  Drevet av Anthropic Claude og Replicate, med en månedlig kredittpott.
+- **Automatisk lokal SEO** — server-rendrede sider, `LocalBusiness`-JSON-LD,
+  sitemap og meta per bedrift.
 
 ## Tech-stack
 
 | Lag | Valg | Hvorfor |
 |---|---|---|
-| Frontend | Next.js 16 (App Router) + React 19 + Tailwind CSS 4 | Server Components for rask første lasting, lavt JS-fotavtrykk på offentlige booking-sider |
-| Backend | Next.js API routes (Node 22, TypeScript) | Holder hele stacken i ett kodebase — enklere drift for ett-personers-prosjekt |
-| Database | Neon Postgres + Drizzle ORM | Serverless Postgres med branching for trygg utvikling; Drizzle gir typesikker SQL uten ORM-overhead |
-| Autentisering | next-auth v5 (Auth.js) + Drizzle adapter + bcryptjs | Støtte for både e-post/passord og OAuth, sesjons-håndtering ut av boksen |
-| AI | Anthropic Claude SDK + Replicate | Brukes for innholds-assistanse i admin (forslag til tjenestebeskrivelser, e-postmaler) |
-| E-post | Nodemailer | Transaksjonelle e-poster (bekreftelser, påminnelser) |
-| Dato/tid | date-fns + date-fns-tz | Trygg håndtering av norsk tidssone, sommertid og lokalisering |
-| Hosting | Railway (edge-cache, automatisk SSL) | Lav drifts-overhead, betal-for-bruk |
+| Frontend | Next.js 16 (App Router) + React 19 + Tailwind CSS 4 | Server Components for rask render, lavt JS-fotavtrykk på offentlige sider |
+| Backend | Next.js Server Actions (TypeScript) | Hele stacken i ett kodebase — enklere drift for et soloprosjekt |
+| Database | Neon Postgres + Drizzle ORM | Serverless Postgres; Drizzle gir typesikker SQL uten ORM-overhead |
+| Autentisering | next-auth v5 (Auth.js) + bcryptjs | JWT-sesjoner, full kontroll over datalagring i Postgres |
+| AI | Anthropic Claude + Replicate (Flux) | Tekst- og bildegenerering i markedsføringshuben |
+| E-post | Nodemailer (Brevo SMTP) | Transaksjonelle e-poster — bekreftelser, varsler, nyhetsbrev |
+| Bilder | Cloudinary | Opplasting og levering av bilder |
+| Dato/tid | date-fns + date-fns-tz | Trygg håndtering av norsk tidssone og sommertid |
+| Hosting | Railway | Lav drifts-overhead, automatisk SSL |
+| Test | Vitest | Enhetstester av kjernelogikk (booking, helligdager, SSRF-vern, CSV) |
 
 ## Arkitekturvalg
 
-**Hvorfor Drizzle og ikke Prisma:** Drizzle er nærmere ren SQL og har mindre runtime-overhead. For en booking-app med tids-tunge spørringer (overlappende intervaller, tilgjengelighet) er det viktigere å kunne skrive optimale SQL-spørringer enn å abstrahere dem bort.
+**Drizzle framfor Prisma:** Drizzle er nærmere ren SQL med mindre
+runtime-overhead. For en booking-app med tids-tunge spørringer (overlappende
+intervaller, tilgjengelighet) er optimal SQL viktigere enn full abstraksjon.
 
-**Hvorfor next-auth v5 og ikke Clerk/Auth0:** Lavere kostnad ved skalering, full kontroll over datalagring (Postgres) — viktig for norsk GDPR-tilpasning.
+**next-auth v5 framfor Clerk/Auth0:** Lavere kostnad ved skalering og full
+kontroll over datalagring i Postgres — viktig for GDPR.
 
-**Hvorfor én fast årlig pris (990 kr) og ikke transaksjonsavgift:** Målgruppen er enmannssalonger og småbedrifter som velger bort Mable/Setmore på grunn av per-booking-kostnad. Fast pris er et forretningsvalg som driver tekniske valg (ingen behov for sub-cent fakturering, ingen Stripe Connect, mindre bokføringsoverhead).
+**Én fast årlig pris (2490 kr) framfor transaksjonsavgift:** Målgruppen er
+enkeltpersonforetak som velger bort dyre månedsabonnement og per-booking-
+gebyr. Fast pris er et forretningsvalg som forenkler de tekniske valgene.
+
+## Multi-tenant
+
+Hver bedrift er en tenant. Alle spørringer og mutasjoner er avgrenset til
+`businessId` fra sesjonen. En demo-bedrift (`/demo`) viser hele løsningen
+uten å lagre endringer.
 
 ## Lokal utvikling
 
 ```bash
 # Krever Node 22+
 npm install
-cp .env.example .env.local   # fyll inn DATABASE_URL og AUTH_SECRET
+cp .env.example .env.local   # fyll inn DATABASE_URL, AUTH_SECRET m.m.
 
 npm run db:push              # synker Drizzle-skjema mot dev-database
-npm run db:seed              # legger inn test-data (valgfritt)
+npm run db:seed              # legger inn demo-data (valgfritt)
 npm run dev                  # starter på http://localhost:3001
 ```
 
-## Database-skript
+## Skript
 
 ```bash
-npm run db:generate   # generer migrasjon fra skjema-endring
-npm run db:migrate    # kjør pending migrasjoner
+npm run test          # kjør enhetstester (Vitest)
+npm run build         # produksjonsbygg
 npm run db:push       # push skjema direkte (kun dev)
-npm run db:studio     # åpne Drizzle Studio for inspeksjon
+npm run db:seed       # gjenopprett demo-bedriften
+npm run db:studio     # åpne Drizzle Studio
 ```
 
 ## Status
 
-Aktivt produkt i produksjon. Nye funksjoner ruller ut løpende. Prioritet for neste iterasjon: SMS-påminnelser, fakturering for salongene, og forbedret rapportering.
+Aktivt produkt i produksjon. Fase 1 (booking, nettside, SEO), Fase 2
+(nettbutikk, blogg, nyhetsbrev) og Fase 3 (markedsføringshub) er ferdig.
+Reposisjonert som spesialist for enkeltpersonforetak med regnskapseksport.
 
 ## Lisens
 
-Privateid. All right reserved © Grønberg Tech Solutions (org.nr 927 889 404).
+Privateid. All rights reserved © Grønberg Tech Solutions (org.nr 927 889 404).
 
 ---
 

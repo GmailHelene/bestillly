@@ -20,12 +20,16 @@ export function normalizeUrl(input: string): string | null {
   const md = s.match(/\]\(([^)]+)\)/);
   if (md) s = md[1].trim();
 
-  // Vinkelparenteser: <url>
-  s = s.replace(/^<+/, "").replace(/>+$/, "").trim();
-  // Omsluttende anførselstegn
-  s = s.replace(/^["']+/, "").replace(/["']+$/, "").trim();
-  // Etterfølgende skilletegn
-  s = s.replace(/[.,;:!?]+$/, "").trim();
+  // Fjern omsluttende tegn — anførselstegn, vinkelparenteser og etterfølgende
+  // skilletegn — gjentatte ganger til strengen er stabil. Håndterer også
+  // sammensatte avslutninger som `."` eller `>.`.
+  let prev = "";
+  while (prev !== s) {
+    prev = s;
+    s = s
+      .replace(/^[\s"'<(]+/, "")
+      .replace(/[\s"'>).,;:!?]+$/, "");
+  }
 
   if (!s) return null;
 
@@ -190,7 +194,8 @@ function isBlockedIpv6(ip: string): boolean {
   return false;
 }
 
-function isBlockedIp(ip: string): boolean {
+// Eksportert for testing.
+export function isBlockedIp(ip: string): boolean {
   const kind = net.isIP(ip);
   if (kind === 4) return isBlockedIpv4(ip);
   if (kind === 6) return isBlockedIpv6(ip);

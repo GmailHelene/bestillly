@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { toCsv } from "@/lib/csv";
 
 export type ExportRow = {
   date: string;
@@ -11,25 +12,18 @@ export type ExportRow = {
   amountNok: number;
 };
 
-function csvCell(value: string | number): string {
-  const s = String(value);
-  // Semikolon-separert (norsk Excel-konvensjon). Siter felt med spesialtegn.
-  if (/[";\n]/.test(s)) return `"${s.replace(/"/g, '""')}"`;
-  return s;
-}
-
 function downloadCsv(month: string, rows: ExportRow[]) {
-  const header = ["Dato", "Type", "Referanse", "Beskrivelse", "Kunde", "Beløp"];
-  const lines = [
-    header.join(";"),
-    ...rows.map((r) =>
-      [r.date, r.type, r.reference, r.description, r.customer, r.amountNok]
-        .map(csvCell)
-        .join(";"),
-    ),
-  ];
-  // BOM så norske tegn vises riktig i Excel.
-  const csv = "﻿" + lines.join("\r\n");
+  const csv = toCsv(
+    ["Dato", "Type", "Referanse", "Beskrivelse", "Kunde", "Beløp"],
+    rows.map((r) => [
+      r.date,
+      r.type,
+      r.reference,
+      r.description,
+      r.customer,
+      r.amountNok,
+    ]),
+  );
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
