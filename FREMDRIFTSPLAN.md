@@ -114,7 +114,7 @@ Inspirert av Helenes tidligere app «Your Marketing Friend».
 | F3.7 | Blogginnlegg-generator — genererer innlegg rett inn i blogg-funksjonen (Fase 2). | ✅ |
 | F3.7b | SEO-tekstsnippets — korte SEO-tekster (om-oss, produkttekst, meta o.l.). | ✅ |
 | F3.8 | Publiseringsplan — kalender over hva som postes når, eksporterbar. | ✅ |
-| F3.9 | Markedsføringshub — samlende admin-UI: profil, analyser, innhold og plan på ett sted. | ⬜ |
+| F3.9 | Markedsføringshub — samlende admin-UI: profil, analyser, innhold og plan på ett sted. | ✅ |
 | F3.10 | Prismodell/kvote — implementer tillegget og forbrukskontroll. | ⬜ |
 
 ### Gjenbruk fra «Your Marketing Friend» (Streamlit-app)

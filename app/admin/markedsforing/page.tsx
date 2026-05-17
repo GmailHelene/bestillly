@@ -12,6 +12,7 @@ import { ContentPanel } from "./content-panel";
 import { PlanPanel } from "./plan-panel";
 import { BlogPanel } from "./blog-panel";
 import { SnippetPanel } from "./snippet-panel";
+import { MarketingTabs, type MarketingTab } from "./marketing-tabs";
 
 export default async function MarketingPage() {
   const businessId = await requireBusinessId();
@@ -20,39 +21,71 @@ export default async function MarketingPage() {
   });
   const profile = parseMarketingProfile(business?.marketingProfile);
 
+  const tabs: MarketingTab[] = [
+    {
+      id: "grunnlag",
+      label: "Grunnlag",
+      intro:
+        "Start her. Profilen og nettside-analysen danner grunnlaget for alt det andre.",
+      content: (
+        <>
+          <MarketingProfileForm profile={profile} />
+          <CrawlPanel
+            websiteUrl={profile.websiteUrl}
+            initialCrawl={profile.websiteCrawl}
+          />
+        </>
+      ),
+    },
+    {
+      id: "analyse",
+      label: "Analyse",
+      intro:
+        "SEO-anbefaling og markedsanalyse — hva du bør satse på, og hvor.",
+      content: (
+        <>
+          <SeoPanel initialSeo={profile.seo} />
+          <AnalysisPanel
+            initialAnalysis={profile.analysis}
+            hasChannels={(profile.channels ?? []).length > 0}
+          />
+        </>
+      ),
+    },
+    {
+      id: "innhold",
+      label: "Innhold",
+      intro:
+        "Lag innlegg, blogginnlegg og korte SEO-tekster — klart til å publisere.",
+      content: (
+        <>
+          <ContentPanel defaultChannels={profile.channels ?? []} />
+          <BlogPanel />
+          <SnippetPanel />
+        </>
+      ),
+    },
+    {
+      id: "plan",
+      label: "Plan",
+      intro:
+        "En helhetlig publiseringsplan på tvers av kanalene dine.",
+      content: <PlanPanel initialPlan={profile.postingPlan} />,
+    },
+  ];
+
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-3">
         <BackLink href="/admin" label="Tilbake til oversikt" />
         <h1 className="text-2xl font-bold">Markedsføring</h1>
         <p className="text-sm text-gray-500">
-          Her bygger vi etter hvert verktøy for innhold, analyse og
-          publiseringsplan. Første steg er å fylle ut profilen din — den
-          danner grunnlaget for resten.
+          Verktøy for innhold, analyse og publiseringsplan — samlet på ett
+          sted. Gå gjennom fanene fra venstre til høyre.
         </p>
       </div>
 
-      <MarketingProfileForm profile={profile} />
-
-      <CrawlPanel
-        websiteUrl={profile.websiteUrl}
-        initialCrawl={profile.websiteCrawl}
-      />
-
-      <SeoPanel initialSeo={profile.seo} />
-
-      <AnalysisPanel
-        initialAnalysis={profile.analysis}
-        hasChannels={(profile.channels ?? []).length > 0}
-      />
-
-      <ContentPanel defaultChannels={profile.channels ?? []} />
-
-      <BlogPanel />
-
-      <SnippetPanel />
-
-      <PlanPanel initialPlan={profile.postingPlan} />
+      <MarketingTabs tabs={tabs} />
     </div>
   );
 }
