@@ -2,11 +2,12 @@ import { config } from "dotenv";
 import { eq } from "drizzle-orm";
 import { db } from "./index";
 import { businesses, services, workingHours } from "./schema";
+import type { OnepageContent } from "../lib/onepage";
 
 config({ path: ".env.local" });
 
-// Oppretter (eller gjenoppretter) en demo-bedrift på /demo som besøkende
-// kan klikke seg rundt i fra salgssiden.
+// Oppretter (eller gjenoppretter) en komplett demo-bedrift på /demo som
+// besøkende kan klikke seg rundt i fra salgssiden.
 async function seed() {
   const existing = await db.query.businesses.findFirst({
     where: eq(businesses.slug, "demo"),
@@ -16,6 +17,28 @@ async function seed() {
     await db.delete(businesses).where(eq(businesses.id, existing.id));
   }
 
+  const onepageContent: OnepageContent = {
+    header: {
+      tagline: "Frisør & velvære i Vikersund",
+    },
+    sections: {
+      aboutText:
+        "Hos Demo Frisør & Velvære er du i trygge hender. Vi tar oss tid til hver enkelt kunde, og målet vårt er at du går herfra med et smil. Velkommen innom!",
+      showOpeningHours: true,
+    },
+    seo: {
+      keywords: "frisør, klipp, farging, vippeforlengelse, Vikersund",
+    },
+    social: {
+      instagram: "https://instagram.com/",
+      facebook: "https://facebook.com/",
+    },
+    footer: {
+      orgNumber: "999 888 777",
+      note: "Drop-in når vi har ledig tid — eller book enkelt på nett.",
+    },
+  };
+
   const [demo] = await db
     .insert(businesses)
     .values({
@@ -23,9 +46,11 @@ async function seed() {
       name: "Demo Frisør & Velvære",
       email: "demo@bestilly.no",
       phone: "12 34 56 78",
-      address: "Eksempelgata 1, 0123 Oslo",
+      address: "Eksempelgata 1, 3370 Vikersund",
       description:
         "Dette er en demoside som viser hvordan bestilly ser ut for kundene dine. Prøv gjerne å booke en time!",
+      template: "eleganse",
+      onepageContent,
     })
     .returning();
 
@@ -50,6 +75,13 @@ async function seed() {
       description: "Et fyldig og naturlig blikk.",
       durationMinutes: 60,
       priceNok: 800,
+    },
+    {
+      businessId: demo.id,
+      name: "Styling før fest",
+      description: "Oppsett og styling til den store anledningen.",
+      durationMinutes: 45,
+      priceNok: 650,
     },
   ]);
 
