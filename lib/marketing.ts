@@ -1,3 +1,6 @@
+import type { WebsiteCrawl } from "@/lib/crawler";
+import { parseSeoResult, type SeoResult } from "@/lib/marketing-seo";
+
 // Kanaler bedriften kan markedsføre på.
 export const MARKETING_CHANNELS = [
   { id: "facebook", label: "Facebook" },
@@ -7,8 +10,6 @@ export const MARKETING_CHANNELS = [
   { id: "youtube", label: "YouTube" },
 ] as const;
 
-import type { WebsiteCrawl } from "@/lib/crawler";
-
 // Markedsføringsprofil — input som mater analyser og innholdsgenerering (Fase 3).
 export type MarketingProfile = {
   audience?: string;
@@ -17,6 +18,7 @@ export type MarketingProfile = {
   websiteUrl?: string;
   channels?: string[];
   websiteCrawl?: WebsiteCrawl;
+  seo?: SeoResult;
 };
 
 function parseWebsiteCrawl(raw: unknown): WebsiteCrawl | undefined {
@@ -48,5 +50,6 @@ export function parseMarketingProfile(raw: unknown): MarketingProfile {
       ? o.channels.filter((x): x is string => typeof x === "string")
       : [],
     websiteCrawl: parseWebsiteCrawl(o.websiteCrawl),
+    seo: parseSeoResult(o.seo),
   };
 }

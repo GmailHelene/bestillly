@@ -107,7 +107,7 @@ Inspirert av Helenes tidligere app «Your Marketing Friend».
 |------|-------------|--------|
 | F3.1 | Markedsføringsprofil — hva bedriften selger, målgruppe, tone, budsjett, kanaler. Gjenbruk det bestilly alt vet (behandlinger, produkter, beskrivelse). | ✅ |
 | F3.2 | Nettside-crawler — crawl bedriftens egen side, hent tekst/nøkkelord/tilbud. Robust URL-håndtering. | ✅ |
-| F3.3 | SEO-generator — nøkkelord, meta-titler/-beskrivelser, innholdsråd. Knyttes mot onepage-SEO. | ⬜ |
+| F3.3 | SEO-generator — nøkkelord, meta-titler/-beskrivelser, innholdsråd. Knyttes mot onepage-SEO. | ✅ |
 | F3.4 | Markedsanalyse — kanalprioritering (Facebook/Instagram/TikTok/Snapchat/YouTube), postefrekvens og -tidspunkt, budsjettstrategi (betalt vs. organisk). | ⬜ |
 | F3.5 | Innholdsgenerator (SoMe) — innlegg og bildetekster tilpasset HVER kanal og format. Kanaltilpasning er kjerneverdien. | ⬜ |
 | F3.6 | Bildegenerering — AI-bildeforslag til innleggene. | ⬜ |

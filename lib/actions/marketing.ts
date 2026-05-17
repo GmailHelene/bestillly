@@ -3,7 +3,7 @@
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/db";
-import { businesses } from "@/db/schema";
+import { businesses, products, services } from "@/db/schema";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_BLOCK_MESSAGE } from "@/lib/demo";
 import {
@@ -12,6 +12,8 @@ import {
   type MarketingProfile,
 } from "@/lib/marketing";
 import { crawlWebsite, type WebsiteCrawl } from "@/lib/crawler";
+import { hasAnthropicKey } from "@/lib/anthropic";
+import { generateSeo, type SeoResult } from "@/lib/marketing-seo";
 
 export type MarketingProfileState =
   | { error: string }
@@ -59,6 +61,7 @@ export async function updateMarketingProfile(
     websiteUrl: websiteUrl || undefined,
     channels,
     websiteCrawl: keepCrawl,
+    seo: existing.seo,
   };
 
   await db
@@ -100,4 +103,60 @@ export async function crawlWebsiteAction(): Promise<CrawlState> {
     .where(eq(businesses.id, businessId));
   revalidatePath("/admin/markedsforing");
   return { ok: true, crawl: result.crawl };
+}
+
+export type SeoState =
+  | { error: string }
+  | { ok: true; seo: SeoResult }
+  | undefined;
+
+// F3.3 — genererer SEO-anbefaling med Claude og lagrer den i profilen.
+export async function generateSeoAction(): Promise<SeoState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (!hasAnthropicKey()) {
+    return { error: "AI-tjenesten er ikke konfigurert ennå." };
+  }
+
+  const business = await db.query.businesses.findFirst({
+    where: eq(businesses.id, businessId),
+  });
+  if (!business) return { error: "Fant ikke bedriften." };
+  const profile = parseMarketingProfile(business.marketingProfile);
+
+  const serviceList = await db.query.services.findMany({
+    where: eq(services.businessId, businessId),
+  });
+  const productList = await db.query.products.findMany({
+    where: eq(products.businessId, businessId),
+  });
+
+  try {
+    const { result } = await generateSeo({
+      businessName: business.name,
+      description: business.description ?? undefined,
+      address: business.address ?? undefined,
+      services: serviceList.map((s) => s.name),
+      products: productList.map((p) => p.name),
+      audience: profile.audience,
+      tone: profile.tone,
+      websiteTitle: profile.websiteCrawl?.title,
+      websiteDescription: profile.websiteCrawl?.description,
+      websiteKeywords: profile.websiteCrawl?.keywords,
+      websiteText: profile.websiteCrawl?.text,
+    });
+
+    const marketingProfile: MarketingProfile = { ...profile, seo: result };
+    await db
+      .update(businesses)
+      .set({ marketingProfile })
+      .where(eq(businesses.id, businessId));
+    revalidatePath("/admin/markedsforing");
+    return { ok: true, seo: result };
+  } catch {
+    return {
+      error:
+        "Klarte ikke å lage SEO-anbefalingen akkurat nå. Prøv igjen om litt.",
+    };
+  }
 }
