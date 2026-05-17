@@ -18,6 +18,7 @@ const NAV_LINKS = [
   { href: "/admin/bestillinger", label: "Bestillinger" },
   { href: "/admin/blogg", label: "Blogg" },
   { href: "/admin/nyhetsbrev", label: "Nyhetsbrev" },
+  { href: "/admin/markedsforing", label: "Markedsføring" },
   { href: "/admin/side", label: "Min side" },
 ];
 

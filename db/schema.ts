@@ -13,6 +13,7 @@ import {
   serial,
 } from "drizzle-orm/pg-core";
 import type { OnepageContent } from "@/lib/onepage";
+import type { MarketingProfile } from "@/lib/marketing";
 
 export const bookingStatus = pgEnum("booking_status", ["confirmed", "cancelled"]);
 export const exceptionType = pgEnum("exception_type", ["closed", "custom_hours"]);
@@ -45,6 +46,8 @@ export const businesses = pgTable("businesses", {
   shippingFree: boolean("shipping_free").notNull().default(true),
   shippingFee: integer("shipping_fee").notNull().default(99),
   shippingLabel: text("shipping_label"),
+  // Markedsføringsprofil (Fase 3).
+  marketingProfile: jsonb("marketing_profile").$type<MarketingProfile>(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

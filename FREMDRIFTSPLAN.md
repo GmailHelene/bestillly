@@ -71,9 +71,8 @@ gjennomgått av noen med juridisk innsikt før mange kunder.*
 inn Vipps-nummeret sitt, kunden betaler direkte, bedriften bekrefter ordren.
 Automatisk kortbetaling (Stripe Connect) er en mulig senere utvidelse.
 
-**Gjenstår i nyhetsbrev (planlagt):**
-- [ ] Blokkbasert nyhetsbrev-editor — tekst-, overskrift-, bilde- og
-  knapp-blokker, i ett robust e-postdesign med bedriftens aksentfarge.
+- [x] Blokkbasert nyhetsbrev-editor — tekst-, overskrift-, bilde- og
+  knapp-blokker, med startmaler og robust mobilvennlig e-postdesign.
 
 ---
 
@@ -83,14 +82,16 @@ Mål: gi bedriftene et enkelt, men noe avansert verktøy for markedsføring —
 SoMe-innhold, SEO, markedsanalyse og publiseringsplan, samlet på ett sted.
 Inspirert av Helenes tidligere app «Your Marketing Friend».
 
-### Viktige avklaringer FØR vi bygger
+### Avklaringer — besluttet
 
-- **AI-kostnad og prismodell.** AI (tekst + bilde) koster per bruk. De
-  990 kr/år kan ikke dekke ubegrenset AI. Modell må velges: betalt tillegg
-  (f.eks. fast kr/mnd) eller kvote (X genereringer inkludert, kjøp mer).
-  Må besluttes før F3.5.
-- **AI-leverandører.** Tekst: Anthropic Claude API (god norsk brand voice).
-  Bilde: Replicate (Flux) e.l. Begge krever API-nøkler og gir forbrukskost.
+- **Prismodell: kreditt-system.** Hver bedrift får en månedlig pott
+  AI-kreditter inkludert i 990 kr/år; topp-opp-pakker kjøpes ved behov.
+  Ulike handlinger koster ulikt (post = 1, bilde = 2, analyse = 5).
+  Konkrete tall kalibreres mot faktiske API-kostnader.
+- **AI-leverandører.** Tekst: Anthropic Claude API. Bilde: Replicate (Flux).
+  Krever API-nøkler (`ANTHROPIC_API_KEY`, `REPLICATE_API_TOKEN`) — må på
+  plass før F3.5/F3.6.
+- **Bildegenerering: med.** Selges som «forslag», ikke ferdig produkt.
 - **Forhold til BrandStudio.** Dette overlapper kraftig med BrandStudio og
   «Your Marketing Friend». Anbefaling: bygg ÉN innholdsmotor (delte prompts
   og generering), ikke en tredje variant.

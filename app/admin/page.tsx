@@ -41,6 +41,11 @@ const sections = [
     href: "/admin/nyhetsbrev",
   },
   {
+    title: "Markedsføring",
+    description: "Markedsføringsprofil — grunnlaget for innhold og analyse.",
+    href: "/admin/markedsforing",
+  },
+  {
     title: "Min side",
     description: "Rediger den offentlige siden din, med SEO-sjekkliste.",
     href: "/admin/side",
