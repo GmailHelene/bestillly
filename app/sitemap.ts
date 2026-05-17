@@ -2,6 +2,14 @@ import type { MetadataRoute } from "next";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses, posts } from "@/db/schema";
+import { NICHE_PAGES } from "@/lib/niche-pages";
+
+// Faste markedsføringssider som alltid skal med i sitemap.
+const MARKETING_PAGES = [
+  "bookingsystem",
+  "hvorfor-bestilly",
+  ...NICHE_PAGES.map((n) => n.slug),
+];
 
 // Genereres ved forespørsel (ikke ved bygging) — så den slipper å nå
 // databasen under deploy, og alltid har ferske bedrifter/innlegg med.
@@ -22,7 +30,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: baseUrl, lastModified: new Date() },
-    { url: `${baseUrl}/bookingsystem`, lastModified: new Date() },
+    ...MARKETING_PAGES.map((slug) => ({
+      url: `${baseUrl}/${slug}`,
+      lastModified: new Date(),
+    })),
     ...allBusinesses.map((b) => ({
       url: `${baseUrl}/${b.slug}`,
       lastModified: new Date(),

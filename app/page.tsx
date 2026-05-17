@@ -467,6 +467,9 @@ export default function Home() {
           <Link href="/bookingsystem" className="hover:text-gray-900">
             Bookingsystem
           </Link>
+          <Link href="/hvorfor-bestilly" className="hover:text-gray-900">
+            Hvorfor bestilly
+          </Link>
           <Link href="/kontakt" className="hover:text-gray-900">
             Kontakt
           </Link>

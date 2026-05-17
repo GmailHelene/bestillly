@@ -1,88 +1,6 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
-
-const title =
-  "Bookingsystem for frisører, salonger og små bedrifter | bestilly";
-const description =
-  "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv — 1599 kr i året, alt inkludert.";
-
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: { canonical: "/bookingsystem" },
-  openGraph: {
-    title,
-    description,
-    type: "website",
-    locale: "nb_NO",
-  },
-};
-
-// Spørsmål og svar — også lagt inn som FAQPage-strukturerte data nedenfor.
-const faq = [
-  {
-    q: "Hva koster et bookingsystem?",
-    a: "Bestilly koster 1599 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så for en liten bedrift blir bestilly langt rimeligere.",
-  },
-  {
-    q: "Passer bestilly for enkeltpersonforetak?",
-    a: "Ja. Bestilly er laget nettopp for små bedrifter og enkeltpersonforetak — frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Du trenger ingen ansatte eller egen IT-kunnskap for å komme i gang.",
-  },
-  {
-    q: "Kan kundene bestille time selv?",
-    a: "Ja. Kundene ser ledige tider og booker selv, døgnet rundt — uten at telefonen ringer. Du og kunden får automatisk bekreftelse på e-post, og kunden kan avbestille med ett klikk.",
-  },
-  {
-    q: "Trenger jeg en egen nettside i tillegg?",
-    a: "Nei. En enkel, pen nettside for bedriften følger med. Du velger design, legger inn behandlinger, priser, bilder og åpningstider, og deler din egen lenke med kundene.",
-  },
-  {
-    q: "Hvordan kommer jeg i gang med bookingsystemet?",
-    a: "Du registrerer bedriften på et par minutter, legger inn behandlingene og åpningstidene dine, og deler lenken din. Da kan kundene booke time med en gang. Du kan prøve gratis før du bestemmer deg.",
-  },
-  {
-    q: "Kan jeg ta imot betaling gjennom bestilly?",
-    a: "Bestilly har en innebygd nettbutikk der kundene kan kjøpe produkter og betale med Vipps. Selve timebestillingen er gratis for kunden — betaling for behandlingen skjer som vanlig hos deg.",
-  },
-  {
-    q: "Er det bindingstid?",
-    a: "Du betaler én fast årspris på 1599 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
-  },
-  {
-    q: "Hva er AI-markedsføringshuben?",
-    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag — tilpasset bedriften din. Hver konto har en kredittpott inkludert i årsprisen, som fornyes hver måned.",
-  },
-];
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.map((item) => ({
-    "@type": "Question",
-    name: item.q,
-    acceptedAnswer: { "@type": "Answer", text: item.a },
-  })),
-};
-
-const audience = [
-  {
-    title: "Frisører",
-    text: "La kundene bestille klipp og farge selv, og hold full oversikt over dagen.",
-  },
-  {
-    title: "Negl- og skjønnhetssalonger",
-    text: "Vis behandlinger og priser, og fyll kalenderen uten å svare på meldinger hele dagen.",
-  },
-  {
-    title: "Massasje og terapi",
-    text: "Gi klientene en enkel måte å finne ledig time på, med automatiske påminnelser.",
-  },
-  {
-    title: "Enkeltpersonforetak",
-    text: "Et profesjonelt bookingsystem og en egen nettside — uten dyre månedsabonnement.",
-  },
-];
+import type { NichePage } from "@/lib/niche-pages";
 
 const features = [
   "Online timebestilling kundene styrer selv",
@@ -94,7 +12,17 @@ const features = [
   "Bygget for Google, så nye kunder finner deg",
 ];
 
-export default function BookingsystemLanding() {
+export function NicheLanding({ niche }: { niche: NichePage }) {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: niche.faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+
   return (
     <div className="flex flex-1 flex-col">
       <script
@@ -127,16 +55,13 @@ export default function BookingsystemLanding() {
         <section className="bg-[#fdf3ee]">
           <div className="mx-auto max-w-3xl px-6 py-20 text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
-              Bookingsystem for små bedrifter
+              {niche.eyebrow}
             </p>
             <h1 className="mt-3 text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-              Bookingsystem for frisører, salonger og små bedrifter
+              {niche.h1}
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
-              Bestilly lar kundene dine bestille time selv — døgnet rundt.
-              Du får et komplett bookingsystem, en egen nettside og en
-              AI-markedsføringshub for 1599 kroner i året, helt uten
-              månedspris eller gebyr per booking.
+              {niche.heroText}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
@@ -158,69 +83,36 @@ export default function BookingsystemLanding() {
         {/* Intro */}
         <section className="mx-auto max-w-3xl px-6 py-16">
           <h2 className="text-2xl font-bold tracking-tight">
-            Enkel online timebestilling for bedriften din
+            {niche.introHeading}
           </h2>
           <div className="mt-4 space-y-4 text-gray-600">
-            <p>
-              Et godt bookingsystem sparer deg for tid hver eneste dag. I
-              stedet for å svare på telefon og meldinger om ledige tider, lar
-              du kundene se kalenderen din og bestille time selv. Bestilly er
-              laget for små bedrifter som vil ha online timebestilling uten å
-              betale dyre månedsabonnement.
-            </p>
-            <p>
-              Du legger inn behandlingene dine, prisene, åpningstidene og
-              eventuelle ferieavvik. Kundene finner fram til en ledig tid,
-              booker, og får bekreftelse på e-post automatisk. Du beholder full
-              oversikt i en ryddig kalender — og slipper dobbeltbookinger.
-            </p>
+            {niche.introParagraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </div>
         </section>
 
-        {/* For hvem */}
+        {/* Utfordringer */}
         <section className="bg-[#f5f3ff]">
           <div className="mx-auto max-w-4xl px-6 py-16">
             <h2 className="text-center text-2xl font-bold tracking-tight">
-              Hvem passer bestilly for?
+              {niche.challengesHeading}
             </h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {audience.map((a) => (
+              {niche.challenges.map((c) => (
                 <div
-                  key={a.title}
+                  key={c.title}
                   className="rounded-2xl bg-white p-5 shadow-sm"
                 >
-                  <h3 className="font-semibold">{a.title}</h3>
-                  <p className="mt-1 text-sm text-gray-600">{a.text}</p>
+                  <h3 className="font-semibold">{c.title}</h3>
+                  <p className="mt-1 text-sm text-gray-600">{c.text}</p>
                 </div>
               ))}
             </div>
-            <p className="mt-6 text-center text-sm text-gray-600">
-              Les mer for din bransje:{" "}
-              <Link
-                href="/bookingsystem-frisor"
-                className="font-medium underline hover:text-gray-900"
-              >
-                frisør
-              </Link>{" "}
-              ·{" "}
-              <Link
-                href="/bookingsystem-neglsalong"
-                className="font-medium underline hover:text-gray-900"
-              >
-                neglsalong
-              </Link>{" "}
-              ·{" "}
-              <Link
-                href="/timebestilling-massasje"
-                className="font-medium underline hover:text-gray-900"
-              >
-                massasje
-              </Link>
-            </p>
           </div>
         </section>
 
-        {/* Hva du får */}
+        {/* Inkludert */}
         <section className="mx-auto max-w-3xl px-6 py-16">
           <h2 className="text-2xl font-bold tracking-tight">
             Alt dette er inkludert
@@ -256,10 +148,10 @@ export default function BookingsystemLanding() {
         <section className="bg-[#f5f3ff]">
           <div className="mx-auto max-w-3xl px-6 py-16">
             <h2 className="text-center text-2xl font-bold tracking-tight">
-              Ofte stilte spørsmål om bookingsystem
+              Ofte stilte spørsmål
             </h2>
             <div className="mt-8 space-y-3">
-              {faq.map((item) => (
+              {niche.faq.map((item) => (
                 <details
                   key={item.q}
                   className="rounded-2xl bg-white p-5 shadow-sm"
@@ -274,7 +166,7 @@ export default function BookingsystemLanding() {
           </div>
         </section>
 
-        {/* Avsluttende CTA */}
+        {/* CTA */}
         <section className="bg-gray-900">
           <div className="mx-auto max-w-3xl px-6 py-16 text-center">
             <h2 className="text-2xl font-bold tracking-tight text-white">
@@ -307,14 +199,14 @@ export default function BookingsystemLanding() {
           <Link href="/" className="hover:text-gray-900">
             Forside
           </Link>
+          <Link href="/bookingsystem" className="hover:text-gray-900">
+            Bookingsystem
+          </Link>
+          <Link href="/hvorfor-bestilly" className="hover:text-gray-900">
+            Hvorfor bestilly
+          </Link>
           <Link href="/kontakt" className="hover:text-gray-900">
             Kontakt
-          </Link>
-          <Link href="/personvern" className="hover:text-gray-900">
-            Personvern
-          </Link>
-          <Link href="/vilkar" className="hover:text-gray-900">
-            Vilkår
           </Link>
         </div>
         <span>Enkelt bookingsystem for små bedrifter</span>

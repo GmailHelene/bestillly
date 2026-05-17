@@ -19,6 +19,10 @@ export const RESERVED_SLUGS = new Set([
   "sitemap.xml",
   "demo",
   "bookingsystem",
+  "bookingsystem-frisor",
+  "bookingsystem-neglsalong",
+  "timebestilling-massasje",
+  "hvorfor-bestilly",
 ]);
 
 export function slugify(input: string): string {
