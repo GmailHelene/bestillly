@@ -7,7 +7,13 @@ import { businesses, newsletters, subscribers } from "@/db/schema";
 import { sendEmail } from "@/lib/email";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_BLOCK_MESSAGE, DEMO_SLUG } from "@/lib/demo";
-import { escapeHtml } from "@/lib/html";
+import { resolveTheme } from "@/lib/themes";
+import {
+  blocksToPlainText,
+  parseBlocks,
+  renderNewsletterEmail,
+  type NewsletterBlock,
+} from "@/lib/newsletter-blocks";
 
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const UUID_PATTERN =
@@ -50,21 +56,25 @@ export type NewsletterState =
   | { ok: true; count: number }
   | undefined;
 
-export async function sendNewsletter(
-  _prev: NewsletterState,
-  formData: FormData,
-): Promise<NewsletterState> {
+export async function sendNewsletter(input: {
+  subject: string;
+  blocks: NewsletterBlock[];
+}): Promise<NewsletterState> {
   const businessId = await requireBusinessId();
   if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
 
-  const subject = String(formData.get("subject") ?? "").trim();
-  const content = String(formData.get("content") ?? "").trim();
+  const subject = String(input.subject ?? "").trim();
+  const blocks = parseBlocks(input.blocks);
   if (!subject) return { error: "Emne er påkrevd." };
-  if (!content) return { error: "Innhold er påkrevd." };
+  if (blocks.length === 0) {
+    return { error: "Legg til minst én blokk med innhold." };
+  }
 
   const business = await db.query.businesses.findFirst({
     where: eq(businesses.id, businessId),
   });
+  if (!business) return { error: "Fant ikke bedriften." };
+
   const list = await db.query.subscribers.findMany({
     where: eq(subscribers.businessId, businessId),
   });
@@ -73,30 +83,25 @@ export async function sendNewsletter(
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
-  const contentHtml = escapeHtml(content).replace(/\n/g, "<br>");
+  const accentColor = resolveTheme(business.template).accent;
 
   for (const subscriber of list) {
-    const unsubscribeUrl = `${baseUrl}/avmeld/${subscriber.unsubscribeToken}`;
     await sendEmail({
       to: subscriber.email,
       subject,
-      html: `
-        <h2>${escapeHtml(subject)}</h2>
-        <p>${contentHtml}</p>
-        <hr>
-        <p style="font-size:12px;color:#888">
-          Du får denne e-posten fordi du abonnerer på nyhetsbrevet fra
-          ${business?.name ?? "bedriften"}.
-          <a href="${unsubscribeUrl}">Meld deg av</a>.
-        </p>
-      `,
+      html: renderNewsletterEmail({
+        blocks,
+        accentColor,
+        businessName: business.name,
+        unsubscribeUrl: `${baseUrl}/avmeld/${subscriber.unsubscribeToken}`,
+      }),
     });
   }
 
   await db.insert(newsletters).values({
     businessId,
     subject,
-    content,
+    content: blocksToPlainText(blocks),
     recipientCount: list.length,
   });
   revalidatePath("/admin/nyhetsbrev");
