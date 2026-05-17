@@ -1,35 +1,64 @@
 import Link from "next/link";
 
+const steps = [
+  {
+    number: "1",
+    title: "Registrer bedriften",
+    description: "Opprett en konto på et par minutter — helt gratis å prøve.",
+  },
+  {
+    number: "2",
+    title: "Sett opp tilbudet ditt",
+    description: "Legg inn behandlinger, priser og åpningstider.",
+  },
+  {
+    number: "3",
+    title: "Del lenken din",
+    description:
+      "Kundene booker selv, døgnet rundt. Du får alt rett på e-post.",
+  },
+];
+
 const features = [
   {
     title: "Kunder booker selv",
     description:
-      "Kundene dine bestiller time når det passer dem — døgnet rundt, uten at telefonen ringer.",
+      "Kundene bestiller time når det passer dem — uten at telefonen ringer.",
   },
   {
     title: "Automatiske e-poster",
     description:
-      "Bekreftelse og varsel sendes til både deg og kunden. Avbestilling skjer med ett klikk.",
+      "Bekreftelse og varsel til både deg og kunden. Avbestilling med ett klikk.",
   },
   {
-    title: "Din egen side",
+    title: "Din egen nettside",
     description:
-      "En enkel, pen nettside for bedriften din — klar for Google og søk i nærområdet.",
+      "En pen side for bedriften, med valgbare design og plass til logo og bilder.",
   },
   {
-    title: "Oversikt og kalender",
+    title: "Full oversikt",
     description:
-      "Se alle bookinger i en ryddig kalender. Sett åpningstider og ferieavvik selv.",
+      "Alle bookinger i en ryddig kalender. Sett åpningstider og ferie selv.",
+  },
+  {
+    title: "Klar for Google",
+    description:
+      "Siden er bygget for søk, så nye kunder lettere finner bedriften din.",
+  },
+  {
+    title: "Ingen app å installere",
+    description:
+      "Alt skjer i nettleseren — for deg og for kundene dine.",
   },
 ];
 
 const included = [
   "Bookingsystem og kalender",
-  "Egen nettside med SEO",
+  "Egen nettside med design­valg",
   "Ubegrenset antall bookinger",
   "E-postvarsling til deg og kundene",
-  "Ingen oppstartsavgift",
-  "Ingen gebyr per booking",
+  "Logo og bildegalleri",
+  "Ingen oppstartsavgift eller gebyr per booking",
 ];
 
 export default function Home() {
@@ -37,90 +66,163 @@ export default function Home() {
     <div className="flex flex-1 flex-col">
       <header className="flex items-center justify-between px-6 py-4">
         <span className="text-lg font-bold">bestilly</span>
-        <Link
-          href="/login"
-          className="text-sm font-medium text-gray-600 hover:text-gray-900"
-        >
-          Logg inn
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/login"
+            className="text-sm font-medium text-gray-600 hover:text-gray-900"
+          >
+            Logg inn
+          </Link>
+          <Link
+            href="/registrer"
+            className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700"
+          >
+            Kom i gang
+          </Link>
+        </div>
       </header>
 
       <main className="flex-1">
-        <section className="mx-auto max-w-3xl px-6 py-16 text-center">
-          <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-            Bookingsystem for små bedrifter — uten månedlige overraskelser
-          </h1>
-          <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
-            Bestilly gir frisøren, salongen eller enkeltpersonforetaket et
-            komplett bookingsystem og en egen nettside. Én pris i året.
-            Ingenting mer.
-          </p>
-          <div className="mt-7 flex justify-center gap-3">
-            <Link
-              href="/registrer"
-              className="rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700"
-            >
-              Kom i gang
-            </Link>
-            <Link
-              href="/demo"
-              className="rounded-lg border border-gray-300 px-6 py-3 text-sm font-medium hover:bg-gray-50"
-            >
-              Se en demo
-            </Link>
+        {/* Hero */}
+        <section className="relative overflow-hidden bg-[#fdf3ee]">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#f6d9c9] opacity-60 blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-[#e7ddf7] opacity-60 blur-3xl"
+          />
+          <div className="relative mx-auto max-w-3xl px-6 py-20 text-center">
+            <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
+              Bookingsystem for små bedrifter
+            </p>
+            <h1 className="mt-3 text-balance text-4xl font-bold tracking-tight sm:text-5xl">
+              Et komplett bookingsystem til én fast årspris
+            </h1>
+            <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
+              Bestilly gir frisøren, salongen eller enkeltpersonforetaket et
+              bookingsystem og en egen nettside — for 990 kr i året. Ingen
+              månedlige overraskelser.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/registrer"
+                className="rounded-xl bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700"
+              >
+                Kom i gang
+              </Link>
+              <Link
+                href="/demo"
+                className="rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-medium hover:bg-gray-50"
+              >
+                Se en demo
+              </Link>
+            </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-3xl px-6 py-8">
-          <h2 className="text-center text-2xl font-bold">
+        {/* Slik kommer du i gang */}
+        <section className="mx-auto max-w-4xl px-6 py-20">
+          <h2 className="text-center text-3xl font-bold tracking-tight">
+            Slik kommer du i gang
+          </h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            {steps.map((step) => (
+              <div key={step.number} className="text-center">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gray-900 text-lg font-bold text-white">
+                  {step.number}
+                </div>
+                <h3 className="mt-4 font-semibold">{step.title}</h3>
+                <p className="mt-1 text-sm text-gray-600">
+                  {step.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Funksjoner */}
+        <section className="bg-[#f5f3ff]">
+          <div className="mx-auto max-w-4xl px-6 py-20">
+            <h2 className="text-center text-3xl font-bold tracking-tight">
+              Alt du trenger — ingenting du ikke trenger
+            </h2>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {features.map((f) => (
+                <div
+                  key={f.title}
+                  className="rounded-2xl bg-white p-5 shadow-sm"
+                >
+                  <h3 className="font-semibold">{f.title}</h3>
+                  <p className="mt-1 text-sm text-gray-600">{f.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Laget for små bedrifter */}
+        <section className="mx-auto max-w-3xl px-6 py-20 text-center">
+          <h2 className="text-3xl font-bold tracking-tight">
             Laget for deg som akkurat har startet
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-balance text-center text-gray-600">
+          <p className="mx-auto mt-4 max-w-xl text-balance text-gray-600">
             De store bookingsystemene koster flere hundre kroner i måneden.
             Bestilly er laget for små bedrifter med stram økonomi som trenger
             forutsigbarhet — du vet nøyaktig hva det koster, hele året.
           </p>
         </section>
 
-        <section className="mx-auto max-w-3xl px-6 py-8">
-          <div className="grid gap-4 sm:grid-cols-2">
-            {features.map((f) => (
-              <div
-                key={f.title}
-                className="rounded-xl border border-gray-200 p-5"
+        {/* Pris */}
+        <section className="bg-[#fdf3ee]">
+          <div className="mx-auto max-w-3xl px-6 py-20">
+            <div className="rounded-3xl bg-white p-8 text-center shadow-sm sm:p-12">
+              <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
+                Pris
+              </p>
+              <p className="mt-2 text-5xl font-bold">990 kr</p>
+              <p className="mt-1 text-gray-600">i året — det er alt</p>
+              <ul className="mx-auto mt-8 grid max-w-md gap-2.5 text-left text-sm">
+                {included.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5">
+                    <span className="font-semibold text-green-600">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/registrer"
+                className="mt-9 inline-block rounded-xl bg-gray-900 px-7 py-3 text-sm font-medium text-white hover:bg-gray-700"
               >
-                <h3 className="font-semibold">{f.title}</h3>
-                <p className="mt-1 text-sm text-gray-600">{f.description}</p>
-              </div>
-            ))}
+                Kom i gang i dag
+              </Link>
+            </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-3xl px-6 py-12">
-          <div className="rounded-2xl border border-gray-200 p-8 text-center">
-            <p className="text-sm font-medium text-gray-500">Pris</p>
-            <p className="mt-1 text-4xl font-bold">990 kr i året</p>
-            <p className="mt-1 text-gray-600">Det er alt. Ingen overraskelser.</p>
-            <ul className="mx-auto mt-6 grid max-w-md gap-2 text-left text-sm">
-              {included.map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <span className="font-medium text-green-600">✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+        {/* Avsluttende CTA */}
+        <section className="bg-gray-900">
+          <div className="mx-auto max-w-3xl px-6 py-20 text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-white">
+              Klar til å la kundene booke selv?
+            </h2>
+            <p className="mx-auto mt-3 max-w-md text-gray-300">
+              Sett opp bedriften din på noen minutter.
+            </p>
             <Link
               href="/registrer"
-              className="mt-7 inline-block rounded-lg bg-gray-900 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700"
+              className="mt-7 inline-block rounded-xl bg-white px-7 py-3 text-sm font-medium text-gray-900 hover:bg-gray-100"
             >
-              Kom i gang i dag
+              Kom i gang
             </Link>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-gray-200 px-6 py-6 text-center text-sm text-gray-500">
-        bestilly — enkelt bookingsystem for små bedrifter
+      <footer className="flex flex-col items-center gap-1 px-6 py-8 text-center text-sm text-gray-500">
+        <span className="font-semibold text-gray-900">bestilly</span>
+        <span>Enkelt bookingsystem for små bedrifter</span>
       </footer>
     </div>
   );
