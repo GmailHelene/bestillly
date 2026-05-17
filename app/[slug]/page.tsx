@@ -257,8 +257,14 @@ export default async function PublicBusinessPage({
             Butikk
           </h2>
           <Shop
+            slug={business.slug}
             accentColor={theme.accent}
             radius={theme.radius}
+            shipping={{
+              free: business.shippingFree,
+              fee: business.shippingFee,
+              label: business.shippingLabel ?? "",
+            }}
             products={productList.map((p) => ({
               id: p.id,
               name: p.name,

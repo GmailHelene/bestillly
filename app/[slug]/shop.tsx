@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { createOrder } from "@/lib/actions/orders";
 
 type ShopProduct = {
   id: string;
@@ -11,19 +12,35 @@ type ShopProduct = {
   inStock: boolean;
 };
 
+type Shipping = { free: boolean; fee: number; label: string };
+
 const qtyBtn =
   "flex h-7 w-7 items-center justify-center rounded-md border border-gray-300 text-sm hover:bg-gray-50";
+const inputClass =
+  "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-900";
 
 export function Shop({
   products,
   accentColor,
   radius,
+  slug,
+  shipping,
 }: {
   products: ShopProduct[];
   accentColor: string;
   radius: string;
+  slug: string;
+  shipping: Shipping;
 }) {
   const [cart, setCart] = useState<Record<string, number>>({});
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, startSubmit] = useTransition();
+  const [confirmed, setConfirmed] = useState<{
+    orderNumber: number;
+    totalNok: number;
+    vippsNumber: string | null;
+  } | null>(null);
 
   function setQty(id: string, qty: number) {
     setCart((prev) => {
@@ -37,10 +54,69 @@ export function Shop({
   const cartItems = products
     .filter((p) => (cart[p.id] ?? 0) > 0)
     .map((p) => ({ ...p, qty: cart[p.id] }));
-  const total = cartItems.reduce(
+  const subtotal = cartItems.reduce(
     (sum, item) => sum + item.priceNok * item.qty,
     0,
   );
+  const shippingNok = shipping.free ? 0 : shipping.fee;
+  const total = subtotal + shippingNok;
+  const shippingLabel = shipping.label || "Frakt";
+
+  function handleCheckout(formData: FormData) {
+    setError(null);
+    startSubmit(async () => {
+      const result = await createOrder({
+        slug,
+        items: cartItems.map((i) => ({ productId: i.id, qty: i.qty })),
+        customerName: String(formData.get("customerName") ?? ""),
+        customerEmail: String(formData.get("customerEmail") ?? ""),
+        customerPhone: String(formData.get("customerPhone") ?? ""),
+      });
+      if ("error" in result) {
+        setError(result.error);
+      } else {
+        setConfirmed({
+          orderNumber: result.orderNumber,
+          totalNok: result.totalNok,
+          vippsNumber: result.vippsNumber,
+        });
+        setCart({});
+        setCheckoutOpen(false);
+      }
+    });
+  }
+
+  if (confirmed) {
+    return (
+      <div className={`space-y-2 bg-green-50 p-5 ${radius}`}>
+        <p className="font-medium text-green-800">Takk for bestillingen!</p>
+        <p className="text-sm text-green-800">
+          Ordre #{confirmed.orderNumber}
+        </p>
+        {confirmed.vippsNumber ? (
+          <p className="text-sm text-gray-700">
+            Betal <strong>{confirmed.totalNok} kr</strong> med Vipps til{" "}
+            <strong>{confirmed.vippsNumber}</strong>, og merk betalingen med
+            «ordre #{confirmed.orderNumber}».
+          </p>
+        ) : (
+          <p className="text-sm text-gray-700">
+            Bedriften tar kontakt med deg om betaling.
+          </p>
+        )}
+        <p className="text-sm text-gray-500">
+          Du får en bekreftelse på e-post.
+        </p>
+        <button
+          type="button"
+          onClick={() => setConfirmed(null)}
+          className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-gray-50"
+        >
+          Handle mer
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
@@ -139,13 +215,104 @@ export function Shop({
               </li>
             ))}
           </ul>
-          <div className="mt-2 flex justify-between border-t border-gray-200 pt-2 font-medium">
-            <span>Totalt</span>
-            <span>{total} kr</span>
+          <div className="mt-2 space-y-1 border-t border-gray-200 pt-2 text-sm">
+            <div className="flex justify-between text-gray-600">
+              <span>Delsum</span>
+              <span>{subtotal} kr</span>
+            </div>
+            <div className="flex justify-between text-gray-600">
+              <span>{shippingLabel}</span>
+              <span>{shippingNok === 0 ? "Gratis" : `${shippingNok} kr`}</span>
+            </div>
+            <div className="flex justify-between font-medium">
+              <span>Totalt</span>
+              <span>{total} kr</span>
+            </div>
           </div>
-          <p className="mt-2 text-xs text-gray-400">
-            Kassen aktiveres i neste steg.
-          </p>
+
+          {!checkoutOpen ? (
+            <button
+              type="button"
+              onClick={() => setCheckoutOpen(true)}
+              style={{ backgroundColor: accentColor }}
+              className="mt-3 rounded-lg px-4 py-2 text-sm font-medium text-white hover:opacity-90"
+            >
+              Til kassen
+            </button>
+          ) : (
+            <form action={handleCheckout} className="mt-3 space-y-3">
+              {error && (
+                <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+                  {error}
+                </p>
+              )}
+              <div className="space-y-1">
+                <label htmlFor="customerName" className="text-sm font-medium">
+                  Navn
+                </label>
+                <input
+                  id="customerName"
+                  name="customerName"
+                  type="text"
+                  required
+                  className={inputClass}
+                />
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-1">
+                  <label
+                    htmlFor="customerEmail"
+                    className="text-sm font-medium"
+                  >
+                    E-post
+                  </label>
+                  <input
+                    id="customerEmail"
+                    name="customerEmail"
+                    type="email"
+                    required
+                    className={inputClass}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label
+                    htmlFor="customerPhone"
+                    className="text-sm font-medium"
+                  >
+                    Telefon
+                  </label>
+                  <input
+                    id="customerPhone"
+                    name="customerPhone"
+                    type="tel"
+                    required
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+              <p className="text-xs text-gray-500">
+                Etter bestilling betaler du med Vipps, og bedriften bekrefter
+                ordren.
+              </p>
+              <div className="flex items-center gap-3">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  style={{ backgroundColor: accentColor }}
+                  className="rounded-lg px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
+                >
+                  {submitting ? "Sender…" : "Fullfør bestilling"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCheckoutOpen(false)}
+                  className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                >
+                  Avbryt
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       )}
     </div>

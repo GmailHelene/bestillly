@@ -10,11 +10,20 @@ import {
   date,
   jsonb,
   index,
+  serial,
 } from "drizzle-orm/pg-core";
 import type { OnepageContent } from "@/lib/onepage";
 
 export const bookingStatus = pgEnum("booking_status", ["confirmed", "cancelled"]);
 export const exceptionType = pgEnum("exception_type", ["closed", "custom_hours"]);
+export const orderStatus = pgEnum("order_status", [
+  "pending",
+  "paid",
+  "cancelled",
+]);
+
+// Et varelinje-øyeblikksbilde lagret på ordren (jsonb).
+export type OrderItem = { name: string; priceNok: number; qty: number };
 
 // Én bedrift = én tenant. slug brukes i offentlig onepage-URL (bestilly.no/[slug]).
 export const businesses = pgTable("businesses", {
@@ -31,6 +40,11 @@ export const businesses = pgTable("businesses", {
   status: text("status").notNull().default("active"),
   // Dato abonnementet er betalt til (informativt).
   activeUntil: date("active_until"),
+  // Nettbutikk: Vipps-nummer og fraktinnstillinger.
+  vippsNumber: text("vipps_number"),
+  shippingFree: boolean("shipping_free").notNull().default(true),
+  shippingFee: integer("shipping_fee").notNull().default(99),
+  shippingLabel: text("shipping_label"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
@@ -123,7 +137,28 @@ export const products = pgTable("products", {
     .defaultNow(),
 });
 
+// Bestillinger fra nettbutikken (Fase 2).
+export const orders = pgTable("orders", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  orderNumber: serial("order_number").notNull(),
+  businessId: uuid("business_id")
+    .notNull()
+    .references(() => businesses.id, { onDelete: "cascade" }),
+  customerName: text("customer_name").notNull(),
+  customerEmail: text("customer_email").notNull(),
+  customerPhone: text("customer_phone").notNull(),
+  items: jsonb("items").$type<OrderItem[]>().notNull(),
+  subtotalNok: integer("subtotal_nok").notNull(),
+  shippingNok: integer("shipping_nok").notNull(),
+  totalNok: integer("total_nok").notNull(),
+  status: orderStatus("status").notNull().default("pending"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 export type Business = typeof businesses.$inferSelect;
 export type Service = typeof services.$inferSelect;
 export type Booking = typeof bookings.$inferSelect;
 export type Product = typeof products.$inferSelect;
+export type Order = typeof orders.$inferSelect;
