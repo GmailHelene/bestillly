@@ -7,7 +7,7 @@ import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
 const title =
   "Bookingsystem for frisører, salonger og små bedrifter | bestilly";
 const description =
-  "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv — 1599 kr i året, alt inkludert.";
+  "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv — 2490 kr i året, alt inkludert.";
 
 export const metadata: Metadata = {
   title,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "Hva koster et bookingsystem?",
-    a: "Bestilly koster 1599 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så for en liten bedrift blir bestilly langt rimeligere.",
+    a: "Bestilly koster 2490 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så for en liten bedrift blir bestilly langt rimeligere.",
   },
   {
     q: "Passer bestilly for enkeltpersonforetak?",
@@ -49,7 +49,7 @@ const faq = [
   },
   {
     q: "Er det bindingstid?",
-    a: "Du betaler én fast årspris på 1599 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
+    a: "Du betaler én fast årspris på 2490 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
   },
   {
     q: "Hva er AI-markedsføringshuben?",
@@ -137,7 +137,7 @@ export default function BookingsystemLanding() {
             <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
               Bestilly lar kundene dine bestille time selv — døgnet rundt.
               Du får et komplett bookingsystem, en egen nettside og en
-              AI-markedsføringshub for 1599 kroner i året, helt uten
+              AI-markedsføringshub for 2490 kroner i året, helt uten
               månedspris eller gebyr per booking.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">

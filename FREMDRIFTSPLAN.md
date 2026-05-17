@@ -1,11 +1,14 @@
 0# Fremdriftsplan — bestilly
 
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
-Forretningsmodell: **1599 kr/år per bedrift** (inkl. markedsføringshub med
+Forretningsmodell: **2490 kr/år per bedrift** (bookingsystem for
+enkeltpersonforetak, inkl. regnskapseksport og markedsføringshub med
 kredittpott), manuell årsfaktura. Multi-tenant.
 
-**Status:** bestilly er **live på bestilly.no**. Fase 1 og Fase 2 er ferdig.
-Neste: Fase 3.
+**Status:** bestilly er **live på bestilly.no**. Fase 1–3 ferdig.
+Reposisjonert som spesialist for enkeltpersonforetak (2490 kr/år) med
+regnskapseksport, sterkere lokal SEO, databehandleravtale og automatiske
+norske helligdager.
 
 ---
 

@@ -31,6 +31,18 @@ const getBusiness = cache(async (slug: string) => {
   return db.query.businesses.findFirst({ where: eq(businesses.slug, slug) });
 });
 
+// Ukedag (1 = mandag) → schema.org-dagsnavn for openingHoursSpecification.
+const SCHEMA_DAYS = [
+  "",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
 export async function generateMetadata({
   params,
 }: {
@@ -120,6 +132,11 @@ export default async function PublicBusinessPage({
       })
     : [];
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
+  const heroImage = logoUrl ?? gallery[0];
+  const prices = serviceList.map((s) => s.priceNok).filter((p) => p > 0);
+  const socialLinks = [social.instagram, social.facebook, social.tiktok]
+    .filter((u): u is string => Boolean(u));
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -127,12 +144,43 @@ export default async function PublicBusinessPage({
     url: `${baseUrl}/${business.slug}`,
     ...(business.description ? { description: business.description } : {}),
     ...(business.phone ? { telephone: business.phone } : {}),
+    ...(business.email ? { email: business.email } : {}),
+    ...(heroImage ? { image: heroImage } : {}),
+    ...(socialLinks.length ? { sameAs: socialLinks } : {}),
+    ...(prices.length
+      ? {
+          priceRange: `${Math.min(...prices)}–${Math.max(...prices)} kr`,
+        }
+      : {}),
     ...(business.address
       ? {
           address: {
             "@type": "PostalAddress",
             streetAddress: business.address,
+            addressCountry: "NO",
           },
+        }
+      : {}),
+    ...(hours.length
+      ? {
+          openingHoursSpecification: hours
+            .filter((h) => h.startTime && h.endTime)
+            .map((h) => ({
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: SCHEMA_DAYS[h.weekday] ?? "Monday",
+              opens: h.startTime,
+              closes: h.endTime,
+            })),
+        }
+      : {}),
+    ...(serviceList.length
+      ? {
+          makesOffer: serviceList.map((s) => ({
+            "@type": "Offer",
+            priceCurrency: "NOK",
+            price: s.priceNok,
+            itemOffered: { "@type": "Service", name: s.name },
+          })),
         }
       : {}),
   };

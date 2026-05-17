@@ -16,6 +16,7 @@ const NAV_LINKS = [
   { href: "/admin/bookinger", label: "Bookinger" },
   { href: "/admin/produkter", label: "Produkter" },
   { href: "/admin/bestillinger", label: "Bestillinger" },
+  { href: "/admin/regnskap", label: "Regnskap" },
   { href: "/admin/blogg", label: "Blogg" },
   { href: "/admin/nyhetsbrev", label: "Nyhetsbrev" },
   { href: "/admin/markedsforing", label: "Markedsføring" },

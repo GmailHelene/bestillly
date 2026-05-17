@@ -5,7 +5,7 @@ import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
 
 const title = "Hvorfor velge bestilly? | Sammenligning av bookingsystem";
 const description =
-  "Hvorfor bestilly fremfor andre bookingsystemer: én fast årspris på 1599 kr, ingen månedspris, ingen gebyr per booking — og nettside og markedsføring inkludert.";
+  "Hvorfor bestilly fremfor andre bookingsystemer: én fast årspris på 2490 kr, ingen månedspris, ingen gebyr per booking — og nettside og markedsføring inkludert.";
 
 export const metadata: Metadata = {
   title,
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const rows = [
   {
     label: "Pris",
-    bestilly: "1599 kr i året — fast",
+    bestilly: "2490 kr i året — fast",
     others: "Ofte 200–600 kr i måneden",
   },
   {
@@ -60,7 +60,7 @@ const rows = [
 const points = [
   {
     title: "Én pris, ingen overraskelser",
-    text: "Du betaler 1599 kr i året — uansett hvor mange bookinger du får. Ingen månedspris som vokser, ingen gebyrer som spiser av inntekten.",
+    text: "Du betaler 2490 kr i året — uansett hvor mange bookinger du får. Ingen månedspris som vokser, ingen gebyrer som spiser av inntekten.",
   },
   {
     title: "Alt på ett sted",

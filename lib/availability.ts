@@ -1,4 +1,5 @@
 import { fromZonedTime } from "date-fns-tz";
+import { isNorwegianHoliday } from "@/lib/holidays";
 
 export const TIMEZONE = "Europe/Oslo";
 const SLOT_STEP_MINUTES = 15;
@@ -57,6 +58,9 @@ function openInterval(
     }
     return null;
   }
+  // Norske helligdager er stengt med mindre bedriften har lagt inn et
+  // eksplisitt åpningstid-avvik for dagen (håndtert over).
+  if (isNorwegianHoliday(date)) return null;
   const wh = workingHours.find((w) => w.weekday === isoWeekday(date));
   if (!wh) return null;
   return { start: wh.startTime, end: wh.endTime };

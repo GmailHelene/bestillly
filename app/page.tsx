@@ -13,10 +13,10 @@ const jsonLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "Enkelt bookingsystem og nettside for små bedrifter — én fast årspris.",
+    "Bookingsystem laget for enkeltpersonforetak — booking, kalender, Vipps og regnskapsklar eksport. Én fast årspris.",
   offers: {
     "@type": "Offer",
-    price: "1599",
+    price: String(ANNUAL_PRICE_NOK),
     priceCurrency: "NOK",
   },
 };
@@ -44,6 +44,11 @@ const features = [
     title: "Kunder booker selv",
     description:
       "Kundene bestiller time når det passer dem — uten at telefonen ringer.",
+  },
+  {
+    title: "Regnskapsklar eksport",
+    description:
+      "Last ned bookinger og salg som fil regnskapsføreren kan bruke — eller importere i regnskapsprogrammet ditt.",
   },
   {
     title: "Automatiske e-poster",
@@ -92,23 +97,27 @@ const features = [
 
 const included = [
   "Bookingsystem og kalender",
+  "Regnskapsklar eksport av bookinger og salg",
   "Egen nettside med designvalg",
   "Ubegrenset antall bookinger",
   "E-postvarsling til deg og kundene",
   "Nettbutikk, blogg og nyhetsbrev",
   "AI-markedsføringshub med kredittpott inkludert",
-  "Logo og bildegalleri",
   "Ingen oppstartsavgift eller gebyr per booking",
 ];
 
 const faq = [
   {
     q: "Hva koster bestilly?",
-    a: "Bestilly koster 1599 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. Årsprisen dekker bookingsystem, nettside, nettbutikk, blogg, nyhetsbrev og AI-markedsføringshub.",
+    a: "Bestilly koster 2490 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. Årsprisen dekker bookingsystem, kalender, nettside, regnskapsklar eksport og AI-markedsføringshub.",
   },
   {
     q: "Passer bestilly for enkeltpersonforetak?",
-    a: "Ja. Bestilly er laget nettopp for små bedrifter og enkeltpersonforetak — frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Du trenger ingen ansatte eller egen IT-kunnskap for å komme i gang.",
+    a: "Ja — bestilly er laget nettopp for enkeltpersonforetak og deg som driver alene. Frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Én person, én kalender, full kontroll. Du trenger ingen ansatte eller egen IT-kunnskap.",
+  },
+  {
+    q: "Hjelper bestilly med regnskapet?",
+    a: "Ja. Du kan når som helst laste ned en oversikt over bookinger og salg for en valgt periode, som en fil regnskapsføreren din kan ta imot — eller som du importerer i regnskapsprogrammet ditt. Time inn, faktura ut, ferdig regnskapsgrunnlag.",
   },
   {
     q: "Kan kundene bestille time selv?",
@@ -128,7 +137,7 @@ const faq = [
   },
   {
     q: "Er det bindingstid?",
-    a: "Du betaler én fast årspris på 1599 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
+    a: "Du betaler én fast årspris på 2490 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
   },
 ];
 
@@ -186,15 +195,15 @@ export default function Home() {
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <div className="text-center lg:text-left">
                 <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
-                  Bookingsystem for små bedrifter
+                  Bookingsystem for enkeltpersonforetak
                 </p>
                 <h1 className="mt-3 text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-                  Et komplett bookingsystem til én fast årspris
+                  Bookingsystem laget for enkeltpersonforetak
                 </h1>
                 <p className="mt-5 text-balance text-lg text-gray-600">
-                  Bestilly gir frisøren, salongen eller
-                  enkeltpersonforetaket et bookingsystem, en egen nettside og
-                  en AI-markedsføringshub — for 1599 kr i året. Ingen
+                  Time inn, faktura ut, ferdig regnskapsgrunnlag. bestilly
+                  samler booking, kalender, Vipps og regnskapsklar eksport —
+                  laget for deg som driver alene. Én fast årspris, ingen
                   månedlige overraskelser.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
@@ -222,25 +231,24 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Enkel online timebestilling */}
+        {/* Booking og regnskap */}
         <section className="mx-auto max-w-3xl px-6 py-16">
           <h2 className="text-2xl font-bold tracking-tight">
-            Enkel online timebestilling for bedriften din
+            Booking og regnskapsgrunnlag på ett sted
           </h2>
           <div className="mt-4 space-y-4 text-gray-600">
             <p>
-              Et godt bookingsystem sparer deg for tid hver eneste dag. I
-              stedet for å svare på telefon og meldinger om ledige tider, lar
-              du kundene se kalenderen din og bestille time selv. Bestilly er
-              laget for små bedrifter som vil ha online timebestilling uten å
-              betale dyre månedsabonnement.
+              Driver du alene, går tiden til kundene — ikke til papirarbeid.
+              bestilly lar kundene se kalenderen din og bestille time selv, så
+              du slipper å svare på telefon og meldinger om ledige tider hele
+              dagen.
             </p>
             <p>
-              Du legger inn behandlingene dine, prisene, åpningstidene og
-              eventuelle ferieavvik. Kundene finner fram til en ledig tid,
-              booker, og får bekreftelse på e-post automatisk. Du beholder
-              full oversikt i en ryddig kalender — og slipper
-              dobbeltbookinger.
+              Og når året er omme, er halve regnskapsjobben gjort: hver
+              booking og hvert salg samles, og du laster ned en oversikt
+              regnskapsføreren din kan ta imot — eller importerer den rett i
+              regnskapsprogrammet ditt. Time inn, faktura ut, ferdig
+              grunnlag.
             </p>
           </div>
         </section>
@@ -378,13 +386,13 @@ export default function Home() {
         <section className="bg-[#f5f3ff]">
           <div className="mx-auto max-w-3xl px-6 py-20 text-center">
             <h2 className="text-3xl font-bold tracking-tight">
-              Laget for deg som akkurat har startet
+              Spesialisten på den minste bedriften
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-balance text-gray-600">
-              De store bookingsystemene koster flere hundre kroner i måneden.
-              Bestilly er laget for små bedrifter med stram økonomi som
-              trenger forutsigbarhet — du vet nøyaktig hva det koster, hele
-              året.
+              De store bookingsystemene er bygget for kjeder med mange
+              ansatte — og koster deretter. bestilly gjør det motsatte: én
+              person, én kalender, full kontroll. Ingen kompleksitet du ikke
+              trenger, og en fast, forutsigbar årspris.
             </p>
           </div>
         </section>
@@ -485,7 +493,7 @@ export default function Home() {
             Logg inn
           </Link>
         </div>
-        <span>Enkelt bookingsystem for små bedrifter</span>
+        <span>Bookingsystem for enkeltpersonforetak</span>
       </footer>
     </div>
   );

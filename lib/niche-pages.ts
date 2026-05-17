@@ -25,7 +25,7 @@ export const NICHE_PAGES: NichePage[] = [
     h1: "Bookingsystem laget for frisører",
     metaTitle: "Bookingsystem for frisører — kundene booker selv | bestilly",
     metaDescription:
-      "Bookingsystem for frisørsalonger og frisører. La kundene bestille time selv, døgnet rundt. Egen nettside inkludert — 1599 kr i året.",
+      "Bookingsystem for frisørsalonger og frisører. La kundene bestille time selv, døgnet rundt. Egen nettside inkludert — 2490 kr i året.",
     heroText:
       "Slipp telefonen som ringer midt i en klipp. Med bestilly booker kundene time selv — du får ro til å gjøre jobben, og kalenderen fyller seg av seg selv.",
     introHeading: "Mer tid til kundene, mindre tid på telefonen",
@@ -59,7 +59,7 @@ export const NICHE_PAGES: NichePage[] = [
       },
       {
         q: "Hva koster bookingsystemet for en frisør?",
-        a: "1599 kr i året, alt inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking.",
+        a: "2490 kr i året, alt inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking.",
       },
       {
         q: "Passer det for en frisør som jobber alene?",
@@ -81,7 +81,7 @@ export const NICHE_PAGES: NichePage[] = [
     h1: "Bookingsystem for neglsalong og skjønnhetssalong",
     metaTitle: "Bookingsystem for neglsalong & skjønnhetssalong | bestilly",
     metaDescription:
-      "Bookingsystem for neglsalonger og skjønnhetssalonger. Kundene booker behandlinger selv, du får full oversikt. Egen nettside inkludert — 1599 kr/år.",
+      "Bookingsystem for neglsalonger og skjønnhetssalonger. Kundene booker behandlinger selv, du får full oversikt. Egen nettside inkludert — 2490 kr/år.",
     heroText:
       "Negl, vipper, bryn eller hudpleie — la kundene bestille behandlingen sin selv, mens du jobber uforstyrret.",
     introHeading: "Fyll kalenderen uten å svare på meldinger hele dagen",
@@ -115,7 +115,7 @@ export const NICHE_PAGES: NichePage[] = [
       },
       {
         q: "Hva koster bookingsystemet?",
-        a: "1599 kr i året, alt inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking.",
+        a: "2490 kr i året, alt inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking.",
       },
       {
         q: "Kan jeg selge produkter i tillegg til behandlinger?",
@@ -137,7 +137,7 @@ export const NICHE_PAGES: NichePage[] = [
     h1: "Timebestilling for massasje og terapeuter",
     metaTitle: "Timebestilling for massasje & terapeut | bestilly",
     metaDescription:
-      "Enkelt timebestillingssystem for massører og terapeuter. Klientene booker behandling selv, du får ro til å jobbe. Egen nettside — 1599 kr i året.",
+      "Enkelt timebestillingssystem for massører og terapeuter. Klientene booker behandling selv, du får ro til å jobbe. Egen nettside — 2490 kr i året.",
     heroText:
       "Gi klientene en rolig, enkel måte å finne ledig time på — så kan du konsentrere deg fullt om behandlingen.",
     introHeading: "Ro i timeboka — for deg og klientene",
@@ -171,7 +171,7 @@ export const NICHE_PAGES: NichePage[] = [
       },
       {
         q: "Hva koster timebestillingssystemet?",
-        a: "1599 kr i året, alt inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking.",
+        a: "2490 kr i året, alt inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking.",
       },
       {
         q: "Passer det for en terapeut som jobber alene?",

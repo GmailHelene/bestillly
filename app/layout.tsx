@@ -29,9 +29,9 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
-const siteTitle = "bestilly — enkelt bookingsystem for små bedrifter";
+const siteTitle = "bestilly — bookingsystem for enkeltpersonforetak";
 const siteDescription =
-  "Bestilly er et enkelt og rimelig bookingsystem for små salonger og frisører. Én pris i året, ingen overraskelser.";
+  "Bookingsystem laget for enkeltpersonforetak: booking, kalender, Vipps og regnskapsklar eksport. Time inn, faktura ut, ferdig regnskapsgrunnlag — én fast årspris.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(

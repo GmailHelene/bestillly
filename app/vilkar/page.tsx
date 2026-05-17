@@ -38,7 +38,7 @@ export default function TermsPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">3. Pris og betaling</h2>
         <p className="text-sm text-gray-700">
-          bestilly koster <strong>1599 kr per år</strong> per bedrift. Det er
+          bestilly koster <strong>2490 kr per år</strong> per bedrift. Det er
           ingen oppstartsavgift og ingen gebyr per booking.
         </p>
         <p className="text-sm text-gray-700">
@@ -108,8 +108,12 @@ export default function TermsPage() {
           <Link href="/personvern" className="underline">
             personvernerklæringen
           </Link>
-          . Ved å akseptere disse vilkårene inngås også avtale om slik
-          databehandling, inkludert bruk av de oppførte underleverandørene.
+          . Ved å akseptere disse vilkårene inngås også{" "}
+          <Link href="/databehandleravtale" className="underline">
+            databehandleravtalen
+          </Link>{" "}
+          mellom bedriften og bestilly, i tråd med personvernforordningen
+          artikkel 28.
         </p>
       </section>
 

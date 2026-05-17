@@ -31,6 +31,11 @@ const sections = [
     href: "/admin/bestillinger",
   },
   {
+    title: "Regnskap",
+    description: "Last ned bookinger og salg som regnskapsklar fil.",
+    href: "/admin/regnskap",
+  },
+  {
     title: "Blogg",
     description: "Skriv innlegg og oppdateringer — bra for synlighet.",
     href: "/admin/blogg",
