@@ -5,6 +5,7 @@ import { requireBusinessId } from "@/lib/session";
 import { parseMarketingProfile } from "@/lib/marketing";
 import { BackLink } from "@/components/back-link";
 import { MarketingProfileForm } from "./profile-form";
+import { CrawlPanel } from "./crawl-panel";
 
 export default async function MarketingPage() {
   const businessId = await requireBusinessId();
@@ -26,6 +27,11 @@ export default async function MarketingPage() {
       </div>
 
       <MarketingProfileForm profile={profile} />
+
+      <CrawlPanel
+        websiteUrl={profile.websiteUrl}
+        initialCrawl={profile.websiteCrawl}
+      />
 
       <p className="rounded-xl border border-dashed border-gray-300 p-4 text-center text-sm text-gray-500">
         Kommer: SEO-analyse, markedsanalyse, innholdsgenerator og

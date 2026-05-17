@@ -7,6 +7,8 @@ export const MARKETING_CHANNELS = [
   { id: "youtube", label: "YouTube" },
 ] as const;
 
+import type { WebsiteCrawl } from "@/lib/crawler";
+
 // Markedsføringsprofil — input som mater analyser og innholdsgenerering (Fase 3).
 export type MarketingProfile = {
   audience?: string;
@@ -14,7 +16,25 @@ export type MarketingProfile = {
   budgetNok?: number;
   websiteUrl?: string;
   channels?: string[];
+  websiteCrawl?: WebsiteCrawl;
 };
+
+function parseWebsiteCrawl(raw: unknown): WebsiteCrawl | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const o = raw as Record<string, unknown>;
+  if (typeof o.url !== "string" || typeof o.text !== "string") return undefined;
+  return {
+    url: o.url,
+    title: typeof o.title === "string" ? o.title : undefined,
+    description: typeof o.description === "string" ? o.description : undefined,
+    text: o.text,
+    keywords: Array.isArray(o.keywords)
+      ? o.keywords.filter((x): x is string => typeof x === "string")
+      : [],
+    pagesCrawled: typeof o.pagesCrawled === "number" ? o.pagesCrawled : 0,
+    crawledAt: typeof o.crawledAt === "string" ? o.crawledAt : "",
+  };
+}
 
 export function parseMarketingProfile(raw: unknown): MarketingProfile {
   if (!raw || typeof raw !== "object") return {};
@@ -27,5 +47,6 @@ export function parseMarketingProfile(raw: unknown): MarketingProfile {
     channels: Array.isArray(o.channels)
       ? o.channels.filter((x): x is string => typeof x === "string")
       : [],
+    websiteCrawl: parseWebsiteCrawl(o.websiteCrawl),
   };
 }
