@@ -24,9 +24,25 @@ export default async function AdminLayout({
   return (
     <div className="flex min-h-full flex-col">
       <header className="flex items-center justify-between border-b border-gray-200 px-6 py-3">
-        <Link href="/admin" className="font-semibold">
-          bestilly
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link href="/admin" className="font-semibold">
+            bestilly
+          </Link>
+          <nav className="flex gap-4 text-sm">
+            <Link
+              href="/admin"
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Oversikt
+            </Link>
+            <Link
+              href="/admin/behandlinger"
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Behandlinger
+            </Link>
+          </nav>
+        </div>
         <div className="flex items-center gap-4 text-sm">
           <span className="text-gray-500">
             {business?.name ?? "Min bedrift"}

@@ -101,3 +101,7 @@ export const bookings = pgTable(
   },
   (t) => [index("bookings_business_starts_idx").on(t.businessId, t.startsAt)],
 );
+
+export type Business = typeof businesses.$inferSelect;
+export type Service = typeof services.$inferSelect;
+export type Booking = typeof bookings.$inferSelect;
