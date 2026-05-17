@@ -51,6 +51,11 @@ const features = [
       "Last ned bookinger og salg som fil regnskapsføreren kan bruke — eller importere i regnskapsprogrammet ditt.",
   },
   {
+    title: "Full oversikt",
+    description:
+      "Alle bookinger i en ryddig kalender. Sett åpningstider og ferie selv.",
+  },
+  {
     title: "Automatiske e-poster",
     description:
       "Bekreftelse og varsel til både deg og kunden. Avbestilling med ett klikk.",
@@ -61,37 +66,9 @@ const features = [
       "En pen side for bedriften, med valgbare design, logo og bildegalleri.",
   },
   {
-    title: "Full oversikt",
-    description:
-      "Alle bookinger i en ryddig kalender. Sett åpningstider og ferie selv.",
-  },
-  {
     title: "Klar for Google",
     description:
       "Siden er bygget for søk, så nye kunder lettere finner bedriften din.",
-  },
-  {
-    title: "Egen nettbutikk",
-    description:
-      "Selg produkter på siden din — kundene betaler enkelt med Vipps.",
-  },
-  {
-    title: "Blogg og oppdateringer",
-    description:
-      "Skriv innlegg som får egne sider — bra for synligheten i Google.",
-  },
-  {
-    title: "Nyhetsbrev",
-    description: "Samle abonnenter og hold kontakt med kundene dine.",
-  },
-  {
-    title: "AI-markedsføringshub",
-    description:
-      "Lag innlegg til sosiale medier, SEO-tekster, blogginnlegg og bilder — med en kredittpott inkludert.",
-  },
-  {
-    title: "Ingen app å installere",
-    description: "Alt skjer i nettleseren — for deg og for kundene dine.",
   },
 ];
 
