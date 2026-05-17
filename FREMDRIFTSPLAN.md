@@ -1,7 +1,8 @@
 0# Fremdriftsplan — bestilly
 
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
-Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant.
+Forretningsmodell: **1599 kr/år per bedrift** (inkl. markedsføringshub med
+kredittpott), manuell årsfaktura. Multi-tenant.
 
 **Status:** bestilly er **live på bestilly.no**. Fase 1 og Fase 2 er ferdig.
 Neste: Fase 3.
@@ -85,7 +86,7 @@ Inspirert av Helenes tidligere app «Your Marketing Friend».
 ### Avklaringer — besluttet
 
 - **Prismodell: kreditt-system.** Hver bedrift får en månedlig pott
-  AI-kreditter inkludert i 990 kr/år; topp-opp-pakker kjøpes ved behov.
+  AI-kreditter inkludert i 1599 kr/år; topp-opp ved avtale.
   Ulike handlinger koster ulikt (post = 1, bilde = 2, analyse = 5).
   Konkrete tall kalibreres mot faktiske API-kostnader.
 - **AI-leverandører.** Tekst: Anthropic Claude API. Bilde: Replicate (Flux).
