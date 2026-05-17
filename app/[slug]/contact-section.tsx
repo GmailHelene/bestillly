@@ -27,35 +27,37 @@ export function ContactSection({
   }
 
   return (
-    <form action={action} className="space-y-3">
+    <form action={action} className="max-w-md space-y-3">
       {state && "error" in state && (
         <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
           {state.error}
         </p>
       )}
-      <div className="space-y-1">
-        <label htmlFor="contact-name" className="text-sm font-medium">
-          Navn
-        </label>
-        <input
-          id="contact-name"
-          name="name"
-          type="text"
-          required
-          className={inputClass}
-        />
-      </div>
-      <div className="space-y-1">
-        <label htmlFor="contact-email" className="text-sm font-medium">
-          E-post
-        </label>
-        <input
-          id="contact-email"
-          name="email"
-          type="email"
-          required
-          className={inputClass}
-        />
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="space-y-1">
+          <label htmlFor="contact-name" className="text-sm font-medium">
+            Navn
+          </label>
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            required
+            className={inputClass}
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="contact-email" className="text-sm font-medium">
+            E-post
+          </label>
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            required
+            className={inputClass}
+          />
+        </div>
       </div>
       <div className="space-y-1">
         <label htmlFor="contact-message" className="text-sm font-medium">
@@ -64,7 +66,7 @@ export function ContactSection({
         <textarea
           id="contact-message"
           name="message"
-          rows={4}
+          rows={3}
           required
           className={inputClass}
         />

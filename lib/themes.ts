@@ -35,7 +35,7 @@ export const THEMES: Record<ThemeId, Theme> = {
     accentSoft: "#f3f3f3",
     heroStyle: "minimal",
     heroGradient: "linear-gradient(135deg, #171717, #404040)",
-    headingFont: "var(--font-fraunces)",
+    headingFont: "var(--font-cormorant)",
     radius: "rounded-xl",
   },
   eleganse: {

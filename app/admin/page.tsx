@@ -12,8 +12,13 @@ const sections = [
   },
   {
     title: "Bookinger",
-    description: "Kommende og tidligere avtaler, og åpningstidene dine.",
+    description: "Kommende og tidligere avtaler.",
     href: "/admin/bookinger",
+  },
+  {
+    title: "Åpningstider",
+    description: "Fast ukerytme og ferieavvik som styrer ledige tider.",
+    href: "/admin/apningstider",
   },
   {
     title: "Regnskap",
