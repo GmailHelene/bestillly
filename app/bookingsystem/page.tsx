@@ -5,7 +5,7 @@ import { Logo } from "@/components/logo";
 const title =
   "Bookingsystem for frisører, salonger og små bedrifter | bestilly";
 const description =
-  "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv — 990 kr i året, alt inkludert.";
+  "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv — 1599 kr i året, alt inkludert.";
 
 export const metadata: Metadata = {
   title,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "Hva koster et bookingsystem?",
-    a: "Bestilly koster 990 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så for en liten bedrift blir bestilly langt rimeligere.",
+    a: "Bestilly koster 1599 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så for en liten bedrift blir bestilly langt rimeligere.",
   },
   {
     q: "Passer bestilly for enkeltpersonforetak?",
@@ -47,7 +47,11 @@ const faq = [
   },
   {
     q: "Er det bindingstid?",
-    a: "Du betaler én fast årspris på 990 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
+    a: "Du betaler én fast årspris på 1599 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
+  },
+  {
+    q: "Hva er AI-markedsføringshuben?",
+    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag — tilpasset bedriften din. Hver konto har en kredittpott inkludert i årsprisen, som fornyes hver måned.",
   },
 ];
 
@@ -86,6 +90,7 @@ const features = [
   "Automatisk e-post til deg og kunden",
   "Ryddig kalender med åpningstider og ferie",
   "Nettbutikk, blogg og nyhetsbrev inkludert",
+  "AI-markedsføringshub for innhold og SEO",
   "Bygget for Google, så nye kunder finner deg",
 ];
 
@@ -129,8 +134,9 @@ export default function BookingsystemLanding() {
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
               Bestilly lar kundene dine bestille time selv — døgnet rundt.
-              Du får et komplett bookingsystem og en egen nettside for 990
-              kroner i året, helt uten månedspris eller gebyr per booking.
+              Du får et komplett bookingsystem, en egen nettside og en
+              AI-markedsføringshub for 1599 kroner i året, helt uten
+              månedspris eller gebyr per booking.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
@@ -212,7 +218,7 @@ export default function BookingsystemLanding() {
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
               Pris
             </p>
-            <p className="mt-2 text-5xl font-bold">990 kr</p>
+            <p className="mt-2 text-5xl font-bold">1599 kr</p>
             <p className="mt-1 text-gray-600">i året — alt inkludert</p>
             <Link
               href="/registrer"

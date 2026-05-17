@@ -14,7 +14,7 @@ const jsonLd = {
     "Enkelt bookingsystem og nettside for små bedrifter — én fast årspris.",
   offers: {
     "@type": "Offer",
-    price: "990",
+    price: "1599",
     priceCurrency: "NOK",
   },
 };
@@ -78,6 +78,11 @@ const features = [
     description: "Samle abonnenter og hold kontakt med kundene dine.",
   },
   {
+    title: "AI-markedsføringshub",
+    description:
+      "Lag innlegg til sosiale medier, SEO-tekster, blogginnlegg og bilder — med en kredittpott inkludert.",
+  },
+  {
     title: "Ingen app å installere",
     description: "Alt skjer i nettleseren — for deg og for kundene dine.",
   },
@@ -89,6 +94,7 @@ const included = [
   "Ubegrenset antall bookinger",
   "E-postvarsling til deg og kundene",
   "Nettbutikk, blogg og nyhetsbrev",
+  "AI-markedsføringshub med kredittpott inkludert",
   "Logo og bildegalleri",
   "Ingen oppstartsavgift eller gebyr per booking",
 ];
@@ -140,8 +146,9 @@ export default function Home() {
                 </h1>
                 <p className="mt-5 text-balance text-lg text-gray-600">
                   Bestilly gir frisøren, salongen eller
-                  enkeltpersonforetaket et bookingsystem og en egen nettside
-                  — for 990 kr i året. Ingen månedlige overraskelser.
+                  enkeltpersonforetaket et bookingsystem, en egen nettside og
+                  en AI-markedsføringshub — for 1599 kr i året. Ingen
+                  månedlige overraskelser.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
                   <Link
@@ -318,7 +325,7 @@ export default function Home() {
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
               Pris
             </p>
-            <p className="mt-2 text-5xl font-bold">990 kr</p>
+            <p className="mt-2 text-5xl font-bold">1599 kr</p>
             <p className="mt-1 text-gray-600">i året — det er alt</p>
             <ul className="mx-auto mt-8 grid max-w-md gap-2.5 text-left text-sm">
               {included.map((item) => (

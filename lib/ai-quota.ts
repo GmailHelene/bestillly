@@ -60,6 +60,13 @@ export async function consumeCredits(
     where: eq(businesses.id, businessId),
   });
   if (!business) return { ok: false, error: "Fant ikke bedriften." };
+  if (business.status === "paused") {
+    return {
+      ok: false,
+      error:
+        "Kontoen er satt på pause grunnet manglende betaling. AI-verktøyene er utilgjengelige til fakturaen er betalt.",
+    };
+  }
 
   const period = currentPeriod();
   const stale = business.aiPeriod !== period;

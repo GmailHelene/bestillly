@@ -106,14 +106,33 @@ export default async function MarketingPage() {
           used={usage.imagesUsed}
           limit={usage.imageLimit}
         />
-        <p className="text-xs text-gray-500">
-          Kreditter er inkludert i årsprisen. Trenger du mer før måneden er
-          omme, ta kontakt på{" "}
-          <a href="mailto:support@bestilly.no" className="underline">
-            support@bestilly.no
-          </a>
-          .
-        </p>
+        <details className="text-xs text-gray-500">
+          <summary className="cursor-pointer font-medium text-gray-600">
+            Slik fungerer AI-kreditter
+          </summary>
+          <div className="mt-2 space-y-2">
+            <p>
+              AI-kredittene er inkludert i årsprisen og fornyes automatisk
+              ved hvert månedsskifte. Ubrukte kreditter spares ikke opp.
+              Tekst og bilder telles hver for seg.
+            </p>
+            <ul className="space-y-0.5">
+              <li>· Innlegg til sosiale medier: 1 kreditt per kanal</li>
+              <li>· SEO-tekst (snippet): 2 kreditter</li>
+              <li>· Blogginnlegg: 3 kreditter</li>
+              <li>· SEO-anbefaling, markedsanalyse, publiseringsplan: 5 kreditter</li>
+              <li>· Bildegenerering: 1 bilde fra bildekvoten</li>
+            </ul>
+            <p>
+              Nettside-analysen er gratis og bruker ingen kreditter. Trenger
+              du mer før måneden er omme, ta kontakt på{" "}
+              <a href="mailto:support@bestilly.no" className="underline">
+                support@bestilly.no
+              </a>
+              .
+            </p>
+          </div>
+        </details>
       </div>
 
       <MarketingTabs tabs={tabs} />

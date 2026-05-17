@@ -42,7 +42,8 @@ const sections = [
   },
   {
     title: "Markedsføring",
-    description: "Markedsføringsprofil — grunnlaget for innhold og analyse.",
+    description:
+      "AI-verktøy for innlegg, SEO, blogg, bilder og publiseringsplan.",
     href: "/admin/markedsforing",
   },
   {
