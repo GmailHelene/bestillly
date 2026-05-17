@@ -10,8 +10,8 @@ const sections = [
   {
     title: "Åpningstider",
     description: "Fast ukerytme og ferieavvik som styrer ledige tider.",
-    href: null,
-    status: "Kommer i steg 4",
+    href: "/admin/apningstider",
+    status: "Klar",
   },
   {
     title: "Bookinger",

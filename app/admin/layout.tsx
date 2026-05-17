@@ -41,6 +41,12 @@ export default async function AdminLayout({
             >
               Behandlinger
             </Link>
+            <Link
+              href="/admin/apningstider"
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Åpningstider
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-4 text-sm">
