@@ -1,12 +1,14 @@
 import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { businesses, services, workingHours } from "@/db/schema";
+import { businesses, posts, services, workingHours } from "@/db/schema";
 import { requireBusinessId } from "@/lib/session";
 import { parseOnepageContent } from "@/lib/onepage";
+import { parseMarketingProfile } from "@/lib/marketing";
+import { auditSeo } from "@/lib/seo-audit";
 import { BackLink } from "@/components/back-link";
 import { ProfileForm } from "./profile-form";
-import { SeoChecklist } from "./seo-checklist";
+import { SeoAudit } from "./seo-audit";
 
 export default async function SidePage() {
   const businessId = await requireBusinessId();
@@ -22,20 +24,29 @@ export default async function SidePage() {
   const wh = await db.query.workingHours.findMany({
     where: eq(workingHours.businessId, businessId),
   });
+  const publishedPosts = await db.query.posts.findMany({
+    where: and(eq(posts.businessId, businessId), eq(posts.published, true)),
+    columns: { id: true },
+  });
 
   const content = parseOnepageContent(business.onepageContent);
+  const marketing = parseMarketingProfile(business.marketingProfile);
 
-  const checks = [
-    { label: "Beskrivelse fylt ut", done: !!business.description },
-    { label: "Adresse fylt ut", done: !!business.address },
-    { label: "Telefonnummer fylt ut", done: !!business.phone },
-    { label: "Minst 3 behandlinger lagt til", done: serviceList.length >= 3 },
-    { label: "Åpningstider satt opp", done: wh.length > 0 },
-    {
-      label: "Egne SEO-felt fylt ut",
-      done: !!(content.seo?.metaTitle || content.seo?.metaDescription),
-    },
-  ];
+  const audit = auditSeo({
+    description: business.description,
+    address: business.address,
+    phone: business.phone,
+    metaTitle: content.seo?.metaTitle,
+    metaDescription: content.seo?.metaDescription,
+    keywords: content.seo?.keywords,
+    aboutText: content.sections?.aboutText,
+    logoUrl: content.media?.logoUrl,
+    galleryCount: content.media?.gallery?.length ?? 0,
+    serviceCount: serviceList.length,
+    hasOpeningHours: wh.length > 0,
+    publishedPostCount: publishedPosts.length,
+    hasMarketingSeo: Boolean(marketing.seo),
+  });
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
@@ -74,7 +85,7 @@ export default async function SidePage() {
         }}
       />
 
-      <SeoChecklist checks={checks} />
+      <SeoAudit audit={audit} />
 
       <div className="space-y-2 rounded-xl border border-gray-200 p-4">
         <h2 className="font-semibold">Bli synlig på Google</h2>
