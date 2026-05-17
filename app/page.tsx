@@ -1,7 +1,23 @@
 import Link from "next/link";
 import { THEMES } from "@/lib/themes";
 import { ProductPreview } from "@/components/product-preview";
+import { Logo } from "@/components/logo";
 import { enterDemo } from "@/lib/actions/demo";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "bestilly",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description:
+    "Enkelt bookingsystem og nettside for små bedrifter — én fast årspris.",
+  offers: {
+    "@type": "Offer",
+    price: "990",
+    priceCurrency: "NOK",
+  },
+};
 
 const steps = [
   {
@@ -65,8 +81,12 @@ const included = [
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className="flex items-center justify-between px-6 py-4">
-        <span className="text-lg font-bold">bestilly</span>
+        <Logo />
         <div className="flex items-center gap-4">
           <Link
             href="/login"
@@ -329,8 +349,16 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="flex flex-col items-center gap-1 px-6 py-8 text-center text-sm text-gray-500">
+      <footer className="flex flex-col items-center gap-2 px-6 py-8 text-center text-sm text-gray-500">
         <span className="font-semibold text-gray-900">bestilly</span>
+        <div className="flex gap-4">
+          <Link href="/kontakt" className="hover:text-gray-900">
+            Kontakt
+          </Link>
+          <Link href="/login" className="hover:text-gray-900">
+            Logg inn
+          </Link>
+        </div>
         <span>Enkelt bookingsystem for små bedrifter</span>
       </footer>
     </div>

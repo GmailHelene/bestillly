@@ -6,6 +6,7 @@ export async function sendEmail(params: {
   to: string;
   subject: string;
   html: string;
+  replyTo?: string;
 }): Promise<void> {
   const host = process.env.SMTP_HOST;
   const port = process.env.SMTP_PORT;
@@ -32,6 +33,7 @@ export async function sendEmail(params: {
       to: params.to,
       subject: params.subject,
       html: params.html,
+      replyTo: params.replyTo,
     });
   } catch (error) {
     // En feilet e-post skal ikke velte selve bookingen.

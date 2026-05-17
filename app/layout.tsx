@@ -29,10 +29,22 @@ const poppins = Poppins({
   subsets: ["latin"],
 });
 
+const siteTitle = "bestilly — enkelt bookingsystem for små bedrifter";
+const siteDescription =
+  "Bestilly er et enkelt og rimelig bookingsystem for små salonger og frisører. Én pris i året, ingen overraskelser.";
+
 export const metadata: Metadata = {
-  title: "bestilly — enkelt bookingsystem for små bedrifter",
-  description:
-    "Bestilly er et enkelt og rimelig bookingsystem for små salonger og frisører. Én pris i året, ingen overraskelser.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3001",
+  ),
+  title: siteTitle,
+  description: siteDescription,
+  openGraph: {
+    title: siteTitle,
+    description: siteDescription,
+    type: "website",
+    locale: "nb_NO",
+  },
 };
 
 export default function RootLayout({

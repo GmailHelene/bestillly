@@ -7,6 +7,7 @@ import { db } from "@/db";
 import { businesses } from "@/db/schema";
 import { logoutAction } from "@/lib/actions/auth";
 import { DEMO_SLUG } from "@/lib/demo";
+import { Logo } from "@/components/logo";
 
 export default async function AdminLayout({
   children,
@@ -34,8 +35,8 @@ export default async function AdminLayout({
       )}
       <header className="flex items-center justify-between border-b border-gray-200 px-6 py-3">
         <div className="flex items-center gap-6">
-          <Link href="/admin" className="font-semibold">
-            bestilly
+          <Link href="/admin">
+            <Logo />
           </Link>
           <nav className="flex gap-4 text-sm">
             <Link
