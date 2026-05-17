@@ -82,6 +82,12 @@ export default async function AdminLayout({
               Bestillinger
             </Link>
             <Link
+              href="/admin/blogg"
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Blogg
+            </Link>
+            <Link
               href="/admin/side"
               className="text-gray-600 hover:text-gray-900"
             >

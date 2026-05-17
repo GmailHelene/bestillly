@@ -157,8 +157,29 @@ export const orders = pgTable("orders", {
     .defaultNow(),
 });
 
+// Blogginnlegg / artikler (Fase 2). Hvert innlegg har egen URL.
+export const posts = pgTable(
+  "posts",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    businessId: uuid("business_id")
+      .notNull()
+      .references(() => businesses.id, { onDelete: "cascade" }),
+    slug: text("slug").notNull(),
+    title: text("title").notNull(),
+    content: text("content").notNull(),
+    imageUrl: text("image_url"),
+    published: boolean("published").notNull().default(true),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [index("posts_business_slug_idx").on(t.businessId, t.slug)],
+);
+
 export type Business = typeof businesses.$inferSelect;
 export type Service = typeof services.$inferSelect;
 export type Booking = typeof bookings.$inferSelect;
 export type Product = typeof products.$inferSelect;
 export type Order = typeof orders.$inferSelect;
+export type Post = typeof posts.$inferSelect;

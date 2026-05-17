@@ -31,6 +31,11 @@ const sections = [
     href: "/admin/bestillinger",
   },
   {
+    title: "Blogg",
+    description: "Skriv innlegg og oppdateringer — bra for synlighet.",
+    href: "/admin/blogg",
+  },
+  {
     title: "Min side",
     description: "Rediger den offentlige siden din, med SEO-sjekkliste.",
     href: "/admin/side",

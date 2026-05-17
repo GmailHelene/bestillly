@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { businesses, products, services, workingHours } from "@/db/schema";
+import { businesses, posts, products, services, workingHours } from "@/db/schema";
 import { resolveTheme } from "@/lib/themes";
 import { parseOnepageContent } from "@/lib/onepage";
 import { OnepageHero } from "@/components/onepage-hero";
@@ -89,6 +90,14 @@ export default async function PublicBusinessPage({
     orderBy: (p, { asc }) => [asc(p.createdAt)],
   });
 
+  const postList = await db.query.posts.findMany({
+    where: and(
+      eq(posts.businessId, business.id),
+      eq(posts.published, true),
+    ),
+    orderBy: (p, { desc }) => [desc(p.createdAt)],
+  });
+
   const theme = resolveTheme(business.template);
   const content = parseOnepageContent(business.onepageContent);
   const social = content.social ?? {};
@@ -98,6 +107,7 @@ export default async function PublicBusinessPage({
   const aboutText = content.sections?.aboutText;
   const showOpeningHours = content.sections?.showOpeningHours ?? false;
   const showContactForm = content.sections?.showContactForm ?? false;
+  const showBlog = content.sections?.showBlog ?? false;
   const hours = showOpeningHours
     ? await db.query.workingHours.findMany({
         where: eq(workingHours.businessId, business.id),
@@ -276,6 +286,40 @@ export default async function PublicBusinessPage({
               inStock: p.inStock,
             }))}
           />
+        </section>
+      )}
+
+      {showBlog && postList.length > 0 && (
+        <section className="space-y-3">
+          <h2
+            className="text-lg font-semibold"
+            style={{ fontFamily: theme.headingFont }}
+          >
+            Aktuelt
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {postList.map((post) => (
+              <Link
+                key={post.id}
+                href={`/${business.slug}/${post.slug}`}
+                className={`block border border-gray-200 bg-white p-4 ${theme.radius}`}
+              >
+                {post.imageUrl && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={post.imageUrl}
+                    alt=""
+                    className={`mb-3 aspect-video w-full object-cover ${theme.radius}`}
+                  />
+                )}
+                <p className="font-medium">{post.title}</p>
+                <p className="mt-1 text-sm text-gray-500">
+                  {post.content.slice(0, 120)}
+                  {post.content.length > 120 ? "…" : ""}
+                </p>
+              </Link>
+            ))}
+          </div>
         </section>
       )}
 

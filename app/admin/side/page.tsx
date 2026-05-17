@@ -52,6 +52,7 @@ export default async function SidePage() {
           name: business.name,
           email: business.email,
           showContactForm: content.sections?.showContactForm ?? false,
+          showBlog: content.sections?.showBlog ?? false,
           description: business.description,
           address: business.address,
           phone: business.phone,

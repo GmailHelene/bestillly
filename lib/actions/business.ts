@@ -51,6 +51,7 @@ export async function updateBusinessProfile(
       aboutText: field("aboutText"),
       showOpeningHours: formData.get("showOpeningHours") != null,
       showContactForm: formData.get("showContactForm") != null,
+      showBlog: formData.get("showBlog") != null,
     },
     header: {
       tagline: field("tagline"),
