@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { businesses, services, workingHours } from "@/db/schema";
+import { businesses, products, services, workingHours } from "@/db/schema";
 import { resolveTheme } from "@/lib/themes";
 import { parseOnepageContent } from "@/lib/onepage";
 import { OnepageHero } from "@/components/onepage-hero";
 import { OnepageFooter } from "@/components/onepage-footer";
 import { BookingWidget } from "./booking-widget";
+import { Shop } from "./shop";
 
 const WEEKDAYS: [number, string][] = [
   [1, "Mandag"],
@@ -80,6 +81,11 @@ export default async function PublicBusinessPage({
       eq(services.active, true),
     ),
     orderBy: (s, { asc }) => [asc(s.createdAt)],
+  });
+
+  const productList = await db.query.products.findMany({
+    where: eq(products.businessId, business.id),
+    orderBy: (p, { asc }) => [asc(p.createdAt)],
   });
 
   const theme = resolveTheme(business.template);
@@ -241,6 +247,29 @@ export default async function PublicBusinessPage({
           }))}
         />
       </section>
+
+      {productList.length > 0 && (
+        <section className="space-y-3">
+          <h2
+            className="text-lg font-semibold"
+            style={{ fontFamily: theme.headingFont }}
+          >
+            Butikk
+          </h2>
+          <Shop
+            accentColor={theme.accent}
+            radius={theme.radius}
+            products={productList.map((p) => ({
+              id: p.id,
+              name: p.name,
+              description: p.description,
+              priceNok: p.priceNok,
+              imageUrl: p.imageUrl,
+              inStock: p.inStock,
+            }))}
+          />
+        </section>
+      )}
 
       <OnepageFooter
         business={business}
