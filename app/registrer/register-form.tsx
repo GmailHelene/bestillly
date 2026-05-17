@@ -29,6 +29,20 @@ export function RegisterForm() {
         />
       </div>
       <div className="space-y-1">
+        <label htmlFor="orgNumber" className="text-sm font-medium">
+          Organisasjonsnummer
+        </label>
+        <input
+          id="orgNumber"
+          name="orgNumber"
+          type="text"
+          inputMode="numeric"
+          required
+          className={inputClass}
+        />
+        <p className="text-xs text-gray-400">9 siffer.</p>
+      </div>
+      <div className="space-y-1">
         <label htmlFor="email" className="text-sm font-medium">
           E-post
         </label>

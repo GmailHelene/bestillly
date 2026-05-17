@@ -4,7 +4,7 @@ import { BackLink } from "@/components/back-link";
 
 export const metadata: Metadata = {
   title: "Vilkår — bestilly",
-  description: "Vilkår for bruk av bestilly.",
+  description: "Vilkår for bruk av bestilly, inkludert pris og betaling.",
 };
 
 export default function TermsPage() {
@@ -28,22 +28,60 @@ export default function TermsPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">2. Konto og bruk</h2>
         <p className="text-sm text-gray-700">
-          Bedriften er ansvarlig for å holde innloggingsinformasjonen sin
-          trygg, og for innholdet som legges inn. Tjenesten skal ikke brukes
-          til ulovlig virksomhet.
+          Bedriften må oppgi korrekt bedriftsnavn og organisasjonsnummer ved
+          registrering, og er ansvarlig for å holde innloggingsinformasjonen
+          trygg og for innholdet som legges inn. Tjenesten skal ikke brukes til
+          ulovlig virksomhet.
         </p>
       </section>
 
       <section className="space-y-2">
         <h2 className="font-semibold">3. Pris og betaling</h2>
         <p className="text-sm text-gray-700">
-          bestilly koster 990 kr per år per bedrift. Beløpet faktureres
-          årlig. Det er ingen oppstartsavgift og ingen gebyr per booking.
+          bestilly koster <strong>990 kr per år</strong> per bedrift. Det er
+          ingen oppstartsavgift og ingen gebyr per booking.
+        </p>
+        <p className="text-sm text-gray-700">
+          Beløpet faktureres årlig. Faktura sendes på e-post til adressen
+          bedriften har registrert, og betales til oppgitt kontonummer med
+          KID innen <strong>14 dagers betalingsfrist</strong>. Abonnementet
+          fornyes automatisk for ett år av gangen inntil det sies opp.
         </p>
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">4. Bedriftens ansvar</h2>
+        <h2 className="font-semibold">4. Manglende betaling</h2>
+        <p className="text-sm text-gray-700">
+          Betales ikke fakturaen innen fristen, gjelder følgende:
+        </p>
+        <ul className="ml-5 list-disc space-y-1 text-sm text-gray-700">
+          <li>
+            Det sendes en purring, og forsinkelsesrente og purregebyr etter
+            norsk lov kan påløpe.
+          </li>
+          <li>
+            Er fakturaen fortsatt ubetalt <strong>14 dager etter forfall</strong>,
+            kan tjenesten settes på pause: den offentlige siden og
+            bookingfunksjonen deaktiveres midlertidig. Bedriften varsles på
+            e-post før dette skjer.
+          </li>
+          <li>
+            Tjenesten gjenåpnes så snart utestående faktura er betalt.
+          </li>
+          <li>
+            Forblir fakturaen ubetalt <strong>30 dager etter at tjenesten ble
+            satt på pause</strong>, kan kontoen og tilhørende data slettes
+            permanent.
+          </li>
+        </ul>
+        <p className="text-sm text-gray-700">
+          Bedriften er selv ansvarlig for å informere sine kunder dersom
+          tjenesten settes på pause.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">5. Bedriftens ansvar</h2>
         <p className="text-sm text-gray-700">
           Bedriften er behandlingsansvarlig for personopplysningene den
           registrerer om sine egne kunder, og er ansvarlig for å informere
@@ -54,7 +92,7 @@ export default function TermsPage() {
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">5. Databehandling</h2>
+        <h2 className="font-semibold">6. Databehandling</h2>
         <p className="text-sm text-gray-700">
           bestilly opptrer som databehandler for opplysningene bedriften
           registrerer om sine kunder, og behandler dem kun for å levere
@@ -68,25 +106,26 @@ export default function TermsPage() {
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">6. bestillys ansvar</h2>
+        <h2 className="font-semibold">7. bestillys ansvar</h2>
         <p className="text-sm text-gray-700">
           Vi tilstreber stabil drift, men kan ikke garantere at tjenesten til
           enhver tid er feilfri eller tilgjengelig. bestilly er ikke ansvarlig
-          for indirekte tap som følge av feil eller nedetid.
+          for indirekte tap som følge av feil, nedetid eller pause ved
+          manglende betaling.
         </p>
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">7. Oppsigelse</h2>
+        <h2 className="font-semibold">8. Oppsigelse</h2>
         <p className="text-sm text-gray-700">
           Bedriften kan når som helst si opp kontoen. Tjenesten løper ut
-          inneværende betalte periode. bestilly kan avslutte en konto ved
-          vesentlig brudd på vilkårene.
+          inneværende betalte periode, og det gis ikke refusjon for gjenstående
+          tid. bestilly kan avslutte en konto ved vesentlig brudd på vilkårene.
         </p>
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">8. Endringer og lovvalg</h2>
+        <h2 className="font-semibold">9. Endringer og lovvalg</h2>
         <p className="text-sm text-gray-700">
           Vi kan oppdatere vilkårene, og varsler bedriftskundene ved
           vesentlige endringer. Vilkårene reguleres av norsk rett.

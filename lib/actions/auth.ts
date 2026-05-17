@@ -19,8 +19,9 @@ export async function registerAction(
     .trim()
     .toLowerCase();
   const password = String(formData.get("password") ?? "");
+  const orgNumber = String(formData.get("orgNumber") ?? "").trim();
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !orgNumber) {
     return { error: "Fyll ut alle feltene." };
   }
   if (!email.includes("@")) {
@@ -28,6 +29,9 @@ export async function registerAction(
   }
   if (password.length < 8) {
     return { error: "Passordet må være minst 8 tegn." };
+  }
+  if (!/^\d{9}$/.test(orgNumber.replace(/\s/g, ""))) {
+    return { error: "Organisasjonsnummer må være 9 siffer." };
   }
 
   const existing = await db.query.users.findFirst({
@@ -51,7 +55,12 @@ export async function registerAction(
 
   const [business] = await db
     .insert(businesses)
-    .values({ slug, name, email })
+    .values({
+      slug,
+      name,
+      email,
+      onepageContent: { footer: { orgNumber } },
+    })
     .returning();
 
   const passwordHash = await bcrypt.hash(password, 10);
