@@ -38,6 +38,13 @@ import {
   refundCredits,
   TEXT_COST,
 } from "@/lib/ai-quota";
+import {
+  buildDemoMarketingProfile,
+  demoContentPosts,
+  demoImageUrl,
+  demoSnippets,
+  DEMO_BLOG_POST,
+} from "@/lib/demo-marketing";
 
 export type MarketingProfileState =
   | { error: string }
@@ -106,7 +113,10 @@ export type CrawlState =
 // Crawler bedriftens egen nettside og lagrer sammendraget i profilen.
 export async function crawlWebsiteAction(): Promise<CrawlState> {
   const businessId = await requireBusinessId();
-  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (await isDemoBusiness(businessId)) {
+    const crawl = buildDemoMarketingProfile().websiteCrawl;
+    return crawl ? { ok: true, crawl } : { error: DEMO_BLOCK_MESSAGE };
+  }
 
   const business = await db.query.businesses.findFirst({
     where: eq(businesses.id, businessId),
@@ -139,7 +149,10 @@ export type SeoState =
 // F3.3 — genererer SEO-anbefaling med Claude og lagrer den i profilen.
 export async function generateSeoAction(): Promise<SeoState> {
   const businessId = await requireBusinessId();
-  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (await isDemoBusiness(businessId)) {
+    const seo = buildDemoMarketingProfile().seo;
+    return seo ? { ok: true, seo } : { error: DEMO_BLOCK_MESSAGE };
+  }
   if (!hasAnthropicKey()) {
     return { error: "AI-tjenesten er ikke konfigurert ennå." };
   }
@@ -199,7 +212,12 @@ export type AnalysisState =
 // F3.4 — genererer markedsanalyse med Claude og lagrer den i profilen.
 export async function generateAnalysisAction(): Promise<AnalysisState> {
   const businessId = await requireBusinessId();
-  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (await isDemoBusiness(businessId)) {
+    const analysis = buildDemoMarketingProfile().analysis;
+    return analysis
+      ? { ok: true, analysis }
+      : { error: DEMO_BLOCK_MESSAGE };
+  }
   if (!hasAnthropicKey()) {
     return { error: "AI-tjenesten er ikke konfigurert ennå." };
   }
@@ -265,7 +283,19 @@ export async function generateContentAction(
   channelIds: string[],
 ): Promise<ContentState> {
   const businessId = await requireBusinessId();
-  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (await isDemoBusiness(businessId)) {
+    const demoChannels = channelIds.filter(
+      (id): id is ChannelId => id in CHANNEL_STRATEGIES,
+    );
+    if (demoChannels.length === 0) {
+      return { error: "Velg minst én kanal." };
+    }
+    return {
+      ok: true,
+      posts: demoContentPosts(demoChannels),
+      failedChannels: [],
+    };
+  }
   if (!hasAnthropicKey()) {
     return { error: "AI-tjenesten er ikke konfigurert ennå." };
   }
@@ -341,7 +371,9 @@ export async function generateImageAction(
   channelId: string,
 ): Promise<ImageState> {
   const businessId = await requireBusinessId();
-  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (await isDemoBusiness(businessId)) {
+    return { ok: true, imageUrl: demoImageUrl(channelId) };
+  }
   if (!hasReplicateToken()) {
     return { error: "Bildegenerering er ikke konfigurert ennå." };
   }
@@ -406,7 +438,10 @@ export async function generatePlanAction(
   periodWeeks: number,
 ): Promise<PlanState> {
   const businessId = await requireBusinessId();
-  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (await isDemoBusiness(businessId)) {
+    const plan = buildDemoMarketingProfile().postingPlan;
+    return plan ? { ok: true, plan } : { error: DEMO_BLOCK_MESSAGE };
+  }
   if (!hasAnthropicKey()) {
     return { error: "AI-tjenesten er ikke konfigurert ennå." };
   }
@@ -472,7 +507,9 @@ export async function generateBlogPostAction(
   topic: string,
 ): Promise<BlogState> {
   const businessId = await requireBusinessId();
-  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (await isDemoBusiness(businessId)) {
+    return { ok: true, post: DEMO_BLOG_POST };
+  }
   if (!hasAnthropicKey()) {
     return { error: "AI-tjenesten er ikke konfigurert ennå." };
   }
@@ -575,12 +612,14 @@ export async function generateSnippetAction(
   extraContext: string,
 ): Promise<SnippetState> {
   const businessId = await requireBusinessId();
-  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
-  if (!hasAnthropicKey()) {
-    return { error: "AI-tjenesten er ikke konfigurert ennå." };
-  }
   if (!getSnippetType(snippetTypeId)) {
     return { error: "Ukjent teksttype." };
+  }
+  if (await isDemoBusiness(businessId)) {
+    return { ok: true, variants: demoSnippets(snippetTypeId) };
+  }
+  if (!hasAnthropicKey()) {
+    return { error: "AI-tjenesten er ikke konfigurert ennå." };
   }
 
   const business = await db.query.businesses.findFirst({

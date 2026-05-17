@@ -4,6 +4,7 @@ import { businesses } from "@/db/schema";
 import { requireBusinessId } from "@/lib/session";
 import { parseMarketingProfile } from "@/lib/marketing";
 import { readUsage } from "@/lib/ai-quota";
+import { DEMO_SLUG } from "@/lib/demo";
 import { BackLink } from "@/components/back-link";
 import { MarketingProfileForm } from "./profile-form";
 import { CrawlPanel } from "./crawl-panel";
@@ -21,6 +22,7 @@ export default async function MarketingPage() {
     where: eq(businesses.id, businessId),
   });
   const profile = parseMarketingProfile(business?.marketingProfile);
+  const isDemo = business?.slug === DEMO_SLUG;
   const usage = readUsage({
     aiPeriod: business?.aiPeriod ?? null,
     aiTextUsed: business?.aiTextUsed ?? 0,
@@ -90,6 +92,15 @@ export default async function MarketingPage() {
           sted. Gå gjennom fanene fra venstre til høyre.
         </p>
       </div>
+
+      {isDemo && (
+        <div className="rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
+          Dette er demomodus. Verktøyene viser ferdig eksempelinnhold, så du
+          ser hvordan markedsføringshuben fungerer — uten at noe lagres. Med
+          egen konto tilpasses alt din bedrift, og du kan lagre og bruke
+          innholdet.
+        </div>
+      )}
 
       <div className="space-y-3 rounded-xl border border-gray-200 p-4">
         <div className="flex items-baseline justify-between">

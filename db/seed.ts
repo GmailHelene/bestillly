@@ -15,6 +15,7 @@ import {
 } from "./schema";
 import type { OnepageContent } from "../lib/onepage";
 import { DEMO_EMAIL, DEMO_PASSWORD } from "../lib/demo";
+import { buildDemoMarketingProfile } from "../lib/demo-marketing";
 
 config({ path: ".env.local" });
 
@@ -73,6 +74,7 @@ async function seed() {
       vippsNumber: "123456",
       shippingFree: false,
       shippingFee: 79,
+      marketingProfile: buildDemoMarketingProfile(),
     })
     .returning();
 
