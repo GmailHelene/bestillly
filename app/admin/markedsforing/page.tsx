@@ -10,6 +10,7 @@ import { SeoPanel } from "./seo-panel";
 import { AnalysisPanel } from "./analysis-panel";
 import { ContentPanel } from "./content-panel";
 import { PlanPanel } from "./plan-panel";
+import { BlogPanel } from "./blog-panel";
 
 export default async function MarketingPage() {
   const businessId = await requireBusinessId();
@@ -46,10 +47,12 @@ export default async function MarketingPage() {
 
       <ContentPanel defaultChannels={profile.channels ?? []} />
 
+      <BlogPanel />
+
       <PlanPanel initialPlan={profile.postingPlan} />
 
       <p className="rounded-xl border border-dashed border-gray-300 p-4 text-center text-sm text-gray-500">
-        Kommer: SEO-blogginnlegg og SEO-tekstsnippets.
+        Kommer: SEO-tekstsnippets.
       </p>
     </div>
   );

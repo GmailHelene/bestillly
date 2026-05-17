@@ -1,9 +1,10 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "@/db";
-import { businesses, products, services } from "@/db/schema";
+import { businesses, posts, products, services } from "@/db/schema";
+import { slugify } from "@/lib/slug";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_BLOCK_MESSAGE } from "@/lib/demo";
 import {
@@ -26,6 +27,10 @@ import { CHANNEL_STRATEGIES, type ChannelId } from "@/lib/marketing-platforms";
 import { generateImage, hasReplicateToken } from "@/lib/replicate";
 import { hasCloudinary, uploadImageFromUrl } from "@/lib/cloudinary";
 import { generatePlan, type PostingPlan } from "@/lib/marketing-plan";
+import {
+  generateBlogPost,
+  type GeneratedBlogPost,
+} from "@/lib/marketing-blog";
 
 export type MarketingProfileState =
   | { error: string }
@@ -418,4 +423,101 @@ export async function generatePlanAction(
         "Klarte ikke å lage publiseringsplanen akkurat nå. Prøv igjen om litt.",
     };
   }
+}
+
+export type BlogState =
+  | { error: string }
+  | { ok: true; post: GeneratedBlogPost }
+  | undefined;
+
+// F3.7 — genererer et SEO-optimalisert blogginnlegg (lagres ikke ennå).
+export async function generateBlogPostAction(
+  topic: string,
+): Promise<BlogState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (!hasAnthropicKey()) {
+    return { error: "AI-tjenesten er ikke konfigurert ennå." };
+  }
+
+  const cleanTopic = topic.trim();
+  if (cleanTopic.length < 3) {
+    return { error: "Skriv inn et tema for blogginnlegget." };
+  }
+
+  const business = await db.query.businesses.findFirst({
+    where: eq(businesses.id, businessId),
+  });
+  if (!business) return { error: "Fant ikke bedriften." };
+  const profile = parseMarketingProfile(business.marketingProfile);
+
+  const serviceList = await db.query.services.findMany({
+    where: eq(services.businessId, businessId),
+  });
+  const productList = await db.query.products.findMany({
+    where: eq(products.businessId, businessId),
+  });
+
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://bestilly.no";
+  try {
+    const { result } = await generateBlogPost({
+      businessName: business.name,
+      description: business.description ?? undefined,
+      audience: profile.audience,
+      tone: profile.tone,
+      topic: cleanTopic,
+      seoKeywords: profile.seo?.keywords,
+      services: serviceList.map((s) => s.name),
+      products: productList.map((p) => p.name),
+      publicUrl: `${baseUrl}/${business.slug}`,
+    });
+    return { ok: true, post: result };
+  } catch {
+    return {
+      error:
+        "Klarte ikke å lage blogginnlegget akkurat nå. Prøv igjen om litt.",
+    };
+  }
+}
+
+export type SaveBlogState =
+  | { error: string }
+  | { ok: true }
+  | undefined;
+
+// Lagrer et generert blogginnlegg som upublisert kladd i bloggen.
+export async function saveGeneratedBlogPost(
+  title: string,
+  content: string,
+): Promise<SaveBlogState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+
+  const cleanTitle = title.trim();
+  const cleanContent = content.trim();
+  if (!cleanTitle) return { error: "Tittel er påkrevd." };
+  if (!cleanContent) return { error: "Innhold er påkrevd." };
+
+  // Finn en ledig slug innenfor bedriften.
+  const base = slugify(cleanTitle) || "innlegg";
+  let slug = base;
+  let suffix = 1;
+  while (
+    await db.query.posts.findFirst({
+      where: and(eq(posts.businessId, businessId), eq(posts.slug, slug)),
+    })
+  ) {
+    suffix += 1;
+    slug = `${base}-${suffix}`;
+  }
+
+  await db.insert(posts).values({
+    businessId,
+    slug,
+    title: cleanTitle,
+    content: cleanContent,
+    published: false,
+  });
+  revalidatePath("/admin/blogg");
+  return { ok: true };
 }
