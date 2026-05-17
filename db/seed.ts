@@ -1,26 +1,33 @@
 import { config } from "dotenv";
 import { eq } from "drizzle-orm";
+import bcrypt from "bcryptjs";
 import { db } from "./index";
-import { businesses, services, workingHours } from "./schema";
+import { bookings, businesses, services, users, workingHours } from "./schema";
 import type { OnepageContent } from "../lib/onepage";
+import { DEMO_EMAIL, DEMO_PASSWORD } from "../lib/demo";
 
 config({ path: ".env.local" });
 
-// Oppretter (eller gjenoppretter) en komplett demo-bedrift på /demo som
-// besøkende kan klikke seg rundt i fra salgssiden.
+function bookingDate(daysFromNow: number, hour: number): Date {
+  const d = new Date();
+  d.setDate(d.getDate() + daysFromNow);
+  d.setHours(hour, 0, 0, 0);
+  return d;
+}
+
+// Oppretter (eller gjenoppretter) en komplett demo-bedrift på /demo,
+// med innlogging til adminpanelet og realistiske bookinger.
 async function seed() {
   const existing = await db.query.businesses.findFirst({
     where: eq(businesses.slug, "demo"),
   });
   if (existing) {
-    // Sletting kaskaderer til behandlinger, åpningstider og bookinger.
+    // Sletting kaskaderer til brukere, behandlinger, åpningstider og bookinger.
     await db.delete(businesses).where(eq(businesses.id, existing.id));
   }
 
   const onepageContent: OnepageContent = {
-    header: {
-      tagline: "Frisør & velvære i Vikersund",
-    },
+    header: { tagline: "Frisør & velvære i Vikersund" },
     sections: {
       aboutText:
         "Hos Demo Frisør & Velvære er du i trygge hender. Vi tar oss tid til hver enkelt kunde, og målet vårt er at du går herfra med et smil. Velkommen innom!",
@@ -44,7 +51,7 @@ async function seed() {
     .values({
       slug: "demo",
       name: "Demo Frisør & Velvære",
-      email: "demo@bestilly.no",
+      email: DEMO_EMAIL,
       phone: "12 34 56 78",
       address: "Eksempelgata 1, 3370 Vikersund",
       description:
@@ -54,36 +61,45 @@ async function seed() {
     })
     .returning();
 
-  await db.insert(services).values([
-    {
-      businessId: demo.id,
-      name: "Klipp",
-      description: "Klipp og styling tilpasset deg.",
-      durationMinutes: 45,
-      priceNok: 550,
-    },
-    {
-      businessId: demo.id,
-      name: "Farging",
-      description: "Helfarge med profesjonelle produkter.",
-      durationMinutes: 90,
-      priceNok: 1200,
-    },
-    {
-      businessId: demo.id,
-      name: "Vippeforlengelse",
-      description: "Et fyldig og naturlig blikk.",
-      durationMinutes: 60,
-      priceNok: 800,
-    },
-    {
-      businessId: demo.id,
-      name: "Styling før fest",
-      description: "Oppsett og styling til den store anledningen.",
-      durationMinutes: 45,
-      priceNok: 650,
-    },
-  ]);
+  // Innlogging til demo-adminpanelet.
+  const passwordHash = await bcrypt.hash(DEMO_PASSWORD, 10);
+  await db
+    .insert(users)
+    .values({ businessId: demo.id, email: DEMO_EMAIL, passwordHash });
+
+  const insertedServices = await db
+    .insert(services)
+    .values([
+      {
+        businessId: demo.id,
+        name: "Klipp",
+        description: "Klipp og styling tilpasset deg.",
+        durationMinutes: 45,
+        priceNok: 550,
+      },
+      {
+        businessId: demo.id,
+        name: "Farging",
+        description: "Helfarge med profesjonelle produkter.",
+        durationMinutes: 90,
+        priceNok: 1200,
+      },
+      {
+        businessId: demo.id,
+        name: "Vippeforlengelse",
+        description: "Et fyldig og naturlig blikk.",
+        durationMinutes: 60,
+        priceNok: 800,
+      },
+      {
+        businessId: demo.id,
+        name: "Styling før fest",
+        description: "Oppsett og styling til den store anledningen.",
+        durationMinutes: 45,
+        priceNok: 650,
+      },
+    ])
+    .returning();
 
   await db.insert(workingHours).values(
     [1, 2, 3, 4, 5].map((weekday) => ({
@@ -94,7 +110,67 @@ async function seed() {
     })),
   );
 
-  console.log("Demo-bedrift opprettet på /demo");
+  const [klipp, farging, vipper] = insertedServices;
+  const demoBookings = [
+    {
+      service: klipp,
+      customerName: "Anne Hansen",
+      customerEmail: "anne@eksempel.no",
+      customerPhone: "911 22 333",
+      daysFromNow: 2,
+      hour: 11,
+      status: "confirmed" as const,
+    },
+    {
+      service: farging,
+      customerName: "Per Olsen",
+      customerEmail: "per@eksempel.no",
+      customerPhone: "922 33 444",
+      daysFromNow: 4,
+      hour: 13,
+      status: "confirmed" as const,
+    },
+    {
+      service: vipper,
+      customerName: "Kari Berg",
+      customerEmail: "kari@eksempel.no",
+      customerPhone: "933 44 555",
+      daysFromNow: 6,
+      hour: 10,
+      status: "cancelled" as const,
+    },
+    {
+      service: klipp,
+      customerName: "Ola Nordmann",
+      customerEmail: "ola@eksempel.no",
+      customerPhone: "944 55 666",
+      daysFromNow: -5,
+      hour: 14,
+      status: "confirmed" as const,
+    },
+  ];
+
+  await db.insert(bookings).values(
+    demoBookings.map((b) => {
+      const startsAt = bookingDate(b.daysFromNow, b.hour);
+      return {
+        businessId: demo.id,
+        serviceId: b.service.id,
+        customerName: b.customerName,
+        customerEmail: b.customerEmail,
+        customerPhone: b.customerPhone,
+        startsAt,
+        endsAt: new Date(
+          startsAt.getTime() + b.service.durationMinutes * 60_000,
+        ),
+        status: b.status,
+      };
+    }),
+  );
+
+  console.log(
+    `Demo-bedrift opprettet på /demo — admin-innlogging: ${DEMO_EMAIL}`,
+  );
 }
 
 seed()

@@ -13,7 +13,8 @@ import {
 import { computeAvailableSlots, dayBounds, slotInstant } from "@/lib/availability";
 import { formatDateTime } from "@/lib/format";
 import { sendEmail } from "@/lib/email";
-import { requireBusinessId } from "@/lib/session";
+import { isDemoBusiness, requireBusinessId } from "@/lib/session";
+import { DEMO_SLUG } from "@/lib/demo";
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_PATTERN = /^\d{2}:\d{2}$/;
@@ -66,6 +67,9 @@ export async function createBooking(
     ),
   });
   if (!service) return { error: "Behandlingen er ikke tilgjengelig." };
+
+  // Demo-bedriften: vis vellykket booking uten å lagre eller sende e-post.
+  if (business.slug === DEMO_SLUG) return { ok: true };
 
   // Re-sjekk at tiden fortsatt er ledig (mot dobbeltbooking).
   const wh = await db.query.workingHours.findMany({
@@ -240,6 +244,7 @@ export async function cancelBookingByToken(formData: FormData): Promise<void> {
 // Avbestilling fra bedriftens admin-panel.
 export async function cancelBookingByAdmin(formData: FormData): Promise<void> {
   const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return;
   const id = String(formData.get("id") ?? "");
   if (!UUID_PATTERN.test(id)) return;
 

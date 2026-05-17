@@ -4,7 +4,8 @@ import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { availabilityExceptions, workingHours } from "@/db/schema";
-import { requireBusinessId } from "@/lib/session";
+import { isDemoBusiness, requireBusinessId } from "@/lib/session";
+import { DEMO_BLOCK_MESSAGE } from "@/lib/demo";
 
 export type ActionState = { error: string } | { ok: true } | undefined;
 
@@ -24,6 +25,7 @@ export async function saveWorkingHours(
   formData: FormData,
 ): Promise<ActionState> {
   const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
 
   const rows: {
     businessId: string;
@@ -61,6 +63,7 @@ export async function addException(
   formData: FormData,
 ): Promise<ActionState> {
   const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
   const date = String(formData.get("date") ?? "");
   const type = String(formData.get("type") ?? "");
 
@@ -100,6 +103,7 @@ export async function addException(
 
 export async function deleteException(formData: FormData) {
   const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return;
   const id = String(formData.get("id") ?? "");
   if (!id) return;
 

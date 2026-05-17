@@ -4,7 +4,8 @@ import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses } from "@/db/schema";
-import { requireBusinessId } from "@/lib/session";
+import { isDemoBusiness, requireBusinessId } from "@/lib/session";
+import { DEMO_BLOCK_MESSAGE } from "@/lib/demo";
 import { DEFAULT_THEME, isThemeId } from "@/lib/themes";
 import type { OnepageContent } from "@/lib/onepage";
 
@@ -15,6 +16,7 @@ export async function updateBusinessProfile(
   formData: FormData,
 ): Promise<ProfileState> {
   const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
 
   const name = String(formData.get("name") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();

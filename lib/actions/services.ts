@@ -4,7 +4,8 @@ import { revalidatePath } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { services } from "@/db/schema";
-import { requireBusinessId } from "@/lib/session";
+import { isDemoBusiness, requireBusinessId } from "@/lib/session";
+import { DEMO_BLOCK_MESSAGE } from "@/lib/demo";
 
 export type ServiceState = { error: string } | undefined;
 
@@ -39,6 +40,7 @@ export async function createService(
   formData: FormData,
 ): Promise<ServiceState> {
   const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
   const parsed = parseService(formData);
   if (!parsed.ok) return { error: parsed.error };
 
@@ -58,6 +60,7 @@ export async function updateService(
   formData: FormData,
 ): Promise<ServiceState> {
   const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
   const id = String(formData.get("id") ?? "");
   if (!id) return { error: "Mangler behandlings-ID." };
 
@@ -79,6 +82,7 @@ export async function updateService(
 
 export async function deleteService(formData: FormData) {
   const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return;
   const id = String(formData.get("id") ?? "");
   if (!id) return;
 

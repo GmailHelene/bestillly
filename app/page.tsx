@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { THEMES } from "@/lib/themes";
 import { ProductPreview } from "@/components/product-preview";
+import { enterDemo } from "@/lib/actions/demo";
 
 const steps = [
   {
@@ -149,6 +150,48 @@ export default function Home() {
                 </p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Prøv selv */}
+        <section className="bg-[#fdf3ee]">
+          <div className="mx-auto max-w-4xl px-6 py-20">
+            <h2 className="text-center text-3xl font-bold tracking-tight">
+              Prøv bestilly selv
+            </h2>
+            <p className="mx-auto mt-3 max-w-md text-center text-gray-600">
+              Klikk deg gjennom et ekte eksempel — både slik kundene ser det,
+              og slik du styrer bedriften.
+            </p>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl bg-white p-6 shadow-sm">
+                <h3 className="font-semibold">Kundesiden</h3>
+                <p className="mt-1 text-sm text-gray-600">
+                  Se hvordan kundene dine finner fram og booker time.
+                </p>
+                <Link
+                  href="/demo"
+                  className="mt-4 inline-block rounded-xl border border-gray-300 px-5 py-2.5 text-sm font-medium hover:bg-gray-50"
+                >
+                  Åpne kundedemo →
+                </Link>
+              </div>
+              <div className="rounded-2xl bg-white p-6 shadow-sm">
+                <h3 className="font-semibold">Adminpanelet</h3>
+                <p className="mt-1 text-sm text-gray-600">
+                  Se hvordan du styrer behandlinger, åpningstider og
+                  bookinger.
+                </p>
+                <form action={enterDemo}>
+                  <button
+                    type="submit"
+                    className="mt-4 inline-block rounded-xl border border-gray-300 px-5 py-2.5 text-sm font-medium hover:bg-gray-50"
+                  >
+                    Åpne admin-demo →
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         </section>
 

@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { db } from "@/db";
 import { businesses } from "@/db/schema";
 import { logoutAction } from "@/lib/actions/auth";
+import { DEMO_SLUG } from "@/lib/demo";
 
 export default async function AdminLayout({
   children,
@@ -23,6 +24,14 @@ export default async function AdminLayout({
 
   return (
     <div className="flex min-h-full flex-col">
+      {business?.slug === DEMO_SLUG && (
+        <div className="bg-amber-100 px-6 py-2 text-center text-sm text-amber-900">
+          Du utforsker bestilly i demomodus — endringer lagres ikke.{" "}
+          <Link href="/registrer" className="font-semibold underline">
+            Opprett din egen konto
+          </Link>
+        </div>
+      )}
       <header className="flex items-center justify-between border-b border-gray-200 px-6 py-3">
         <div className="flex items-center gap-6">
           <Link href="/admin" className="font-semibold">
