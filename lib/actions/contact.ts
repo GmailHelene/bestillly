@@ -1,17 +1,11 @@
 "use server";
 
 import { sendEmail } from "@/lib/email";
+import { escapeHtml } from "@/lib/html";
 
 export type ContactState = { error: string } | { ok: true } | undefined;
 
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
 
 export async function sendContactMessage(
   _prev: ContactState,

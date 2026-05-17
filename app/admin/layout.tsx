@@ -9,6 +9,18 @@ import { logoutAction } from "@/lib/actions/auth";
 import { DEMO_SLUG } from "@/lib/demo";
 import { Logo } from "@/components/logo";
 
+const NAV_LINKS = [
+  { href: "/admin", label: "Oversikt" },
+  { href: "/admin/behandlinger", label: "Behandlinger" },
+  { href: "/admin/apningstider", label: "Åpningstider" },
+  { href: "/admin/bookinger", label: "Bookinger" },
+  { href: "/admin/produkter", label: "Produkter" },
+  { href: "/admin/bestillinger", label: "Bestillinger" },
+  { href: "/admin/blogg", label: "Blogg" },
+  { href: "/admin/nyhetsbrev", label: "Nyhetsbrev" },
+  { href: "/admin/side", label: "Min side" },
+];
+
 export default async function AdminLayout({
   children,
 }: {
@@ -39,92 +51,49 @@ export default async function AdminLayout({
           offentlige siden er utilgjengelig til fakturaen er betalt.
         </div>
       )}
-      <header className="flex items-center justify-between border-b border-gray-200 px-6 py-3">
-        <div className="flex items-center gap-6">
+
+      <header className="border-b border-gray-200">
+        <div className="flex items-center justify-between px-6 py-3">
           <Link href="/admin">
             <Logo />
           </Link>
-          <nav className="flex gap-4 text-sm">
-            <Link
-              href="/admin"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              Oversikt
-            </Link>
-            <Link
-              href="/admin/behandlinger"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              Behandlinger
-            </Link>
-            <Link
-              href="/admin/apningstider"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              Åpningstider
-            </Link>
-            <Link
-              href="/admin/bookinger"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              Bookinger
-            </Link>
-            <Link
-              href="/admin/produkter"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              Produkter
-            </Link>
-            <Link
-              href="/admin/bestillinger"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              Bestillinger
-            </Link>
-            <Link
-              href="/admin/blogg"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              Blogg
-            </Link>
-            <Link
-              href="/admin/nyhetsbrev"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              Nyhetsbrev
-            </Link>
-            <Link
-              href="/admin/side"
-              className="text-gray-600 hover:text-gray-900"
-            >
-              Min side
-            </Link>
-          </nav>
+          <div className="flex items-center gap-4 text-sm">
+            {business && (
+              <a
+                href={`/${business.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden text-gray-600 hover:text-gray-900 sm:inline"
+              >
+                Vis din side ↗
+              </a>
+            )}
+            <span className="hidden text-gray-500 sm:inline">
+              {business?.name ?? "Min bedrift"}
+            </span>
+            <form action={logoutAction}>
+              <button
+                type="submit"
+                className="rounded-lg border border-gray-300 px-3 py-1.5 font-medium hover:bg-gray-50"
+              >
+                Logg ut
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="flex items-center gap-4 text-sm">
-          {business && (
-            <a
-              href={`/${business.slug}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900"
+        <nav className="flex gap-1 overflow-x-auto px-4 pb-2 text-sm">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="whitespace-nowrap rounded-md px-3 py-1.5 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
             >
-              Vis din side ↗
-            </a>
-          )}
-          <span className="text-gray-500">
-            {business?.name ?? "Min bedrift"}
-          </span>
-          <form action={logoutAction}>
-            <button
-              type="submit"
-              className="rounded-lg border border-gray-300 px-3 py-1.5 font-medium hover:bg-gray-50"
-            >
-              Logg ut
-            </button>
-          </form>
-        </div>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </header>
+
       <main className="flex-1 p-6">{children}</main>
     </div>
   );

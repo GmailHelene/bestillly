@@ -7,17 +7,11 @@ import { businesses, newsletters, subscribers } from "@/db/schema";
 import { sendEmail } from "@/lib/email";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_BLOCK_MESSAGE, DEMO_SLUG } from "@/lib/demo";
+import { escapeHtml } from "@/lib/html";
 
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const UUID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
 
 export type SubscribeState = { error: string } | { ok: true } | undefined;
 

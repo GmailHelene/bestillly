@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { and, eq } from "drizzle-orm";
@@ -7,7 +8,8 @@ import { businesses, posts } from "@/db/schema";
 import { resolveTheme } from "@/lib/themes";
 import { formatDateShort } from "@/lib/format";
 
-async function getData(slug: string, postSlug: string) {
+// cache() dedupliserer kallet mellom generateMetadata og siden.
+const getData = cache(async (slug: string, postSlug: string) => {
   const business = await db.query.businesses.findFirst({
     where: eq(businesses.slug, slug),
   });
@@ -21,7 +23,7 @@ async function getData(slug: string, postSlug: string) {
   });
   if (!post) return null;
   return { business, post };
-}
+});
 
 export async function generateMetadata({
   params,

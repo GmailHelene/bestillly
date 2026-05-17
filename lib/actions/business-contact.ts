@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses } from "@/db/schema";
 import { sendEmail } from "@/lib/email";
+import { escapeHtml } from "@/lib/html";
 import { DEMO_SLUG } from "@/lib/demo";
 
 export type BusinessContactState =
@@ -12,13 +13,6 @@ export type BusinessContactState =
   | undefined;
 
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
 
 // Sender en melding fra kontaktskjemaet på en bedrifts onepage til bedriften.
 export async function sendBusinessMessage(

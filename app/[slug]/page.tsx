@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { and, eq } from "drizzle-orm";
@@ -23,9 +24,10 @@ const WEEKDAYS: [number, string][] = [
   [7, "Søndag"],
 ];
 
-async function getBusiness(slug: string) {
+// cache() dedupliserer kallet — generateMetadata og siden deler ett oppslag.
+const getBusiness = cache(async (slug: string) => {
   return db.query.businesses.findFirst({ where: eq(businesses.slug, slug) });
-}
+});
 
 export async function generateMetadata({
   params,
