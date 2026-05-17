@@ -1,4 +1,4 @@
-export type ThemeId = "ren" | "eleganse" | "pulse";
+export type ThemeId = "ren" | "eleganse" | "botanisk" | "rose" | "marine";
 
 export type HeroStyle = "minimal" | "band" | "gradient";
 
@@ -43,18 +43,44 @@ export const THEMES: Record<ThemeId, Theme> = {
     headingFont: "var(--font-playfair)",
     radius: "rounded-2xl",
   },
-  pulse: {
-    id: "pulse",
-    name: "Pulse",
-    tagline: "Moderne og energisk",
-    pageBg: "#f6f5ff",
+  botanisk: {
+    id: "botanisk",
+    name: "Botanisk",
+    tagline: "Frisk og naturlig",
+    pageBg: "#f3f7f3",
     surface: "#ffffff",
-    accent: "#6d28d9",
-    accentSoft: "#ddd6fe",
-    heroStyle: "gradient",
-    heroGradient: "linear-gradient(135deg, #6d28d9, #9333ea)",
+    accent: "#3f6b52",
+    accentSoft: "#dde9de",
+    heroStyle: "minimal",
+    heroGradient: "linear-gradient(135deg, #3f6b52, #5c8a6e)",
     headingFont: "var(--font-poppins)",
     radius: "rounded-2xl",
+  },
+  rose: {
+    id: "rose",
+    name: "Rosé",
+    tagline: "Myk og innbydende — serif-skrift",
+    pageBg: "#fdf5f4",
+    surface: "#ffffff",
+    accent: "#b06b76",
+    accentSoft: "#f3e0e3",
+    heroStyle: "band",
+    heroGradient: "linear-gradient(135deg, #b06b76, #c98e97)",
+    headingFont: "var(--font-playfair)",
+    radius: "rounded-2xl",
+  },
+  marine: {
+    id: "marine",
+    name: "Marine",
+    tagline: "Rolig og stilren",
+    pageBg: "#f5f7f9",
+    surface: "#ffffff",
+    accent: "#3c5168",
+    accentSoft: "#e2e8ef",
+    heroStyle: "minimal",
+    heroGradient: "linear-gradient(135deg, #3c5168, #5a728c)",
+    headingFont: "var(--font-geist-sans)",
+    radius: "rounded-xl",
   },
 };
 
