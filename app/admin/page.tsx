@@ -21,6 +21,11 @@ const sections = [
     href: "/admin/bookinger",
   },
   {
+    title: "Produkter",
+    description: "Varer du selger — grunnlaget for nettbutikken.",
+    href: "/admin/produkter",
+  },
+  {
     title: "Min side",
     description: "Rediger den offentlige siden din, med SEO-sjekkliste.",
     href: "/admin/side",

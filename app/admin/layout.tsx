@@ -70,6 +70,12 @@ export default async function AdminLayout({
               Bookinger
             </Link>
             <Link
+              href="/admin/produkter"
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Produkter
+            </Link>
+            <Link
               href="/admin/side"
               className="text-gray-600 hover:text-gray-900"
             >

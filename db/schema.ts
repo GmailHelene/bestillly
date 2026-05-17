@@ -107,6 +107,23 @@ export const bookings = pgTable(
   (t) => [index("bookings_business_starts_idx").on(t.businessId, t.startsAt)],
 );
 
+// Varer bedriften selger i nettbutikken sin (Fase 2).
+export const products = pgTable("products", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  businessId: uuid("business_id")
+    .notNull()
+    .references(() => businesses.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  description: text("description"),
+  priceNok: integer("price_nok").notNull(),
+  imageUrl: text("image_url"),
+  inStock: boolean("in_stock").notNull().default(true),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 export type Business = typeof businesses.$inferSelect;
 export type Service = typeof services.$inferSelect;
 export type Booking = typeof bookings.$inferSelect;
+export type Product = typeof products.$inferSelect;
