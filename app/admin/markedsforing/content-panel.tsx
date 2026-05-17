@@ -106,30 +106,73 @@ function PostImage({
 
 function PostCard({ post }: { post: GeneratedPost }) {
   const hashtagText = post.hashtags.map((h) => `#${h}`).join(" ");
-  const fullText = hashtagText
-    ? `${post.caption}\n\n${hashtagText}`
-    : post.caption;
+  const fullText = [
+    post.title,
+    post.caption,
+    post.callToAction,
+    hashtagText,
+  ]
+    .filter(Boolean)
+    .join("\n\n");
 
   return (
     <div className="space-y-3 rounded-lg border border-gray-200 p-3">
-      <div className="flex items-center justify-between">
-        <span className="font-semibold text-gray-800">
-          {post.channelName}
-        </span>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-gray-800">
+            {post.channelName}
+          </span>
+          <span className="rounded-full bg-gray-900 px-2 py-0.5 text-xs font-medium text-white">
+            {post.postType}
+          </span>
+        </div>
         <span className="text-xs text-gray-400">{post.pixelSize}</span>
       </div>
+
+      {post.title && (
+        <div className="space-y-1">
+          <span className="text-xs font-medium text-gray-500">Tittel</span>
+          <p className="rounded-md bg-gray-50 px-3 py-2 text-sm font-medium text-gray-800">
+            {post.title}
+          </p>
+        </div>
+      )}
 
       <div className="space-y-1">
         <div className="flex items-center justify-between">
           <span className="text-xs font-medium text-gray-500">
             Bildetekst
           </span>
-          <CopyButton text={fullText} label="Kopier tekst" />
+          <CopyButton text={fullText} label="Kopier alt" />
         </div>
         <p className="whitespace-pre-wrap rounded-md bg-gray-50 px-3 py-2 text-sm text-gray-700">
           {post.caption}
         </p>
       </div>
+
+      {post.callToAction && (
+        <div className="space-y-1">
+          <span className="text-xs font-medium text-gray-500">
+            Oppfordring (CTA)
+          </span>
+          <p className="rounded-md bg-gray-50 px-3 py-2 text-sm text-gray-700">
+            {post.callToAction}
+          </p>
+        </div>
+      )}
+
+      {post.linkSuggestion && (
+        <p className="text-xs text-gray-500">
+          <span className="font-medium">Lenke / mål:</span>{" "}
+          {post.linkSuggestion}
+        </p>
+      )}
+
+      {post.goal && (
+        <p className="text-xs text-gray-500">
+          <span className="font-medium">Mål med innlegget:</span> {post.goal}
+        </p>
+      )}
 
       {post.hashtags.length > 0 && (
         <div className="flex flex-wrap gap-1.5">

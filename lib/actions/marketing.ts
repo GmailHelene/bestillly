@@ -265,6 +265,7 @@ export async function generateContentAction(
   if (!business) return { error: "Fant ikke bedriften." };
   const profile = parseMarketingProfile(business.marketingProfile);
 
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://bestilly.no";
   const input = {
     businessName: business.name,
     description: business.description ?? undefined,
@@ -272,6 +273,7 @@ export async function generateContentAction(
     tone: profile.tone,
     topic: cleanTopic,
     seoKeywords: profile.seo?.keywords,
+    publicUrl: `${baseUrl}/${business.slug}`,
   };
 
   const posts: GeneratedPost[] = [];
