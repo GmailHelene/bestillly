@@ -62,7 +62,7 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 - [x] Vern mot dobbeltbooking (re-sjekk av ledighet før lagring)
 - [x] Bekreftelses-e-post til kunde
 - [x] Varsel-e-post til bedrift
-- [ ] Resend: verifisere avsenderdomene *(krever konto-oppsett — se under)*
+- [ ] Brevo: verifisere @bestilly.no-avsender før lansering *(bruker midlertidig gmail-avsender nå)*
 - [x] Bookingoversikt i admin (kommende / tidligere)
 
 ### Steg 7 — Avbestilling ⬜

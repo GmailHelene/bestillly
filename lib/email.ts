@@ -1,25 +1,33 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-// Sender e-post via Resend. Hvis nøkler ikke er satt, hoppes sendingen
-// over (logges) slik at booking fortsatt fungerer i utvikling.
+// Sender e-post via Brevo (SMTP). Hvis nøkler ikke er satt, hoppes
+// sendingen over (logges) slik at booking fortsatt fungerer i utvikling.
 export async function sendEmail(params: {
   to: string;
   subject: string;
   html: string;
 }): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
+  const host = process.env.SMTP_HOST;
+  const port = process.env.SMTP_PORT;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
   const from = process.env.EMAIL_FROM;
 
-  if (!apiKey || !from) {
+  if (!host || !port || !user || !pass || !from) {
     console.warn(
-      `[e-post] Hopper over sending til ${params.to} — RESEND_API_KEY/EMAIL_FROM mangler.`,
+      `[e-post] Hopper over sending til ${params.to} — SMTP-konfigurasjon mangler.`,
     );
     return;
   }
 
   try {
-    const resend = new Resend(apiKey);
-    await resend.emails.send({
+    const transporter = nodemailer.createTransport({
+      host,
+      port: Number(port),
+      secure: false, // port 587 bruker STARTTLS
+      auth: { user, pass },
+    });
+    await transporter.sendMail({
       from,
       to: params.to,
       subject: params.subject,
