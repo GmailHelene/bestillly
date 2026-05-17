@@ -24,3 +24,37 @@ export async function uploadToCloudinary(file: File): Promise<string> {
   }
   return data.secure_url;
 }
+
+export function hasCloudinary(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME &&
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
+  );
+}
+
+// Laster opp et bilde fra en ekstern URL — Cloudinary henter selv filen.
+// Brukes til å lagre AI-genererte bilder permanent (Replicate-URL-er utløper).
+export async function uploadImageFromUrl(url: string): Promise<string> {
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+  const preset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+  if (!cloudName || !preset) {
+    throw new Error("Cloudinary er ikke konfigurert.");
+  }
+
+  const form = new FormData();
+  form.append("file", url);
+  form.append("upload_preset", preset);
+
+  const res = await fetch(
+    `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+    { method: "POST", body: form },
+  );
+  if (!res.ok) {
+    throw new Error("Opplasting til Cloudinary feilet.");
+  }
+  const data = (await res.json()) as { secure_url?: string };
+  if (!data.secure_url) {
+    throw new Error("Cloudinary returnerte ingen bilde-URL.");
+  }
+  return data.secure_url;
+}

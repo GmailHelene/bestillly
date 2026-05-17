@@ -23,6 +23,8 @@ import {
   type GeneratedPost,
 } from "@/lib/marketing-content";
 import { CHANNEL_STRATEGIES, type ChannelId } from "@/lib/marketing-platforms";
+import { generateImage, hasReplicateToken } from "@/lib/replicate";
+import { hasCloudinary, uploadImageFromUrl } from "@/lib/cloudinary";
 
 export type MarketingProfileState =
   | { error: string }
@@ -289,4 +291,55 @@ export async function generateContentAction(
     };
   }
   return { ok: true, posts, failedChannels };
+}
+
+export type ImageState =
+  | { error: string }
+  | { ok: true; imageUrl: string }
+  | undefined;
+
+// F3.6 — genererer et AI-bilde fra en prompt, tilpasset kanalens format.
+export async function generateImageAction(
+  prompt: string,
+  channelId: string,
+): Promise<ImageState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (!hasReplicateToken()) {
+    return { error: "Bildegenerering er ikke konfigurert ennå." };
+  }
+
+  const cleanPrompt = prompt.trim();
+  if (cleanPrompt.length < 3) {
+    return { error: "Mangler en beskrivelse å lage bilde fra." };
+  }
+
+  const aspectRatio =
+    channelId in CHANNEL_STRATEGIES
+      ? CHANNEL_STRATEGIES[channelId as ChannelId].imageAspectRatio
+      : "1:1";
+
+  try {
+    const urls = await generateImage({ prompt: cleanPrompt, aspectRatio });
+    const replicateUrl = urls[0];
+    if (!replicateUrl) {
+      return { error: "Bildemotoren returnerte ingen bilde." };
+    }
+
+    // Lagre permanent i Cloudinary — Replicate-URL-er utløper raskt.
+    if (hasCloudinary()) {
+      try {
+        const stored = await uploadImageFromUrl(replicateUrl);
+        return { ok: true, imageUrl: stored };
+      } catch {
+        // Faller tilbake til Replicate-URL hvis opplasting feiler.
+        return { ok: true, imageUrl: replicateUrl };
+      }
+    }
+    return { ok: true, imageUrl: replicateUrl };
+  } catch {
+    return {
+      error: "Klarte ikke å lage bildet akkurat nå. Prøv igjen om litt.",
+    };
+  }
 }

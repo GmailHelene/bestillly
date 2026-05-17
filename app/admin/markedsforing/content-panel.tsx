@@ -1,7 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { generateContentAction } from "@/lib/actions/marketing";
+import {
+  generateContentAction,
+  generateImageAction,
+} from "@/lib/actions/marketing";
 import { MARKETING_CHANNELS } from "@/lib/marketing";
 import type { GeneratedPost } from "@/lib/marketing-content";
 
@@ -26,6 +29,78 @@ function CopyButton({ text, label }: { text: string; label: string }) {
     >
       {copied ? "Kopiert ✓" : label}
     </button>
+  );
+}
+
+function PostImage({
+  prompt,
+  channelId,
+}: {
+  prompt: string;
+  channelId: string;
+}) {
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, startTransition] = useTransition();
+
+  function handleGenerate() {
+    setError(null);
+    startTransition(async () => {
+      const result = await generateImageAction(prompt, channelId);
+      if (result && "ok" in result) {
+        setImageUrl(result.imageUrl);
+      } else if (result && "error" in result) {
+        setError(result.error);
+      }
+    });
+  }
+
+  return (
+    <div className="space-y-2">
+      {error && (
+        <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-700">
+          {error}
+        </p>
+      )}
+
+      {imageUrl ? (
+        <div className="space-y-1">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageUrl}
+            alt="AI-generert bildeforslag"
+            className="w-full max-w-xs rounded-lg border border-gray-200"
+          />
+          <div className="flex gap-2">
+            <a
+              href={imageUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-50"
+            >
+              Åpne / last ned
+            </a>
+            <button
+              type="button"
+              onClick={handleGenerate}
+              disabled={pending}
+              className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-50 disabled:opacity-50"
+            >
+              {pending ? "Lager…" : "Nytt forslag"}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={handleGenerate}
+          disabled={pending}
+          className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-50 disabled:opacity-50"
+        >
+          {pending ? "Lager bilde…" : "Generer bildeforslag"}
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -79,6 +154,10 @@ function PostCard({ post }: { post: GeneratedPost }) {
             </p>
           )}
         </div>
+      )}
+
+      {post.imagePrompt && (
+        <PostImage prompt={post.imagePrompt} channelId={post.channelId} />
       )}
 
       {post.bestTime && (
