@@ -64,6 +64,20 @@ const features = [
       "Siden er bygget for søk, så nye kunder lettere finner bedriften din.",
   },
   {
+    title: "Egen nettbutikk",
+    description:
+      "Selg produkter på siden din — kundene betaler enkelt med Vipps.",
+  },
+  {
+    title: "Blogg og oppdateringer",
+    description:
+      "Skriv innlegg som får egne sider — bra for synligheten i Google.",
+  },
+  {
+    title: "Nyhetsbrev",
+    description: "Samle abonnenter og hold kontakt med kundene dine.",
+  },
+  {
     title: "Ingen app å installere",
     description: "Alt skjer i nettleseren — for deg og for kundene dine.",
   },
@@ -74,6 +88,7 @@ const included = [
   "Egen nettside med designvalg",
   "Ubegrenset antall bookinger",
   "E-postvarsling til deg og kundene",
+  "Nettbutikk, blogg og nyhetsbrev",
   "Logo og bildegalleri",
   "Ingen oppstartsavgift eller gebyr per booking",
 ];

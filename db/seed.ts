@@ -2,7 +2,17 @@ import { config } from "dotenv";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { db } from "./index";
-import { bookings, businesses, services, users, workingHours } from "./schema";
+import {
+  bookings,
+  businesses,
+  newsletters,
+  posts,
+  products,
+  services,
+  subscribers,
+  users,
+  workingHours,
+} from "./schema";
 import type { OnepageContent } from "../lib/onepage";
 import { DEMO_EMAIL, DEMO_PASSWORD } from "../lib/demo";
 
@@ -15,14 +25,13 @@ function bookingDate(daysFromNow: number, hour: number): Date {
   return d;
 }
 
-// Oppretter (eller gjenoppretter) en komplett demo-bedrift på /demo,
-// med innlogging til adminpanelet og realistiske bookinger.
+// Oppretter (eller gjenoppretter) en komplett demo-bedrift på /demo som
+// viser hele løsningen: booking, nettbutikk, blogg og nyhetsbrev.
 async function seed() {
   const existing = await db.query.businesses.findFirst({
     where: eq(businesses.slug, "demo"),
   });
   if (existing) {
-    // Sletting kaskaderer til brukere, behandlinger, åpningstider og bookinger.
     await db.delete(businesses).where(eq(businesses.id, existing.id));
   }
 
@@ -32,6 +41,9 @@ async function seed() {
       aboutText:
         "Hos Demo Frisør & Velvære er du i trygge hender. Vi tar oss tid til hver enkelt kunde, og målet vårt er at du går herfra med et smil. Velkommen innom!",
       showOpeningHours: true,
+      showContactForm: true,
+      showBlog: true,
+      showNewsletter: true,
     },
     seo: {
       keywords: "frisør, klipp, farging, vippeforlengelse, Vikersund",
@@ -55,13 +67,15 @@ async function seed() {
       phone: "12 34 56 78",
       address: "Eksempelgata 1, 3370 Vikersund",
       description:
-        "Dette er en demoside som viser hvordan bestilly ser ut for kundene dine. Prøv gjerne å booke en time!",
+        "Dette er en demoside som viser hvordan bestilly ser ut for kundene dine. Prøv gjerne å booke en time eller handle i butikken!",
       template: "eleganse",
       onepageContent,
+      vippsNumber: "123456",
+      shippingFree: false,
+      shippingFee: 79,
     })
     .returning();
 
-  // Innlogging til demo-adminpanelet.
   const passwordHash = await bcrypt.hash(DEMO_PASSWORD, 10);
   await db
     .insert(users)
@@ -109,6 +123,60 @@ async function seed() {
       endTime: "16:00",
     })),
   );
+
+  await db.insert(products).values([
+    {
+      businessId: demo.id,
+      name: "Hårpleiesett",
+      description: "Sjampo og balsam for daglig pleie.",
+      priceNok: 349,
+    },
+    {
+      businessId: demo.id,
+      name: "Profesjonell hårføner",
+      description: "Den vi bruker i salongen.",
+      priceNok: 899,
+    },
+    {
+      businessId: demo.id,
+      name: "Gavekort",
+      description: "Perfekt gave — kan brukes på alle behandlinger.",
+      priceNok: 500,
+    },
+  ]);
+
+  await db.insert(posts).values([
+    {
+      businessId: demo.id,
+      slug: "velkommen",
+      title: "Velkommen til vår nye nettside!",
+      content:
+        "Nå kan du booke time hos oss døgnet rundt, rett her på nettsiden. Du finner også nettbutikken vår med utvalgte produkter. Velkommen innom!",
+      published: true,
+    },
+    {
+      businessId: demo.id,
+      slug: "sommertips-for-haret",
+      title: "Sommertips for håret",
+      content:
+        "Sol, salt og klor sliter på håret om sommeren. Vårt beste tips: bruk en god leave-in-balsam, og skyll håret med ferskvann etter bading. Stikk innom for en klipp før ferien!",
+      published: true,
+    },
+  ]);
+
+  await db.insert(subscribers).values(
+    ["kari@eksempel.no", "per@eksempel.no", "anne@eksempel.no"].map(
+      (email) => ({ businessId: demo.id, email }),
+    ),
+  );
+
+  await db.insert(newsletters).values({
+    businessId: demo.id,
+    subject: "Sommertilbud hos oss",
+    content:
+      "Bestill klipp i juni og få 15 % rabatt. Vi gleder oss til å se deg!",
+    recipientCount: 3,
+  });
 
   const [klipp, farging, vipper] = insertedServices;
   const demoBookings = [
