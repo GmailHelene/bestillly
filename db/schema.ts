@@ -11,6 +11,7 @@ import {
   jsonb,
   index,
 } from "drizzle-orm/pg-core";
+import type { OnepageContent } from "@/lib/onepage";
 
 export const bookingStatus = pgEnum("booking_status", ["confirmed", "cancelled"]);
 export const exceptionType = pgEnum("exception_type", ["closed", "custom_hours"]);
@@ -25,7 +26,7 @@ export const businesses = pgTable("businesses", {
   address: text("address"),
   description: text("description"),
   template: text("template").notNull().default("default"),
-  onepageContent: jsonb("onepage_content"),
+  onepageContent: jsonb("onepage_content").$type<OnepageContent>(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
 

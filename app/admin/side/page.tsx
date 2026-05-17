@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses, services, workingHours } from "@/db/schema";
 import { requireBusinessId } from "@/lib/session";
+import { parseOnepageContent } from "@/lib/onepage";
 import { BackLink } from "@/components/back-link";
 import { ProfileForm } from "./profile-form";
 import { SeoChecklist } from "./seo-checklist";
@@ -22,12 +23,18 @@ export default async function SidePage() {
     where: eq(workingHours.businessId, businessId),
   });
 
+  const content = parseOnepageContent(business.onepageContent);
+
   const checks = [
     { label: "Beskrivelse fylt ut", done: !!business.description },
     { label: "Adresse fylt ut", done: !!business.address },
     { label: "Telefonnummer fylt ut", done: !!business.phone },
     { label: "Minst 3 behandlinger lagt til", done: serviceList.length >= 3 },
     { label: "Åpningstider satt opp", done: wh.length > 0 },
+    {
+      label: "Egne SEO-felt fylt ut",
+      done: !!(content.seo?.metaTitle || content.seo?.metaDescription),
+    },
   ];
 
   return (
@@ -47,6 +54,12 @@ export default async function SidePage() {
           address: business.address,
           phone: business.phone,
           template: business.template,
+          instagram: content.social?.instagram ?? "",
+          facebook: content.social?.facebook ?? "",
+          tiktok: content.social?.tiktok ?? "",
+          metaTitle: content.seo?.metaTitle ?? "",
+          metaDescription: content.seo?.metaDescription ?? "",
+          keywords: content.seo?.keywords ?? "",
         }}
       />
 

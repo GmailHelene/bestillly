@@ -4,6 +4,8 @@ import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses, services } from "@/db/schema";
 import { resolveTheme } from "@/lib/themes";
+import { parseOnepageContent } from "@/lib/onepage";
+import { SocialLinks } from "@/components/social-links";
 import { BookingWidget } from "./booking-widget";
 
 async function getBusiness(slug: string) {
@@ -19,14 +21,18 @@ export async function generateMetadata({
   const business = await getBusiness(slug);
   if (!business) return { title: "Siden finnes ikke" };
 
-  const title = `${business.name} — bestill time`;
+  const content = parseOnepageContent(business.onepageContent);
+  const title =
+    content.seo?.metaTitle ?? `${business.name} — bestill time`;
   const description =
+    content.seo?.metaDescription ??
     business.description ??
     `Bestill time hos ${business.name} enkelt på nett.`;
 
   return {
     title,
     description,
+    keywords: content.seo?.keywords,
     alternates: { canonical: `/${business.slug}` },
     openGraph: { title, description, type: "website" },
   };
@@ -50,6 +56,9 @@ export default async function PublicBusinessPage({
   });
 
   const theme = resolveTheme(business.template);
+  const content = parseOnepageContent(business.onepageContent);
+  const social = content.social ?? {};
+  const hasSocial = !!(social.instagram || social.facebook || social.tiktok);
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
   const jsonLd = {
     "@context": "https://schema.org",
@@ -136,6 +145,13 @@ export default async function PublicBusinessPage({
           }))}
         />
       </section>
+
+      {hasSocial && (
+        <footer className="flex flex-col items-center gap-3 border-t border-gray-200 pt-6">
+          <p className="text-sm text-gray-500">Følg oss</p>
+          <SocialLinks social={social} />
+        </footer>
+      )}
       </main>
     </div>
   );

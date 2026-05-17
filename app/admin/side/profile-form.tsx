@@ -13,6 +13,12 @@ type Profile = {
   address: string | null;
   phone: string | null;
   template: string;
+  instagram: string;
+  facebook: string;
+  tiktok: string;
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string;
 };
 
 export function ProfileForm({ profile }: { profile: Profile }) {
@@ -122,6 +128,95 @@ export function ProfileForm({ profile }: { profile: Profile }) {
               </div>
             </label>
           ))}
+        </div>
+      </div>
+
+      <div className="space-y-3 border-t border-gray-100 pt-4">
+        <span className="text-sm font-medium">Sosiale medier</span>
+        <div className="space-y-1">
+          <label htmlFor="instagram" className="text-sm text-gray-600">
+            Instagram
+          </label>
+          <input
+            id="instagram"
+            name="instagram"
+            type="url"
+            defaultValue={profile.instagram}
+            placeholder="https://instagram.com/bedriften"
+            className={inputClass}
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="facebook" className="text-sm text-gray-600">
+            Facebook
+          </label>
+          <input
+            id="facebook"
+            name="facebook"
+            type="url"
+            defaultValue={profile.facebook}
+            placeholder="https://facebook.com/bedriften"
+            className={inputClass}
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="tiktok" className="text-sm text-gray-600">
+            TikTok
+          </label>
+          <input
+            id="tiktok"
+            name="tiktok"
+            type="url"
+            defaultValue={profile.tiktok}
+            placeholder="https://tiktok.com/@bedriften"
+            className={inputClass}
+          />
+        </div>
+      </div>
+
+      <div className="space-y-3 border-t border-gray-100 pt-4">
+        <div>
+          <span className="text-sm font-medium">Synlighet på nett (SEO)</span>
+          <p className="text-xs text-gray-400">
+            Valgfritt — overstyrer hvordan siden vises i Google-søk.
+          </p>
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="metaTitle" className="text-sm text-gray-600">
+            Tittel i søkeresultat
+          </label>
+          <input
+            id="metaTitle"
+            name="metaTitle"
+            type="text"
+            defaultValue={profile.metaTitle}
+            className={inputClass}
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="metaDescription" className="text-sm text-gray-600">
+            Beskrivelse i søkeresultat
+          </label>
+          <textarea
+            id="metaDescription"
+            name="metaDescription"
+            rows={2}
+            defaultValue={profile.metaDescription}
+            className={inputClass}
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="keywords" className="text-sm text-gray-600">
+            Nøkkelord
+          </label>
+          <input
+            id="keywords"
+            name="keywords"
+            type="text"
+            defaultValue={profile.keywords}
+            placeholder="frisør, klipp, vippeforlengelse, Oslo"
+            className={inputClass}
+          />
         </div>
       </div>
 

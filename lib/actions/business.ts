@@ -6,6 +6,7 @@ import { db } from "@/db";
 import { businesses } from "@/db/schema";
 import { requireBusinessId } from "@/lib/session";
 import { DEFAULT_THEME, isThemeId } from "@/lib/themes";
+import type { OnepageContent } from "@/lib/onepage";
 
 export type ProfileState = { error: string } | { ok: true } | undefined;
 
@@ -24,6 +25,22 @@ export async function updateBusinessProfile(
 
   if (!name) return { error: "Bedriftsnavn er påkrevd." };
 
+  const field = (key: string) =>
+    String(formData.get(key) ?? "").trim() || undefined;
+
+  const onepageContent: OnepageContent = {
+    social: {
+      instagram: field("instagram"),
+      facebook: field("facebook"),
+      tiktok: field("tiktok"),
+    },
+    seo: {
+      metaTitle: field("metaTitle"),
+      metaDescription: field("metaDescription"),
+      keywords: field("keywords"),
+    },
+  };
+
   await db
     .update(businesses)
     .set({
@@ -32,6 +49,7 @@ export async function updateBusinessProfile(
       address: address || null,
       phone: phone || null,
       template,
+      onepageContent,
     })
     .where(eq(businesses.id, businessId));
 
