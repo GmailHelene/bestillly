@@ -509,6 +509,31 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Pilotprogram */}
+        <section className="mx-auto max-w-3xl px-6 pb-20">
+          <div className="rounded-3xl border-2 border-gray-900 p-8 text-center sm:p-12">
+            <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
+              Pilotprogram
+            </p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight">
+              Bli en av de 10 første
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-balance text-gray-600">
+              bestilly er nytt, og vi tar inn 10 enkeltpersonforetak som
+              pilotbedrifter. Du får bruke hele bestilly gratis i 6 måneder,
+              en direkte linje til utvikleren, og reell mulighet til å forme
+              produktet. Til gjengjeld ber vi om at du faktisk bruker det, gir
+              ærlig tilbakemelding — og lar oss bruke deg som referanse.
+            </p>
+            <Link
+              href="/kontakt"
+              className="mt-8 inline-block rounded-xl bg-gray-900 px-7 py-3 text-sm font-medium text-white hover:bg-gray-700"
+            >
+              Bli pilotbedrift
+            </Link>
+          </div>
+        </section>
+
         {/* Avsluttende CTA */}
         <section className="bg-gray-900">
           <div className="mx-auto max-w-3xl px-6 py-20 text-center">
