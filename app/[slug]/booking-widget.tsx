@@ -113,7 +113,7 @@ export function BookingWidget({
             setConfirmed(null);
             setRefreshKey((k) => k + 1);
           }}
-          className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium hover:bg-white"
+          className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-900 hover:bg-gray-50"
         >
           Book en ny time
         </button>
