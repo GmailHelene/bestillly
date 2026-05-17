@@ -31,9 +31,12 @@ export default function PrivacyPage() {
           e-postadresse, telefonnummer og adresse.
         </p>
         <p className="text-sm text-gray-700">
-          <strong>Om sluttkunder (de som booker time):</strong> navn,
-          e-postadresse og telefonnummer som oppgis ved booking. Disse
-          opplysningene behandler vi på vegne av bedriften — se punkt 4.
+          <strong>Om sluttkunder (de som booker time, handler eller tar
+          kontakt):</strong> navn, e-postadresse og telefonnummer oppgitt ved
+          booking eller bestilling i nettbutikken, e-postadresse til
+          nyhetsbrev-abonnenter, og innhold i meldinger sendt via
+          kontaktskjema. Disse opplysningene behandler vi på vegne av bedriften
+          — se punkt 4.
         </p>
       </section>
 
@@ -68,21 +71,47 @@ export default function PrivacyPage() {
           <li>Railway — drift av applikasjonen</li>
           <li>Cloudinary — lagring av bilder lastet opp av bedriften</li>
           <li>Brevo — utsending av e-postvarsler</li>
+          <li>
+            Anthropic — AI-tekstgenerering i markedsføringsverktøyet (se
+            punkt 6)
+          </li>
+          <li>
+            Replicate — AI-bildegenerering i markedsføringsverktøyet (se
+            punkt 6)
+          </li>
         </ul>
-      </section>
-
-      <section className="space-y-2">
-        <h2 className="font-semibold">6. Lagringstid</h2>
         <p className="text-sm text-gray-700">
-          Opplysninger lagres så lenge bedriften har en aktiv konto hos
-          bestilly. Bookingdata oppbevares så lenge det er nødvendig for å
-          dokumentere avtalene. Når en konto avsluttes, slettes opplysningene
-          innen rimelig tid.
+          Enkelte underleverandører behandler data utenfor EU/EØS. Slik
+          overføring skjer på grunnlag av EU-kommisjonens standardvilkår (SCC).
         </p>
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">7. Dine rettigheter</h2>
+        <h2 className="font-semibold">6. Markedsføringsverktøyet (AI)</h2>
+        <p className="text-sm text-gray-700">
+          bestilly har et valgfritt markedsføringsverktøy som bruker
+          AI-tjenester. Når bedriften bruker dette, sendes opplysninger
+          bedriften selv legger inn — bedriftsinfo, behandlinger, produkter og
+          tekst fra bedriftens egen nettside — til Anthropic for
+          tekstgenerering, og bildebeskrivelser til Replicate for
+          bildegenerering. Det sendes ikke sluttkunders personopplysninger til
+          disse tjenestene. Verktøyet er valgfritt å bruke.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">7. Lagringstid</h2>
+        <p className="text-sm text-gray-700">
+          Opplysninger lagres så lenge bedriften har en aktiv konto hos
+          bestilly. Booking- og ordredata oppbevares i inntil 3 år for å
+          dokumentere avtalene. Nyhetsbrev-abonnenter lagres til de melder seg
+          av. Når en bedrift sletter kontoen sin, slettes alle tilhørende
+          opplysninger umiddelbart.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">8. Dine rettigheter</h2>
         <p className="text-sm text-gray-700">
           Du har rett til innsyn i, retting og sletting av opplysninger om deg,
           og til å klage til Datatilsynet. Gjelder henvendelsen opplysninger en
@@ -92,7 +121,7 @@ export default function PrivacyPage() {
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">8. Informasjonskapsler</h2>
+        <h2 className="font-semibold">9. Informasjonskapsler</h2>
         <p className="text-sm text-gray-700">
           bestilly bruker kun nødvendige informasjonskapsler — en
           innloggingskapsel som holder bedriften innlogget i adminpanelet. Vi
@@ -101,7 +130,7 @@ export default function PrivacyPage() {
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">9. Endringer</h2>
+        <h2 className="font-semibold">10. Endringer</h2>
         <p className="text-sm text-gray-700">
           Vi kan oppdatere denne erklæringen. Ved vesentlige endringer
           informerer vi bedriftskundene våre.

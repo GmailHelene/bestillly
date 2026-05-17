@@ -13,8 +13,10 @@ import {
 import { computeAvailableSlots, dayBounds, slotInstant } from "@/lib/availability";
 import { formatDateTime } from "@/lib/format";
 import { sendEmail } from "@/lib/email";
+import { escapeHtml } from "@/lib/html";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_SLUG } from "@/lib/demo";
+import { rateLimit, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_PATTERN = /^\d{2}:\d{2}$/;
@@ -37,6 +39,10 @@ export type CreateBookingInput = {
 export async function createBooking(
   input: CreateBookingInput,
 ): Promise<BookingResult> {
+  if (!(await rateLimit("booking", 10, 60_000))) {
+    return { error: RATE_LIMIT_MESSAGE };
+  }
+
   const date = String(input.date);
   const time = String(input.time);
   const customerName = String(input.customerName ?? "").trim();
@@ -124,18 +130,34 @@ export async function createBooking(
     startsAt.getTime() + service.durationMinutes * 60_000,
   );
 
-  const [booking] = await db
-    .insert(bookings)
-    .values({
-      businessId: business.id,
-      serviceId: service.id,
-      customerName,
-      customerEmail,
-      customerPhone,
-      startsAt,
-      endsAt,
-    })
-    .returning();
+  let booking;
+  try {
+    [booking] = await db
+      .insert(bookings)
+      .values({
+        businessId: business.id,
+        serviceId: service.id,
+        customerName,
+        customerEmail,
+        customerPhone,
+        startsAt,
+        endsAt,
+      })
+      .returning();
+  } catch (err) {
+    // Unik-indeks (23505) = noen rakk å booke samme tid akkurat nå.
+    if (
+      err &&
+      typeof err === "object" &&
+      "code" in err &&
+      (err as { code?: string }).code === "23505"
+    ) {
+      return {
+        error: "Beklager, denne tiden er ikke lenger ledig. Velg en annen.",
+      };
+    }
+    throw err;
+  }
 
   const when = formatDateTime(startsAt);
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
@@ -146,10 +168,10 @@ export async function createBooking(
     subject: `Bekreftelse: time hos ${business.name}`,
     html: `
       <h2>Timen din er booket</h2>
-      <p>Hei ${customerName},</p>
-      <p>Du har booket time hos <strong>${business.name}</strong>:</p>
+      <p>Hei ${escapeHtml(customerName)},</p>
+      <p>Du har booket time hos <strong>${escapeHtml(business.name)}</strong>:</p>
       <ul>
-        <li><strong>Behandling:</strong> ${service.name}</li>
+        <li><strong>Behandling:</strong> ${escapeHtml(service.name)}</li>
         <li><strong>Tidspunkt:</strong> ${when}</li>
         <li><strong>Varighet:</strong> ${service.durationMinutes} min</li>
         <li><strong>Pris:</strong> ${service.priceNok} kr</li>
@@ -166,11 +188,11 @@ export async function createBooking(
     html: `
       <h2>Ny booking</h2>
       <ul>
-        <li><strong>Behandling:</strong> ${service.name}</li>
+        <li><strong>Behandling:</strong> ${escapeHtml(service.name)}</li>
         <li><strong>Tidspunkt:</strong> ${when}</li>
-        <li><strong>Kunde:</strong> ${customerName}</li>
-        <li><strong>E-post:</strong> ${customerEmail}</li>
-        <li><strong>Telefon:</strong> ${customerPhone}</li>
+        <li><strong>Kunde:</strong> ${escapeHtml(customerName)}</li>
+        <li><strong>E-post:</strong> ${escapeHtml(customerEmail)}</li>
+        <li><strong>Telefon:</strong> ${escapeHtml(customerPhone)}</li>
       </ul>
       <p><a href="${baseUrl}/admin/bookinger">Gå til adminpanelet ditt</a> for
       å se og administrere alle bookingene dine.</p>

@@ -2,6 +2,7 @@
 
 import { sendEmail } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
+import { rateLimit, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 
 export type ContactState = { error: string } | { ok: true } | undefined;
 
@@ -11,6 +12,10 @@ export async function sendContactMessage(
   _prev: ContactState,
   formData: FormData,
 ): Promise<ContactState> {
+  if (!(await rateLimit("contact", 5, 60_000))) {
+    return { error: RATE_LIMIT_MESSAGE };
+  }
+
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const message = String(formData.get("message") ?? "").trim();

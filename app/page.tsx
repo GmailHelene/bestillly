@@ -3,6 +3,8 @@ import { THEMES } from "@/lib/themes";
 import { ProductPreview } from "@/components/product-preview";
 import { Logo } from "@/components/logo";
 import { enterDemo } from "@/lib/actions/demo";
+import { safeJsonLd } from "@/lib/html";
+import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -145,11 +147,11 @@ export default function Home() {
     <div className="flex flex-1 flex-col">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }}
       />
       <header className="flex items-center justify-between px-6 py-4">
         <Logo />
@@ -393,7 +395,7 @@ export default function Home() {
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
               Pris
             </p>
-            <p className="mt-2 text-5xl font-bold">1599 kr</p>
+            <p className="mt-2 text-5xl font-bold">{ANNUAL_PRICE_NOK} kr</p>
             <p className="mt-1 text-gray-600">i året — det er alt</p>
             <ul className="mx-auto mt-8 grid max-w-md gap-2.5 text-left text-sm">
               {included.map((item) => (

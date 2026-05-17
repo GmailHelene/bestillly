@@ -8,6 +8,7 @@ import { sendEmail } from "@/lib/email";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_BLOCK_MESSAGE, DEMO_SLUG } from "@/lib/demo";
 import { resolveTheme } from "@/lib/themes";
+import { rateLimit, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 import {
   blocksToPlainText,
   parseBlocks,
@@ -26,11 +27,18 @@ export async function subscribe(
   _prev: SubscribeState,
   formData: FormData,
 ): Promise<SubscribeState> {
+  if (!(await rateLimit("subscribe", 6, 60_000))) {
+    return { error: RATE_LIMIT_MESSAGE };
+  }
+
   const email = String(formData.get("email") ?? "")
     .trim()
     .toLowerCase();
   if (!EMAIL_PATTERN.test(email)) {
     return { error: "Fyll inn en gyldig e-postadresse." };
+  }
+  if (formData.get("consent") == null) {
+    return { error: "Du må samtykke for å melde deg på nyhetsbrevet." };
   }
 
   const business = await db.query.businesses.findFirst({

@@ -6,6 +6,7 @@ import { db } from "@/db";
 import { products } from "@/db/schema";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_BLOCK_MESSAGE } from "@/lib/demo";
+import { sanitizeImageUrl } from "@/lib/cloudinary";
 
 export type ProductState = { error: string } | undefined;
 
@@ -24,7 +25,7 @@ function parseProduct(formData: FormData): ParsedProduct {
   const name = String(formData.get("name") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();
   const priceNok = Number(formData.get("priceNok"));
-  const imageUrl = String(formData.get("imageUrl") ?? "").trim();
+  const imageUrl = sanitizeImageUrl(String(formData.get("imageUrl") ?? ""));
   const inStock = formData.get("inStock") != null;
 
   if (!name) return { ok: false, error: "Navn er påkrevd." };
@@ -36,7 +37,7 @@ function parseProduct(formData: FormData): ParsedProduct {
     name,
     description: description || null,
     priceNok: Math.round(priceNok),
-    imageUrl: imageUrl || null,
+    imageUrl,
     inStock,
   };
 }

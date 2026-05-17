@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { safeJsonLd } from "@/lib/html";
+import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
 
 const title =
   "Bookingsystem for frisører, salonger og små bedrifter | bestilly";
@@ -99,7 +101,7 @@ export default function BookingsystemLanding() {
     <div className="flex flex-1 flex-col">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }}
       />
 
       <header className="flex items-center justify-between px-6 py-4">
@@ -241,7 +243,7 @@ export default function BookingsystemLanding() {
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
               Pris
             </p>
-            <p className="mt-2 text-5xl font-bold">1599 kr</p>
+            <p className="mt-2 text-5xl font-bold">{ANNUAL_PRICE_NOK} kr</p>
             <p className="mt-1 text-gray-600">i året — alt inkludert</p>
             <Link
               href="/registrer"

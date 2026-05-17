@@ -4,9 +4,11 @@ import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses } from "@/db/schema";
+import { signOut } from "@/auth";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_BLOCK_MESSAGE } from "@/lib/demo";
 import { DEFAULT_THEME, isThemeId } from "@/lib/themes";
+import { sanitizeImageUrl } from "@/lib/cloudinary";
 import type { OnepageContent } from "@/lib/onepage";
 
 export type ProfileState = { error: string } | { ok: true } | undefined;
@@ -62,11 +64,12 @@ export async function updateBusinessProfile(
       note: field("footerNote"),
     },
     media: {
-      logoUrl: field("logoUrl"),
+      logoUrl: sanitizeImageUrl(field("logoUrl")) ?? undefined,
       gallery: formData
         .getAll("galleryImage")
         .map(String)
-        .filter(Boolean),
+        .map((u) => sanitizeImageUrl(u))
+        .filter((u): u is string => u !== null),
     },
   };
 
@@ -85,4 +88,27 @@ export async function updateBusinessProfile(
 
   revalidatePath("/admin/side");
   return { ok: true };
+}
+
+export type DeleteAccountState = { error: string } | undefined;
+
+// Sletter bedriftens konto og ALLE tilhørende data (cascade i schemaet),
+// og logger brukeren ut. Krever at brukeren skriver «SLETT» for å bekrefte.
+export async function deleteBusinessAccount(
+  _prev: DeleteAccountState,
+  formData: FormData,
+): Promise<DeleteAccountState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+
+  const confirm = String(formData.get("confirm") ?? "").trim();
+  if (confirm !== "SLETT") {
+    return { error: "Skriv SLETT i feltet for å bekrefte." };
+  }
+
+  // Cascade-sletting i schemaet fjerner brukere, behandlinger, bookinger,
+  // produkter, ordrer, innlegg, abonnenter og nyhetsbrev automatisk.
+  await db.delete(businesses).where(eq(businesses.id, businessId));
+  await signOut({ redirectTo: "/" });
+  return undefined;
 }

@@ -1,5 +1,5 @@
 import "server-only";
-import { eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses } from "@/db/schema";
 
@@ -50,7 +50,9 @@ export function readUsage(b: UsageRow): UsageSummary {
 
 export type ConsumeResult = { ok: true } | { ok: false; error: string };
 
-// Trekker kreditter før en AI-handling. Nullstiller potten hvis måneden er ny.
+// Trekker kreditter før en AI-handling. Selve trekket gjøres som ÉN atomisk
+// UPDATE med tak-sjekk i WHERE — så samtidige kall ikke kan overskride potten.
+// Nullstiller begge tellere hvis måneden er ny.
 export async function consumeCredits(
   businessId: string,
   kind: "text" | "image",
@@ -69,40 +71,49 @@ export async function consumeCredits(
   }
 
   const period = currentPeriod();
-  const stale = business.aiPeriod !== period;
-  const textUsed = stale ? 0 : business.aiTextUsed;
-  const imagesUsed = stale ? 0 : business.aiImagesUsed;
+  // Telleverdi i denne perioden — 0 hvis lagret periode er utdatert.
+  const textNow = sql`(CASE WHEN ${businesses.aiPeriod} = ${period} THEN ${businesses.aiTextUsed} ELSE 0 END)`;
+  const imagesNow = sql`(CASE WHEN ${businesses.aiPeriod} = ${period} THEN ${businesses.aiImagesUsed} ELSE 0 END)`;
 
-  if (kind === "text") {
-    if (textUsed + amount > MONTHLY_TEXT_CREDITS) {
-      return {
-        ok: false,
-        error: `Du har brukt opp månedens AI-kreditter (${MONTHLY_TEXT_CREDITS}). De fornyes ved månedsskiftet.`,
-      };
-    }
-    await db
-      .update(businesses)
-      .set({
-        aiPeriod: period,
-        aiTextUsed: textUsed + amount,
-        aiImagesUsed: imagesUsed,
-      })
-      .where(eq(businesses.id, businessId));
-  } else {
-    if (imagesUsed + amount > MONTHLY_IMAGE_CREDITS) {
-      return {
-        ok: false,
-        error: `Du har brukt opp månedens bildekvote (${MONTHLY_IMAGE_CREDITS}). Den fornyes ved månedsskiftet.`,
-      };
-    }
-    await db
-      .update(businesses)
-      .set({
-        aiPeriod: period,
-        aiTextUsed: textUsed,
-        aiImagesUsed: imagesUsed + amount,
-      })
-      .where(eq(businesses.id, businessId));
+  const rows =
+    kind === "text"
+      ? await db
+          .update(businesses)
+          .set({
+            aiPeriod: period,
+            aiTextUsed: sql`${textNow} + ${amount}`,
+            aiImagesUsed: imagesNow,
+          })
+          .where(
+            and(
+              eq(businesses.id, businessId),
+              sql`${textNow} + ${amount} <= ${MONTHLY_TEXT_CREDITS}`,
+            ),
+          )
+          .returning({ id: businesses.id })
+      : await db
+          .update(businesses)
+          .set({
+            aiPeriod: period,
+            aiTextUsed: textNow,
+            aiImagesUsed: sql`${imagesNow} + ${amount}`,
+          })
+          .where(
+            and(
+              eq(businesses.id, businessId),
+              sql`${imagesNow} + ${amount} <= ${MONTHLY_IMAGE_CREDITS}`,
+            ),
+          )
+          .returning({ id: businesses.id });
+
+  if (rows.length === 0) {
+    return {
+      ok: false,
+      error:
+        kind === "text"
+          ? `Du har brukt opp månedens AI-kreditter (${MONTHLY_TEXT_CREDITS}). De fornyes ved månedsskiftet.`
+          : `Du har brukt opp månedens bildekvote (${MONTHLY_IMAGE_CREDITS}). Den fornyes ved månedsskiftet.`,
+    };
   }
   return { ok: true };
 }
@@ -114,20 +125,16 @@ export async function refundCredits(
   amount: number,
 ): Promise<void> {
   if (amount <= 0) return;
-  const business = await db.query.businesses.findFirst({
-    where: eq(businesses.id, businessId),
-  });
-  if (!business || business.aiPeriod !== currentPeriod()) return;
-
-  if (kind === "text") {
-    await db
-      .update(businesses)
-      .set({ aiTextUsed: Math.max(0, business.aiTextUsed - amount) })
-      .where(eq(businesses.id, businessId));
-  } else {
-    await db
-      .update(businesses)
-      .set({ aiImagesUsed: Math.max(0, business.aiImagesUsed - amount) })
-      .where(eq(businesses.id, businessId));
-  }
+  const period = currentPeriod();
+  const column = kind === "text" ? businesses.aiTextUsed : businesses.aiImagesUsed;
+  await db
+    .update(businesses)
+    .set(
+      kind === "text"
+        ? { aiTextUsed: sql`GREATEST(0, ${column} - ${amount})` }
+        : { aiImagesUsed: sql`GREATEST(0, ${column} - ${amount})` },
+    )
+    .where(
+      and(eq(businesses.id, businessId), eq(businesses.aiPeriod, period)),
+    );
 }

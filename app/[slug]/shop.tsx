@@ -132,7 +132,8 @@ export function Shop({
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={product.imageUrl}
-                  alt=""
+                  alt={product.name}
+                  loading="lazy"
                   className={`mb-3 aspect-video w-full object-cover ${radius}`}
                 />
               )}

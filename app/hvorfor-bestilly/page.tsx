@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
 
 const title = "Hvorfor velge bestilly? | Sammenligning av bookingsystem";
 const description =
@@ -177,7 +178,7 @@ export default function HvorforBestilly() {
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
               Pris
             </p>
-            <p className="mt-2 text-5xl font-bold">1599 kr</p>
+            <p className="mt-2 text-5xl font-bold">{ANNUAL_PRICE_NOK} kr</p>
             <p className="mt-1 text-gray-600">i året — alt inkludert</p>
             <Link
               href="/registrer"

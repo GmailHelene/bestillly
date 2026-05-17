@@ -6,8 +6,10 @@ import { db } from "@/db";
 import { businesses, orders, products } from "@/db/schema";
 import type { OrderItem } from "@/db/schema";
 import { sendEmail } from "@/lib/email";
+import { escapeHtml } from "@/lib/html";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_SLUG } from "@/lib/demo";
+import { rateLimit, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
@@ -31,6 +33,10 @@ export type CreateOrderInput = {
 export async function createOrder(
   input: CreateOrderInput,
 ): Promise<OrderResult> {
+  if (!(await rateLimit("order", 10, 60_000))) {
+    return { error: RATE_LIMIT_MESSAGE };
+  }
+
   const customerName = String(input.customerName ?? "").trim();
   const customerEmail = String(input.customerEmail ?? "")
     .trim()
@@ -112,19 +118,20 @@ export async function createOrder(
 
   const itemsHtml = orderItems
     .map(
-      (i) => `<li>${i.qty} × ${i.name} — ${i.priceNok * i.qty} kr</li>`,
+      (i) =>
+        `<li>${i.qty} × ${escapeHtml(i.name)} — ${i.priceNok * i.qty} kr</li>`,
     )
     .join("");
   const vippsLine = business.vippsNumber
     ? `Betal <strong>${totalNok} kr</strong> med Vipps til <strong>${business.vippsNumber}</strong>, og merk betalingen med «ordre #${order.orderNumber}».`
-    : `${business.name} tar kontakt med deg om betaling.`;
+    : `${escapeHtml(business.name)} tar kontakt med deg om betaling.`;
 
   await sendEmail({
     to: customerEmail,
     subject: `Ordrebekreftelse #${order.orderNumber} — ${business.name}`,
     html: `
       <h2>Takk for bestillingen!</h2>
-      <p>Ordre #${order.orderNumber} hos ${business.name}:</p>
+      <p>Ordre #${order.orderNumber} hos ${escapeHtml(business.name)}:</p>
       <ul>${itemsHtml}</ul>
       <p>Frakt: ${shippingNok === 0 ? "Gratis" : `${shippingNok} kr`}</p>
       <p><strong>Totalt: ${totalNok} kr</strong></p>
@@ -138,7 +145,7 @@ export async function createOrder(
       <h2>Ny ordre #${order.orderNumber}</h2>
       <ul>${itemsHtml}</ul>
       <p>Frakt: ${shippingNok === 0 ? "Gratis" : `${shippingNok} kr`} · Totalt: ${totalNok} kr</p>
-      <p><strong>Kunde:</strong> ${customerName}, ${customerEmail}, ${customerPhone}</p>
+      <p><strong>Kunde:</strong> ${escapeHtml(customerName)}, ${escapeHtml(customerEmail)}, ${escapeHtml(customerPhone)}</p>
     `,
   });
 

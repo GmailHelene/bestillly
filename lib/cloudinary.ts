@@ -25,6 +25,21 @@ export async function uploadToCloudinary(file: File): Promise<string> {
   return data.secure_url;
 }
 
+// Godtar kun bilde-URL-er fra vår egen Cloudinary-konto. Hindrer at en bruker
+// lagrer en vilkårlig ekstern URL (f.eks. en sporingspiksel) som vises på den
+// offentlige siden. Returnerer en gyldig URL, eller null.
+export function sanitizeImageUrl(
+  url: string | null | undefined,
+): string | null {
+  const u = (url ?? "").trim();
+  if (!u) return null;
+  const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+  if (cloud && u.startsWith(`https://res.cloudinary.com/${cloud}/`)) {
+    return u;
+  }
+  return null;
+}
+
 export function hasCloudinary(): boolean {
   return Boolean(
     process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME &&

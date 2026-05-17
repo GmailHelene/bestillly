@@ -7,6 +7,7 @@ import { signIn, signOut } from "@/auth";
 import { db } from "@/db";
 import { businesses, users } from "@/db/schema";
 import { RESERVED_SLUGS, slugify } from "@/lib/slug";
+import { rateLimit, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 
 export type AuthState = { error: string } | undefined;
 
@@ -14,6 +15,10 @@ export async function registerAction(
   _prev: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
+  if (!(await rateLimit("register", 5, 60_000))) {
+    return { error: RATE_LIMIT_MESSAGE };
+  }
+
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "")
     .trim()
@@ -74,6 +79,10 @@ export async function loginAction(
   _prev: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
+  if (!(await rateLimit("login", 8, 60_000))) {
+    return { error: RATE_LIMIT_MESSAGE };
+  }
+
   const email = String(formData.get("email") ?? "")
     .trim()
     .toLowerCase();

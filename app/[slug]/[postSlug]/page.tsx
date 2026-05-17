@@ -7,6 +7,7 @@ import { db } from "@/db";
 import { businesses, posts } from "@/db/schema";
 import { resolveTheme } from "@/lib/themes";
 import { formatDateShort } from "@/lib/format";
+import { safeJsonLd } from "@/lib/html";
 
 // cache() dedupliserer kallet mellom generateMetadata og siden.
 const getData = cache(async (slug: string, postSlug: string) => {
@@ -74,7 +75,7 @@ export default async function PostPage({
       <main className="mx-auto w-full max-w-2xl space-y-5 px-5 py-10">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
         />
         <Link
           href={`/${business.slug}`}

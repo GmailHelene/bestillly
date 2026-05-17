@@ -142,6 +142,16 @@ export default async function MarketingPage() {
               </a>
               .
             </p>
+            <p>
+              Når du bruker verktøyene, sendes innholdet du legger inn (og
+              tekst fra nettside-analysen) til AI-leverandørene Anthropic og
+              Replicate for å generere tekst og bilder. Sluttkunders
+              personopplysninger sendes ikke. Se{" "}
+              <a href="/personvern" className="underline">
+                personvernerklæringen
+              </a>
+              .
+            </p>
           </div>
         </details>
       </div>

@@ -5,3 +5,10 @@ export function escapeHtml(value: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 }
+
+// Serialiserer et objekt til JSON for trygg innsetting i en <script type=
+// "application/ld+json">-blokk. JSON.stringify escaper ikke "<", så et
+// "</script>" i brukerdata kunne ellers bryte ut av script-taggen.
+export function safeJsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}

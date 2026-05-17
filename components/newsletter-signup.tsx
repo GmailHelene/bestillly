@@ -47,9 +47,26 @@ export function NewsletterSignup({
           {pending ? "Melder på…" : "Meld meg på"}
         </button>
       </div>
-      <p className="text-xs text-gray-400">
-        Du kan melde deg av når som helst.
-      </p>
+      <label className="flex items-start gap-2 text-xs text-gray-500">
+        <input
+          name="consent"
+          type="checkbox"
+          required
+          className="mt-0.5"
+        />
+        <span>
+          Jeg samtykker til å motta nyhetsbrev på e-post, og har lest{" "}
+          <a
+            href="/personvern"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            personvernerklæringen
+          </a>
+          . Du kan melde deg av når som helst.
+        </span>
+      </label>
     </form>
   );
 }

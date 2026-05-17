@@ -7,6 +7,7 @@ import { db } from "@/db";
 import { businesses, posts, products, services, workingHours } from "@/db/schema";
 import { resolveTheme } from "@/lib/themes";
 import { parseOnepageContent } from "@/lib/onepage";
+import { safeJsonLd } from "@/lib/html";
 import { OnepageHero } from "@/components/onepage-hero";
 import { OnepageFooter } from "@/components/onepage-footer";
 import { BookingWidget } from "./booking-widget";
@@ -141,7 +142,7 @@ export default async function PublicBusinessPage({
       <main className="mx-auto w-full max-w-4xl space-y-8 px-5 py-10">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
         />
         <OnepageHero
           business={business}

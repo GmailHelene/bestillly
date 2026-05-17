@@ -1,7 +1,9 @@
 "use server";
 
 import { and, eq } from "drizzle-orm";
+import { toZonedTime } from "date-fns-tz";
 import { revalidatePath } from "next/cache";
+import { TIMEZONE } from "@/lib/availability";
 import { db } from "@/db";
 import { businesses, posts, products, services } from "@/db/schema";
 import { slugify } from "@/lib/slug";
@@ -423,14 +425,17 @@ export type PlanState =
   | { ok: true; plan: PostingPlan }
   | undefined;
 
-// Førstkommende mandag, som ISO-dato (YYYY-MM-DD).
+// Førstkommende mandag i norsk tid, som ISO-dato (YYYY-MM-DD).
 function nextMonday(): string {
-  const d = new Date();
-  const day = d.getDay(); // 0 = søndag
+  const oslo = toZonedTime(new Date(), TIMEZONE);
+  const day = oslo.getDay(); // 0 = søndag, i norsk tid
   let diff = (1 - day + 7) % 7;
   if (diff === 0) diff = 7;
-  d.setDate(d.getDate() + diff);
-  return d.toISOString().slice(0, 10);
+  oslo.setDate(oslo.getDate() + diff);
+  const y = oslo.getFullYear();
+  const m = String(oslo.getMonth() + 1).padStart(2, "0");
+  const d = String(oslo.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }
 
 // F3.8 — genererer en helhetlig publiseringsplan på tvers av kanalene.

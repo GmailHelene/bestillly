@@ -2,9 +2,13 @@
 // tittel, beskrivelse og nøkkelord. Brukes som grunnlag for analyser i Fase 3.
 // Ingen API-nøkler nødvendig.
 
+import net from "node:net";
+import { lookup } from "node:dns/promises";
+
 const MAX_PAGES = 6;
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_TEXT_LENGTH = 12000;
+const MAX_REDIRECTS = 4;
 
 // Robust URL-normalisering. Streamlit-appen feilet på markdown-limte lenker
 // og adresser uten skjema — her håndterer vi begge deler.
@@ -133,13 +137,13 @@ function extractInternalLinks(html: string, base: URL): string[] {
 
 // Norske og engelske stoppord — fjernes fra nøkkelord.
 const STOPWORDS = new Set([
-  "også","ikke","skal","være","være","blir","være","være","denne","dette",
-  "disse","etter","eller","over","under","mellom","fordi","slik","samt",
-  "med","som","for","til","den","det","har","var","kan","vil","ble","fra",
-  "her","der","når","hvor","hva","hvem","alle","mange","mer","mest","noen",
-  "hvis","men","and","the","for","with","that","this","you","your","are",
-  "our","was","https","http","www","com","våre","vår","din","ditt","dine",
-  "deg","oss","seg","kontakt","hjem","mer","les","klikk","side","sider",
+  "også","ikke","skal","være","blir","denne","dette","disse","etter",
+  "eller","over","under","mellom","fordi","slik","samt","med","som","for",
+  "til","den","det","har","var","kan","vil","ble","fra","her","der","når",
+  "hvor","hva","hvem","alle","mange","mer","mest","noen","hvis","men",
+  "and","the","with","that","this","you","your","are","our","was",
+  "https","http","www","com","våre","vår","din","ditt","dine","deg","oss",
+  "seg","kontakt","hjem","les","klikk","side","sider",
 ]);
 
 function extractKeywords(text: string): string[] {
@@ -156,27 +160,108 @@ function extractKeywords(text: string): string[] {
     .map(([w]) => w);
 }
 
-async function fetchHtml(url: string): Promise<string | null> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-  try {
-    const res = await fetch(url, {
-      signal: controller.signal,
-      redirect: "follow",
-      headers: {
-        "User-Agent": "bestilly-crawler/1.0 (+https://bestilly.no)",
-        Accept: "text/html",
-      },
-    });
-    if (!res.ok) return null;
-    const ct = res.headers.get("content-type") ?? "";
-    if (!ct.includes("text/html") && ct !== "") return null;
-    return await res.text();
-  } catch {
-    return null;
-  } finally {
-    clearTimeout(timer);
+// --- SSRF-vern: blokker interne/private adresser ---
+
+function isBlockedIpv4(ip: string): boolean {
+  const p = ip.split(".").map(Number);
+  if (p.length !== 4 || p.some((n) => !Number.isInteger(n) || n < 0 || n > 255)) {
+    return true; // ugyldig → blokker
   }
+  const [a, b] = p;
+  if (a === 0 || a === 10 || a === 127) return true;
+  if (a === 169 && b === 254) return true; // link-local / sky-metadata
+  if (a === 172 && b >= 16 && b <= 31) return true;
+  if (a === 192 && b === 168) return true;
+  if (a === 192 && b === 0) return true;
+  if (a === 100 && b >= 64 && b <= 127) return true; // CGNAT
+  if (a === 198 && (b === 18 || b === 19)) return true;
+  if (a >= 224) return true; // multicast + reservert
+  return false;
+}
+
+function isBlockedIpv6(ip: string): boolean {
+  const h = ip.toLowerCase().replace(/^\[|\]$/g, "");
+  if (h === "::1" || h === "::") return true;
+  if (h.startsWith("fe80") || h.startsWith("fc") || h.startsWith("fd")) {
+    return true;
+  }
+  const mapped = h.match(/::ffff:(\d+\.\d+\.\d+\.\d+)$/);
+  if (mapped) return isBlockedIpv4(mapped[1]);
+  return false;
+}
+
+function isBlockedIp(ip: string): boolean {
+  const kind = net.isIP(ip);
+  if (kind === 4) return isBlockedIpv4(ip);
+  if (kind === 6) return isBlockedIpv6(ip);
+  return true; // ikke en gyldig IP → blokker
+}
+
+// Tillates verten? IP-litteraler sjekkes direkte; domenenavn slås opp først.
+async function isHostAllowed(hostname: string): Promise<boolean> {
+  const h = hostname.replace(/\.+$/, "").toLowerCase();
+  if (
+    !h ||
+    h === "localhost" ||
+    h.endsWith(".localhost") ||
+    h.endsWith(".local") ||
+    h.endsWith(".internal")
+  ) {
+    return false;
+  }
+  if (net.isIP(h)) return !isBlockedIp(h);
+  try {
+    const records = await lookup(h, { all: true });
+    if (records.length === 0) return false;
+    return records.every((r) => !isBlockedIp(r.address));
+  } catch {
+    return false;
+  }
+}
+
+// Henter HTML, men avviser interne adresser — også via redirects.
+async function fetchHtml(rawUrl: string): Promise<string | null> {
+  let url = rawUrl;
+  for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+    let parsed: URL;
+    try {
+      parsed = new URL(url);
+    } catch {
+      return null;
+    }
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+      return null;
+    }
+    if (!(await isHostAllowed(parsed.hostname))) return null;
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    try {
+      const res = await fetch(url, {
+        signal: controller.signal,
+        redirect: "manual",
+        headers: {
+          "User-Agent": "bestilly-crawler/1.0 (+https://bestilly.no)",
+          Accept: "text/html",
+        },
+      });
+      if (res.status >= 300 && res.status < 400) {
+        const location = res.headers.get("location");
+        if (!location) return null;
+        url = new URL(location, url).toString();
+        continue; // valider neste hopp på nytt
+      }
+      if (!res.ok) return null;
+      const ct = res.headers.get("content-type") ?? "";
+      if (!ct.includes("text/html") && ct !== "") return null;
+      return await res.text();
+    } catch {
+      return null;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  return null; // for mange redirects
 }
 
 export type WebsiteCrawl = {

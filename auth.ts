@@ -36,10 +36,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
+    jwt: async ({ token, user }) => {
       if (user) {
         token.businessId = user.businessId;
         if (user.email) token.email = user.email;
+        token.checkedAt = Date.now();
+        return token;
+      }
+
+      // Re-verifiser mot databasen med jevne mellomrom. Fanger opp slettede
+      // kontoer (token slutter å gi tilgang) og endret e-post.
+      const checkedAt =
+        typeof token.checkedAt === "number" ? token.checkedAt : 0;
+      if (token.businessId && Date.now() - checkedAt > 5 * 60_000) {
+        const current = token.sub
+          ? await db.query.users.findFirst({
+              where: eq(users.id, token.sub),
+            })
+          : undefined;
+        if (!current) {
+          token.businessId = undefined; // ugyldiggjør admin-tilgang
+        } else {
+          token.businessId = current.businessId;
+          token.email = current.email;
+        }
+        token.checkedAt = Date.now();
       }
       return token;
     },

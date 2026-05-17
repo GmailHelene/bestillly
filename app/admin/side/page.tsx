@@ -9,6 +9,7 @@ import { auditSeo } from "@/lib/seo-audit";
 import { BackLink } from "@/components/back-link";
 import { ProfileForm } from "./profile-form";
 import { SeoAudit } from "./seo-audit";
+import { DeleteAccount } from "./delete-account";
 
 export default async function SidePage() {
   const businessId = await requireBusinessId();
@@ -104,6 +105,8 @@ export default async function SidePage() {
           Opprett Google-bedriftsprofil ↗
         </a>
       </div>
+
+      <DeleteAccount />
     </div>
   );
 }

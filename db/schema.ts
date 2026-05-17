@@ -10,8 +10,10 @@ import {
   date,
   jsonb,
   index,
+  uniqueIndex,
   serial,
 } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 import type { OnepageContent } from "@/lib/onepage";
 import type { MarketingProfile } from "@/lib/marketing";
 
@@ -105,7 +107,8 @@ export const availabilityExceptions = pgTable("availability_exceptions", {
 
 // En booking. Ingen kundekonto — kundedata ligger på selve bookingen.
 // Avbestilling skjer via cancellationToken-lenke i bekreftelses-e-posten.
-// Overlapp/dobbeltbooking forhindres i app-logikk innenfor en DB-transaksjon.
+// Et partielt unikt indeks (bookings_no_double_idx) hindrer at to bekreftede
+// bookinger havner på samme starttidspunkt — sikrer mot dobbeltbooking-race.
 export const bookings = pgTable(
   "bookings",
   {
@@ -125,7 +128,12 @@ export const bookings = pgTable(
     cancellationToken: uuid("cancellation_token").notNull().defaultRandom(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index("bookings_business_starts_idx").on(t.businessId, t.startsAt)],
+  (t) => [
+    index("bookings_business_starts_idx").on(t.businessId, t.startsAt),
+    uniqueIndex("bookings_no_double_idx")
+      .on(t.businessId, t.startsAt)
+      .where(sql`status = 'confirmed'`),
+  ],
 );
 
 // Varer bedriften selger i nettbutikken sin (Fase 2).

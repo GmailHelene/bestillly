@@ -7,6 +7,7 @@ import { posts } from "@/db/schema";
 import { isDemoBusiness, requireBusinessId } from "@/lib/session";
 import { DEMO_BLOCK_MESSAGE } from "@/lib/demo";
 import { slugify } from "@/lib/slug";
+import { sanitizeImageUrl } from "@/lib/cloudinary";
 
 export type PostState = { error: string } | undefined;
 
@@ -14,7 +15,7 @@ function parsePost(formData: FormData) {
   return {
     title: String(formData.get("title") ?? "").trim(),
     content: String(formData.get("content") ?? "").trim(),
-    imageUrl: String(formData.get("imageUrl") ?? "").trim() || null,
+    imageUrl: sanitizeImageUrl(String(formData.get("imageUrl") ?? "")),
     published: formData.get("published") != null,
   };
 }

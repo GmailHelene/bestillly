@@ -6,6 +6,7 @@ import { businesses } from "@/db/schema";
 import { sendEmail } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
 import { DEMO_SLUG } from "@/lib/demo";
+import { rateLimit, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 
 export type BusinessContactState =
   | { error: string }
@@ -20,6 +21,10 @@ export async function sendBusinessMessage(
   _prev: BusinessContactState,
   formData: FormData,
 ): Promise<BusinessContactState> {
+  if (!(await rateLimit("business-contact", 5, 60_000))) {
+    return { error: RATE_LIMIT_MESSAGE };
+  }
+
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
   const message = String(formData.get("message") ?? "").trim();
