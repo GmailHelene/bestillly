@@ -43,6 +43,13 @@ export async function updateBusinessProfile(
       aboutText: field("aboutText"),
       showOpeningHours: formData.get("showOpeningHours") != null,
     },
+    header: {
+      tagline: field("tagline"),
+    },
+    footer: {
+      orgNumber: field("orgNumber"),
+      note: field("footerNote"),
+    },
   };
 
   await db

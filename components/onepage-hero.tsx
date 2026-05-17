@@ -28,10 +28,18 @@ function Contact({
 export function OnepageHero({
   business,
   theme,
+  tagline,
 }: {
   business: HeroBusiness;
   theme: Theme;
+  tagline?: string;
 }) {
+  const eyebrow = tagline ? (
+    <p className="text-xs font-semibold uppercase tracking-widest">
+      {tagline}
+    </p>
+  ) : null;
+
   const heading = (
     <h1
       className="text-4xl font-bold tracking-tight sm:text-5xl"
@@ -47,6 +55,7 @@ export function OnepageHero({
         className={`${theme.radius} px-6 py-14 text-center text-white`}
         style={{ background: theme.heroGradient }}
       >
+        {eyebrow && <div className="mb-2 text-white/70">{eyebrow}</div>}
         {heading}
         {business.description && (
           <p className="mx-auto mt-3 max-w-xl text-white/90">
@@ -67,6 +76,11 @@ export function OnepageHero({
         className={`${theme.radius} px-6 py-14 text-center`}
         style={{ background: theme.accentSoft }}
       >
+        {eyebrow && (
+          <div className="mb-2 opacity-70" style={{ color: theme.accent }}>
+            {eyebrow}
+          </div>
+        )}
         <div style={{ color: theme.accent }}>{heading}</div>
         {business.description && (
           <p className="mx-auto mt-3 max-w-xl text-gray-700">
@@ -83,6 +97,7 @@ export function OnepageHero({
 
   return (
     <header className="space-y-3">
+      {eyebrow && <div style={{ color: theme.accent }}>{eyebrow}</div>}
       <div
         className="h-1.5 w-12 rounded-full"
         style={{ background: theme.accent }}

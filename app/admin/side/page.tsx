@@ -62,6 +62,9 @@ export default async function SidePage() {
           keywords: content.seo?.keywords ?? "",
           aboutText: content.sections?.aboutText ?? "",
           showOpeningHours: content.sections?.showOpeningHours ?? false,
+          tagline: content.header?.tagline ?? "",
+          orgNumber: content.footer?.orgNumber ?? "",
+          footerNote: content.footer?.note ?? "",
         }}
       />
 

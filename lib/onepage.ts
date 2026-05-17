@@ -14,6 +14,13 @@ export type OnepageContent = {
     aboutText?: string;
     showOpeningHours?: boolean;
   };
+  header?: {
+    tagline?: string;
+  };
+  footer?: {
+    orgNumber?: string;
+    note?: string;
+  };
 };
 
 function str(value: unknown): string | undefined {
@@ -27,6 +34,8 @@ export function parseOnepageContent(raw: unknown): OnepageContent {
   const social = (obj.social ?? {}) as Record<string, unknown>;
   const seo = (obj.seo ?? {}) as Record<string, unknown>;
   const sections = (obj.sections ?? {}) as Record<string, unknown>;
+  const header = (obj.header ?? {}) as Record<string, unknown>;
+  const footer = (obj.footer ?? {}) as Record<string, unknown>;
   return {
     social: {
       instagram: str(social.instagram),
@@ -41,6 +50,13 @@ export function parseOnepageContent(raw: unknown): OnepageContent {
     sections: {
       aboutText: str(sections.aboutText),
       showOpeningHours: sections.showOpeningHours === true,
+    },
+    header: {
+      tagline: str(header.tagline),
+    },
+    footer: {
+      orgNumber: str(footer.orgNumber),
+      note: str(footer.note),
     },
   };
 }

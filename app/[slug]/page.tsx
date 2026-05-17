@@ -5,8 +5,8 @@ import { db } from "@/db";
 import { businesses, services, workingHours } from "@/db/schema";
 import { resolveTheme } from "@/lib/themes";
 import { parseOnepageContent } from "@/lib/onepage";
-import { SocialLinks } from "@/components/social-links";
 import { OnepageHero } from "@/components/onepage-hero";
+import { OnepageFooter } from "@/components/onepage-footer";
 import { BookingWidget } from "./booking-widget";
 
 const WEEKDAYS: [number, string][] = [
@@ -69,7 +69,7 @@ export default async function PublicBusinessPage({
   const theme = resolveTheme(business.template);
   const content = parseOnepageContent(business.onepageContent);
   const social = content.social ?? {};
-  const hasSocial = !!(social.instagram || social.facebook || social.tiktok);
+  const tagline = content.header?.tagline;
   const aboutText = content.sections?.aboutText;
   const showOpeningHours = content.sections?.showOpeningHours ?? false;
   const hours = showOpeningHours
@@ -97,12 +97,12 @@ export default async function PublicBusinessPage({
 
   return (
     <div className="flex-1" style={{ backgroundColor: theme.pageBg }}>
-      <main className="mx-auto w-full max-w-2xl space-y-8 px-5 py-10">
+      <main className="mx-auto w-full max-w-4xl space-y-8 px-5 py-10">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <OnepageHero business={business} theme={theme} />
+        <OnepageHero business={business} theme={theme} tagline={tagline} />
 
       {aboutText && (
         <section className="space-y-2">
@@ -124,13 +124,11 @@ export default async function PublicBusinessPage({
             Ingen behandlinger er lagt ut ennå.
           </p>
         ) : (
-          <ul
-            className={`divide-y divide-gray-200 border border-gray-200 bg-white ${theme.radius}`}
-          >
+          <div className="grid gap-3 sm:grid-cols-2">
             {serviceList.map((service) => (
-              <li
+              <div
                 key={service.id}
-                className="flex items-start justify-between gap-4 p-4"
+                className={`flex items-start justify-between gap-4 border border-gray-200 bg-white p-4 ${theme.radius}`}
               >
                 <div>
                   <p className="font-medium">{service.name}</p>
@@ -146,9 +144,9 @@ export default async function PublicBusinessPage({
                 <span className="shrink-0 font-medium">
                   {service.priceNok} kr
                 </span>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </section>
 
@@ -159,7 +157,7 @@ export default async function PublicBusinessPage({
           style={{ fontFamily: theme.headingFont }}
         >Åpningstider</h2>
           <ul
-            className={`divide-y divide-gray-200 border border-gray-200 bg-white ${theme.radius}`}
+            className={`max-w-md divide-y divide-gray-200 border border-gray-200 bg-white ${theme.radius}`}
           >
             {WEEKDAYS.map(([weekday, label]) => {
               const wh = hours.find((h) => h.weekday === weekday);
@@ -199,12 +197,12 @@ export default async function PublicBusinessPage({
         />
       </section>
 
-      {hasSocial && (
-        <footer className="flex flex-col items-center gap-3 border-t border-gray-200 pt-6">
-          <p className="text-sm text-gray-500">Følg oss</p>
-          <SocialLinks social={social} />
-        </footer>
-      )}
+      <OnepageFooter
+        business={business}
+        social={social}
+        orgNumber={content.footer?.orgNumber}
+        note={content.footer?.note}
+      />
       </main>
     </div>
   );

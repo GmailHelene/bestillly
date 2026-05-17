@@ -21,6 +21,9 @@ type Profile = {
   keywords: string;
   aboutText: string;
   showOpeningHours: boolean;
+  tagline: string;
+  orgNumber: string;
+  footerNote: string;
 };
 
 export function ProfileForm({ profile }: { profile: Profile }) {
@@ -98,6 +101,48 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             name="phone"
             type="tel"
             defaultValue={profile.phone ?? ""}
+            className={inputClass}
+          />
+        </div>
+      </div>
+
+      <div className="space-y-3 border-t border-gray-100 pt-4">
+        <span className="text-sm font-medium">Header og bunntekst</span>
+        <div className="space-y-1">
+          <label htmlFor="tagline" className="text-sm text-gray-600">
+            Slagord (vises i toppen)
+          </label>
+          <input
+            id="tagline"
+            name="tagline"
+            type="text"
+            defaultValue={profile.tagline}
+            placeholder="F.eks. «Din lokale frisør i Vikersund»"
+            className={inputClass}
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="orgNumber" className="text-sm text-gray-600">
+            Organisasjonsnummer (vises i bunnen)
+          </label>
+          <input
+            id="orgNumber"
+            name="orgNumber"
+            type="text"
+            defaultValue={profile.orgNumber}
+            className={inputClass}
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor="footerNote" className="text-sm text-gray-600">
+            Bunntekst
+          </label>
+          <textarea
+            id="footerNote"
+            name="footerNote"
+            rows={2}
+            defaultValue={profile.footerNote}
+            placeholder="Valgfri tekst nederst på siden."
             className={inputClass}
           />
         </div>
