@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { auth } from "@/auth";
 import { db } from "@/db";
 import { isOperator } from "@/lib/operator";
 import { parseOnepageContent } from "@/lib/onepage";
@@ -15,7 +15,26 @@ const btnOutline =
   "rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium hover:bg-gray-50";
 
 export default async function DriftPage() {
-  if (!(await isOperator())) redirect("/");
+  if (!(await isOperator())) {
+    const session = await auth();
+    return (
+      <main className="mx-auto w-full max-w-md space-y-4 px-6 py-16 text-center">
+        <h1 className="text-2xl font-bold">Ingen tilgang</h1>
+        <p className="text-gray-600">
+          Driftspanelet er kun for bestilly-operatøren.
+        </p>
+        <p className="text-sm text-gray-500">
+          Du er innlogget som:{" "}
+          <strong>{session?.user?.email ?? "ikke innlogget"}</strong>
+        </p>
+        <p className="text-sm text-gray-500">
+          Operatørtilgang gis til e-postadressen satt i miljøvariabelen
+          OPERATOR_EMAIL. Disse må stemme nøyaktig overens.
+        </p>
+        <BackLink href="/admin" label="Til admin" />
+      </main>
+    );
+  }
 
   const all = await db.query.businesses.findMany({
     orderBy: (b, { asc }) => [asc(b.name)],
