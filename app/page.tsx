@@ -99,12 +99,57 @@ const included = [
   "Ingen oppstartsavgift eller gebyr per booking",
 ];
 
+const faq = [
+  {
+    q: "Hva koster bestilly?",
+    a: "Bestilly koster 1599 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. Årsprisen dekker bookingsystem, nettside, nettbutikk, blogg, nyhetsbrev og AI-markedsføringshub.",
+  },
+  {
+    q: "Passer bestilly for enkeltpersonforetak?",
+    a: "Ja. Bestilly er laget nettopp for små bedrifter og enkeltpersonforetak — frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Du trenger ingen ansatte eller egen IT-kunnskap for å komme i gang.",
+  },
+  {
+    q: "Kan kundene bestille time selv?",
+    a: "Ja. Kundene ser ledige tider og booker selv, døgnet rundt — uten at telefonen ringer. Du og kunden får automatisk bekreftelse på e-post, og kunden kan avbestille med ett klikk.",
+  },
+  {
+    q: "Trenger jeg en egen nettside i tillegg?",
+    a: "Nei. En enkel, pen nettside for bedriften følger med. Du velger design, legger inn behandlinger, priser, bilder og åpningstider, og deler din egen lenke med kundene.",
+  },
+  {
+    q: "Hvordan kommer jeg i gang?",
+    a: "Du registrerer bedriften på et par minutter, legger inn behandlingene og åpningstidene dine, og deler lenken din. Da kan kundene booke time med en gang. Du kan prøve gratis før du bestemmer deg.",
+  },
+  {
+    q: "Hva er AI-markedsføringshuben?",
+    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag — tilpasset bedriften din. Hver konto har en kredittpott inkludert i årsprisen, som fornyes hver måned.",
+  },
+  {
+    q: "Er det bindingstid?",
+    a: "Du betaler én fast årspris på 1599 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <header className="flex items-center justify-between px-6 py-4">
         <Logo />
@@ -172,6 +217,29 @@ export default function Home() {
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Enkel online timebestilling */}
+        <section className="mx-auto max-w-3xl px-6 py-16">
+          <h2 className="text-2xl font-bold tracking-tight">
+            Enkel online timebestilling for bedriften din
+          </h2>
+          <div className="mt-4 space-y-4 text-gray-600">
+            <p>
+              Et godt bookingsystem sparer deg for tid hver eneste dag. I
+              stedet for å svare på telefon og meldinger om ledige tider, lar
+              du kundene se kalenderen din og bestille time selv. Bestilly er
+              laget for små bedrifter som vil ha online timebestilling uten å
+              betale dyre månedsabonnement.
+            </p>
+            <p>
+              Du legger inn behandlingene dine, prisene, åpningstidene og
+              eventuelle ferieavvik. Kundene finner fram til en ledig tid,
+              booker, og får bekreftelse på e-post automatisk. Du beholder
+              full oversikt i en ryddig kalender — og slipper
+              dobbeltbookinger.
+            </p>
           </div>
         </section>
 
@@ -341,6 +409,28 @@ export default function Home() {
             >
               Kom i gang i dag
             </Link>
+          </div>
+        </section>
+
+        {/* Ofte stilte spørsmål */}
+        <section className="bg-[#f5f3ff]">
+          <div className="mx-auto max-w-3xl px-6 py-20">
+            <h2 className="text-center text-3xl font-bold tracking-tight">
+              Ofte stilte spørsmål
+            </h2>
+            <div className="mt-10 space-y-3">
+              {faq.map((item) => (
+                <details
+                  key={item.q}
+                  className="rounded-2xl bg-white p-5 shadow-sm"
+                >
+                  <summary className="cursor-pointer font-semibold">
+                    {item.q}
+                  </summary>
+                  <p className="mt-2 text-sm text-gray-600">{item.a}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
 
