@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { generateSeoAction } from "@/lib/actions/marketing";
+import Link from "next/link";
+import {
+  applySeoSuggestion,
+  generateSeoAction,
+} from "@/lib/actions/marketing";
 import type { SeoResult } from "@/lib/marketing-seo";
 
 function formatDate(iso: string): string {
@@ -19,14 +23,29 @@ function formatDate(iso: string): string {
 export function SeoPanel({ initialSeo }: { initialSeo?: SeoResult }) {
   const [seo, setSeo] = useState<SeoResult | undefined>(initialSeo);
   const [error, setError] = useState<string | null>(null);
+  const [applied, setApplied] = useState(false);
   const [pending, startTransition] = useTransition();
+  const [applyPending, startApply] = useTransition();
 
   function handleGenerate() {
     setError(null);
+    setApplied(false);
     startTransition(async () => {
       const result = await generateSeoAction();
       if (result && "ok" in result) {
         setSeo(result.seo);
+      } else if (result && "error" in result) {
+        setError(result.error);
+      }
+    });
+  }
+
+  function handleApply() {
+    setError(null);
+    startApply(async () => {
+      const result = await applySeoSuggestion();
+      if (result && "ok" in result) {
+        setApplied(true);
       } else if (result && "error" in result) {
         setError(result.error);
       }
@@ -121,10 +140,35 @@ export function SeoPanel({ initialSeo }: { initialSeo?: SeoResult }) {
             </div>
           )}
 
-          <p className="text-xs text-gray-400">
-            Tips: meta-tittel og -beskrivelse kan du legge inn under «Min side»
-            → SEO.
-          </p>
+          <div className="space-y-2 border-t border-gray-200 pt-3">
+            {applied ? (
+              <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
+                Lagt inn på siden din. Se og finjuster under{" "}
+                <Link href="/admin/side" className="font-semibold underline">
+                  Min side
+                </Link>
+                .
+              </p>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={handleApply}
+                  disabled={applyPending}
+                  className="rounded-lg border border-gray-900 px-4 py-2 text-sm font-medium hover:bg-gray-100 disabled:opacity-50"
+                >
+                  {applyPending
+                    ? "Legger inn…"
+                    : "Bruk forslaget på siden min"}
+                </button>
+                <p className="text-xs text-gray-400">
+                  Skriver meta-tittel, -beskrivelse og søkeord rett inn på den
+                  offentlige siden din. Du kan finjustere etterpå under «Min
+                  side».
+                </p>
+              </>
+            )}
+          </div>
         </div>
       )}
     </div>

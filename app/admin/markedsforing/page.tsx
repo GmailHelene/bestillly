@@ -5,6 +5,7 @@ import { requireBusinessId } from "@/lib/session";
 import { parseMarketingProfile } from "@/lib/marketing";
 import { readUsage } from "@/lib/ai-quota";
 import { DEMO_SLUG } from "@/lib/demo";
+import { buildDemoMarketingProfile } from "@/lib/demo-marketing";
 import { BackLink } from "@/components/back-link";
 import { MarketingProfileForm } from "./profile-form";
 import { CrawlPanel } from "./crawl-panel";
@@ -21,8 +22,12 @@ export default async function MarketingPage() {
   const business = await db.query.businesses.findFirst({
     where: eq(businesses.id, businessId),
   });
-  const profile = parseMarketingProfile(business?.marketingProfile);
   const isDemo = business?.slug === DEMO_SLUG;
+  // Demoen viser alltid ferskt eksempelinnhold (bl.a. publiseringsplan med
+  // datoer fra inneværende uke), uavhengig av når den ble seedet.
+  const profile = isDemo
+    ? buildDemoMarketingProfile()
+    : parseMarketingProfile(business?.marketingProfile);
   const usage = readUsage({
     aiPeriod: business?.aiPeriod ?? null,
     aiTextUsed: business?.aiTextUsed ?? 0,

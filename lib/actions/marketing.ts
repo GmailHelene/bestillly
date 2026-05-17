@@ -15,6 +15,7 @@ import {
   type MarketingProfile,
 } from "@/lib/marketing";
 import { crawlWebsite, type WebsiteCrawl } from "@/lib/crawler";
+import { parseOnepageContent, type OnepageContent } from "@/lib/onepage";
 import { hasAnthropicKey } from "@/lib/anthropic";
 import { generateSeo, type SeoResult } from "@/lib/marketing-seo";
 import {
@@ -204,6 +205,49 @@ export async function generateSeoAction(): Promise<SeoState> {
         "Klarte ikke å lage SEO-anbefalingen akkurat nå. Prøv igjen om litt.",
     };
   }
+}
+
+export type ApplySeoState =
+  | { error: string }
+  | { ok: true }
+  | undefined;
+
+// Skriver SEO-forslaget (meta-tittel, -beskrivelse, søkeord) rett inn i
+// bedriftens onepage — så loopen fra forslag til faktisk side lukkes.
+export async function applySeoSuggestion(): Promise<ApplySeoState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+
+  const business = await db.query.businesses.findFirst({
+    where: eq(businesses.id, businessId),
+  });
+  if (!business) return { error: "Fant ikke bedriften." };
+
+  const profile = parseMarketingProfile(business.marketingProfile);
+  if (!profile.seo) {
+    return { error: "Lag en SEO-anbefaling først." };
+  }
+
+  const content = parseOnepageContent(business.onepageContent);
+  const updated: OnepageContent = {
+    ...content,
+    seo: {
+      metaTitle: profile.seo.metaTitle || content.seo?.metaTitle,
+      metaDescription:
+        profile.seo.metaDescription || content.seo?.metaDescription,
+      keywords: profile.seo.keywords.length
+        ? profile.seo.keywords.join(", ")
+        : content.seo?.keywords,
+    },
+  };
+
+  await db
+    .update(businesses)
+    .set({ onepageContent: updated })
+    .where(eq(businesses.id, businessId));
+  revalidatePath("/admin/side");
+  revalidatePath(`/${business.slug}`);
+  return { ok: true };
 }
 
 export type AnalysisState =
