@@ -27,6 +27,15 @@ export default async function NewsletterPage() {
         </p>
       </div>
 
+      <p>
+        <a
+          href="/admin/abonnenter"
+          className="text-sm font-medium text-gray-900 underline"
+        >
+          Se og administrer abonnenter →
+        </a>
+      </p>
+
       <ComposeForm subscriberCount={subList.length} />
 
       {history.length > 0 && (

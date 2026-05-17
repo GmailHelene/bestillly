@@ -111,3 +111,17 @@ export async function unsubscribe(formData: FormData): Promise<void> {
     .where(eq(subscribers.unsubscribeToken, token));
   revalidatePath(`/avmeld/${token}`);
 }
+
+// Fjerner en abonnent fra bedriftens admin.
+export async function deleteSubscriber(formData: FormData): Promise<void> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return;
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+  await db
+    .delete(subscribers)
+    .where(
+      and(eq(subscribers.id, id), eq(subscribers.businessId, businessId)),
+    );
+  revalidatePath("/admin/abonnenter");
+}

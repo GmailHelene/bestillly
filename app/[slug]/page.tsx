@@ -12,7 +12,8 @@ import { OnepageFooter } from "@/components/onepage-footer";
 import { BookingWidget } from "./booking-widget";
 import { Shop } from "./shop";
 import { ContactSection } from "./contact-section";
-import { NewsletterSignup } from "./newsletter-signup";
+import { NewsletterSignup } from "@/components/newsletter-signup";
+import { NewsletterPopup } from "@/components/newsletter-popup";
 
 const WEEKDAYS: [number, string][] = [
   [1, "Mandag"],
@@ -355,6 +356,14 @@ export default async function PublicBusinessPage({
           </h2>
           <ContactSection slug={business.slug} accentColor={theme.accent} />
         </section>
+      )}
+
+      {showNewsletter && (
+        <NewsletterPopup
+          slug={business.slug}
+          businessName={business.name}
+          accentColor={theme.accent}
+        />
       )}
 
       <OnepageFooter
