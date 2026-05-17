@@ -3,6 +3,7 @@
 // meta-tittel/-beskrivelse og konkrete innholdsråd via Claude.
 
 import { generateJson } from "@/lib/anthropic";
+import { parseSeoResult } from "@/lib/marketing";
 
 export type SeoResult = {
   keywords: string[];
@@ -12,25 +13,6 @@ export type SeoResult = {
   summary: string;
   generatedAt: string;
 };
-
-export function parseSeoResult(raw: unknown): SeoResult | undefined {
-  if (!raw || typeof raw !== "object") return undefined;
-  const o = raw as Record<string, unknown>;
-  if (typeof o.metaTitle !== "string" || typeof o.summary !== "string") {
-    return undefined;
-  }
-  const strList = (v: unknown): string[] =>
-    Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
-  return {
-    keywords: strList(o.keywords),
-    metaTitle: o.metaTitle,
-    metaDescription:
-      typeof o.metaDescription === "string" ? o.metaDescription : "",
-    contentTips: strList(o.contentTips),
-    summary: o.summary,
-    generatedAt: typeof o.generatedAt === "string" ? o.generatedAt : "",
-  };
-}
 
 export type SeoInput = {
   businessName: string;

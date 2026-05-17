@@ -1,3 +1,4 @@
+import "server-only";
 import Replicate from "replicate";
 
 // Felles Replicate-klient for AI-bildegenerering (Fase 3, F3.6).

@@ -2,6 +2,7 @@
 // -tidspunkt, og gir en budsjettstrategi (betalt vs. organisk) for bedriften.
 
 import { generateJson } from "@/lib/anthropic";
+import { parseMarketAnalysis } from "@/lib/marketing";
 import {
   CHANNEL_STRATEGIES,
   channelsByPriority,
@@ -25,45 +26,6 @@ export type MarketAnalysis = {
   quickWins: string[];
   generatedAt: string;
 };
-
-export function parseMarketAnalysis(raw: unknown): MarketAnalysis | undefined {
-  if (!raw || typeof raw !== "object") return undefined;
-  const o = raw as Record<string, unknown>;
-  if (typeof o.summary !== "string") return undefined;
-  const strList = (v: unknown): string[] =>
-    Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
-  const channels: AnalysisChannel[] = Array.isArray(o.channels)
-    ? o.channels
-        .map((c): AnalysisChannel | null => {
-          if (!c || typeof c !== "object") return null;
-          const ch = c as Record<string, unknown>;
-          if (typeof ch.channelId !== "string") return null;
-          return {
-            channelId: ch.channelId,
-            name: typeof ch.name === "string" ? ch.name : ch.channelId,
-            priority: typeof ch.priority === "number" ? ch.priority : 0,
-            rationale:
-              typeof ch.rationale === "string" ? ch.rationale : "",
-            recommendedFrequency:
-              typeof ch.recommendedFrequency === "string"
-                ? ch.recommendedFrequency
-                : "",
-            bestTimes: strList(ch.bestTimes),
-          };
-        })
-        .filter((c): c is AnalysisChannel => c !== null)
-    : [];
-  return {
-    summary: o.summary,
-    channels,
-    budgetStrategy:
-      typeof o.budgetStrategy === "string" ? o.budgetStrategy : "",
-    organicVsPaid:
-      typeof o.organicVsPaid === "string" ? o.organicVsPaid : "",
-    quickWins: strList(o.quickWins),
-    generatedAt: typeof o.generatedAt === "string" ? o.generatedAt : "",
-  };
-}
 
 export type AnalysisInput = {
   businessName: string;

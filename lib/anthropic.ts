@@ -1,3 +1,4 @@
+import "server-only";
 import Anthropic from "@anthropic-ai/sdk";
 
 // Felles Anthropic-klient for markedsføringshuben (Fase 3).
