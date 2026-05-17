@@ -125,20 +125,51 @@ gjennomgått av noen med juridisk innsikt før du tar imot mange kunder.*
 
 ---
 
-## Senere faser (ikke nå)
+## Fase 2 — Nettbutikk og nyhetsbrev
 
-**Fase 2 — Nettbutikk + betaling**
-Enkel nettbutikk for bedriftens egne varer, med kundebetaling.
-+
-Nyhetsbrev-funksjon for bedriftene.
+Mål: la bedriftene selge noen få varer og holde kontakt med kundene.
 
+### Nettbutikk
 
-**Fase 3 — Contentbuilder-tillegg**
+| Steg | Beskrivelse | Status |
+|------|-------------|--------|
+| F2.1 | Produkter i admin — CRUD (navn, beskrivelse, pris, bilde, lager på/av) | ⬜ |
+| F2.2 | Butikk-seksjon på onepage + enkel handlekurv | ⬜ |
+| F2.3 | Betaling i kassen (Vipps eller Stripe) | ⬜ |
+| F2.4 | Ordrebekreftelse på e-post + ordreoversikt i admin | ⬜ |
+
+### Nyhetsbrev
+
+| Steg | Beskrivelse | Status |
+|------|-------------|--------|
+| F2.5 | Abonnenter — påmeldingsskjema på onepage + abonnentliste i admin | ⬜ |
+| F2.6 | Lag og send nyhetsbrev — enkel editor, utsending på e-post | ⬜ |
+| F2.7 | Avmelding + GDPR — avmeldingslenke, samtykke, leveringsdyktighet | ⬜ |
+
+### Viktige avklaringer før vi bygger
+
+- **Betaling — hvem mottar pengene?** Det er bedriftens butikk, så bedriften
+  bør motta betalingen. Da må hver bedrift koble til sin egen Vipps-/Stripe-konto
+  (Stripe Connect e.l.). Dette er den største kompleksiteten i Fase 2 og må
+  avklares før F2.3.
+- **Vipps vs Stripe** — Vipps er lavterskel for norske kunder; Stripe er enklere
+  teknisk. Velges før F2.3.
+- **Masseutsending av e-post** — krever eget oppsett for avmelding, samtykke og
+  leveringsdyktighet (ikke samme som transaksjonsmail). Avklares før F2.6.
+
+---
+
+## Fase 3 — Contentbuilder-tillegg (senere)
+
 AI-innholdsforslag, bildegenerering, råd om sosiale medier. Gjenbruker
 BrandStudio-motoren. Egen prismodell (tillegg/kvote) siden AI koster per bruk.
 
+---
 
+## Gjort utenom fasene
 
+- ✅ **Kontostatus og betalingsvern** — driftspanel (/drift), pause/aktivering
+  av kontoer, håndheving av pause på offentlig side og booking.
 
 
 ---
