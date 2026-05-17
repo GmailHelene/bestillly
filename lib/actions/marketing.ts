@@ -14,6 +14,10 @@ import {
 import { crawlWebsite, type WebsiteCrawl } from "@/lib/crawler";
 import { hasAnthropicKey } from "@/lib/anthropic";
 import { generateSeo, type SeoResult } from "@/lib/marketing-seo";
+import {
+  generateAnalysis,
+  type MarketAnalysis,
+} from "@/lib/marketing-analysis";
 
 export type MarketingProfileState =
   | { error: string }
@@ -62,6 +66,7 @@ export async function updateMarketingProfile(
     channels,
     websiteCrawl: keepCrawl,
     seo: existing.seo,
+    analysis: existing.analysis,
   };
 
   await db
@@ -157,6 +162,65 @@ export async function generateSeoAction(): Promise<SeoState> {
     return {
       error:
         "Klarte ikke å lage SEO-anbefalingen akkurat nå. Prøv igjen om litt.",
+    };
+  }
+}
+
+export type AnalysisState =
+  | { error: string }
+  | { ok: true; analysis: MarketAnalysis }
+  | undefined;
+
+// F3.4 — genererer markedsanalyse med Claude og lagrer den i profilen.
+export async function generateAnalysisAction(): Promise<AnalysisState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (!hasAnthropicKey()) {
+    return { error: "AI-tjenesten er ikke konfigurert ennå." };
+  }
+
+  const business = await db.query.businesses.findFirst({
+    where: eq(businesses.id, businessId),
+  });
+  if (!business) return { error: "Fant ikke bedriften." };
+  const profile = parseMarketingProfile(business.marketingProfile);
+
+  const serviceList = await db.query.services.findMany({
+    where: eq(services.businessId, businessId),
+  });
+  const productList = await db.query.products.findMany({
+    where: eq(products.businessId, businessId),
+  });
+
+  try {
+    const { result } = await generateAnalysis({
+      businessName: business.name,
+      description: business.description ?? undefined,
+      address: business.address ?? undefined,
+      services: serviceList.map((s) => s.name),
+      products: productList.map((p) => p.name),
+      audience: profile.audience,
+      tone: profile.tone,
+      budgetNok: profile.budgetNok,
+      channels: profile.channels ?? [],
+      seoSummary: profile.seo?.summary,
+      seoKeywords: profile.seo?.keywords,
+    });
+
+    const marketingProfile: MarketingProfile = {
+      ...profile,
+      analysis: result,
+    };
+    await db
+      .update(businesses)
+      .set({ marketingProfile })
+      .where(eq(businesses.id, businessId));
+    revalidatePath("/admin/markedsforing");
+    return { ok: true, analysis: result };
+  } catch {
+    return {
+      error:
+        "Klarte ikke å lage markedsanalysen akkurat nå. Prøv igjen om litt.",
     };
   }
 }

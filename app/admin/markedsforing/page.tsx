@@ -7,6 +7,7 @@ import { BackLink } from "@/components/back-link";
 import { MarketingProfileForm } from "./profile-form";
 import { CrawlPanel } from "./crawl-panel";
 import { SeoPanel } from "./seo-panel";
+import { AnalysisPanel } from "./analysis-panel";
 
 export default async function MarketingPage() {
   const businessId = await requireBusinessId();
@@ -36,8 +37,13 @@ export default async function MarketingPage() {
 
       <SeoPanel initialSeo={profile.seo} />
 
+      <AnalysisPanel
+        initialAnalysis={profile.analysis}
+        hasChannels={(profile.channels ?? []).length > 0}
+      />
+
       <p className="rounded-xl border border-dashed border-gray-300 p-4 text-center text-sm text-gray-500">
-        Kommer: markedsanalyse, innholdsgenerator og publiseringsplan.
+        Kommer: innholdsgenerator og publiseringsplan.
       </p>
     </div>
   );

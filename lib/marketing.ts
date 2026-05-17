@@ -1,5 +1,9 @@
 import type { WebsiteCrawl } from "@/lib/crawler";
 import { parseSeoResult, type SeoResult } from "@/lib/marketing-seo";
+import {
+  parseMarketAnalysis,
+  type MarketAnalysis,
+} from "@/lib/marketing-analysis";
 
 // Kanaler bedriften kan markedsføre på.
 export const MARKETING_CHANNELS = [
@@ -19,6 +23,7 @@ export type MarketingProfile = {
   channels?: string[];
   websiteCrawl?: WebsiteCrawl;
   seo?: SeoResult;
+  analysis?: MarketAnalysis;
 };
 
 function parseWebsiteCrawl(raw: unknown): WebsiteCrawl | undefined {
@@ -51,5 +56,6 @@ export function parseMarketingProfile(raw: unknown): MarketingProfile {
       : [],
     websiteCrawl: parseWebsiteCrawl(o.websiteCrawl),
     seo: parseSeoResult(o.seo),
+    analysis: parseMarketAnalysis(o.analysis),
   };
 }
