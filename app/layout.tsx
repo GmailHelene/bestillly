@@ -4,6 +4,8 @@ import {
   Geist_Mono,
   Playfair_Display,
   Poppins,
+  Fraunces,
+  Cormorant_Garamond,
 } from "next/font/google";
 import "./globals.css";
 
@@ -26,6 +28,18 @@ const playfair = Playfair_Display({
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
+// Profesjonelle overskriftsfonter for onepage-temaene.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+});
+
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  weight: ["500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -55,7 +69,7 @@ export default function RootLayout({
   return (
     <html
       lang="nb"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${poppins.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${poppins.variable} ${fraunces.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

@@ -383,7 +383,7 @@ export default function Home() {
             Velg et design som passer bedriften din
           </h2>
           <p className="mx-auto mt-3 max-w-md text-center text-gray-600">
-            Tre ferdige design — bytt når du vil, med ett klikk.
+            Åtte ferdige design — bytt når du vil, med ett klikk.
           </p>
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {Object.values(THEMES).map((theme) => (

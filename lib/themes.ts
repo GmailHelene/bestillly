@@ -1,4 +1,12 @@
-export type ThemeId = "ren" | "eleganse" | "botanisk" | "rose" | "marine";
+export type ThemeId =
+  | "ren"
+  | "eleganse"
+  | "botanisk"
+  | "rose"
+  | "marine"
+  | "plomme"
+  | "gull"
+  | "skifer";
 
 export type HeroStyle = "minimal" | "band" | "gradient";
 
@@ -27,7 +35,7 @@ export const THEMES: Record<ThemeId, Theme> = {
     accentSoft: "#f3f3f3",
     heroStyle: "minimal",
     heroGradient: "linear-gradient(135deg, #171717, #404040)",
-    headingFont: "var(--font-geist-sans)",
+    headingFont: "var(--font-fraunces)",
     radius: "rounded-xl",
   },
   eleganse: {
@@ -79,7 +87,46 @@ export const THEMES: Record<ThemeId, Theme> = {
     accentSoft: "#e2e8ef",
     heroStyle: "minimal",
     heroGradient: "linear-gradient(135deg, #3c5168, #5a728c)",
-    headingFont: "var(--font-geist-sans)",
+    headingFont: "var(--font-fraunces)",
+    radius: "rounded-xl",
+  },
+  plomme: {
+    id: "plomme",
+    name: "Plomme",
+    tagline: "Dyp og elegant — serif-skrift",
+    pageBg: "#faf6f8",
+    surface: "#ffffff",
+    accent: "#6d4360",
+    accentSoft: "#ece1e8",
+    heroStyle: "gradient",
+    heroGradient: "linear-gradient(135deg, #6d4360, #9a6b8c)",
+    headingFont: "var(--font-cormorant)",
+    radius: "rounded-2xl",
+  },
+  gull: {
+    id: "gull",
+    name: "Gull",
+    tagline: "Varm champagne — eksklusiv ro",
+    pageBg: "#faf7f0",
+    surface: "#ffffff",
+    accent: "#9a7b3f",
+    accentSoft: "#ede3cb",
+    heroStyle: "band",
+    heroGradient: "linear-gradient(135deg, #9a7b3f, #c0a05f)",
+    headingFont: "var(--font-fraunces)",
+    radius: "rounded-2xl",
+  },
+  skifer: {
+    id: "skifer",
+    name: "Skifer",
+    tagline: "Stram og arkitektonisk",
+    pageBg: "#f4f5f6",
+    surface: "#ffffff",
+    accent: "#2f3a44",
+    accentSoft: "#e0e3e6",
+    heroStyle: "gradient",
+    heroGradient: "linear-gradient(135deg, #2f3a44, #54616c)",
+    headingFont: "var(--font-cormorant)",
     radius: "rounded-xl",
   },
 };

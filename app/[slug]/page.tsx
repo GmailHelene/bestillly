@@ -187,7 +187,7 @@ export default async function PublicBusinessPage({
 
   return (
     <div className="flex-1" style={{ backgroundColor: theme.pageBg }}>
-      <main className="mx-auto w-full max-w-4xl space-y-8 px-5 py-10">
+      <main className="mx-auto w-full max-w-5xl space-y-10 px-5 py-12 sm:px-8">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
