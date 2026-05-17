@@ -162,6 +162,8 @@ export async function createBooking(
         <li><strong>E-post:</strong> ${customerEmail}</li>
         <li><strong>Telefon:</strong> ${customerPhone}</li>
       </ul>
+      <p><a href="${baseUrl}/admin/bookinger">Gå til adminpanelet ditt</a> for
+      å se og administrere alle bookingene dine.</p>
     `,
   });
 
@@ -181,6 +183,7 @@ async function sendCancellationEmails(booking: BookingRow): Promise<void> {
   if (!business || !service) return;
 
   const when = formatDateTime(booking.startsAt);
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
 
   await sendEmail({
     to: booking.customerEmail,
@@ -208,6 +211,8 @@ async function sendCancellationEmails(booking: BookingRow): Promise<void> {
         <li><strong>E-post:</strong> ${booking.customerEmail}</li>
         <li><strong>Telefon:</strong> ${booking.customerPhone}</li>
       </ul>
+      <p><a href="${baseUrl}/admin/bookinger">Gå til adminpanelet ditt</a> for
+      å se alle bookingene dine.</p>
     `,
   });
 }
