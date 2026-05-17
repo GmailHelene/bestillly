@@ -109,16 +109,19 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 
 ## Tverrgående — lett å glemme
 
-- [ ] **Tidssoner** — alt lagres i UTC, vises i norsk tid
-- [ ] **GDPR / personvern** — personvernerklæring, lagring av kundedata, samtykke
-- [ ] **Vilkår** for bedriftene som bruker tjenesten
-- [ ] **Validering** av all bruker-input (skjema, e-post)
-- [ ] **Feilhåndtering** — vennlige feilmeldinger, ikke tekniske
-- [ ] **Mobilvennlig** — testes på telefon, ikke bare desktop
-- [ ] **Tilgjengelighet (uu)** — kontrast, tastaturnavigasjon, labels
-- [ ] **E-postlevering** — at e-post ikke havner i spam
-- [ ] **Sikkerhetskopi** — Neon har backup, men verifiser
-- [ ] **Onboarding** — at en ny bedrift forstår hva den skal gjøre først
+- [x] **Tidssoner** — alt lagres i UTC, vises i norsk tid (Europe/Oslo)
+- [x] **GDPR / personvern** — personvernerklæring (/personvern), samtykketekst i booking
+- [x] **Vilkår** for bedriftene som bruker tjenesten (/vilkar)
+- [x] **Validering** av all bruker-input (skjema, e-post)
+- [x] **Feilhåndtering** — vennlige feilsider + vennlige feilmeldinger i skjema
+- [x] **Onboarding** — kom-i-gang-sjekkliste på admin-dashbordet
+- [~] **Mobilvennlig** — bygget responsivt; bør testes på ekte telefon
+- [~] **Tilgjengelighet (uu)** — labels og kontrast på plass; bør gjennomgås
+- [ ] **E-postlevering** — verifiser SPF/DKIM for avsenderdomenet i Brevo
+- [ ] **Sikkerhetskopi** — verifiser backup-innstilling i Neon
+
+*Juridisk merknad: personvernerklæring og vilkår er solide utkast — få dem
+gjennomgått av noen med juridisk innsikt før du tar imot mange kunder.*
 
 ---
 
