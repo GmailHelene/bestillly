@@ -122,8 +122,8 @@ export default function HvorforBestilly() {
             En grov sammenligning — tilbudene varierer, så sjekk alltid hva
             som gjelder hos den enkelte leverandøren.
           </p>
-          <div className="mt-6 overflow-hidden rounded-2xl border border-gray-200">
-            <table className="w-full text-sm">
+          <div className="mt-6 overflow-x-auto rounded-2xl border border-gray-200">
+            <table className="w-full min-w-[34rem] text-sm">
               <thead>
                 <tr className="bg-gray-50 text-left">
                   <th className="p-3 font-semibold"></th>

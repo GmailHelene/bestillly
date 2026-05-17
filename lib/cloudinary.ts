@@ -1,5 +1,17 @@
+// Tillatte bildeformater og maks filstørrelse. Cloudinary håndhever ikke
+// dette i preset-en på gratisplanen, så vi gjør det på klientsiden.
+const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB
+
 // Laster opp en fil til Cloudinary med usignert opplasting (kjøres i nettleseren).
 export async function uploadToCloudinary(file: File): Promise<string> {
+  if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+    throw new Error("Bildet må være JPG, PNG eller WebP.");
+  }
+  if (file.size > MAX_IMAGE_BYTES) {
+    throw new Error("Bildet er for stort — maks 5 MB.");
+  }
+
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const preset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
   if (!cloudName || !preset) {

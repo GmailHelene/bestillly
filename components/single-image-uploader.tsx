@@ -23,8 +23,10 @@ export function SingleImageUploader({
     setError(null);
     try {
       onChange(await uploadToCloudinary(file));
-    } catch {
-      setError("Opplasting feilet. Prøv igjen.");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Opplasting feilet. Prøv igjen.",
+      );
     } finally {
       setUploading(false);
     }
@@ -46,7 +48,7 @@ export function SingleImageUploader({
           {uploading ? "Laster opp…" : value ? "Bytt bilde" : "Last opp bilde"}
           <input
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp"
             onChange={handleFile}
             className="sr-only"
           />

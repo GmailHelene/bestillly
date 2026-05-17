@@ -79,6 +79,12 @@ export function NicheLanding({ niche }: { niche: NichePage }) {
                 Se en demo
               </Link>
             </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={niche.image}
+              alt=""
+              className="mx-auto mt-10 w-full max-w-2xl rounded-2xl object-cover shadow-sm"
+            />
           </div>
         </section>
 

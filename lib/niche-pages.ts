@@ -6,6 +6,7 @@ export type NicheFaq = { q: string; a: string };
 
 export type NichePage = {
   slug: string;
+  image: string;
   eyebrow: string;
   h1: string;
   metaTitle: string;
@@ -21,6 +22,7 @@ export type NichePage = {
 export const NICHE_PAGES: NichePage[] = [
   {
     slug: "bookingsystem-frisor",
+    image: "/bilder/frisor.webp",
     eyebrow: "Bookingsystem for frisører",
     h1: "Bookingsystem laget for frisører",
     metaTitle: "Bookingsystem for frisører — kundene booker selv | bestilly",
@@ -77,6 +79,7 @@ export const NICHE_PAGES: NichePage[] = [
   },
   {
     slug: "bookingsystem-neglsalong",
+    image: "/bilder/neglesalong.webp",
     eyebrow: "Bookingsystem for negl- og skjønnhetssalong",
     h1: "Bookingsystem for neglsalong og skjønnhetssalong",
     metaTitle: "Bookingsystem for neglsalong & skjønnhetssalong | bestilly",
@@ -133,6 +136,7 @@ export const NICHE_PAGES: NichePage[] = [
   },
   {
     slug: "timebestilling-massasje",
+    image: "/bilder/hudpleie.webp",
     eyebrow: "Timebestilling for massasje og terapi",
     h1: "Timebestilling for massasje og terapeuter",
     metaTitle: "Timebestilling for massasje & terapeut | bestilly",

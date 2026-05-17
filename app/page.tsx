@@ -464,6 +464,30 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Tillitslinje */}
+        <section className="mx-auto max-w-3xl px-6 pb-4">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-center text-sm text-gray-500">
+            <span>Data lagret i EU</span>
+            <span aria-hidden>·</span>
+            <span>GDPR-tilpasset</span>
+            <span aria-hidden>·</span>
+            <span>Utviklet i Norge, på norsk</span>
+            <span aria-hidden>·</span>
+            <span>Ingen gebyr per booking</span>
+          </div>
+          <p className="mt-2 text-center text-xs text-gray-400">
+            Les mer i{" "}
+            <Link href="/personvern" className="underline">
+              personvernerklæringen
+            </Link>{" "}
+            og{" "}
+            <Link href="/databehandleravtale" className="underline">
+              databehandleravtalen
+            </Link>
+            .
+          </p>
+        </section>
+
         {/* Ofte stilte spørsmål */}
         <section className="bg-[#f5f3ff]">
           <div className="mx-auto max-w-3xl px-6 py-20">
@@ -483,6 +507,35 @@ export default function Home() {
                 </details>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Om oss */}
+        <section className="mx-auto max-w-3xl px-6 py-16">
+          <h2 className="text-2xl font-bold tracking-tight">Om oss</h2>
+          <div className="mt-4 space-y-4 text-gray-600">
+            <p>
+              bestilly ble til av en enkel tanke: hver liten bedrift fortjener
+              et enkelt og rimelig bookingverktøy. Gründer Helene Grønberg,
+              utvikler fra Modum, så at de fleste bookingsystemene var
+              overdimensjonerte og for dyre for dem som driver alene —
+              frisører, terapeuter, konsulenter. Månedsgebyr på flere hundre
+              kroner og kostnad per booking spiser fort opp marginene.
+            </p>
+            <p>
+              Resultatet ble bestilly: et rent, enkelt verktøy bygget fra
+              bunnen av for de minste bedriftene. Du slipper å betale for
+              funksjonalitet du ikke trenger, og prisen er forutsigbar. Alt er
+              utviklet i Norge, på norsk — så support og veiledning alltid er
+              på ditt eget språk.
+            </p>
+            <p>
+              Filosofien er like enkel som den er viktig: teknologien skal
+              forenkle hverdagen for små tjenesteytere — ikke være en ekstra
+              belastning. Vi har stor respekt for gründere som satser på det de
+              brenner for, og vil gjøre det lettere for dem å bruke tiden på
+              nettopp det. Fra én gründer til en annen — velkommen til bestilly.
+            </p>
           </div>
         </section>
 
