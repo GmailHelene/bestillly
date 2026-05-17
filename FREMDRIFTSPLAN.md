@@ -3,7 +3,7 @@
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
 Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant.
 
-**Status pr. 2026-05-22:** Steg 1–9 ferdig. Neste: steg 10 (lansering).
+**Status pr. 2026-05-22:** Steg 1–9 ferdig. Neste: steg 9b (rikere onepage).
 
 ---
 
@@ -20,6 +20,7 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 | 7 | Avbestilling via lenke | ✅ Ferdig |
 | 8 | Onepage-redigering + SEO | ✅ Ferdig |
 | 9 | Salgsside + demo | ✅ Ferdig |
+| 9b | Rikere onepage | ⬜ Neste |
 | 10 | Lansering (deploy + domene) | ⬜ |
 
 ---
@@ -88,6 +89,13 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 - [x] SEO-optimalisert salgsside
 - [x] Demo-bedrift som besøkende kan klikke seg rundt i (`npm run db:seed` → /demo)
 - [x] Tydelig pris (990 kr/år) og «kom i gang»
+
+### Steg 9b — Rikere onepage ⬜
+- [ ] Fargetemaer — 3 å velge mellom
+- [ ] Sosiale medier-lenker med ikoner
+- [ ] Flere SEO-felt (egen meta-tittel, meta-beskrivelse, fokus-nøkkelord)
+- [ ] Faste valgfrie seksjoner (om oss, åpningstider-visning)
+- [ ] Logo- og bildeopplasting via Cloudinary
 
 ### Steg 10 — Lansering ⬜
 - [ ] Deploy til Railway

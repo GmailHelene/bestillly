@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses, services } from "@/db/schema";
+import { resolveTheme } from "@/lib/themes";
 import { BookingWidget } from "./booking-widget";
 
 async function getBusiness(slug: string) {
@@ -48,6 +49,7 @@ export default async function PublicBusinessPage({
     orderBy: (s, { asc }) => [asc(s.createdAt)],
   });
 
+  const theme = resolveTheme(business.template);
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
   const jsonLd = {
     "@context": "https://schema.org",
@@ -67,13 +69,19 @@ export default async function PublicBusinessPage({
   };
 
   return (
-    <main className="mx-auto w-full max-w-2xl space-y-8 px-5 py-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <header className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">{business.name}</h1>
+    <div className="flex-1" style={{ backgroundColor: theme.pageBg }}>
+      <main className="mx-auto w-full max-w-2xl space-y-8 px-5 py-10">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <header className="space-y-2">
+          <h1
+            className="text-3xl font-bold tracking-tight"
+            style={{ color: theme.accent }}
+          >
+            {business.name}
+          </h1>
         {business.description && (
           <p className="text-gray-600">{business.description}</p>
         )}
@@ -120,6 +128,7 @@ export default async function PublicBusinessPage({
         <h2 className="text-lg font-semibold">Bestill time</h2>
         <BookingWidget
           slug={business.slug}
+          accentColor={theme.accent}
           services={serviceList.map((s) => ({
             id: s.id,
             name: s.name,
@@ -127,6 +136,7 @@ export default async function PublicBusinessPage({
           }))}
         />
       </section>
-    </main>
+      </main>
+    </div>
   );
 }

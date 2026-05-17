@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses } from "@/db/schema";
 import { requireBusinessId } from "@/lib/session";
+import { DEFAULT_THEME, isThemeId } from "@/lib/themes";
 
 export type ProfileState = { error: string } | { ok: true } | undefined;
 
@@ -18,6 +19,8 @@ export async function updateBusinessProfile(
   const description = String(formData.get("description") ?? "").trim();
   const address = String(formData.get("address") ?? "").trim();
   const phone = String(formData.get("phone") ?? "").trim();
+  const themeInput = String(formData.get("template") ?? "");
+  const template = isThemeId(themeInput) ? themeInput : DEFAULT_THEME;
 
   if (!name) return { error: "Bedriftsnavn er påkrevd." };
 
@@ -28,6 +31,7 @@ export async function updateBusinessProfile(
       description: description || null,
       address: address || null,
       phone: phone || null,
+      template,
     })
     .where(eq(businesses.id, businessId));
 

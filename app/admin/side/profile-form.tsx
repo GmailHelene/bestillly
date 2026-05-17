@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { updateBusinessProfile } from "@/lib/actions/business";
+import { DEFAULT_THEME, THEMES, isThemeId } from "@/lib/themes";
 
 const inputClass =
   "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-900";
@@ -11,6 +12,7 @@ type Profile = {
   description: string | null;
   address: string | null;
   phone: string | null;
+  template: string;
 };
 
 export function ProfileForm({ profile }: { profile: Profile }) {
@@ -18,6 +20,9 @@ export function ProfileForm({ profile }: { profile: Profile }) {
     updateBusinessProfile,
     undefined,
   );
+  const currentTheme = isThemeId(profile.template)
+    ? profile.template
+    : DEFAULT_THEME;
 
   return (
     <form
@@ -87,6 +92,36 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             defaultValue={profile.phone ?? ""}
             className={inputClass}
           />
+        </div>
+      </div>
+
+      <div className="space-y-1">
+        <span className="text-sm font-medium">Fargetema</span>
+        <div className="grid grid-cols-3 gap-2">
+          {Object.values(THEMES).map((theme) => (
+            <label key={theme.id} className="cursor-pointer">
+              <input
+                type="radio"
+                name="template"
+                value={theme.id}
+                defaultChecked={currentTheme === theme.id}
+                className="peer sr-only"
+              />
+              <div className="rounded-lg border border-gray-300 p-3 peer-checked:border-gray-900 peer-checked:ring-1 peer-checked:ring-gray-900">
+                <div className="flex gap-1">
+                  <span
+                    className="h-5 w-5 rounded-full border border-gray-200"
+                    style={{ background: theme.pageBg }}
+                  />
+                  <span
+                    className="h-5 w-5 rounded-full"
+                    style={{ background: theme.accent }}
+                  />
+                </div>
+                <p className="mt-2 text-sm font-medium">{theme.name}</p>
+              </div>
+            </label>
+          ))}
         </div>
       </div>
 

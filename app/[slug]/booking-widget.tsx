@@ -23,9 +23,11 @@ function todayInOslo(): string {
 export function BookingWidget({
   slug,
   services,
+  accentColor,
 }: {
   slug: string;
   services: Service[];
+  accentColor: string;
 }) {
   const [serviceId, setServiceId] = useState(services[0]?.id ?? "");
   const [date, setDate] = useState(todayInOslo());
@@ -160,9 +162,14 @@ export function BookingWidget({
                 key={time}
                 type="button"
                 onClick={() => setSelectedTime(time)}
+                style={
+                  selectedTime === time
+                    ? { backgroundColor: accentColor, borderColor: accentColor }
+                    : undefined
+                }
                 className={`rounded-lg border px-3 py-1.5 text-sm ${
                   selectedTime === time
-                    ? "border-gray-900 bg-gray-900 text-white"
+                    ? "text-white"
                     : "border-gray-300 hover:border-gray-900"
                 }`}
               >
@@ -234,7 +241,8 @@ export function BookingWidget({
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+              style={{ backgroundColor: accentColor }}
+              className="rounded-lg px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50"
             >
               {submitting ? "Bestiller…" : "Bekreft booking"}
             </button>

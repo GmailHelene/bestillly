@@ -46,6 +46,7 @@ export default async function SidePage() {
           description: business.description,
           address: business.address,
           phone: business.phone,
+          template: business.template,
         }}
       />
 
