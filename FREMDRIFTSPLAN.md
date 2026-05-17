@@ -3,7 +3,7 @@
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
 Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant.
 
-**Status pr. 2026-05-22:** Steg 1–7b ferdig. Neste: steg 8.
+**Status pr. 2026-05-22:** Steg 1–8 ferdig. Neste: steg 9.
 
 ---
 
@@ -18,7 +18,7 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 | 5 | Offentlig onepage + ledighetskalender | ✅ Ferdig |
 | 6 | Booking-flyt + e-postvarsling | ✅ Ferdig |
 | 7 | Avbestilling via lenke | ✅ Ferdig |
-| 8 | Onepage-redigering + SEO | ⬜ |
+| 8 | Onepage-redigering + SEO | ✅ Ferdig |
 | 9 | Salgsside + demo | ⬜ |
 | 10 | Lansering (deploy + domene) | ⬜ |
 
@@ -74,13 +74,14 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 ### Steg 7b — Bookingkalender i admin ✅
 - [x] Månedskalendervisning av bookinger i admin (i tillegg til listen)
 
-### Steg 8 — Onepage-redigering + SEO ⬜
-- [ ] Bedrift redigerer onepage (tekst, bilder, malvalg)
-- [ ] Auto-SEO: title, meta-description, overskrifter
-- [ ] `LocalBusiness` JSON-LD strukturert data
-- [ ] Automatisk `sitemap.xml` + `robots.txt`
-- [ ] SEO-onboarding-sjekkliste i admin
-- [ ] Guide til Google Business Profile
+### Steg 8 — Onepage-redigering + SEO ✅
+- [x] Bedrift redigerer onepage (navn, beskrivelse, adresse, telefon)
+- [x] Auto-SEO: title, meta-description, openGraph, canonical
+- [x] `LocalBusiness` JSON-LD strukturert data
+- [x] Automatisk `sitemap.xml` + `robots.txt`
+- [x] SEO-onboarding-sjekkliste i admin
+- [x] Guide til Google Business Profile
+- [ ] Bilder og malvalg — utsatt (krever bildelagring, gjøres ved behov senere)
 
 ### Steg 9 — Salgsside + demo ⬜
 - [ ] Salgsside på rot-domenet (tillitsbyggende, målgrupperettet)

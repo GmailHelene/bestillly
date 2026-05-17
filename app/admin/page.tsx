@@ -20,10 +20,10 @@ const sections = [
     status: "Klar",
   },
   {
-    title: "Onepage",
-    description: "Din offentlige side med booking og automatisk SEO.",
-    href: null,
-    status: "Kommer i steg 8",
+    title: "Min side",
+    description: "Rediger den offentlige siden din, med SEO-sjekkliste.",
+    href: "/admin/side",
+    status: "Klar",
   },
 ];
 

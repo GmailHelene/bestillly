@@ -17,11 +17,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const business = await getBusiness(slug);
   if (!business) return { title: "Siden finnes ikke" };
+
+  const title = `${business.name} — bestill time`;
+  const description =
+    business.description ??
+    `Bestill time hos ${business.name} enkelt på nett.`;
+
   return {
-    title: `${business.name} — bestill time`,
-    description:
-      business.description ??
-      `Bestill time hos ${business.name} enkelt på nett.`,
+    title,
+    description,
+    alternates: { canonical: `/${business.slug}` },
+    openGraph: { title, description, type: "website" },
   };
 }
 
@@ -42,8 +48,30 @@ export default async function PublicBusinessPage({
     orderBy: (s, { asc }) => [asc(s.createdAt)],
   });
 
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: business.name,
+    url: `${baseUrl}/${business.slug}`,
+    ...(business.description ? { description: business.description } : {}),
+    ...(business.phone ? { telephone: business.phone } : {}),
+    ...(business.address
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: business.address,
+          },
+        }
+      : {}),
+  };
+
   return (
     <main className="mx-auto w-full max-w-2xl space-y-8 px-5 py-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">{business.name}</h1>
         {business.description && (
