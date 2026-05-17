@@ -25,6 +25,7 @@ import {
 import { CHANNEL_STRATEGIES, type ChannelId } from "@/lib/marketing-platforms";
 import { generateImage, hasReplicateToken } from "@/lib/replicate";
 import { hasCloudinary, uploadImageFromUrl } from "@/lib/cloudinary";
+import { generatePlan, type PostingPlan } from "@/lib/marketing-plan";
 
 export type MarketingProfileState =
   | { error: string }
@@ -74,6 +75,7 @@ export async function updateMarketingProfile(
     websiteCrawl: keepCrawl,
     seo: existing.seo,
     analysis: existing.analysis,
+    postingPlan: existing.postingPlan,
   };
 
   await db
@@ -342,6 +344,78 @@ export async function generateImageAction(
   } catch {
     return {
       error: "Klarte ikke å lage bildet akkurat nå. Prøv igjen om litt.",
+    };
+  }
+}
+
+export type PlanState =
+  | { error: string }
+  | { ok: true; plan: PostingPlan }
+  | undefined;
+
+// Førstkommende mandag, som ISO-dato (YYYY-MM-DD).
+function nextMonday(): string {
+  const d = new Date();
+  const day = d.getDay(); // 0 = søndag
+  let diff = (1 - day + 7) % 7;
+  if (diff === 0) diff = 7;
+  d.setDate(d.getDate() + diff);
+  return d.toISOString().slice(0, 10);
+}
+
+// F3.8 — genererer en helhetlig publiseringsplan på tvers av kanalene.
+export async function generatePlanAction(
+  periodWeeks: number,
+): Promise<PlanState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (!hasAnthropicKey()) {
+    return { error: "AI-tjenesten er ikke konfigurert ennå." };
+  }
+  const weeks = [1, 2, 4].includes(periodWeeks) ? periodWeeks : 2;
+
+  const business = await db.query.businesses.findFirst({
+    where: eq(businesses.id, businessId),
+  });
+  if (!business) return { error: "Fant ikke bedriften." };
+  const profile = parseMarketingProfile(business.marketingProfile);
+
+  const serviceList = await db.query.services.findMany({
+    where: eq(services.businessId, businessId),
+  });
+  const productList = await db.query.products.findMany({
+    where: eq(products.businessId, businessId),
+  });
+
+  try {
+    const { result } = await generatePlan({
+      businessName: business.name,
+      description: business.description ?? undefined,
+      audience: profile.audience,
+      tone: profile.tone,
+      services: serviceList.map((s) => s.name),
+      products: productList.map((p) => p.name),
+      seoKeywords: profile.seo?.keywords,
+      channels: profile.channels ?? [],
+      periodWeeks: weeks,
+      startDate: nextMonday(),
+    });
+
+    const plan: PostingPlan = { ...result, generatedAt: new Date().toISOString() };
+    const marketingProfile: MarketingProfile = {
+      ...profile,
+      postingPlan: plan,
+    };
+    await db
+      .update(businesses)
+      .set({ marketingProfile })
+      .where(eq(businesses.id, businessId));
+    revalidatePath("/admin/markedsforing");
+    return { ok: true, plan };
+  } catch {
+    return {
+      error:
+        "Klarte ikke å lage publiseringsplanen akkurat nå. Prøv igjen om litt.",
     };
   }
 }

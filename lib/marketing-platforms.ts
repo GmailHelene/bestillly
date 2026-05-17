@@ -28,6 +28,8 @@ export type ChannelStrategy = {
   avoid: string[];
   // Prioritet i markedsanalysen (1 = viktigst for små lokale bedrifter).
   priority: number;
+  // Lenke for å publisere på kanalen.
+  postUrl: string;
 };
 
 export const CHANNEL_STRATEGIES: Record<ChannelId, ChannelStrategy> = {
@@ -54,6 +56,7 @@ export const CHANNEL_STRATEGIES: Record<ChannelId, ChannelStrategy> = {
       "Bare delte lenker uten egen tekst",
     ],
     priority: 1,
+    postUrl: "https://www.facebook.com/",
   },
   instagram: {
     id: "instagram",
@@ -78,6 +81,7 @@ export const CHANNEL_STRATEGIES: Record<ChannelId, ChannelStrategy> = {
       "Uskarpe eller dårlig belyste bilder",
     ],
     priority: 2,
+    postUrl: "https://www.instagram.com/",
   },
   tiktok: {
     id: "tiktok",
@@ -102,6 +106,7 @@ export const CHANNEL_STRATEGIES: Record<ChannelId, ChannelStrategy> = {
       "Ren reklame uten underholdning eller nytte",
     ],
     priority: 3,
+    postUrl: "https://www.tiktok.com/upload",
   },
   snapchat: {
     id: "snapchat",
@@ -121,6 +126,7 @@ export const CHANNEL_STRATEGIES: Record<ChannelId, ChannelStrategy> = {
     ],
     avoid: ["Stivt, polert reklamespråk", "Gjenbruk av lange videoer"],
     priority: 4,
+    postUrl: "https://www.snapchat.com/",
   },
   youtube: {
     id: "youtube",
@@ -140,6 +146,7 @@ export const CHANNEL_STRATEGIES: Record<ChannelId, ChannelStrategy> = {
     ],
     avoid: ["For lange videoer", "Vannmerker fra andre apper"],
     priority: 5,
+    postUrl: "https://studio.youtube.com/",
   },
 };
 

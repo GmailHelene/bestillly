@@ -112,7 +112,7 @@ Inspirert av Helenes tidligere app «Your Marketing Friend».
 | F3.5 | Innholdsgenerator (SoMe) — innlegg og bildetekster tilpasset HVER kanal og format. Kanaltilpasning er kjerneverdien. | ✅ |
 | F3.6 | Bildegenerering — AI-bildeforslag til innleggene. | ✅ |
 | F3.7 | Blogginnlegg-generator — genererer innlegg rett inn i blogg-funksjonen (Fase 2). | ⬜ |
-| F3.8 | Publiseringsplan — kalender over hva som postes når, eksporterbar. | ⬜ |
+| F3.8 | Publiseringsplan — kalender over hva som postes når, eksporterbar. | ✅ |
 | F3.9 | Markedsføringshub — samlende admin-UI: profil, analyser, innhold og plan på ett sted. | ⬜ |
 | F3.10 | Prismodell/kvote — implementer tillegget og forbrukskontroll. | ⬜ |
 

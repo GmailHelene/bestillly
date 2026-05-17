@@ -6,7 +6,17 @@ import {
   generateImageAction,
 } from "@/lib/actions/marketing";
 import { MARKETING_CHANNELS } from "@/lib/marketing";
+import {
+  CHANNEL_STRATEGIES,
+  type ChannelId,
+} from "@/lib/marketing-platforms";
 import type { GeneratedPost } from "@/lib/marketing-content";
+
+function channelPostUrl(channelId: string): string | null {
+  return channelId in CHANNEL_STRATEGIES
+    ? CHANNEL_STRATEGIES[channelId as ChannelId].postUrl
+    : null;
+}
 
 const inputClass =
   "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-900";
@@ -216,6 +226,17 @@ function PostCard({ post }: { post: GeneratedPost }) {
             <li key={i}>{t}</li>
           ))}
         </ul>
+      )}
+
+      {channelPostUrl(post.channelId) && (
+        <a
+          href={channelPostUrl(post.channelId) as string}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block text-xs font-medium text-gray-600 underline hover:text-gray-900"
+        >
+          Åpne {post.channelName} for å publisere ↗
+        </a>
       )}
     </div>
   );
