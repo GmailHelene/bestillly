@@ -6,6 +6,7 @@ import { businesses, services, workingHours } from "@/db/schema";
 import { resolveTheme } from "@/lib/themes";
 import { parseOnepageContent } from "@/lib/onepage";
 import { SocialLinks } from "@/components/social-links";
+import { OnepageHero } from "@/components/onepage-hero";
 import { BookingWidget } from "./booking-widget";
 
 const WEEKDAYS: [number, string][] = [
@@ -101,37 +102,31 @@ export default async function PublicBusinessPage({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <header className="space-y-2">
-          <h1
-            className="text-3xl font-bold tracking-tight"
-            style={{ color: theme.accent }}
-          >
-            {business.name}
-          </h1>
-        {business.description && (
-          <p className="text-gray-600">{business.description}</p>
-        )}
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500">
-          {business.address && <span>{business.address}</span>}
-          {business.phone && <span>{business.phone}</span>}
-        </div>
-      </header>
+        <OnepageHero business={business} theme={theme} />
 
       {aboutText && (
         <section className="space-y-2">
-          <h2 className="text-lg font-semibold">Om oss</h2>
+          <h2
+          className="text-lg font-semibold"
+          style={{ fontFamily: theme.headingFont }}
+        >Om oss</h2>
           <p className="whitespace-pre-line text-gray-600">{aboutText}</p>
         </section>
       )}
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold">Behandlinger</h2>
+        <h2
+          className="text-lg font-semibold"
+          style={{ fontFamily: theme.headingFont }}
+        >Behandlinger</h2>
         {serviceList.length === 0 ? (
           <p className="text-sm text-gray-500">
             Ingen behandlinger er lagt ut ennå.
           </p>
         ) : (
-          <ul className="divide-y divide-gray-200 rounded-xl border border-gray-200">
+          <ul
+            className={`divide-y divide-gray-200 border border-gray-200 bg-white ${theme.radius}`}
+          >
             {serviceList.map((service) => (
               <li
                 key={service.id}
@@ -159,8 +154,13 @@ export default async function PublicBusinessPage({
 
       {showOpeningHours && (
         <section className="space-y-3">
-          <h2 className="text-lg font-semibold">Åpningstider</h2>
-          <ul className="divide-y divide-gray-200 rounded-xl border border-gray-200">
+          <h2
+          className="text-lg font-semibold"
+          style={{ fontFamily: theme.headingFont }}
+        >Åpningstider</h2>
+          <ul
+            className={`divide-y divide-gray-200 border border-gray-200 bg-white ${theme.radius}`}
+          >
             {WEEKDAYS.map(([weekday, label]) => {
               const wh = hours.find((h) => h.weekday === weekday);
               return (
@@ -181,8 +181,13 @@ export default async function PublicBusinessPage({
         </section>
       )}
 
-      <section className="space-y-3 rounded-xl border border-gray-200 p-5">
-        <h2 className="text-lg font-semibold">Bestill time</h2>
+      <section
+        className={`space-y-3 border border-gray-200 bg-white p-5 ${theme.radius}`}
+      >
+        <h2
+          className="text-lg font-semibold"
+          style={{ fontFamily: theme.headingFont }}
+        >Bestill time</h2>
         <BookingWidget
           slug={business.slug}
           accentColor={theme.accent}

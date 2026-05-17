@@ -152,6 +152,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
                   />
                 </div>
                 <p className="mt-2 text-sm font-medium">{theme.name}</p>
+                <p className="text-xs text-gray-400">{theme.tagline}</p>
               </div>
             </label>
           ))}
