@@ -8,10 +8,15 @@ let instance: Db | undefined;
 
 function getDb(): Db {
   if (!instance) {
-    const url = process.env.DATABASE_URL;
+    // Under testing (Vitest) brukes en egen test-database.
+    const url = process.env.VITEST
+      ? process.env.TEST_DATABASE_URL
+      : process.env.DATABASE_URL;
     if (!url) {
       throw new Error(
-        "DATABASE_URL er ikke satt. Kopier .env.example til .env.local og fyll inn verdiene.",
+        process.env.VITEST
+          ? "TEST_DATABASE_URL er ikke satt — integrasjonstester krever en test-database."
+          : "DATABASE_URL er ikke satt. Kopier .env.example til .env.local og fyll inn verdiene.",
       );
     }
     instance = drizzle(neon(url), { schema });

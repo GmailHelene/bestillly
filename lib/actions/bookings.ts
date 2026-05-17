@@ -145,13 +145,13 @@ export async function createBooking(
       })
       .returning();
   } catch (err) {
-    // Unik-indeks (23505) = noen rakk å booke samme tid akkurat nå.
-    if (
-      err &&
-      typeof err === "object" &&
-      "code" in err &&
-      (err as { code?: string }).code === "23505"
-    ) {
+    // Unik-indeks (Postgres 23505) = noen rakk å booke samme tid akkurat nå.
+    // Drizzle pakker driver-feilen — koden ligger på err.cause.code.
+    const e = err as {
+      code?: string;
+      cause?: { code?: string };
+    };
+    if (e?.code === "23505" || e?.cause?.code === "23505") {
       return {
         error: "Beklager, denne tiden er ikke lenger ledig. Velg en annen.",
       };
