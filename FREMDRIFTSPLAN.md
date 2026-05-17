@@ -3,7 +3,7 @@
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
 Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant.
 
-**Status pr. 2026-05-22:** Steg 1–5 ferdig. Neste: steg 6.
+**Status pr. 2026-05-22:** Steg 1–6 ferdig. Neste: steg 7.
 
 ---
 
@@ -16,8 +16,8 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 | 3 | Behandlinger (CRUD) | ✅ Ferdig |
 | 4 | Åpningstider (ukerytme + ferieavvik) | ✅ Ferdig |
 | 5 | Offentlig onepage + ledighetskalender | ✅ Ferdig |
-| 6 | Booking-flyt + e-postvarsling | ⬜ Neste |
-| 7 | Avbestilling via lenke | ⬜ |
+| 6 | Booking-flyt + e-postvarsling | ✅ Ferdig |
+| 7 | Avbestilling via lenke | ⬜ Neste |
 | 8 | Onepage-redigering + SEO | ⬜ |
 | 9 | Salgsside + demo | ⬜ |
 | 10 | Lansering (deploy + domene) | ⬜ |
@@ -57,13 +57,13 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 - [x] Velg behandling → se ledige tider
 - [x] Mobilvennlig visning
 
-### Steg 6 — Booking-flyt + e-postvarsling ⬜
-- [ ] Kunde booker (navn, e-post, telefon)
-- [ ] Vern mot dobbeltbooking (DB-transaksjon)
-- [ ] Bekreftelses-e-post til kunde
-- [ ] Varsel-e-post til bedrift
-- [ ] Resend: verifisere avsenderdomene
-- [ ] Bookingoversikt i admin (kommende / tidligere)
+### Steg 6 — Booking-flyt + e-postvarsling ✅
+- [x] Kunde booker (navn, e-post, telefon)
+- [x] Vern mot dobbeltbooking (re-sjekk av ledighet før lagring)
+- [x] Bekreftelses-e-post til kunde
+- [x] Varsel-e-post til bedrift
+- [ ] Resend: verifisere avsenderdomene *(krever konto-oppsett — se under)*
+- [x] Bookingoversikt i admin (kommende / tidligere)
 
 ### Steg 7 — Avbestilling ⬜
 - [ ] Avbestillingslenke med token i bekreftelses-e-post

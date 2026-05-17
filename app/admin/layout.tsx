@@ -47,6 +47,12 @@ export default async function AdminLayout({
             >
               Åpningstider
             </Link>
+            <Link
+              href="/admin/bookinger"
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Bookinger
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-4 text-sm">

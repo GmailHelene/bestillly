@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { getSlots } from "@/lib/actions/availability";
+import { createBooking } from "@/lib/actions/bookings";
 
 const controlClass =
   "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-900";
@@ -13,7 +14,6 @@ type Service = {
 };
 
 function todayInOslo(): string {
-  // sv-SE gir YYYY-MM-DD-format
   return new Intl.DateTimeFormat("sv-SE", {
     timeZone: "Europe/Oslo",
   }).format(new Date());
@@ -28,25 +28,95 @@ export function BookingWidget({
 }) {
   const [serviceId, setServiceId] = useState(services[0]?.id ?? "");
   const [date, setDate] = useState(todayInOslo());
+  const [refreshKey, setRefreshKey] = useState(0);
   const [slots, setSlots] = useState<string[] | null>(null);
-  const [pending, startTransition] = useTransition();
+  const [loadingSlots, startSlotsTransition] = useTransition();
+
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, startSubmit] = useTransition();
+  const [confirmed, setConfirmed] = useState<{
+    service: string;
+    date: string;
+    time: string;
+  } | null>(null);
+
+  useEffect(() => {
+    setSelectedTime(null);
+  }, [serviceId, date]);
 
   useEffect(() => {
     if (!serviceId || !date) {
       setSlots(null);
       return;
     }
-    startTransition(async () => {
+    let cancelled = false;
+    startSlotsTransition(async () => {
       const result = await getSlots(slug, serviceId, date);
-      setSlots(result);
+      if (!cancelled) setSlots(result);
     });
-  }, [slug, serviceId, date]);
+    return () => {
+      cancelled = true;
+    };
+  }, [slug, serviceId, date, refreshKey]);
+
+  function handleBookingSubmit(formData: FormData) {
+    setError(null);
+    const time = selectedTime;
+    if (!time) return;
+    startSubmit(async () => {
+      const result = await createBooking({
+        slug,
+        serviceId,
+        date,
+        time,
+        customerName: String(formData.get("customerName") ?? ""),
+        customerEmail: String(formData.get("customerEmail") ?? ""),
+        customerPhone: String(formData.get("customerPhone") ?? ""),
+      });
+      if ("error" in result) {
+        setError(result.error);
+        setRefreshKey((k) => k + 1);
+      } else {
+        setConfirmed({
+          service: services.find((s) => s.id === serviceId)?.name ?? "",
+          date,
+          time,
+        });
+        setSelectedTime(null);
+      }
+    });
+  }
 
   if (services.length === 0) {
     return (
       <p className="text-sm text-gray-500">
         Ingen behandlinger er tilgjengelige for booking ennå.
       </p>
+    );
+  }
+
+  if (confirmed) {
+    return (
+      <div className="space-y-3 rounded-lg bg-green-50 p-4">
+        <p className="font-medium text-green-800">Timen din er booket!</p>
+        <p className="text-sm text-green-800">
+          {confirmed.service} — {confirmed.date} kl. {confirmed.time}
+        </p>
+        <p className="text-sm text-gray-600">
+          Du får en bekreftelse på e-post.
+        </p>
+        <button
+          type="button"
+          onClick={() => {
+            setConfirmed(null);
+            setRefreshKey((k) => k + 1);
+          }}
+          className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium hover:bg-white"
+        >
+          Book en ny time
+        </button>
+      </div>
     );
   }
 
@@ -86,8 +156,8 @@ export function BookingWidget({
       </div>
 
       <div>
-        <p className="mb-2 text-sm font-medium">Ledige tider</p>
-        {pending ? (
+        <p className="mb-2 text-sm font-medium">Velg en ledig tid</p>
+        {loadingSlots ? (
           <p className="text-sm text-gray-500">Laster ledige tider…</p>
         ) : slots === null ? null : slots.length === 0 ? (
           <p className="rounded-lg border border-dashed border-gray-300 p-4 text-center text-sm text-gray-500">
@@ -96,20 +166,96 @@ export function BookingWidget({
         ) : (
           <div className="flex flex-wrap gap-2">
             {slots.map((time) => (
-              <span
+              <button
                 key={time}
-                className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm"
+                type="button"
+                onClick={() => setSelectedTime(time)}
+                className={`rounded-lg border px-3 py-1.5 text-sm ${
+                  selectedTime === time
+                    ? "border-gray-900 bg-gray-900 text-white"
+                    : "border-gray-300 hover:border-gray-900"
+                }`}
               >
                 {time}
-              </span>
+              </button>
             ))}
           </div>
         )}
       </div>
 
-      <p className="text-xs text-gray-400">
-        Selve bookingen (valg av tid + bekreftelse) aktiveres i steg 6.
-      </p>
+      {selectedTime && (
+        <form
+          action={handleBookingSubmit}
+          className="space-y-3 rounded-lg border border-gray-200 p-4"
+        >
+          <p className="text-sm font-medium">
+            Bestill {selectedTime} — {date}
+          </p>
+          {error && (
+            <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+              {error}
+            </p>
+          )}
+          <div className="space-y-1">
+            <label htmlFor="customerName" className="text-sm font-medium">
+              Navn
+            </label>
+            <input
+              id="customerName"
+              name="customerName"
+              type="text"
+              required
+              className={controlClass}
+            />
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="space-y-1">
+              <label htmlFor="customerEmail" className="text-sm font-medium">
+                E-post
+              </label>
+              <input
+                id="customerEmail"
+                name="customerEmail"
+                type="email"
+                required
+                className={controlClass}
+              />
+            </div>
+            <div className="space-y-1">
+              <label htmlFor="customerPhone" className="text-sm font-medium">
+                Telefon
+              </label>
+              <input
+                id="customerPhone"
+                name="customerPhone"
+                type="tel"
+                required
+                className={controlClass}
+              />
+            </div>
+          </div>
+          <p className="text-xs text-gray-400">
+            Ved å bestille godtar du at bedriften lagrer kontaktinfoen din for
+            å håndtere timen.
+          </p>
+          <div className="flex items-center gap-3">
+            <button
+              type="submit"
+              disabled={submitting}
+              className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+            >
+              {submitting ? "Bestiller…" : "Bekreft booking"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedTime(null)}
+              className="text-sm font-medium text-gray-500 hover:text-gray-900"
+            >
+              Avbryt
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }

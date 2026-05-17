@@ -16,8 +16,8 @@ const sections = [
   {
     title: "Bookinger",
     description: "Oversikt over kommende og tidligere avtaler.",
-    href: null,
-    status: "Kommer i steg 6",
+    href: "/admin/bookinger",
+    status: "Klar",
   },
   {
     title: "Onepage",
