@@ -3,7 +3,7 @@
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
 Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant.
 
-**Status pr. 2026-05-22:** Steg 1–8 ferdig. Neste: steg 9.
+**Status pr. 2026-05-22:** Steg 1–9 ferdig. Neste: steg 10 (lansering).
 
 ---
 
@@ -19,7 +19,7 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 | 6 | Booking-flyt + e-postvarsling | ✅ Ferdig |
 | 7 | Avbestilling via lenke | ✅ Ferdig |
 | 8 | Onepage-redigering + SEO | ✅ Ferdig |
-| 9 | Salgsside + demo | ⬜ |
+| 9 | Salgsside + demo | ✅ Ferdig |
 | 10 | Lansering (deploy + domene) | ⬜ |
 
 ---
@@ -83,11 +83,11 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 - [x] Guide til Google Business Profile
 - [ ] Bilder og malvalg — utsatt (krever bildelagring, gjøres ved behov senere)
 
-### Steg 9 — Salgsside + demo ⬜
-- [ ] Salgsside på rot-domenet (tillitsbyggende, målgrupperettet)
-- [ ] SEO-optimalisert salgsside
-- [ ] Demo-bedrift som besøkende kan klikke seg rundt i
-- [ ] Tydelig pris (990 kr/år) og «kom i gang»
+### Steg 9 — Salgsside + demo ✅
+- [x] Salgsside på rot-domenet (tillitsbyggende, målgrupperettet)
+- [x] SEO-optimalisert salgsside
+- [x] Demo-bedrift som besøkende kan klikke seg rundt i (`npm run db:seed` → /demo)
+- [x] Tydelig pris (990 kr/år) og «kom i gang»
 
 ### Steg 10 — Lansering ⬜
 - [ ] Deploy til Railway
