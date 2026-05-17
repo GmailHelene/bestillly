@@ -7,6 +7,7 @@ export const RESERVED_SLUGS = new Set([
   "avbestill",
   "kontakt",
   "personvern",
+  "vilkar",
   "api",
   "_next",
   "static",

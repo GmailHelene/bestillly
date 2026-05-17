@@ -1,0 +1,112 @@
+import type { Metadata } from "next";
+import { BackLink } from "@/components/back-link";
+
+export const metadata: Metadata = {
+  title: "Personvernerklæring — bestilly",
+  description: "Hvordan bestilly behandler personopplysninger.",
+};
+
+export default function PrivacyPage() {
+  return (
+    <main className="mx-auto w-full max-w-2xl space-y-6 px-6 py-12">
+      <BackLink href="/" label="Tilbake til forsiden" />
+      <div className="space-y-1">
+        <h1 className="text-2xl font-bold">Personvernerklæring</h1>
+        <p className="text-sm text-gray-500">Sist oppdatert 17. mai 2026</p>
+      </div>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">1. Behandlingsansvarlig</h2>
+        <p className="text-sm text-gray-700">
+          bestilly leverer et bookingsystem for små bedrifter. For
+          personopplysninger om bedriftene som er kunder hos oss, er bestilly
+          behandlingsansvarlig. Spørsmål kan rettes til oss via kontaktsiden.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">2. Hvilke opplysninger vi behandler</h2>
+        <p className="text-sm text-gray-700">
+          <strong>Om bedriftskunder:</strong> navn på bedrift og kontaktperson,
+          e-postadresse, telefonnummer og adresse.
+        </p>
+        <p className="text-sm text-gray-700">
+          <strong>Om sluttkunder (de som booker time):</strong> navn,
+          e-postadresse og telefonnummer som oppgis ved booking. Disse
+          opplysningene behandler vi på vegne av bedriften — se punkt 4.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">3. Formål og rettslig grunnlag</h2>
+        <p className="text-sm text-gray-700">
+          Opplysningene brukes til å levere booking-tjenesten: opprette og
+          administrere bookinger, sende bekreftelser og varsler, og drifte
+          bedriftens side. Rettslig grunnlag er å oppfylle avtalen med
+          bedriften, samt vår berettigede interesse i å levere tjenesten.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">4. bestilly som databehandler</h2>
+        <p className="text-sm text-gray-700">
+          Når en bedrift bruker bestilly til å håndtere sine egne kunder, er
+          bedriften behandlingsansvarlig for disse opplysningene, og bestilly
+          er databehandler. Vi behandler opplysningene kun etter bedriftens
+          instruks og for å levere tjenesten. Vilkårene for denne
+          databehandlingen inngår i vilkårene for tjenesten.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">5. Underleverandører</h2>
+        <p className="text-sm text-gray-700">
+          For å levere tjenesten bruker vi følgende underleverandører:
+        </p>
+        <ul className="ml-5 list-disc space-y-1 text-sm text-gray-700">
+          <li>Neon — database (lagring innenfor EU)</li>
+          <li>Railway — drift av applikasjonen</li>
+          <li>Cloudinary — lagring av bilder lastet opp av bedriften</li>
+          <li>Brevo — utsending av e-postvarsler</li>
+        </ul>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">6. Lagringstid</h2>
+        <p className="text-sm text-gray-700">
+          Opplysninger lagres så lenge bedriften har en aktiv konto hos
+          bestilly. Bookingdata oppbevares så lenge det er nødvendig for å
+          dokumentere avtalene. Når en konto avsluttes, slettes opplysningene
+          innen rimelig tid.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">7. Dine rettigheter</h2>
+        <p className="text-sm text-gray-700">
+          Du har rett til innsyn i, retting og sletting av opplysninger om deg,
+          og til å klage til Datatilsynet. Gjelder henvendelsen opplysninger en
+          bedrift har registrert om deg som kunde, tar du kontakt med
+          bedriften. Ellers kan du kontakte oss via kontaktsiden.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">8. Informasjonskapsler</h2>
+        <p className="text-sm text-gray-700">
+          bestilly bruker kun nødvendige informasjonskapsler — en
+          innloggingskapsel som holder bedriften innlogget i adminpanelet. Vi
+          bruker ikke informasjonskapsler til sporing eller markedsføring.
+        </p>
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-semibold">9. Endringer</h2>
+        <p className="text-sm text-gray-700">
+          Vi kan oppdatere denne erklæringen. Ved vesentlige endringer
+          informerer vi bedriftskundene våre.
+        </p>
+      </section>
+    </main>
+  );
+}

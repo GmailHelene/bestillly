@@ -126,6 +126,9 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 
 **Fase 2 — Nettbutikk + betaling**
 Enkel nettbutikk for bedriftens egne varer, med kundebetaling.
++
+Nyhetsbrev-funksjon for bedriftene.
+
 
 **Fase 3 — Contentbuilder-tillegg**
 AI-innholdsforslag, bildegenerering, råd om sosiale medier. Gjenbruker
@@ -133,7 +136,7 @@ BrandStudio-motoren. Egen prismodell (tillegg/kvote) siden AI koster per bruk.
 
 
 
-**Planlagt senere:** Nyhetsbrev-funksjon for bedriftene.
+
 
 ---
 

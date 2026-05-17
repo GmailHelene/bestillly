@@ -351,9 +351,15 @@ export default function Home() {
 
       <footer className="flex flex-col items-center gap-2 px-6 py-8 text-center text-sm text-gray-500">
         <span className="font-semibold text-gray-900">bestilly</span>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           <Link href="/kontakt" className="hover:text-gray-900">
             Kontakt
+          </Link>
+          <Link href="/personvern" className="hover:text-gray-900">
+            Personvern
+          </Link>
+          <Link href="/vilkar" className="hover:text-gray-900">
+            Vilkår
           </Link>
           <Link href="/login" className="hover:text-gray-900">
             Logg inn

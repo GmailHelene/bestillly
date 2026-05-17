@@ -31,7 +31,14 @@ export function OnepageFooter({
       </div>
       {note && <p className="max-w-xl whitespace-pre-line">{note}</p>}
       <p className="text-xs text-gray-400">
-        © {year} {business.name}
+        © {year} {business.name} · Drevet av{" "}
+        <a href="/" className="underline">
+          bestilly
+        </a>{" "}
+        ·{" "}
+        <a href="/personvern" className="underline">
+          Personvern
+        </a>
       </p>
     </footer>
   );
