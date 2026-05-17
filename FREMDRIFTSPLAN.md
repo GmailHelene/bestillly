@@ -3,7 +3,7 @@
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
 Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant.
 
-**Status pr. 2026-05-22:** Steg 1–3 ferdig. Neste: steg 4.
+**Status pr. 2026-05-22:** Steg 1–5 ferdig. Neste: steg 6.
 
 ---
 
@@ -14,9 +14,9 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 | 1 | Repo + teknisk skjelett | ✅ Ferdig |
 | 2 | Registrering, innlogging, admin-skjelett | ✅ Ferdig |
 | 3 | Behandlinger (CRUD) | ✅ Ferdig |
-| 4 | Åpningstider (ukerytme + ferieavvik) | ⬜ Neste |
-| 5 | Offentlig onepage + ledighetskalender | ⬜ |
-| 6 | Booking-flyt + e-postvarsling | ⬜ |
+| 4 | Åpningstider (ukerytme + ferieavvik) | ✅ Ferdig |
+| 5 | Offentlig onepage + ledighetskalender | ✅ Ferdig |
+| 6 | Booking-flyt + e-postvarsling | ⬜ Neste |
 | 7 | Avbestilling via lenke | ⬜ |
 | 8 | Onepage-redigering + SEO | ⬜ |
 | 9 | Salgsside + demo | ⬜ |
@@ -44,18 +44,18 @@ Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant
 - [x] Navn, beskrivelse, varighet, pris
 - [x] Scopet til innlogget bedrift
 
-### Steg 4 — Åpningstider ⬜
-- [ ] Fast ukerytme (mandag–søndag, fra/til-klokkeslett)
-- [ ] Ferieavvik / stengte dager / egne tider for enkeltdatoer
-- [ ] Admin-side for å legge inn og endre dette
-- [ ] Håndtere tidssone (Europe/Oslo) konsekvent
+### Steg 4 — Åpningstider ✅
+- [x] Fast ukerytme (mandag–søndag, fra/til-klokkeslett)
+- [x] Ferieavvik / stengte dager / egne tider for enkeltdatoer
+- [x] Admin-side for å legge inn og endre dette
+- [x] Håndtere tidssone (Europe/Oslo) konsekvent
 
-### Steg 5 — Offentlig onepage + ledighetskalender ⬜
-- [ ] Offentlig side per bedrift på `bestilly.no/[slug]`
-- [ ] Kalender som viser ledige dager/tider
-- [ ] Ledige tider beregnes: åpningstid − bookinger, delt i behandlingslengder
-- [ ] Velg behandling → se ledige tider
-- [ ] Mobilvennlig visning
+### Steg 5 — Offentlig onepage + ledighetskalender ✅
+- [x] Offentlig side per bedrift på `bestilly.no/[slug]`
+- [x] Kalender som viser ledige dager/tider
+- [x] Ledige tider beregnes: åpningstid − bookinger, delt i behandlingslengder
+- [x] Velg behandling → se ledige tider
+- [x] Mobilvennlig visning
 
 ### Steg 6 — Booking-flyt + e-postvarsling ⬜
 - [ ] Kunde booker (navn, e-post, telefon)
