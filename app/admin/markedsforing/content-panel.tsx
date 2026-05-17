@@ -105,9 +105,9 @@ function PostImage({
           type="button"
           onClick={handleGenerate}
           disabled={pending}
-          className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-50 disabled:opacity-50"
+          className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
         >
-          {pending ? "Lager bilde…" : "Generer bildeforslag"}
+          {pending ? "Lager bilde…" : "Generer AI-bilde"}
         </button>
       )}
     </div>
@@ -197,20 +197,21 @@ function PostCard({ post }: { post: GeneratedPost }) {
         </div>
       )}
 
-      {post.imageIdea && (
-        <div className="space-y-1 text-sm">
-          <span className="text-xs font-medium text-gray-500">Bildeidé</span>
-          <p className="text-gray-600">{post.imageIdea}</p>
-          {post.imagePrompt && (
-            <p className="text-xs text-gray-400">
-              Bilde-prompt: {post.imagePrompt}
-            </p>
-          )}
-        </div>
-      )}
-
       {post.imagePrompt && (
-        <PostImage prompt={post.imagePrompt} channelId={post.channelId} />
+        <div className="space-y-2 rounded-lg bg-gray-50 p-3">
+          <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+            AI-bilde til innlegget
+          </span>
+          {post.imageIdea && (
+            <p className="text-sm text-gray-600">{post.imageIdea}</p>
+          )}
+          <p className="text-xs text-gray-400">
+            Trykk på knappen for å lage et ekte bilde med AI — i riktig
+            format for {post.channelName}. Hvert bilde trekker fra
+            bildekvoten din.
+          </p>
+          <PostImage prompt={post.imagePrompt} channelId={post.channelId} />
+        </div>
       )}
 
       {post.bestTime && (
@@ -290,7 +291,8 @@ export function ContentPanel({
         <h2 className="font-semibold">Innholdsgenerator</h2>
         <p className="text-sm text-gray-500">
           Skriv et tema, velg kanaler — så lager vi ett innlegg tilpasset hver
-          kanal, med bildetekst, hashtags og bildeidé.
+          kanal, med bildetekst og hashtags. Til hvert innlegg kan du generere
+          et ekte AI-bilde med ett klikk.
         </p>
       </div>
 
