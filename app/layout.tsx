@@ -35,7 +35,7 @@ const siteDescription =
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3001",
+    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001",
   ),
   title: siteTitle,
   description: siteDescription,
