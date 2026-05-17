@@ -19,6 +19,8 @@ type Profile = {
   metaTitle: string;
   metaDescription: string;
   keywords: string;
+  aboutText: string;
+  showOpeningHours: boolean;
 };
 
 export function ProfileForm({ profile }: { profile: Profile }) {
@@ -99,6 +101,31 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             className={inputClass}
           />
         </div>
+      </div>
+
+      <div className="space-y-3 border-t border-gray-100 pt-4">
+        <span className="text-sm font-medium">Seksjoner</span>
+        <div className="space-y-1">
+          <label htmlFor="aboutText" className="text-sm text-gray-600">
+            «Om oss»-tekst
+          </label>
+          <textarea
+            id="aboutText"
+            name="aboutText"
+            rows={4}
+            defaultValue={profile.aboutText}
+            placeholder="Fortell litt mer om bedriften. Vises som egen seksjon på siden hvis den er fylt ut."
+            className={inputClass}
+          />
+        </div>
+        <label className="flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            name="showOpeningHours"
+            defaultChecked={profile.showOpeningHours}
+          />
+          Vis åpningstider på siden
+        </label>
       </div>
 
       <div className="space-y-1">

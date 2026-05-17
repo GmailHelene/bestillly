@@ -60,6 +60,8 @@ export default async function SidePage() {
           metaTitle: content.seo?.metaTitle ?? "",
           metaDescription: content.seo?.metaDescription ?? "",
           keywords: content.seo?.keywords ?? "",
+          aboutText: content.sections?.aboutText ?? "",
+          showOpeningHours: content.sections?.showOpeningHours ?? false,
         }}
       />
 

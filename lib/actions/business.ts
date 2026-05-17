@@ -39,6 +39,10 @@ export async function updateBusinessProfile(
       metaDescription: field("metaDescription"),
       keywords: field("keywords"),
     },
+    sections: {
+      aboutText: field("aboutText"),
+      showOpeningHours: formData.get("showOpeningHours") != null,
+    },
   };
 
   await db

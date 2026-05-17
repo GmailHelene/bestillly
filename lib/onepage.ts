@@ -10,6 +10,10 @@ export type OnepageContent = {
     metaDescription?: string;
     keywords?: string;
   };
+  sections?: {
+    aboutText?: string;
+    showOpeningHours?: boolean;
+  };
 };
 
 function str(value: unknown): string | undefined {
@@ -22,6 +26,7 @@ export function parseOnepageContent(raw: unknown): OnepageContent {
   const obj = raw as Record<string, unknown>;
   const social = (obj.social ?? {}) as Record<string, unknown>;
   const seo = (obj.seo ?? {}) as Record<string, unknown>;
+  const sections = (obj.sections ?? {}) as Record<string, unknown>;
   return {
     social: {
       instagram: str(social.instagram),
@@ -32,6 +37,10 @@ export function parseOnepageContent(raw: unknown): OnepageContent {
       metaTitle: str(seo.metaTitle),
       metaDescription: str(seo.metaDescription),
       keywords: str(seo.keywords),
+    },
+    sections: {
+      aboutText: str(sections.aboutText),
+      showOpeningHours: sections.showOpeningHours === true,
     },
   };
 }
