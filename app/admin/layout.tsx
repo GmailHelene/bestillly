@@ -50,6 +50,16 @@ export default async function AdminLayout({
           </nav>
         </div>
         <div className="flex items-center gap-4 text-sm">
+          {business && (
+            <a
+              href={`/${business.slug}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-900"
+            >
+              Vis din side ↗
+            </a>
+          )}
           <span className="text-gray-500">
             {business?.name ?? "Min bedrift"}
           </span>

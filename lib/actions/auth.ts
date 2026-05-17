@@ -6,7 +6,7 @@ import { AuthError } from "next-auth";
 import { signIn, signOut } from "@/auth";
 import { db } from "@/db";
 import { businesses, users } from "@/db/schema";
-import { slugify } from "@/lib/slug";
+import { RESERVED_SLUGS, slugify } from "@/lib/slug";
 
 export type AuthState = { error: string } | undefined;
 
@@ -37,12 +37,13 @@ export async function registerAction(
     return { error: "Det finnes allerede en konto med denne e-postadressen." };
   }
 
-  // Finn en ledig slug — legg på tallsuffiks hvis navnet er opptatt.
+  // Finn en ledig slug — legg på tallsuffiks hvis navnet er opptatt eller reservert.
   const base = slugify(name);
   let slug = base;
   let suffix = 1;
   while (
-    await db.query.businesses.findFirst({ where: eq(businesses.slug, slug) })
+    RESERVED_SLUGS.has(slug) ||
+    (await db.query.businesses.findFirst({ where: eq(businesses.slug, slug) }))
   ) {
     suffix += 1;
     slug = `${base}-${suffix}`;
