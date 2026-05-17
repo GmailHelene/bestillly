@@ -127,7 +127,7 @@ const faq = [
   },
   {
     q: "Hjelper bestilly med regnskapet?",
-    a: "Ja. Du kan når som helst laste ned en oversikt over bookinger og salg for en valgt periode, som en fil regnskapsføreren din kan ta imot — eller som du importerer i regnskapsprogrammet ditt. Time inn, faktura ut, ferdig regnskapsgrunnlag.",
+    a: "Ja. Du kan når som helst laste ned en oversikt over bookinger og salg for en valgt periode, som en fil regnskapsføreren din kan ta imot — eller som du importerer i regnskapsprogrammet ditt. Time inn, kvittering ut, ferdig regnskapsgrunnlag.",
   },
   {
     q: "Kan kundene bestille time selv?",
@@ -211,7 +211,7 @@ export default function Home() {
                   Bookingsystem laget for enkeltpersonforetak
                 </h1>
                 <p className="mt-5 text-balance text-lg text-gray-600">
-                  Time inn, faktura ut, ferdig regnskapsgrunnlag. bestilly
+                  Time inn, kvittering ut, ferdig regnskapsgrunnlag. bestilly
                   samler booking, kalender, regnskapseksport og markedsføring
                   — laget for deg som driver alene. Én fast årspris, ingen
                   månedlige overraskelser.
@@ -257,7 +257,7 @@ export default function Home() {
               Og når året er omme, er halve regnskapsjobben gjort: hver
               booking og hvert salg samles, og du laster ned en oversikt
               regnskapsføreren din kan ta imot — eller importerer den rett i
-              regnskapsprogrammet ditt. Time inn, faktura ut, ferdig
+              regnskapsprogrammet ditt. Time inn, kvittering ut, ferdig
               grunnlag.
             </p>
           </div>

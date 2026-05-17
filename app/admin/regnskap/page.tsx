@@ -69,7 +69,7 @@ export default async function RegnskapPage({
   });
 
   const rows: ExportRow[] = [
-    ...bookingList.map((b) => {
+    ...bookingList.map((b): ExportRow => {
       const svc = serviceMap.get(b.serviceId);
       return {
         date: formatInTimeZone(b.startsAt, TIMEZONE, "yyyy-MM-dd"),
@@ -78,17 +78,21 @@ export default async function RegnskapPage({
         description: svc?.name ?? "Behandling",
         customer: b.customerName,
         amountNok: svc?.priceNok ?? 0,
+        linkType: "booking",
+        id: b.id,
       };
     }),
     ...orderList
       .filter((o) => o.status !== "cancelled")
-      .map((o) => ({
+      .map((o): ExportRow => ({
         date: formatInTimeZone(o.createdAt, TIMEZONE, "yyyy-MM-dd"),
         type: "Ordre",
         reference: `#${o.orderNumber}`,
         description: o.items.map((i) => `${i.qty}x ${i.name}`).join(", "),
         customer: o.customerName,
         amountNok: o.totalNok,
+        linkType: "ordre",
+        id: o.id,
       })),
   ].sort((a, b) => a.date.localeCompare(b.date));
 
@@ -135,7 +139,8 @@ export default async function RegnskapPage({
                   <th className="py-2 pr-3 font-medium">Type</th>
                   <th className="py-2 pr-3 font-medium">Beskrivelse</th>
                   <th className="py-2 pr-3 font-medium">Kunde</th>
-                  <th className="py-2 text-right font-medium">Beløp</th>
+                  <th className="py-2 pr-3 text-right font-medium">Beløp</th>
+                  <th className="py-2 font-medium"></th>
                 </tr>
               </thead>
               <tbody>
@@ -145,8 +150,18 @@ export default async function RegnskapPage({
                     <td className="py-2 pr-3">{r.type}</td>
                     <td className="py-2 pr-3">{r.description}</td>
                     <td className="py-2 pr-3">{r.customer}</td>
-                    <td className="py-2 text-right whitespace-nowrap">
+                    <td className="py-2 pr-3 text-right whitespace-nowrap">
                       {r.amountNok.toLocaleString("nb-NO")} kr
+                    </td>
+                    <td className="py-2 whitespace-nowrap text-right">
+                      <a
+                        href={`/kvittering/${r.linkType}/${r.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-medium text-gray-500 underline hover:text-gray-900"
+                      >
+                        Kvittering ↗
+                      </a>
                     </td>
                   </tr>
                 ))}

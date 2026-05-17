@@ -10,6 +10,8 @@ export type ExportRow = {
   description: string;
   customer: string;
   amountNok: number;
+  linkType: "booking" | "ordre";
+  id: string;
 };
 
 function downloadCsv(month: string, rows: ExportRow[]) {

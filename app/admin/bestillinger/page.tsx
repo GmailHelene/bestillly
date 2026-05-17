@@ -89,7 +89,17 @@ export default async function OrdersPage() {
                     Totalt {order.totalNok} kr
                   </span>
                 </p>
-                <OrderActions orderId={order.id} status={order.status} />
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                  <OrderActions orderId={order.id} status={order.status} />
+                  <a
+                    href={`/kvittering/ordre/${order.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-gray-600 underline hover:text-gray-900"
+                  >
+                    Kvittering ↗
+                  </a>
+                </div>
               </div>
             );
           })}
