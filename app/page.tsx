@@ -367,6 +367,9 @@ export default function Home() {
       <footer className="flex flex-col items-center gap-2 px-6 py-8 text-center text-sm text-gray-500">
         <span className="font-semibold text-gray-900">bestilly</span>
         <div className="flex flex-wrap justify-center gap-4">
+          <Link href="/bookingsystem" className="hover:text-gray-900">
+            Bookingsystem
+          </Link>
           <Link href="/kontakt" className="hover:text-gray-900">
             Kontakt
           </Link>
