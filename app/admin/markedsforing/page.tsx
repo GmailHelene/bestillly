@@ -11,6 +11,7 @@ import { AnalysisPanel } from "./analysis-panel";
 import { ContentPanel } from "./content-panel";
 import { PlanPanel } from "./plan-panel";
 import { BlogPanel } from "./blog-panel";
+import { SnippetPanel } from "./snippet-panel";
 
 export default async function MarketingPage() {
   const businessId = await requireBusinessId();
@@ -49,11 +50,9 @@ export default async function MarketingPage() {
 
       <BlogPanel />
 
-      <PlanPanel initialPlan={profile.postingPlan} />
+      <SnippetPanel />
 
-      <p className="rounded-xl border border-dashed border-gray-300 p-4 text-center text-sm text-gray-500">
-        Kommer: SEO-tekstsnippets.
-      </p>
+      <PlanPanel initialPlan={profile.postingPlan} />
     </div>
   );
 }

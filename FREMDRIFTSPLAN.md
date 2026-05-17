@@ -1,4 +1,4 @@
-# Fremdriftsplan — bestilly
+0# Fremdriftsplan — bestilly
 
 Enkelt og rimelig bookingsystem for små bedrifter (salonger, frisører o.l.).
 Forretningsmodell: **990 kr/år per bedrift**, manuell årsfaktura. Multi-tenant.
@@ -112,7 +112,7 @@ Inspirert av Helenes tidligere app «Your Marketing Friend».
 | F3.5 | Innholdsgenerator (SoMe) — innlegg og bildetekster tilpasset HVER kanal og format. Kanaltilpasning er kjerneverdien. | ✅ |
 | F3.6 | Bildegenerering — AI-bildeforslag til innleggene. | ✅ |
 | F3.7 | Blogginnlegg-generator — genererer innlegg rett inn i blogg-funksjonen (Fase 2). | ✅ |
-| F3.7b | SEO-tekstsnippets — korte SEO-tekster (om-oss, produkttekst, meta o.l.). | ⬜ |
+| F3.7b | SEO-tekstsnippets — korte SEO-tekster (om-oss, produkttekst, meta o.l.). | ✅ |
 | F3.8 | Publiseringsplan — kalender over hva som postes når, eksporterbar. | ✅ |
 | F3.9 | Markedsføringshub — samlende admin-UI: profil, analyser, innhold og plan på ett sted. | ⬜ |
 | F3.10 | Prismodell/kvote — implementer tillegget og forbrukskontroll. | ⬜ |

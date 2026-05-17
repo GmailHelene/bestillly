@@ -31,6 +31,8 @@ import {
   generateBlogPost,
   type GeneratedBlogPost,
 } from "@/lib/marketing-blog";
+import { generateSnippets } from "@/lib/marketing-snippet";
+import { getSnippetType } from "@/lib/snippet-types";
 
 export type MarketingProfileState =
   | { error: string }
@@ -520,4 +522,57 @@ export async function saveGeneratedBlogPost(
   });
   revalidatePath("/admin/blogg");
   return { ok: true };
+}
+
+export type SnippetState =
+  | { error: string }
+  | { ok: true; variants: string[] }
+  | undefined;
+
+// F3.7b — genererer korte SEO-tekster i flere varianter.
+export async function generateSnippetAction(
+  snippetTypeId: string,
+  extraContext: string,
+): Promise<SnippetState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+  if (!hasAnthropicKey()) {
+    return { error: "AI-tjenesten er ikke konfigurert ennå." };
+  }
+  if (!getSnippetType(snippetTypeId)) {
+    return { error: "Ukjent teksttype." };
+  }
+
+  const business = await db.query.businesses.findFirst({
+    where: eq(businesses.id, businessId),
+  });
+  if (!business) return { error: "Fant ikke bedriften." };
+  const profile = parseMarketingProfile(business.marketingProfile);
+
+  const serviceList = await db.query.services.findMany({
+    where: eq(services.businessId, businessId),
+  });
+  const productList = await db.query.products.findMany({
+    where: eq(products.businessId, businessId),
+  });
+
+  try {
+    const { variants } = await generateSnippets({
+      snippetTypeId,
+      extraContext,
+      businessName: business.name,
+      description: business.description ?? undefined,
+      address: business.address ?? undefined,
+      audience: profile.audience,
+      tone: profile.tone,
+      services: serviceList.map((s) => s.name),
+      products: productList.map((p) => p.name),
+      seoKeywords: profile.seo?.keywords,
+    });
+    return { ok: true, variants };
+  } catch {
+    return {
+      error: "Klarte ikke å lage tekstene akkurat nå. Prøv igjen om litt.",
+    };
+  }
 }
