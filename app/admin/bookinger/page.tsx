@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { bookings, services } from "@/db/schema";
@@ -89,6 +90,12 @@ export default async function BookingsPage() {
         <p className="text-sm text-gray-500">
           Kalenderoversikt og liste over avtaler for bedriften din.
         </p>
+        <Link
+          href="/admin/apningstider"
+          className="inline-block text-sm font-medium text-gray-700 underline hover:text-gray-900"
+        >
+          Sett åpningstider og ferieavvik →
+        </Link>
       </div>
 
       <section className="space-y-3">

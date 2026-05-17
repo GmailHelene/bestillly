@@ -39,3 +39,24 @@ export async function updateShopSettings(
   revalidatePath("/admin/produkter");
   return { ok: true };
 }
+
+export type ShopToggleState =
+  | { error: string }
+  | { ok: true }
+  | undefined;
+
+// Slår nettbutikken av eller på for bedriften.
+export async function setShopEnabled(
+  enabled: boolean,
+): Promise<ShopToggleState> {
+  const businessId = await requireBusinessId();
+  if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
+
+  await db
+    .update(businesses)
+    .set({ shopEnabled: enabled })
+    .where(eq(businesses.id, businessId));
+  revalidatePath("/admin/produktsalg");
+  revalidatePath("/admin");
+  return { ok: true };
+}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses } from "@/db/schema";
@@ -96,6 +97,12 @@ export default async function MarketingPage() {
           Verktøy for innhold, analyse og publiseringsplan — samlet på ett
           sted. Gå gjennom fanene fra venstre til høyre.
         </p>
+        <Link
+          href="/admin/nyhetsbrev"
+          className="inline-block text-sm font-medium text-gray-700 underline hover:text-gray-900"
+        >
+          Abonnenter og nyhetsbrev →
+        </Link>
       </div>
 
       {isDemo && (

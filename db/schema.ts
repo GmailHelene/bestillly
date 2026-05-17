@@ -48,6 +48,8 @@ export const businesses = pgTable("businesses", {
   shippingFree: boolean("shipping_free").notNull().default(true),
   shippingFee: integer("shipping_fee").notNull().default(99),
   shippingLabel: text("shipping_label"),
+  // Nettbutikk av/på — standard av, slås på under Produktsalg.
+  shopEnabled: boolean("shop_enabled").notNull().default(false),
   // Markedsføringsprofil (Fase 3).
   marketingProfile: jsonb("marketing_profile").$type<MarketingProfile>(),
   // AI-kreditter (Fase 3) — månedlig pott, nullstilles ved månedsskifte.

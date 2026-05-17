@@ -74,6 +74,7 @@ async function seed() {
       vippsNumber: "123456",
       shippingFree: false,
       shippingFee: 79,
+      shopEnabled: true,
       marketingProfile: buildDemoMarketingProfile(),
     })
     .returning();

@@ -12,15 +12,12 @@ import { Logo } from "@/components/logo";
 const NAV_LINKS = [
   { href: "/admin", label: "Oversikt" },
   { href: "/admin/behandlinger", label: "Behandlinger" },
-  { href: "/admin/apningstider", label: "Åpningstider" },
   { href: "/admin/bookinger", label: "Bookinger" },
-  { href: "/admin/produkter", label: "Produkter" },
-  { href: "/admin/bestillinger", label: "Bestillinger" },
   { href: "/admin/regnskap", label: "Regnskap" },
   { href: "/admin/blogg", label: "Blogg" },
-  { href: "/admin/nyhetsbrev", label: "Nyhetsbrev" },
   { href: "/admin/markedsforing", label: "Markedsføring" },
   { href: "/admin/side", label: "Min side" },
+  { href: "/admin/produktsalg", label: "Produktsalg" },
 ];
 
 export default async function AdminLayout({

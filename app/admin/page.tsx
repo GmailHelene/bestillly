@@ -11,24 +11,9 @@ const sections = [
     href: "/admin/behandlinger",
   },
   {
-    title: "Åpningstider",
-    description: "Fast ukerytme og ferieavvik som styrer ledige tider.",
-    href: "/admin/apningstider",
-  },
-  {
     title: "Bookinger",
-    description: "Oversikt over kommende og tidligere avtaler.",
+    description: "Kommende og tidligere avtaler, og åpningstidene dine.",
     href: "/admin/bookinger",
-  },
-  {
-    title: "Produkter",
-    description: "Varer du selger — grunnlaget for nettbutikken.",
-    href: "/admin/produkter",
-  },
-  {
-    title: "Bestillinger",
-    description: "Ordrer fra nettbutikken din.",
-    href: "/admin/bestillinger",
   },
   {
     title: "Regnskap",
@@ -41,20 +26,20 @@ const sections = [
     href: "/admin/blogg",
   },
   {
-    title: "Nyhetsbrev",
-    description: "Samle abonnenter og send nyhetsbrev.",
-    href: "/admin/nyhetsbrev",
-  },
-  {
     title: "Markedsføring",
     description:
-      "AI-verktøy for innlegg, SEO, blogg, bilder og publiseringsplan.",
+      "AI-verktøy for innlegg, SEO, blogg, bilder, nyhetsbrev og plan.",
     href: "/admin/markedsforing",
   },
   {
     title: "Min side",
-    description: "Rediger den offentlige siden din, med SEO-sjekkliste.",
+    description: "Rediger den offentlige siden din, med SEO-sjekk.",
     href: "/admin/side",
+  },
+  {
+    title: "Produktsalg",
+    description: "Valgfri nettbutikk — produkter og bestillinger.",
+    href: "/admin/produktsalg",
   },
 ];
 

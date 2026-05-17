@@ -314,7 +314,7 @@ export default async function PublicBusinessPage({
         />
       </section>
 
-      {productList.length > 0 && (
+      {business.shopEnabled && productList.length > 0 && (
         <section className="space-y-3">
           <h2
             className="text-lg font-semibold"
