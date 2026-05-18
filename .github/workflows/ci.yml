@@ -1,0 +1,33 @@
+name: CI
+
+# Kjører automatisk ved push til master og på pull requests.
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer avhengigheter
+        run: npm ci
+
+      - name: Enhetstester
+        run: npm run test:unit
+
+      - name: Bygg
+        run: npm run build
+        env:
+          # Dummy-verdier — bygget kobler ikke til database eller sender e-post.
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+          AUTH_SECRET: ci-dummy-secret-for-build-only
+          NEXT_PUBLIC_APP_URL: https://bestilly.no
