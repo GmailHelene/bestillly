@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 
 // E-postadressen til bestilly-operatøren (deg). Settes som miljøvariabel.
-function getOperatorEmail(): string | undefined {
+export function getOperatorEmail(): string | undefined {
   const value = process.env.OPERATOR_EMAIL?.trim().toLowerCase();
   return value || undefined;
 }
