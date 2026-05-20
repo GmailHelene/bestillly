@@ -27,14 +27,24 @@ export async function sendEmail(params: {
       port: Number(port),
       secure: false, // port 587 bruker STARTTLS
       auth: { user, pass },
+      // Eksplisitte timeouts — uten disse kan SMTP-kallet henge nesten
+      // ubegrenset hvis Brevo svarer tregt eller blokkerer. Det får
+      // skjemaknappen til å stå fast på «Sender…». Med 10 sek per fase
+      // feiler kallet kontrollert, og handlingen returnerer.
+      connectionTimeout: 10_000,
+      greetingTimeout: 10_000,
+      socketTimeout: 10_000,
     });
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from,
       to: params.to,
       subject: params.subject,
       html: params.html,
       replyTo: params.replyTo,
     });
+    console.log(
+      `[e-post] Sendt til ${params.to} — messageId=${info.messageId}`,
+    );
   } catch (error) {
     // En feilet e-post skal ikke velte selve bookingen.
     console.error("[e-post] Sending feilet:", error);
