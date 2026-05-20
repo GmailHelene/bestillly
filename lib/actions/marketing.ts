@@ -467,14 +467,38 @@ export async function generateImageAction(
     return { ok: true, imageUrl: replicateUrl };
   } catch (err) {
     await refundCredits(businessId, "image", 1);
-    // Logg detaljert til server-loggen så vi kan diagnostisere i produksjon.
     const message = err instanceof Error ? err.message : String(err);
-    const status = (err as { status?: number; statusCode?: number })?.status
-      ?? (err as { statusCode?: number })?.statusCode;
+    const status =
+      (err as { status?: number; statusCode?: number })?.status ??
+      (err as { statusCode?: number })?.statusCode;
+
+    // Sjekk om Replicate-svaret peker på et billing- eller rate-limit-problem
+    // — da kan vi gi en konkret beskjed i stedet for generisk «prøv igjen».
+    const lowMessage = message.toLowerCase();
+    const isBilling =
+      status === 402 ||
+      lowMessage.includes("insufficient credit") ||
+      lowMessage.includes("payment required") ||
+      lowMessage.includes("payment method");
+    const isRateLimit =
+      status === 429 || lowMessage.includes("rate limit");
+
     console.error(
       `[generateImageAction] Replicate-feil status=${status ?? "n/a"}: ${message}`,
-      err,
     );
+
+    if (isBilling) {
+      return {
+        error:
+          "Replicate-kontoen mangler kreditt. Legg til betalingsmetode på replicate.com/account/billing og prøv igjen om et par minutter.",
+      };
+    }
+    if (isRateLimit) {
+      return {
+        error:
+          "Replicate begrenser farten akkurat nå (gratisplan). Vent 30–60 sekunder og prøv igjen, eller legg til betalingsmetode på replicate.com/account/billing for å fjerne taket.",
+      };
+    }
     return {
       error: "Klarte ikke å lage bildet akkurat nå. Prøv igjen om litt.",
     };
