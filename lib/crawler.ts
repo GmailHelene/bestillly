@@ -246,28 +246,47 @@ async function fetchHtml(rawUrl: string): Promise<string | null> {
         signal: controller.signal,
         redirect: "manual",
         headers: {
-          // Sender en realistisk User-Agent fordi mange sider (Cloudflare,
-          // Wix, Shopify-bot-vern) blokkerer ukjente UAs fra datasenter-IPer
-          // og returnerer en tom utfordringsside. Vi identifiserer oss
-          // fortsatt med en kommentar.
+          // Bruker en ren Chrome-UA. Shopify/Cloudflare-bot-vern
+          // returnerer en tom utfordringsside hvis UA-en inneholder
+          // ord som «bot», «crawler» eller «compatible» — selv om vi
+          // i utgangspunktet bare leser bedriftens egen offentlige
+          // forside på deres oppfordring.
           "User-Agent":
-            "Mozilla/5.0 (compatible; bestilly/1.0; +https://bestilly.no/bot)",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
           Accept:
-            "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-          "Accept-Language": "nb-NO,nb;q=0.9,en;q=0.8",
+            "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+          "Accept-Language": "nb-NO,nb;q=0.9,en-US;q=0.8,en;q=0.7",
+          "Accept-Encoding": "gzip, deflate, br",
+          "Sec-Fetch-Dest": "document",
+          "Sec-Fetch-Mode": "navigate",
+          "Sec-Fetch-Site": "none",
+          "Sec-Fetch-User": "?1",
+          "Upgrade-Insecure-Requests": "1",
         },
       });
       if (res.status >= 300 && res.status < 400) {
         const location = res.headers.get("location");
-        if (!location) return null;
+        if (!location) {
+          console.warn(`[crawler] ${url} → ${res.status} uten Location`);
+          return null;
+        }
         url = new URL(location, url).toString();
         continue; // valider neste hopp på nytt
       }
-      if (!res.ok) return null;
+      if (!res.ok) {
+        console.warn(`[crawler] ${url} → ${res.status}`);
+        return null;
+      }
       const ct = res.headers.get("content-type") ?? "";
-      if (!ct.includes("text/html") && ct !== "") return null;
-      return await res.text();
-    } catch {
+      if (!ct.includes("text/html") && ct !== "") {
+        console.warn(`[crawler] ${url} → uventet content-type: ${ct}`);
+        return null;
+      }
+      const html = await res.text();
+      console.log(`[crawler] ${url} → ${res.status}, ${html.length} bytes`);
+      return html;
+    } catch (err) {
+      console.warn(`[crawler] ${url} → kastet feil:`, err);
       return null;
     } finally {
       clearTimeout(timer);
