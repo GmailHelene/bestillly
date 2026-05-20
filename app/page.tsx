@@ -9,7 +9,7 @@ import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "bestilly",
+  name: "Bestilly",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
@@ -78,7 +78,7 @@ const included = [
   "Egen nettside med designvalg",
   "Ubegrenset antall bookinger",
   "E-postvarsling til deg og kundene",
-  "Nettbutikk, blogg og nyhetsbrev",
+  "Nettbutikk, blogg og nyhetsbrev (sendes rett fra Bestilly)",
   "AI-markedsføringshub med kredittpott inkludert",
   "Ingen oppstartsavgift eller gebyr per booking",
 ];
@@ -118,15 +118,15 @@ const marketingTools = [
 
 const faq = [
   {
-    q: "Hva koster bestilly?",
+    q: "Hva koster Bestilly?",
     a: "Bestilly koster 2490 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. Årsprisen dekker bookingsystem, kalender, nettside, regnskapsklar eksport og AI-markedsføringshub.",
   },
   {
-    q: "Passer bestilly for enkeltpersonforetak?",
-    a: "Ja — bestilly er laget nettopp for enkeltpersonforetak og deg som driver alene. Frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Én person, én kalender, full kontroll. Du trenger ingen ansatte eller egen IT-kunnskap.",
+    q: "Passer Bestilly for enkeltpersonforetak?",
+    a: "Ja — Bestilly er laget nettopp for enkeltpersonforetak og deg som driver alene. Frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Én person, én kalender, full kontroll. Du trenger ingen ansatte eller egen IT-kunnskap.",
   },
   {
-    q: "Hjelper bestilly med regnskapet?",
+    q: "Hjelper Bestilly med regnskapet?",
     a: "Ja. Du kan når som helst laste ned en oversikt over bookinger og salg for en valgt periode, som en fil regnskapsføreren din kan ta imot — eller som du importerer i regnskapsprogrammet ditt. Time inn, kvittering ut, ferdig regnskapsgrunnlag.",
   },
   {
@@ -211,7 +211,7 @@ export default function Home() {
                   Bookingsystem laget for enkeltpersonforetak
                 </h1>
                 <p className="mt-5 text-balance text-lg text-gray-600">
-                  Time inn, kvittering ut, ferdig regnskapsgrunnlag. bestilly
+                  Time inn, kvittering ut, ferdig regnskapsgrunnlag. Bestilly
                   samler booking, kalender, regnskapseksport og markedsføring
                   — laget for deg som driver alene. Én fast årspris, ingen
                   månedlige overraskelser.
@@ -249,7 +249,7 @@ export default function Home() {
           <div className="mt-4 space-y-4 text-gray-600">
             <p>
               Driver du alene, går tiden til kundene — ikke til papirarbeid.
-              bestilly lar kundene se kalenderen din og bestille time selv, så
+              Bestilly lar kundene se kalenderen din og bestille time selv, så
               du slipper å svare på telefon og meldinger om ledige tider hele
               dagen.
             </p>
@@ -272,7 +272,7 @@ export default function Home() {
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-gray-600">
                 Driver du alene, er markedsføring ofte det første som ryker.
-                bestilly har en AI-markedsføringshub innebygd — så du slipper å
+                Bestilly har en AI-markedsføringshub innebygd — så du slipper å
                 stirre på et blankt felt.
               </p>
             </div>
@@ -319,7 +319,7 @@ export default function Home() {
         <section className="bg-[#fdf3ee]">
           <div className="mx-auto max-w-4xl px-6 py-20">
             <h2 className="text-center text-3xl font-bold tracking-tight">
-              Prøv bestilly selv
+              Prøv Bestilly selv
             </h2>
             <p className="mx-auto mt-3 max-w-md text-center text-gray-600">
               Klikk deg gjennom et ekte eksempel — både slik kundene ser det,
@@ -432,7 +432,7 @@ export default function Home() {
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-balance text-gray-600">
               De store bookingsystemene er bygget for kjeder med mange
-              ansatte — og koster deretter. bestilly gjør det motsatte: én
+              ansatte — og koster deretter. Bestilly gjør det motsatte: én
               person, én kalender, full kontroll. Ingen kompleksitet du ikke
               trenger, og en fast, forutsigbar årspris.
             </p>
@@ -515,26 +515,26 @@ export default function Home() {
           <h2 className="text-2xl font-bold tracking-tight">Om oss</h2>
           <div className="mt-4 space-y-4 text-gray-600">
             <p>
-              bestilly ble til av en enkel tanke: hver liten bedrift fortjener
+              Bestilly ble til av en enkel tanke: Hver liten bedrift fortjener
               et enkelt og rimelig bookingverktøy. Gründer Helene Grønberg,
               utvikler fra Modum, så at de fleste bookingsystemene var
               overdimensjonerte og for dyre for dem som driver alene —
-              frisører, terapeuter, konsulenter. Månedsgebyr på flere hundre
+              Frisører, terapeuter, konsulenter. Månedsgebyr på flere hundre
               kroner og kostnad per booking spiser fort opp marginene.
             </p>
             <p>
-              Resultatet ble bestilly: et rent, enkelt verktøy bygget fra
+              Resultatet ble Bestilly: Et rent, enkelt verktøy bygget fra
               bunnen av for de minste bedriftene. Du slipper å betale for
               funksjonalitet du ikke trenger, og prisen er forutsigbar. Alt er
-              utviklet i Norge, på norsk — så support og veiledning alltid er
+              utviklet i Norge, på norsk — Så support og veiledning alltid er
               på ditt eget språk.
             </p>
             <p>
-              Filosofien er like enkel som den er viktig: teknologien skal
-              forenkle hverdagen for små tjenesteytere — ikke være en ekstra
+              Filosofien er like enkel som den er viktig: Teknologien skal
+              forenkle hverdagen for små tjenesteytere — Ikke være en ekstra
               belastning. Vi har stor respekt for gründere som satser på det de
               brenner for, og vil gjøre det lettere for dem å bruke tiden på
-              nettopp det. Fra én gründer til en annen — velkommen til bestilly.
+              nettopp det. Fra én gründer til en annen — Velkommen til Bestilly.
             </p>
           </div>
         </section>
@@ -549,8 +549,8 @@ export default function Home() {
               Bli en av de 10 første
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-balance text-gray-600">
-              bestilly er nytt, og vi tar inn 10 enkeltpersonforetak som
-              pilotbedrifter. Du får bruke hele bestilly gratis i 6 måneder,
+              Bestilly er nytt, og vi tar inn 10 enkeltpersonforetak som
+              pilotbedrifter. Du får bruke hele Bestilly gratis i 3 måneder,
               en direkte linje til utvikleren, og reell mulighet til å forme
               produktet. Til gjengjeld ber vi om at du faktisk bruker det, gir
               ærlig tilbakemelding — og lar oss bruke deg som referanse.
@@ -592,13 +592,13 @@ export default function Home() {
       </main>
 
       <footer className="flex flex-col items-center gap-2 px-6 py-8 text-center text-sm text-gray-500">
-        <span className="font-semibold text-gray-900">bestilly</span>
+        <span className="font-semibold text-gray-900">Bestilly</span>
         <div className="flex flex-wrap justify-center gap-4">
           <Link href="/bookingsystem" className="hover:text-gray-900">
             Bookingsystem
           </Link>
           <Link href="/hvorfor-bestilly" className="hover:text-gray-900">
-            Hvorfor bestilly
+            Hvorfor Bestilly
           </Link>
           <Link href="/kontakt" className="hover:text-gray-900">
             Kontakt

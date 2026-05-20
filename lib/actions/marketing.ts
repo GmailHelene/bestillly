@@ -456,8 +456,10 @@ export async function generateImageAction(
       }
     }
     return { ok: true, imageUrl: replicateUrl };
-  } catch {
+  } catch (err) {
     await refundCredits(businessId, "image", 1);
+    // Logg detaljert til server-loggen så vi kan diagnostisere i produksjon.
+    console.error("[generateImageAction] Replicate-feil:", err);
     return {
       error: "Klarte ikke å lage bildet akkurat nå. Prøv igjen om litt.",
     };

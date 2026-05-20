@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { BackLink } from "@/components/back-link";
 
 export const metadata: Metadata = {
-  title: "Personvernerklæring — bestilly",
-  description: "Hvordan bestilly behandler personopplysninger.",
+  title: "Personvernerklæring — Bestilly",
+  description: "Hvordan Bestilly behandler personopplysninger.",
 };
 
 export default function PrivacyPage() {
@@ -18,8 +18,8 @@ export default function PrivacyPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">1. Behandlingsansvarlig</h2>
         <p className="text-sm text-gray-700">
-          bestilly leverer et bookingsystem for små bedrifter. For
-          personopplysninger om bedriftene som er kunder hos oss, er bestilly
+          Bestilly leverer et bookingsystem for små bedrifter. For
+          personopplysninger om bedriftene som er kunder hos oss, er Bestilly
           behandlingsansvarlig. Spørsmål kan rettes til oss via kontaktsiden.
         </p>
       </section>
@@ -51,10 +51,10 @@ export default function PrivacyPage() {
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">4. bestilly som databehandler</h2>
+        <h2 className="font-semibold">4. Bestilly som databehandler</h2>
         <p className="text-sm text-gray-700">
-          Når en bedrift bruker bestilly til å håndtere sine egne kunder, er
-          bedriften behandlingsansvarlig for disse opplysningene, og bestilly
+          Når en bedrift bruker Bestilly til å håndtere sine egne kunder, er
+          bedriften behandlingsansvarlig for disse opplysningene, og Bestilly
           er databehandler. Vi behandler opplysningene kun etter bedriftens
           instruks og for å levere tjenesten. Vilkårene for denne
           databehandlingen inngår i vilkårene for tjenesten.
@@ -89,7 +89,7 @@ export default function PrivacyPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">6. Markedsføringsverktøyet (AI)</h2>
         <p className="text-sm text-gray-700">
-          bestilly har et valgfritt markedsføringsverktøy som bruker
+          Bestilly har et valgfritt markedsføringsverktøy som bruker
           AI-tjenester. Når bedriften bruker dette, sendes opplysninger
           bedriften selv legger inn — bedriftsinfo, behandlinger, produkter og
           tekst fra bedriftens egen nettside — til Anthropic for
@@ -103,7 +103,7 @@ export default function PrivacyPage() {
         <h2 className="font-semibold">7. Lagringstid</h2>
         <p className="text-sm text-gray-700">
           Opplysninger lagres så lenge bedriften har en aktiv konto hos
-          bestilly. Booking- og ordredata oppbevares i inntil 3 år for å
+          Bestilly. Booking- og ordredata oppbevares i inntil 3 år for å
           dokumentere avtalene. Nyhetsbrev-abonnenter lagres til de melder seg
           av. Når en bedrift sletter kontoen sin, slettes alle tilhørende
           opplysninger umiddelbart.
@@ -123,7 +123,7 @@ export default function PrivacyPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">9. Informasjonskapsler</h2>
         <p className="text-sm text-gray-700">
-          bestilly bruker kun nødvendige informasjonskapsler — en
+          Bestilly bruker kun nødvendige informasjonskapsler — en
           innloggingskapsel som holder bedriften innlogget i adminpanelet. Vi
           bruker ikke informasjonskapsler til sporing eller markedsføring.
         </p>

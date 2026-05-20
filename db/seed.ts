@@ -68,7 +68,7 @@ async function seed() {
       phone: "12 34 56 78",
       address: "Eksempelgata 1, 3370 Vikersund",
       description:
-        "Dette er en demoside som viser hvordan bestilly ser ut for kundene dine. Prøv gjerne å booke en time eller handle i butikken!",
+        "Dette er en demoside som viser hvordan Bestilly ser ut for kundene dine. Prøv gjerne å booke en time eller handle i butikken!",
       template: "eleganse",
       onepageContent,
       vippsNumber: "123456",

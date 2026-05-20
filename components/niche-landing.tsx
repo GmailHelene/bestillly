@@ -33,7 +33,7 @@ export function NicheLanding({ niche }: { niche: NichePage }) {
       />
 
       <header className="flex items-center justify-between px-6 py-4">
-        <Link href="/" aria-label="bestilly">
+        <Link href="/" aria-label="Bestilly">
           <Logo />
         </Link>
         <div className="flex items-center gap-4">
@@ -194,7 +194,7 @@ export function NicheLanding({ niche }: { niche: NichePage }) {
                 href="/"
                 className="rounded-xl border border-gray-600 px-7 py-3 text-sm font-medium text-white hover:bg-gray-800"
               >
-                Les mer om bestilly
+                Les mer om Bestilly
               </Link>
             </div>
           </div>
@@ -202,7 +202,7 @@ export function NicheLanding({ niche }: { niche: NichePage }) {
       </main>
 
       <footer className="flex flex-col items-center gap-2 px-6 py-8 text-center text-sm text-gray-500">
-        <span className="font-semibold text-gray-900">bestilly</span>
+        <span className="font-semibold text-gray-900">Bestilly</span>
         <div className="flex flex-wrap justify-center gap-4">
           <Link href="/" className="hover:text-gray-900">
             Forside
@@ -211,7 +211,7 @@ export function NicheLanding({ niche }: { niche: NichePage }) {
             Bookingsystem
           </Link>
           <Link href="/hvorfor-bestilly" className="hover:text-gray-900">
-            Hvorfor bestilly
+            Hvorfor Bestilly
           </Link>
           <Link href="/kontakt" className="hover:text-gray-900">
             Kontakt

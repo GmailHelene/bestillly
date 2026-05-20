@@ -22,6 +22,29 @@ export type ImageGenerationOptions = {
   numImages?: number;
 };
 
+// Henter ut en URL-streng fra et Replicate-output-element. I replicate@1.x
+// kan elementer være enten en streng, et FileOutput-objekt med .url()-metode,
+// eller en URL-instans. Vi støtter alle tre.
+function itemToUrl(item: unknown): string | null {
+  if (!item) return null;
+  if (typeof item === "string") return item;
+  if (item instanceof URL) return item.toString();
+  const maybe = item as {
+    url?: (() => URL | string) | URL | string;
+  };
+  if (typeof maybe.url === "function") {
+    try {
+      const u = maybe.url();
+      return typeof u === "string" ? u : u.toString();
+    } catch {
+      return null;
+    }
+  }
+  if (typeof maybe.url === "string") return maybe.url;
+  if (maybe.url instanceof URL) return maybe.url.toString();
+  return null;
+}
+
 // Genererer ett eller flere bilder og returnerer URL-er.
 export async function generateImage(
   options: ImageGenerationOptions,
@@ -36,12 +59,9 @@ export async function generateImage(
     },
   });
 
-  if (Array.isArray(output)) {
-    return output.map((item) =>
-      typeof item === "string"
-        ? item
-        : (item as { url: () => URL }).url().toString(),
-    );
-  }
-  return [];
+  const items: unknown[] = Array.isArray(output) ? output : [output];
+  const urls = items
+    .map(itemToUrl)
+    .filter((u): u is string => typeof u === "string" && u.length > 0);
+  return urls;
 }

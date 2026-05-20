@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { BackLink } from "@/components/back-link";
 
 export const metadata: Metadata = {
-  title: "Databehandleravtale — bestilly",
+  title: "Databehandleravtale — Bestilly",
   description:
-    "Databehandleravtale mellom bestilly og bedrifter som bruker tjenesten, i tråd med personvernforordningen artikkel 28.",
+    "Databehandleravtale mellom Bestilly og bedrifter som bruker tjenesten, i tråd med personvernforordningen artikkel 28.",
 };
 
 export default function DpaPage() {
@@ -18,7 +18,7 @@ export default function DpaPage() {
 
       <p className="text-sm text-gray-700">
         Denne databehandleravtalen («Avtalen») gjelder mellom bedriften som
-        bruker bestilly («Behandlingsansvarlig») og bestilly («Databehandler»),
+        bruker Bestilly («Behandlingsansvarlig») og Bestilly («Databehandler»),
         og inngås som en del av vilkårene for tjenesten. Avtalen oppfyller
         kravene i personvernforordningen (GDPR) artikkel 28.
       </p>
@@ -139,7 +139,7 @@ export default function DpaPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">8. Varighet</h2>
         <p className="text-sm text-gray-700">
-          Avtalen gjelder så lenge Behandlingsansvarlig bruker bestilly, og
+          Avtalen gjelder så lenge Behandlingsansvarlig bruker Bestilly, og
           avsluttes når kontoen slettes.
         </p>
       </section>
@@ -147,7 +147,7 @@ export default function DpaPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">9. Lovvalg</h2>
         <p className="text-sm text-gray-700">
-          Avtalen er underlagt norsk rett. Spørsmål kan rettes til bestilly
+          Avtalen er underlagt norsk rett. Spørsmål kan rettes til Bestilly
           via kontaktsiden.
         </p>
       </section>

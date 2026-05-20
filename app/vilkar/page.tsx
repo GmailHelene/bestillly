@@ -3,8 +3,8 @@ import Link from "next/link";
 import { BackLink } from "@/components/back-link";
 
 export const metadata: Metadata = {
-  title: "Vilkår — bestilly",
-  description: "Vilkår for bruk av bestilly, inkludert pris og betaling.",
+  title: "Vilkår — Bestilly",
+  description: "Vilkår for bruk av Bestilly, inkludert pris og betaling.",
 };
 
 export default function TermsPage() {
@@ -19,8 +19,8 @@ export default function TermsPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">1. Om tjenesten</h2>
         <p className="text-sm text-gray-700">
-          bestilly er et bookingsystem med tilhørende nettside for små
-          bedrifter. Disse vilkårene gjelder mellom bestilly og bedriften som
+          Bestilly er et bookingsystem med tilhørende nettside for små
+          bedrifter. Disse vilkårene gjelder mellom Bestilly og bedriften som
           oppretter en konto.
         </p>
       </section>
@@ -38,7 +38,7 @@ export default function TermsPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">3. Pris og betaling</h2>
         <p className="text-sm text-gray-700">
-          bestilly koster <strong>2490 kr per år</strong> per bedrift. Det er
+          Bestilly koster <strong>2490 kr per år</strong> per bedrift. Det er
           ingen oppstartsavgift og ingen gebyr per booking.
         </p>
         <p className="text-sm text-gray-700">
@@ -102,7 +102,7 @@ export default function TermsPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">6. Databehandling</h2>
         <p className="text-sm text-gray-700">
-          bestilly opptrer som databehandler for opplysningene bedriften
+          Bestilly opptrer som databehandler for opplysningene bedriften
           registrerer om sine kunder, og behandler dem kun for å levere
           tjenesten, slik det er beskrevet i{" "}
           <Link href="/personvern" className="underline">
@@ -112,16 +112,16 @@ export default function TermsPage() {
           <Link href="/databehandleravtale" className="underline">
             databehandleravtalen
           </Link>{" "}
-          mellom bedriften og bestilly, i tråd med personvernforordningen
+          mellom bedriften og Bestilly, i tråd med personvernforordningen
           artikkel 28.
         </p>
       </section>
 
       <section className="space-y-2">
-        <h2 className="font-semibold">7. bestillys ansvar</h2>
+        <h2 className="font-semibold">7. Bestillys ansvar</h2>
         <p className="text-sm text-gray-700">
           Vi tilstreber stabil drift, men kan ikke garantere at tjenesten til
-          enhver tid er feilfri eller tilgjengelig. bestilly er ikke ansvarlig
+          enhver tid er feilfri eller tilgjengelig. Bestilly er ikke ansvarlig
           for indirekte tap som følge av feil, nedetid eller pause ved
           manglende betaling.
         </p>
@@ -132,7 +132,7 @@ export default function TermsPage() {
         <p className="text-sm text-gray-700">
           Bedriften kan når som helst si opp kontoen. Tjenesten løper ut
           inneværende betalte periode, og det gis ikke refusjon for gjenstående
-          tid. bestilly kan avslutte en konto ved vesentlig brudd på vilkårene.
+          tid. Bestilly kan avslutte en konto ved vesentlig brudd på vilkårene.
         </p>
       </section>
 

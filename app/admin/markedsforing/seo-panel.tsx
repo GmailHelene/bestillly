@@ -68,18 +68,26 @@ export function SeoPanel({ initialSeo }: { initialSeo?: SeoResult }) {
         </p>
       )}
 
-      <button
-        type="button"
-        onClick={handleGenerate}
-        disabled={pending}
-        className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
-      >
-        {pending
-          ? "Lager anbefaling…"
-          : seo
-            ? "Lag ny anbefaling"
-            : "Lag SEO-anbefaling"}
-      </button>
+      <div className="space-y-1">
+        <button
+          type="button"
+          onClick={handleGenerate}
+          disabled={pending}
+          className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+        >
+          {pending
+            ? "Lager anbefaling…"
+            : seo
+              ? "Lag ny anbefaling"
+              : "Lag SEO-anbefaling"}
+        </button>
+        {pending && (
+          <p className="text-xs text-gray-500">
+            Dette tar 15–30 sekunder — AI-en leser gjennom profilen og
+            nettsiden din.
+          </p>
+        )}
+      </div>
 
       {seo && (
         <div className="space-y-4 rounded-lg bg-gray-50 p-3 text-sm">

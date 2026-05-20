@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
 
-const title = "Hvorfor velge bestilly? | Sammenligning av bookingsystem";
+const title = "Hvorfor velge Bestilly? | Sammenligning av bookingsystem";
 const description =
-  "Hvorfor bestilly fremfor andre bookingsystemer: én fast årspris på 2490 kr, ingen månedspris, ingen gebyr per booking — og nettside og markedsføring inkludert.";
+  "Hvorfor Bestilly fremfor andre bookingsystemer: én fast årspris på 2490 kr, ingen månedspris, ingen gebyr per booking — og nettside og markedsføring inkludert.";
 
 export const metadata: Metadata = {
   title,
@@ -68,7 +68,7 @@ const points = [
   },
   {
     title: "Laget for de minste",
-    text: "bestilly er bygget for frisøren, salongen og enkeltpersonforetaket — ikke for store kjeder. Enkelt å sette opp, enkelt å bruke.",
+    text: "Bestilly er bygget for frisøren, salongen og enkeltpersonforetaket — ikke for store kjeder. Enkelt å sette opp, enkelt å bruke.",
   },
 ];
 
@@ -76,7 +76,7 @@ export default function HvorforBestilly() {
   return (
     <div className="flex flex-1 flex-col">
       <header className="flex items-center justify-between px-6 py-4">
-        <Link href="/" aria-label="bestilly">
+        <Link href="/" aria-label="Bestilly">
           <Logo />
         </Link>
         <div className="flex items-center gap-4">
@@ -100,14 +100,14 @@ export default function HvorforBestilly() {
         <section className="bg-[#fdf3ee]">
           <div className="mx-auto max-w-3xl px-6 py-20 text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
-              Hvorfor bestilly
+              Hvorfor Bestilly
             </p>
             <h1 className="mt-3 text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-              Hvorfor velge bestilly?
+              Hvorfor velge Bestilly?
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
               De fleste bookingsystemer er laget for større bedrifter og
-              koster deretter. bestilly er laget for de minste — med én fast,
+              koster deretter. Bestilly er laget for de minste — med én fast,
               forutsigbar årspris.
             </p>
           </div>
@@ -116,7 +116,7 @@ export default function HvorforBestilly() {
         {/* Sammenligning */}
         <section className="mx-auto max-w-3xl px-6 py-16">
           <h2 className="text-2xl font-bold tracking-tight">
-            bestilly mot vanlige bookingsystemer
+            Bestilly mot vanlige bookingsystemer
           </h2>
           <p className="mt-2 text-sm text-gray-500">
             En grov sammenligning — tilbudene varierer, så sjekk alltid hva
@@ -128,7 +128,7 @@ export default function HvorforBestilly() {
                 <tr className="bg-gray-50 text-left">
                   <th className="p-3 font-semibold"></th>
                   <th className="p-3 font-semibold text-gray-900">
-                    bestilly
+                    Bestilly
                   </th>
                   <th className="p-3 font-semibold text-gray-500">
                     Vanlige bookingsystemer
@@ -209,7 +209,7 @@ export default function HvorforBestilly() {
                 href="/"
                 className="rounded-xl border border-gray-600 px-7 py-3 text-sm font-medium text-white hover:bg-gray-800"
               >
-                Les mer om bestilly
+                Les mer om Bestilly
               </Link>
             </div>
           </div>
@@ -217,7 +217,7 @@ export default function HvorforBestilly() {
       </main>
 
       <footer className="flex flex-col items-center gap-2 px-6 py-8 text-center text-sm text-gray-500">
-        <span className="font-semibold text-gray-900">bestilly</span>
+        <span className="font-semibold text-gray-900">Bestilly</span>
         <div className="flex flex-wrap justify-center gap-4">
           <Link href="/" className="hover:text-gray-900">
             Forside

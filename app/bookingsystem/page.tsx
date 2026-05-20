@@ -5,7 +5,7 @@ import { safeJsonLd } from "@/lib/html";
 import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
 
 const title =
-  "Bookingsystem for frisører, salonger og små bedrifter | bestilly";
+  "Bookingsystem for frisører, salonger og små bedrifter | Bestilly";
 const description =
   "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv — 2490 kr i året, alt inkludert.";
 
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "Hva koster et bookingsystem?",
-    a: "Bestilly koster 2490 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så for en liten bedrift blir bestilly langt rimeligere.",
+    a: "Bestilly koster 2490 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så for en liten bedrift blir Bestilly langt rimeligere.",
   },
   {
-    q: "Passer bestilly for enkeltpersonforetak?",
+    q: "Passer Bestilly for enkeltpersonforetak?",
     a: "Ja. Bestilly er laget nettopp for små bedrifter og enkeltpersonforetak — frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Du trenger ingen ansatte eller egen IT-kunnskap for å komme i gang.",
   },
   {
@@ -44,7 +44,7 @@ const faq = [
     a: "Du registrerer bedriften på et par minutter, legger inn behandlingene og åpningstidene dine, og deler lenken din. Da kan kundene booke time med en gang. Du kan prøve gratis før du bestemmer deg.",
   },
   {
-    q: "Kan jeg ta imot betaling gjennom bestilly?",
+    q: "Kan jeg ta imot betaling gjennom Bestilly?",
     a: "Bestilly har en innebygd nettbutikk der kundene kan kjøpe produkter og betale med Vipps. Selve timebestillingen er gratis for kunden — betaling for behandlingen skjer som vanlig hos deg.",
   },
   {
@@ -105,7 +105,7 @@ export default function BookingsystemLanding() {
       />
 
       <header className="flex items-center justify-between px-6 py-4">
-        <Link href="/" aria-label="bestilly">
+        <Link href="/" aria-label="Bestilly">
           <Logo />
         </Link>
         <div className="flex items-center gap-4">
@@ -183,7 +183,7 @@ export default function BookingsystemLanding() {
         <section className="bg-[#f5f3ff]">
           <div className="mx-auto max-w-4xl px-6 py-16">
             <h2 className="text-center text-2xl font-bold tracking-tight">
-              Hvem passer bestilly for?
+              Hvem passer Bestilly for?
             </h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {audience.map((a) => (
@@ -296,7 +296,7 @@ export default function BookingsystemLanding() {
                 href="/"
                 className="rounded-xl border border-gray-600 px-7 py-3 text-sm font-medium text-white hover:bg-gray-800"
               >
-                Les mer om bestilly
+                Les mer om Bestilly
               </Link>
             </div>
           </div>
@@ -304,7 +304,7 @@ export default function BookingsystemLanding() {
       </main>
 
       <footer className="flex flex-col items-center gap-2 px-6 py-8 text-center text-sm text-gray-500">
-        <span className="font-semibold text-gray-900">bestilly</span>
+        <span className="font-semibold text-gray-900">Bestilly</span>
         <div className="flex flex-wrap justify-center gap-4">
           <Link href="/" className="hover:text-gray-900">
             Forside

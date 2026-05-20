@@ -22,6 +22,11 @@ export default async function NewsletterPage() {
         <BackLink href="/admin" label="Tilbake til oversikt" />
         <h1 className="text-2xl font-bold">Nyhetsbrev</h1>
         <p className="text-sm text-gray-500">
+          Skriv nyhetsbrevet her — Bestilly sender det rett ut til
+          abonnentene dine på e-post når du trykker «Send». Du trenger ingen
+          ekstra Mailchimp- eller Brevo-konto.
+        </p>
+        <p className="text-sm text-gray-500">
           Du har <strong>{subList.length}</strong> abonnent(er). Slå på «Vis
           nyhetsbrev på siden» under Min side for å samle flere.
         </p>

@@ -246,8 +246,15 @@ async function fetchHtml(rawUrl: string): Promise<string | null> {
         signal: controller.signal,
         redirect: "manual",
         headers: {
-          "User-Agent": "bestilly-crawler/1.0 (+https://bestilly.no)",
-          Accept: "text/html",
+          // Sender en realistisk User-Agent fordi mange sider (Cloudflare,
+          // Wix, Shopify-bot-vern) blokkerer ukjente UAs fra datasenter-IPer
+          // og returnerer en tom utfordringsside. Vi identifiserer oss
+          // fortsatt med en kommentar.
+          "User-Agent":
+            "Mozilla/5.0 (compatible; bestilly/1.0; +https://bestilly.no/bot)",
+          Accept:
+            "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+          "Accept-Language": "nb-NO,nb;q=0.9,en;q=0.8",
         },
       });
       if (res.status >= 300 && res.status < 400) {
@@ -330,7 +337,7 @@ export async function crawlWebsite(rawUrl: string): Promise<CrawlResult> {
     return {
       ok: false,
       error:
-        "Fant lite tekst på nettsiden. Den kan være bygget slik at innholdet ikke kan leses automatisk.",
+        "Fant lite tekst å lese på siden. Det kan skyldes at siden henter inn innholdet med JavaScript, eller at den er beskyttet mot automatiske besøk. Prøv en annen URL (f.eks. en undersid med tekst) eller la feltet stå tomt.",
     };
   }
 

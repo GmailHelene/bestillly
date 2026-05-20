@@ -202,7 +202,7 @@ export default async function PublicBusinessPage({
       {aboutText && (
         <section className="space-y-2">
           <h2
-          className="text-lg font-semibold"
+          className="text-2xl font-semibold tracking-tight sm:text-3xl"
           style={{ fontFamily: theme.headingFont }}
         >Om oss</h2>
           <p className="whitespace-pre-line text-gray-600">{aboutText}</p>
@@ -211,7 +211,7 @@ export default async function PublicBusinessPage({
 
       <section className="space-y-3">
         <h2
-          className="text-lg font-semibold"
+          className="text-2xl font-semibold tracking-tight sm:text-3xl"
           style={{ fontFamily: theme.headingFont }}
         >Behandlinger</h2>
         {serviceList.length === 0 ? (
@@ -248,7 +248,7 @@ export default async function PublicBusinessPage({
       {gallery.length > 0 && (
         <section className="space-y-3">
           <h2
-            className="text-lg font-semibold"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl"
             style={{ fontFamily: theme.headingFont }}
           >
             Bilder
@@ -272,7 +272,7 @@ export default async function PublicBusinessPage({
           {showOpeningHours && (
             <section className="space-y-3">
               <h2
-                className="text-lg font-semibold"
+                className="text-2xl font-semibold tracking-tight sm:text-3xl"
                 style={{ fontFamily: theme.headingFont }}
               >
                 Åpningstider
@@ -302,7 +302,7 @@ export default async function PublicBusinessPage({
           {showContactForm && (
             <section className="space-y-3">
               <h2
-                className="text-lg font-semibold"
+                className="text-2xl font-semibold tracking-tight sm:text-3xl"
                 style={{ fontFamily: theme.headingFont }}
               >
                 Kontakt oss
@@ -320,7 +320,7 @@ export default async function PublicBusinessPage({
         className={`space-y-3 border border-gray-200 bg-white p-5 ${theme.radius}`}
       >
         <h2
-          className="text-lg font-semibold"
+          className="text-2xl font-semibold tracking-tight sm:text-3xl"
           style={{ fontFamily: theme.headingFont }}
         >Bestill time</h2>
         <BookingWidget
@@ -337,7 +337,7 @@ export default async function PublicBusinessPage({
       {business.shopEnabled && productList.length > 0 && (
         <section className="space-y-3">
           <h2
-            className="text-lg font-semibold"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl"
             style={{ fontFamily: theme.headingFont }}
           >
             Butikk
@@ -366,7 +366,7 @@ export default async function PublicBusinessPage({
       {showBlog && postList.length > 0 && (
         <section className="space-y-3">
           <h2
-            className="text-lg font-semibold"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl"
             style={{ fontFamily: theme.headingFont }}
           >
             Aktuelt
@@ -400,7 +400,7 @@ export default async function PublicBusinessPage({
       {showNewsletter && (
         <section className="space-y-3">
           <h2
-            className="text-lg font-semibold"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl"
             style={{ fontFamily: theme.headingFont }}
           >
             Nyhetsbrev

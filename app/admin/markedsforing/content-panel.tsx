@@ -101,14 +101,21 @@ function PostImage({
           </div>
         </div>
       ) : (
-        <button
-          type="button"
-          onClick={handleGenerate}
-          disabled={pending}
-          className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
-        >
-          {pending ? "Lager bilde…" : "Generer AI-bilde"}
-        </button>
+        <div className="space-y-1">
+          <button
+            type="button"
+            onClick={handleGenerate}
+            disabled={pending}
+            className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+          >
+            {pending ? "Lager bilde…" : "Generer AI-bilde"}
+          </button>
+          {pending && (
+            <p className="text-xs text-gray-500">
+              Tar 10–20 sekunder. Bildet dukker opp her når det er klart.
+            </p>
+          )}
+        </div>
       )}
     </div>
   );
@@ -340,14 +347,28 @@ export function ContentPanel({
         </p>
       )}
 
-      <button
-        type="button"
-        onClick={handleGenerate}
-        disabled={pending}
-        className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
-      >
-        {pending ? "Lager innhold…" : "Lag innhold"}
-      </button>
+      <div className="space-y-2">
+        <button
+          type="button"
+          onClick={handleGenerate}
+          disabled={pending}
+          className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+        >
+          {pending ? "Lager innhold…" : "Lag innhold"}
+        </button>
+        {pending && (
+          <p className="text-xs text-gray-500">
+            Dette kan ta 20–40 sekunder — AI-en skriver ett innlegg per
+            kanal du har valgt. Vent litt, vinduet trenger ikke oppdateres.
+          </p>
+        )}
+        {!pending && posts.length === 0 && (
+          <p className="text-xs text-gray-400">
+            Tar vanligvis 20–40 sekunder. AI-bilder lages etterpå med ett
+            klikk per innlegg.
+          </p>
+        )}
+      </div>
 
       {posts.length > 0 && (
         <div className="space-y-3">

@@ -38,7 +38,7 @@ export default async function AdminLayout({
     <div className="flex min-h-full flex-col">
       {business?.slug === DEMO_SLUG && (
         <div className="bg-amber-100 px-6 py-2 text-center text-sm text-amber-900">
-          Du utforsker bestilly i demomodus — endringer lagres ikke.{" "}
+          Du utforsker Bestilly i demomodus — endringer lagres ikke.{" "}
           <Link href="/registrer" className="font-semibold underline">
             Opprett din egen konto
           </Link>

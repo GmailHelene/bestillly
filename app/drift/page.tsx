@@ -21,7 +21,7 @@ export default async function DriftPage() {
       <main className="mx-auto w-full max-w-md space-y-4 px-6 py-16 text-center">
         <h1 className="text-2xl font-bold">Ingen tilgang</h1>
         <p className="text-gray-600">
-          Driftspanelet er kun for bestilly-operatøren.
+          Driftspanelet er kun for Bestilly-operatøren.
         </p>
         <p className="text-sm text-gray-500">
           Du er innlogget som:{" "}

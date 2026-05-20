@@ -25,17 +25,17 @@ export const NICHE_PAGES: NichePage[] = [
     image: "/bilder/frisor.webp",
     eyebrow: "Bookingsystem for frisører",
     h1: "Bookingsystem laget for frisører",
-    metaTitle: "Bookingsystem for frisører — kundene booker selv | bestilly",
+    metaTitle: "Bookingsystem for frisører — kundene booker selv | Bestilly",
     metaDescription:
       "Bookingsystem for frisørsalonger og frisører. La kundene bestille time selv, døgnet rundt. Egen nettside inkludert — 2490 kr i året.",
     heroText:
-      "Slipp telefonen som ringer midt i en klipp. Med bestilly booker kundene time selv — du får ro til å gjøre jobben, og kalenderen fyller seg av seg selv.",
+      "Slipp telefonen som ringer midt i en klipp. Med Bestilly booker kundene time selv — du får ro til å gjøre jobben, og kalenderen fyller seg av seg selv.",
     introHeading: "Mer tid til kundene, mindre tid på telefonen",
     introParagraphs: [
       "Som frisør lever du av tiden i stolen. Hver gang telefonen ringer med et «har du ledig time?», stopper du opp — og kunden foran deg merker det. Et bookingsystem lar kundene se kalenderen din og bestille selv, så du kan konsentrere deg om håndverket.",
-      "Med bestilly legger du inn behandlingene dine — klipp, farge, striper, styling — med varighet og pris. Kundene velger behandling, ser ledige tider og booker. Du og kunden får bekreftelse på e-post, og kunden kan avbestille selv hvis noe skjer.",
+      "Med Bestilly legger du inn behandlingene dine — klipp, farge, striper, styling — med varighet og pris. Kundene velger behandling, ser ledige tider og booker. Du og kunden får bekreftelse på e-post, og kunden kan avbestille selv hvis noe skjer.",
     ],
-    challengesHeading: "Dette løser bestilly for frisører",
+    challengesHeading: "Dette løser Bestilly for frisører",
     challenges: [
       {
         title: "Telefonen midt i jobben",
@@ -65,7 +65,7 @@ export const NICHE_PAGES: NichePage[] = [
       },
       {
         q: "Passer det for en frisør som jobber alene?",
-        a: "Ja, bestilly er laget nettopp for små salonger og frisører som driver alene. Du trenger ingen ansatte eller IT-kunnskap.",
+        a: "Ja, Bestilly er laget nettopp for små salonger og frisører som driver alene. Du trenger ingen ansatte eller IT-kunnskap.",
       },
       {
         q: "Kan kundene avbestille selv?",
@@ -82,7 +82,7 @@ export const NICHE_PAGES: NichePage[] = [
     image: "/bilder/neglesalong.webp",
     eyebrow: "Bookingsystem for negl- og skjønnhetssalong",
     h1: "Bookingsystem for neglsalong og skjønnhetssalong",
-    metaTitle: "Bookingsystem for neglsalong & skjønnhetssalong | bestilly",
+    metaTitle: "Bookingsystem for neglsalong & skjønnhetssalong | Bestilly",
     metaDescription:
       "Bookingsystem for neglsalonger og skjønnhetssalonger. Kundene booker behandlinger selv, du får full oversikt. Egen nettside inkludert — 2490 kr/år.",
     heroText:
@@ -90,9 +90,9 @@ export const NICHE_PAGES: NichePage[] = [
     introHeading: "Fyll kalenderen uten å svare på meldinger hele dagen",
     introParagraphs: [
       "Negl- og skjønnhetssalonger lever av et jevnt sig av bookinger. Men mye av tiden går til å svare på meldinger om ledige tider — ofte mens du står midt i en behandling. Et bookingsystem gir kundene svaret selv.",
-      "I bestilly viser du fram behandlingene dine med bilde, varighet og pris. Kunden velger, ser ledige tider og booker. Du får en ryddig kalender, og kundene en proff opplevelse — uten at du må løfte en finger.",
+      "I Bestilly viser du fram behandlingene dine med bilde, varighet og pris. Kunden velger, ser ledige tider og booker. Du får en ryddig kalender, og kundene en proff opplevelse — uten at du må løfte en finger.",
     ],
-    challengesHeading: "Dette løser bestilly for skjønnhetssalonger",
+    challengesHeading: "Dette løser Bestilly for skjønnhetssalonger",
     challenges: [
       {
         title: "Meldinger i alle kanaler",
@@ -122,7 +122,7 @@ export const NICHE_PAGES: NichePage[] = [
       },
       {
         q: "Kan jeg selge produkter i tillegg til behandlinger?",
-        a: "Ja. bestilly har en innebygd nettbutikk der kundene kan kjøpe produkter og betale med Vipps.",
+        a: "Ja. Bestilly har en innebygd nettbutikk der kundene kan kjøpe produkter og betale med Vipps.",
       },
       {
         q: "Kan kundene booke utenom åpningstid?",
@@ -139,7 +139,7 @@ export const NICHE_PAGES: NichePage[] = [
     image: "/bilder/hudpleie.webp",
     eyebrow: "Timebestilling for massasje og terapi",
     h1: "Timebestilling for massasje og terapeuter",
-    metaTitle: "Timebestilling for massasje & terapeut | bestilly",
+    metaTitle: "Timebestilling for massasje & terapeut | Bestilly",
     metaDescription:
       "Enkelt timebestillingssystem for massører og terapeuter. Klientene booker behandling selv, du får ro til å jobbe. Egen nettside — 2490 kr i året.",
     heroText:
@@ -147,9 +147,9 @@ export const NICHE_PAGES: NichePage[] = [
     introHeading: "Ro i timeboka — for deg og klientene",
     introParagraphs: [
       "Som massør eller terapeut trenger du å være til stede i behandlingen, ikke ved telefonen. Et timebestillingssystem lar klientene finne og booke ledig tid selv, så du beholder roen og flyten i arbeidsdagen.",
-      "Med bestilly legger du inn behandlingene dine med varighet og pris. Klienten booker, og begge får bekreftelse på e-post. Du styrer åpningstider og pauser selv, så kalenderen aldri blir overfylt.",
+      "Med Bestilly legger du inn behandlingene dine med varighet og pris. Klienten booker, og begge får bekreftelse på e-post. Du styrer åpningstider og pauser selv, så kalenderen aldri blir overfylt.",
     ],
-    challengesHeading: "Dette løser bestilly for massører og terapeuter",
+    challengesHeading: "Dette løser Bestilly for massører og terapeuter",
     challenges: [
       {
         title: "Avbrutt under behandling",
@@ -179,7 +179,7 @@ export const NICHE_PAGES: NichePage[] = [
       },
       {
         q: "Passer det for en terapeut som jobber alene?",
-        a: "Ja. bestilly er laget for små bedrifter og enkeltpersonforetak — du trenger ingen ansatte eller IT-kunnskap.",
+        a: "Ja. Bestilly er laget for små bedrifter og enkeltpersonforetak — du trenger ingen ansatte eller IT-kunnskap.",
       },
       {
         q: "Får klienten bekreftelse på timen?",

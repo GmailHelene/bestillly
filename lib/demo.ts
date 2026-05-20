@@ -6,4 +6,4 @@ export const DEMO_EMAIL = "demo@bestilly.no";
 export const DEMO_PASSWORD = "demobestilly";
 
 export const DEMO_BLOCK_MESSAGE =
-  "Dette er en demokonto — endringer lagres ikke. Opprett din egen konto for å ta bestilly i bruk.";
+  "Dette er en demokonto — endringer lagres ikke. Opprett din egen konto for å ta Bestilly i bruk.";

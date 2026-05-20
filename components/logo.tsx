@@ -18,7 +18,7 @@ export function Logo({ className }: { className?: string }) {
           strokeLinejoin="round"
         />
       </svg>
-      <span className="text-lg font-bold tracking-tight">bestilly</span>
+      <span className="text-lg font-bold tracking-tight">Bestilly</span>
     </span>
   );
 }

@@ -36,7 +36,7 @@ export type SeoAuditInput = {
 const CAT_BASIC = "Grunnleggende SEO";
 const CAT_CONTENT = "Innhold";
 const CAT_LOCAL = "Lokal SEO";
-const CAT_TECH = "Teknisk (håndteres av bestilly)";
+const CAT_TECH = "Teknisk (håndteres av Bestilly)";
 
 export function auditSeo(input: SeoAuditInput): SeoAuditResult {
   const items: AuditItem[] = [];
@@ -56,7 +56,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
       CAT_BASIC,
       "Egen meta-tittel",
       "warn",
-      "bestilly lager en standard tittel, men en egen, søkeordrik tittel (30–60 tegn) gir bedre treff. Fyll inn under «Min side» → SEO.",
+      "Bestilly lager en standard tittel, men en egen, søkeordrik tittel (30–60 tegn) gir bedre treff. Fyll inn under «Min side» → SEO.",
     );
   } else if (metaTitle.length < 30 || metaTitle.length > 60) {
     add(
@@ -221,16 +221,16 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
       : "Sett opp åpningstider — det vises på siden og er nyttig for lokale søk.",
   );
 
-  // --- Teknisk (bestilly ordner dette automatisk) ---
-  add("https", CAT_TECH, "Sikker tilkobling (HTTPS)", "pass", "bestilly leverer siden over HTTPS automatisk.");
+  // --- Teknisk (Bestilly ordner dette automatisk) ---
+  add("https", CAT_TECH, "Sikker tilkobling (HTTPS)", "pass", "Bestilly leverer siden over HTTPS automatisk.");
   add("mobile", CAT_TECH, "Mobilvennlig", "pass", "Siden er responsiv og fungerer på mobil automatisk.");
-  add("sitemap", CAT_TECH, "Sitemap og robots.txt", "pass", "bestilly genererer sitemap og robots.txt automatisk.");
+  add("sitemap", CAT_TECH, "Sitemap og robots.txt", "pass", "Bestilly genererer sitemap og robots.txt automatisk.");
   add(
     "structuredData",
     CAT_TECH,
     "Strukturerte data",
     "pass",
-    "bestilly legger inn strukturerte data (JSON-LD) for bedrift og blogginnlegg automatisk.",
+    "Bestilly legger inn strukturerte data (JSON-LD) for bedrift og blogginnlegg automatisk.",
   );
 
   const points = items.reduce(

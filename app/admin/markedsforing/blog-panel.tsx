@@ -79,18 +79,26 @@ export function BlogPanel() {
         </p>
       )}
 
-      <button
-        type="button"
-        onClick={handleGenerate}
-        disabled={genPending}
-        className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
-      >
-        {genPending
-          ? "Skriver innlegg…"
-          : hasDraft
-            ? "Lag nytt innlegg"
-            : "Lag blogginnlegg"}
-      </button>
+      <div className="space-y-1">
+        <button
+          type="button"
+          onClick={handleGenerate}
+          disabled={genPending}
+          className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+        >
+          {genPending
+            ? "Skriver innlegg…"
+            : hasDraft
+              ? "Lag nytt innlegg"
+              : "Lag blogginnlegg"}
+        </button>
+        {genPending && (
+          <p className="text-xs text-gray-500">
+            Et godt blogginnlegg tar 30–60 sekunder å skrive. Vent litt — du
+            trenger ikke oppdatere siden.
+          </p>
+        )}
+      </div>
 
       {hasDraft && (
         <div className="space-y-3 rounded-lg bg-gray-50 p-3">

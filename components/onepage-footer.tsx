@@ -33,7 +33,7 @@ export function OnepageFooter({
       <p className="text-xs text-gray-400">
         © {year} {business.name} · Drevet av{" "}
         <a href="/" className="underline">
-          bestilly
+          Bestilly
         </a>{" "}
         ·{" "}
         <a href="/personvern" className="underline">
