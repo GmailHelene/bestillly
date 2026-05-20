@@ -49,6 +49,9 @@ function itemToUrl(item: unknown): string | null {
 export async function generateImage(
   options: ImageGenerationOptions,
 ): Promise<string[]> {
+  console.log(
+    `[replicate] kjører ${DEFAULT_IMAGE_MODEL}, ratio=${options.aspectRatio ?? "1:1"}`,
+  );
   const output = await replicate.run(DEFAULT_IMAGE_MODEL, {
     input: {
       prompt: options.prompt,
@@ -59,9 +62,17 @@ export async function generateImage(
     },
   });
 
+  // Diagnostikk: vis hvilken form Replicate-svaret faktisk har, så vi
+  // kan justere itemToUrl hvis SDK-en endrer kontrakt igjen.
+  const outputType = Array.isArray(output)
+    ? `array(${output.length})`
+    : typeof output;
+  console.log(`[replicate] output-type: ${outputType}`);
+
   const items: unknown[] = Array.isArray(output) ? output : [output];
   const urls = items
     .map(itemToUrl)
     .filter((u): u is string => typeof u === "string" && u.length > 0);
+  console.log(`[replicate] hentet ut ${urls.length} URL(er)`);
   return urls;
 }

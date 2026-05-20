@@ -442,6 +442,9 @@ export async function generateImageAction(
     const replicateUrl = urls[0];
     if (!replicateUrl) {
       await refundCredits(businessId, "image", 1);
+      console.error(
+        "[generateImageAction] Replicate returnerte tomt resultat.",
+      );
       return { error: "Bildemotoren returnerte ingen bilde." };
     }
 
@@ -449,17 +452,29 @@ export async function generateImageAction(
     if (hasCloudinary()) {
       try {
         const stored = await uploadImageFromUrl(replicateUrl);
+        console.log(`[generateImageAction] Cloudinary OK: ${stored}`);
         return { ok: true, imageUrl: stored };
-      } catch {
+      } catch (cloudErr) {
         // Faller tilbake til Replicate-URL hvis opplasting feiler.
+        console.warn(
+          "[generateImageAction] Cloudinary feilet, bruker Replicate-URL:",
+          cloudErr,
+        );
         return { ok: true, imageUrl: replicateUrl };
       }
     }
+    console.log(`[generateImageAction] Replicate-URL: ${replicateUrl}`);
     return { ok: true, imageUrl: replicateUrl };
   } catch (err) {
     await refundCredits(businessId, "image", 1);
     // Logg detaljert til server-loggen så vi kan diagnostisere i produksjon.
-    console.error("[generateImageAction] Replicate-feil:", err);
+    const message = err instanceof Error ? err.message : String(err);
+    const status = (err as { status?: number; statusCode?: number })?.status
+      ?? (err as { statusCode?: number })?.statusCode;
+    console.error(
+      `[generateImageAction] Replicate-feil status=${status ?? "n/a"}: ${message}`,
+      err,
+    );
     return {
       error: "Klarte ikke å lage bildet akkurat nå. Prøv igjen om litt.",
     };
