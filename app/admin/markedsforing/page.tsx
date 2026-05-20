@@ -124,11 +124,6 @@ export default async function MarketingPage() {
           used={usage.textUsed}
           limit={usage.textLimit}
         />
-        <UsageBar
-          label="Bilder"
-          used={usage.imagesUsed}
-          limit={usage.imageLimit}
-        />
         <details className="text-xs text-gray-500">
           <summary className="cursor-pointer font-medium text-gray-600">
             Slik fungerer AI-kreditter
@@ -137,15 +132,19 @@ export default async function MarketingPage() {
             <p>
               AI-kredittene er inkludert i årsprisen og fornyes automatisk
               ved hvert månedsskifte. Ubrukte kreditter spares ikke opp.
-              Tekst og bilder telles hver for seg.
             </p>
             <ul className="space-y-0.5">
               <li>· Innlegg til sosiale medier: 1 kreditt per kanal</li>
               <li>· SEO-tekst (snippet): 2 kreditter</li>
               <li>· Blogginnlegg: 3 kreditter</li>
               <li>· SEO-anbefaling, markedsanalyse, publiseringsplan: 5 kreditter</li>
-              <li>· Bildegenerering: 1 bilde fra bildekvoten</li>
             </ul>
+            <p className="rounded-md bg-amber-50 px-2 py-1 text-amber-800">
+              AI-bildegenerering er midlertidig av — du får i stedet et
+              ferdig bildeforslag og en beskrivelse du kan bruke til å
+              finne et bilde i Unsplash, Pexels eller eget arkiv.
+              Bildegenerering kommer tilbake i en senere oppdatering.
+            </p>
             <p>
               Nettside-analysen er gratis og bruker ingen kreditter. Trenger
               du mer før måneden er omme, ta kontakt på{" "}
@@ -156,9 +155,8 @@ export default async function MarketingPage() {
             </p>
             <p>
               Når du bruker verktøyene, sendes innholdet du legger inn (og
-              tekst fra nettside-analysen) til AI-leverandørene Anthropic og
-              Replicate for å generere tekst og bilder. Sluttkunders
-              personopplysninger sendes ikke. Se{" "}
+              tekst fra nettside-analysen) til Anthropic for tekst-
+              generering. Sluttkunders personopplysninger sendes ikke. Se{" "}
               <a href="/personvern" className="underline">
                 personvernerklæringen
               </a>

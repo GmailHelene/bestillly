@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import {
-  generateContentAction,
-  generateImageAction,
-} from "@/lib/actions/marketing";
+import { generateContentAction } from "@/lib/actions/marketing";
 import { MARKETING_CHANNELS } from "@/lib/marketing";
 import {
   CHANNEL_STRATEGIES,
@@ -42,81 +39,51 @@ function CopyButton({ text, label }: { text: string; label: string }) {
   );
 }
 
-function PostImage({
+// Viser bildeforslaget som tekst som brukeren kan kopiere og bruke
+// til å lete fram et eget bilde (f.eks. i Unsplash, Pexels, eget arkiv).
+// AI-bildegenerering er midlertidig av — kommer tilbake senere.
+function PostImageSuggestion({
+  idea,
   prompt,
-  channelId,
+  pixelSize,
 }: {
+  idea?: string;
   prompt: string;
-  channelId: string;
+  pixelSize?: string;
 }) {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [pending, startTransition] = useTransition();
-
-  function handleGenerate() {
-    setError(null);
-    startTransition(async () => {
-      const result = await generateImageAction(prompt, channelId);
-      if (result && "ok" in result) {
-        setImageUrl(result.imageUrl);
-      } else if (result && "error" in result) {
-        setError(result.error);
-      }
-    });
-  }
-
   return (
     <div className="space-y-2">
-      {error && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-700">
-          {error}
+      {idea && (
+        <div className="space-y-1">
+          <span className="text-xs font-medium text-gray-500">
+            Bildeforslag
+          </span>
+          <p className="rounded-md bg-white px-3 py-2 text-sm text-gray-700 ring-1 ring-gray-200">
+            {idea}
+          </p>
+        </div>
+      )}
+      <div className="space-y-1">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-medium text-gray-500">
+            Beskrivelse til bildesøk
+          </span>
+          <CopyButton text={prompt} label="Kopier beskrivelse" />
+        </div>
+        <p className="rounded-md bg-white px-3 py-2 text-xs text-gray-600 ring-1 ring-gray-200">
+          {prompt}
+        </p>
+      </div>
+      {pixelSize && (
+        <p className="text-xs text-gray-500">
+          Anbefalt format: <span className="font-medium">{pixelSize}</span>
         </p>
       )}
-
-      {imageUrl ? (
-        <div className="space-y-1">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={imageUrl}
-            alt="AI-generert bildeforslag"
-            className="w-full max-w-xs rounded-lg border border-gray-200"
-          />
-          <div className="flex gap-2">
-            <a
-              href={imageUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-50"
-            >
-              Åpne / last ned
-            </a>
-            <button
-              type="button"
-              onClick={handleGenerate}
-              disabled={pending}
-              className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-50 disabled:opacity-50"
-            >
-              {pending ? "Lager…" : "Nytt forslag"}
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="space-y-1">
-          <button
-            type="button"
-            onClick={handleGenerate}
-            disabled={pending}
-            className="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
-          >
-            {pending ? "Lager bilde…" : "Generer AI-bilde"}
-          </button>
-          {pending && (
-            <p className="text-xs text-gray-500">
-              Tar 10–20 sekunder. Bildet dukker opp her når det er klart.
-            </p>
-          )}
-        </div>
-      )}
+      <p className="text-xs text-gray-400">
+        Bruk beskrivelsen som søk i Unsplash, Pexels eller et eget
+        bildearkiv. AI-bildegenerering kommer tilbake i en senere
+        oppdatering.
+      </p>
     </div>
   );
 }
@@ -207,17 +174,13 @@ function PostCard({ post }: { post: GeneratedPost }) {
       {post.imagePrompt && (
         <div className="space-y-2 rounded-lg bg-gray-50 p-3">
           <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-            AI-bilde til innlegget
+            Bilde til innlegget
           </span>
-          {post.imageIdea && (
-            <p className="text-sm text-gray-600">{post.imageIdea}</p>
-          )}
-          <p className="text-xs text-gray-400">
-            Trykk på knappen for å lage et ekte bilde med AI — i riktig
-            format for {post.channelName}. Hvert bilde trekker fra
-            bildekvoten din.
-          </p>
-          <PostImage prompt={post.imagePrompt} channelId={post.channelId} />
+          <PostImageSuggestion
+            idea={post.imageIdea}
+            prompt={post.imagePrompt}
+            pixelSize={post.pixelSize}
+          />
         </div>
       )}
 

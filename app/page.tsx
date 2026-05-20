@@ -100,9 +100,9 @@ const marketingTools = [
       "SEO-optimaliserte blogginnlegg rett i bloggen din, og korte tekster til nettsiden.",
   },
   {
-    title: "AI-bilder",
+    title: "Bildeforslag",
     description:
-      "Bildeforslag som passer innlegget, i riktig format for hver kanal.",
+      "Konkret beskrivelse av bildet som passer innlegget, klar til å søke opp i Unsplash, Pexels eller eget arkiv.",
   },
   {
     title: "Markedsanalyse",
