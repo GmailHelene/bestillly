@@ -148,8 +148,8 @@ export default async function MarketingPage() {
             <p>
               Nettside-analysen er gratis og bruker ingen kreditter. Trenger
               du mer før måneden er omme, ta kontakt på{" "}
-              <a href="mailto:helene721@gmail.com" className="underline">
-                helene721@gmail.com
+              <a href="mailto:support@codemedic.no" className="underline">
+                support@codemedic.no
               </a>
               .
             </p>

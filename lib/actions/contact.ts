@@ -2,7 +2,7 @@
 
 import { sendEmail } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
-import { getOperatorEmail } from "@/lib/operator";
+import { getContactInbox } from "@/lib/operator";
 import { rateLimit, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 
 export type ContactState = { error: string } | { ok: true } | undefined;
@@ -27,10 +27,10 @@ export async function sendContactMessage(
   }
   if (!message) return { error: "Skriv en melding." };
 
-  // Henvendelser fra forsidens kontaktskjema havner i operatørens innboks
-  // (OPERATOR_EMAIL). EMAIL_FROM er Brevo-avsenderadressen og brukes som
-  // "fra"-adresse på selve e-posten — ikke som mottaker.
-  const to = getOperatorEmail();
+  // Henvendelser fra forsidens kontaktskjema havner i CONTACT_INBOX hvis
+  // satt, ellers i EMAIL_FROM (support@codemedic.no — Brevo-verifisert).
+  // OPERATOR_EMAIL er bare for /drift-tilgang, ikke for inngående post.
+  const to = getContactInbox();
   if (!to) {
     return {
       error: "Kontaktskjemaet er ikke satt opp ennå. Prøv igjen senere.",
