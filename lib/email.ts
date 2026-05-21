@@ -7,6 +7,7 @@ export async function sendEmail(params: {
   subject: string;
   html: string;
   replyTo?: string;
+  bcc?: string;
 }): Promise<void> {
   const host = process.env.SMTP_HOST;
   const port = process.env.SMTP_PORT;
@@ -41,9 +42,10 @@ export async function sendEmail(params: {
       subject: params.subject,
       html: params.html,
       replyTo: params.replyTo,
+      bcc: params.bcc,
     });
     console.log(
-      `[e-post] Sendt til ${params.to} — messageId=${info.messageId}`,
+      `[e-post] Sendt til ${params.to}${params.bcc ? ` (bcc ${params.bcc})` : ""} — messageId=${info.messageId}`,
     );
   } catch (error) {
     // En feilet e-post skal ikke velte selve bookingen.

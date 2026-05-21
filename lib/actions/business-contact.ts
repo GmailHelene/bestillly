@@ -6,6 +6,7 @@ import { businesses } from "@/db/schema";
 import { sendEmail } from "@/lib/email";
 import { escapeHtml } from "@/lib/html";
 import { DEMO_SLUG } from "@/lib/demo";
+import { getContactInbox } from "@/lib/operator";
 import { rateLimit, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 
 export type BusinessContactState =
@@ -43,9 +44,20 @@ export async function sendBusinessMessage(
   // Demo-bedriften: vis vellykket uten å sende.
   if (business.slug === DEMO_SLUG) return { ok: true };
 
+  // BCC til Bestilly-operatøren i pilotfasen, så vi ser hva pilotbedriftene
+  // får av kundekommunikasjon. Skip BCC hvis bedriften selv er adressaten
+  // (unngår duplikat).
+  const operatorInbox = getContactInbox();
+  const bcc =
+    operatorInbox &&
+    operatorInbox.toLowerCase() !== business.email.toLowerCase()
+      ? operatorInbox
+      : undefined;
+
   await sendEmail({
     to: business.email,
     replyTo: email,
+    bcc,
     subject: `Melding fra siden din: ${name}`,
     html: `
       <h2>Ny melding fra kontaktskjemaet</h2>
