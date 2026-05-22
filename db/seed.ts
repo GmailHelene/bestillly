@@ -64,7 +64,9 @@ async function seed() {
     .values({
       slug: "demo",
       name: "Demo Frisør & Velvære",
-      email: DEMO_EMAIL,
+      // Bedriftens varslings-e-post må være leverbar (demo-bookinger sender
+      // hit). Innlogging til demo-kontoen bruker fortsatt DEMO_EMAIL under.
+      email: "support@codemedic.no",
       phone: "12 34 56 78",
       address: "Eksempelgata 1, 3370 Vikersund",
       description:
