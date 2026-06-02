@@ -38,22 +38,23 @@ export default function TermsPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">3. Pris og betaling</h2>
         <p className="text-sm text-gray-700">
-          Bestilly koster <strong>2490 kr per år</strong> per bedrift. Det er
-          ingen oppstartsavgift og ingen gebyr per booking.
+          Bestilly koster <strong>149 kr per måned</strong>, tilsvarende{" "}
+          <strong>1788 kr per år</strong>, per bedrift. Det er ingen
+          oppstartsavgift og ingen gebyr per booking.
         </p>
         <p className="text-sm text-gray-700">
-          Beløpet faktureres årlig. Faktura sendes på e-post til adressen
-          bedriften har registrert, og betales til oppgitt kontonummer med
-          KID innen <strong>14 dagers betalingsfrist</strong>. Abonnementet
-          fornyes automatisk for ett år av gangen inntil det sies opp.
+          Beløpet faktureres årlig forskuddsvis. Faktura sendes på e-post til
+          adressen bedriften har registrert, og betales til oppgitt
+          kontonummer med KID innen <strong>14 dagers betalingsfrist</strong>.
+          Abonnementet fornyes automatisk for ett år av gangen inntil det
+          sies opp.
         </p>
         <p className="text-sm text-gray-700">
-          Årsprisen inkluderer en månedlig pott med AI-kreditter til
-          markedsføringshuben — for tekstinnhold og bildegenerering.
-          Kredittpotten fornyes ved hvert månedsskifte og kan ikke spares
-          opp. Behov ut over potten kan dekkes ved avtale. AI-genererte
-          tekster og bilder er utkast bedriften selv er ansvarlig for å
-          gjennomgå før publisering.
+          Prisen inkluderer en månedlig pott med AI-kreditter til
+          markedsføringshuben — for tekstinnhold. Kredittpotten fornyes ved
+          hvert månedsskifte og kan ikke spares opp. Behov ut over potten
+          kan dekkes ved avtale. AI-genererte tekster er utkast bedriften
+          selv er ansvarlig for å gjennomgå før publisering.
         </p>
       </section>
 

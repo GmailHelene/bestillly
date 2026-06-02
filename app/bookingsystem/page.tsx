@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { safeJsonLd } from "@/lib/html";
-import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
+import { ANNUAL_PRICE_NOK, MONTHLY_PRICE_NOK } from "@/lib/pricing";
 
 const title =
   "Bookingsystem for frisører, salonger og små bedrifter | Bestilly";
 const description =
-  "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv — 2490 kr i året, alt inkludert.";
+  "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv — 149 kr per måned, alt inkludert.";
 
 export const metadata: Metadata = {
   title,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "Hva koster et bookingsystem?",
-    a: "Bestilly koster 2490 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så for en liten bedrift blir Bestilly langt rimeligere.",
+    a: "Bestilly koster 149 kroner i måneden — alt er inkludert. Faktureres årlig som 1788 kr. Ingen oppstartsavgift og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så Bestilly er langt rimeligere.",
   },
   {
     q: "Passer Bestilly for enkeltpersonforetak?",
@@ -49,11 +49,11 @@ const faq = [
   },
   {
     q: "Er det bindingstid?",
-    a: "Du betaler én fast årspris på 2490 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
+    a: "Du betaler 149 kr per måned, fakturert årlig (1788 kr). Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster.",
   },
   {
     q: "Hva er AI-markedsføringshuben?",
-    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag — tilpasset bedriften din. Hver konto har en kredittpott inkludert i årsprisen, som fornyes hver måned.",
+    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag — tilpasset bedriften din. Hver konto har en kredittpott inkludert i prisen, som fornyes hver måned.",
   },
 ];
 
@@ -137,8 +137,8 @@ export default function BookingsystemLanding() {
             <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
               Bestilly lar kundene dine bestille time selv — døgnet rundt.
               Du får et komplett bookingsystem, en egen nettside og en
-              AI-markedsføringshub for 2490 kroner i året, helt uten
-              månedspris eller gebyr per booking.
+              AI-markedsføringshub for 149 kroner i måneden, helt uten
+              oppstartsavgift eller gebyr per booking.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link
@@ -243,8 +243,11 @@ export default function BookingsystemLanding() {
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
               Pris
             </p>
-            <p className="mt-2 text-5xl font-bold">{ANNUAL_PRICE_NOK} kr</p>
-            <p className="mt-1 text-gray-600">i året — alt inkludert</p>
+            <p className="mt-2 text-5xl font-bold">{MONTHLY_PRICE_NOK} kr</p>
+            <p className="mt-1 text-gray-600">per måned — alt inkludert</p>
+            <p className="text-xs text-gray-400">
+              Fakturert årlig som {ANNUAL_PRICE_NOK} kr
+            </p>
             <Link
               href="/registrer"
               className="mt-8 inline-block rounded-xl bg-gray-900 px-7 py-3 text-sm font-medium text-white hover:bg-gray-700"

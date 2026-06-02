@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Logo } from "@/components/logo";
-import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
+import { ANNUAL_PRICE_NOK, MONTHLY_PRICE_NOK } from "@/lib/pricing";
 
 const title = "Hvorfor velge Bestilly? | Sammenligning av bookingsystem";
 const description =
-  "Hvorfor Bestilly fremfor andre bookingsystemer: én fast årspris på 2490 kr, ingen månedspris, ingen gebyr per booking — og nettside og markedsføring inkludert.";
+  "Hvorfor Bestilly fremfor andre bookingsystemer: 149 kr per måned (fakturert årlig som 1788 kr), ingen oppstartsavgift, ingen gebyr per booking — og nettside og markedsføring inkludert.";
 
 export const metadata: Metadata = {
   title,
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 const rows = [
   {
     label: "Pris",
-    bestilly: "2490 kr i året — fast",
-    others: "Ofte 200–600 kr i måneden",
+    bestilly: "149 kr per måned (1788 kr/år) — fast",
+    others: "Ofte 300–600 kr i måneden",
   },
   {
     label: "Gebyr per booking",
@@ -60,7 +60,7 @@ const rows = [
 const points = [
   {
     title: "Én pris, ingen overraskelser",
-    text: "Du betaler 2490 kr i året — uansett hvor mange bookinger du får. Ingen månedspris som vokser, ingen gebyrer som spiser av inntekten.",
+    text: "Du betaler 149 kr per måned (1788 kr fakturert årlig) — uansett hvor mange bookinger du får. Ingen pris som vokser med bruk, ingen gebyrer som spiser av inntekten.",
   },
   {
     title: "Alt på ett sted",
@@ -108,7 +108,7 @@ export default function HvorforBestilly() {
             <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
               De fleste bookingsystemer er laget for større bedrifter og
               koster deretter. Bestilly er laget for de minste — med én fast,
-              forutsigbar årspris.
+              forutsigbar månedspris.
             </p>
           </div>
         </section>
@@ -178,8 +178,11 @@ export default function HvorforBestilly() {
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
               Pris
             </p>
-            <p className="mt-2 text-5xl font-bold">{ANNUAL_PRICE_NOK} kr</p>
-            <p className="mt-1 text-gray-600">i året — alt inkludert</p>
+            <p className="mt-2 text-5xl font-bold">{MONTHLY_PRICE_NOK} kr</p>
+            <p className="mt-1 text-gray-600">per måned — alt inkludert</p>
+            <p className="text-xs text-gray-400">
+              Fakturert årlig som {ANNUAL_PRICE_NOK} kr
+            </p>
             <Link
               href="/registrer"
               className="mt-8 inline-block rounded-xl bg-gray-900 px-7 py-3 text-sm font-medium text-white hover:bg-gray-700"

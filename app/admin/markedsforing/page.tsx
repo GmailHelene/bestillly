@@ -130,7 +130,7 @@ export default async function MarketingPage() {
           </summary>
           <div className="mt-2 space-y-2">
             <p>
-              AI-kredittene er inkludert i årsprisen og fornyes automatisk
+              AI-kredittene er inkludert i prisen og fornyes automatisk
               ved hvert månedsskifte. Ubrukte kreditter spares ikke opp.
             </p>
             <ul className="space-y-0.5">

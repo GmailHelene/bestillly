@@ -4,7 +4,7 @@ import { ProductPreview } from "@/components/product-preview";
 import { Logo } from "@/components/logo";
 import { enterDemo } from "@/lib/actions/demo";
 import { safeJsonLd } from "@/lib/html";
-import { ANNUAL_PRICE_NOK } from "@/lib/pricing";
+import { ANNUAL_PRICE_NOK, MONTHLY_PRICE_NOK } from "@/lib/pricing";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -13,11 +13,18 @@ const jsonLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "Bookingsystem laget for enkeltpersonforetak — booking, kalender, regnskapseksport og markedsføringsverktøy. Én fast årspris.",
+    "Bookingsystem laget for enkeltpersonforetak — booking, kalender, regnskapseksport og markedsføringsverktøy. 149 kr per måned, alt inkludert.",
   offers: {
     "@type": "Offer",
-    price: String(ANNUAL_PRICE_NOK),
+    price: String(MONTHLY_PRICE_NOK),
     priceCurrency: "NOK",
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      price: String(MONTHLY_PRICE_NOK),
+      priceCurrency: "NOK",
+      billingDuration: "P1M",
+      unitText: "MONTH",
+    },
   },
 };
 
@@ -119,7 +126,7 @@ const marketingTools = [
 const faq = [
   {
     q: "Hva koster Bestilly?",
-    a: "Bestilly koster 2490 kroner i året — alt er inkludert. Ingen oppstartsavgift, ingen månedspris og ingen gebyr per booking. Årsprisen dekker bookingsystem, kalender, nettside, regnskapsklar eksport og AI-markedsføringshub.",
+    a: "Bestilly koster 149 kroner i måneden — alt er inkludert. Faktureres årlig som 1788 kr. Ingen oppstartsavgift, ingen gebyr per booking. Prisen dekker bookingsystem, kalender, nettside, regnskapsklar eksport og AI-markedsføringshub.",
   },
   {
     q: "Passer Bestilly for enkeltpersonforetak?",
@@ -143,11 +150,11 @@ const faq = [
   },
   {
     q: "Hva er AI-markedsføringshuben?",
-    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag — tilpasset bedriften din. Hver konto har en kredittpott inkludert i årsprisen, som fornyes hver måned.",
+    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag — tilpasset bedriften din. Hver konto har en kredittpott inkludert i prisen, som fornyes hver måned.",
   },
   {
     q: "Er det bindingstid?",
-    a: "Du betaler én fast årspris på 2490 kroner. Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster hele året.",
+    a: "Du betaler 149 kr per måned, fakturert årlig (1788 kr). Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster.",
   },
 ];
 
@@ -213,8 +220,8 @@ export default function Home() {
                 <p className="mt-5 text-balance text-lg text-gray-600">
                   Time inn, kvittering ut, ferdig regnskapsgrunnlag. Bestilly
                   samler booking, kalender, regnskapseksport og markedsføring
-                  — laget for deg som driver alene. Én fast årspris, ingen
-                  månedlige overraskelser.
+                  — laget for deg som driver alene. 149 kr per måned, alt
+                  inkludert, ingen skjulte gebyrer.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
                   <Link
@@ -290,7 +297,7 @@ export default function Home() {
               ))}
             </div>
             <p className="mt-6 text-center text-sm text-gray-500">
-              Inkludert i årsprisen, med en månedlig kredittpott.
+              Inkludert i prisen, med en månedlig kredittpott.
             </p>
           </div>
         </section>
@@ -434,7 +441,7 @@ export default function Home() {
               De store bookingsystemene er bygget for kjeder med mange
               ansatte — og koster deretter. Bestilly gjør det motsatte: én
               person, én kalender, full kontroll. Ingen kompleksitet du ikke
-              trenger, og en fast, forutsigbar årspris.
+              trenger, og en fast, forutsigbar månedspris.
             </p>
           </div>
         </section>
@@ -445,8 +452,11 @@ export default function Home() {
             <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
               Pris
             </p>
-            <p className="mt-2 text-5xl font-bold">{ANNUAL_PRICE_NOK} kr</p>
-            <p className="mt-1 text-gray-600">i året — det er alt</p>
+            <p className="mt-2 text-5xl font-bold">{MONTHLY_PRICE_NOK} kr</p>
+            <p className="mt-1 text-gray-600">per måned — det er alt</p>
+            <p className="text-xs text-gray-400">
+              Fakturert årlig som {ANNUAL_PRICE_NOK} kr
+            </p>
             <ul className="mx-auto mt-8 grid max-w-md gap-2.5 text-left text-sm">
               {included.map((item) => (
                 <li key={item} className="flex items-start gap-2.5">
