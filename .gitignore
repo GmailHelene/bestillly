@@ -40,3 +40,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Personlige arbeidsfiler (ikke del med repoet)
+*.docx
+*.xlsx
+TODO*.txt
+Markedsføringsplan*
+.cache-*
