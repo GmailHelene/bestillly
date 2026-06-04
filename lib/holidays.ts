@@ -1,5 +1,5 @@
 // Norske offentlige helligdager («røde dager»). Brukes til å sperre booking
-// automatisk — bedriften kan likevel åpne en helligdag med et eksplisitt
+// automatisk, bedriften kan likevel åpne en helligdag med et eksplisitt
 // åpningstid-avvik.
 
 function ymd(d: Date): string {

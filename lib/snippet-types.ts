@@ -1,5 +1,5 @@
 // Typer korte SEO-tekster bedriften kan generere (F3.7b).
-// Ren data — ingen importer, trygg å bruke i klient-komponenter.
+// Ren data, ingen importer, trygg å bruke i klient-komponenter.
 
 export const SNIPPET_TYPES = [
   {

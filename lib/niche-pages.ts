@@ -1,4 +1,4 @@
-// Nisje-landingssider for SEO. Hver nisje har eget, tilpasset innhold —
+// Nisje-landingssider for SEO. Hver nisje har eget, tilpasset innhold , 
 // ikke tynt duplikat. Rendres av components/niche-landing.tsx.
 
 export type NicheChallenge = { title: string; text: string };
@@ -25,21 +25,21 @@ export const NICHE_PAGES: NichePage[] = [
     image: "/bilder/frisor.webp",
     eyebrow: "Bookingsystem for frisører",
     h1: "Bookingsystem laget for frisører",
-    metaTitle: "Bookingsystem for frisører — kundene booker selv | Bestilly",
+    metaTitle: "Bookingsystem for frisører, kundene booker selv | Bestilly",
     metaDescription:
-      "Bookingsystem for frisørsalonger og frisører. La kundene bestille time selv, døgnet rundt. Egen nettside inkludert — 149 kr per måned.",
+      "Bookingsystem for frisørsalonger og frisører. La kundene bestille time selv, døgnet rundt. Egen nettside inkludert, 149 kr per måned.",
     heroText:
-      "Slipp telefonen som ringer midt i en klipp. Med Bestilly booker kundene time selv — du får ro til å gjøre jobben, og kalenderen fyller seg av seg selv.",
+      "Slipp telefonen som ringer midt i en klipp. Med Bestilly booker kundene time selv, du får ro til å gjøre jobben, og kalenderen fyller seg av seg selv.",
     introHeading: "Mer tid til kundene, mindre tid på telefonen",
     introParagraphs: [
-      "Som frisør lever du av tiden i stolen. Hver gang telefonen ringer med et «har du ledig time?», stopper du opp — og kunden foran deg merker det. Et bookingsystem lar kundene se kalenderen din og bestille selv, så du kan konsentrere deg om håndverket.",
-      "Med Bestilly legger du inn behandlingene dine — klipp, farge, striper, styling — med varighet og pris. Kundene velger behandling, ser ledige tider og booker. Du og kunden får bekreftelse på e-post, og kunden kan avbestille selv hvis noe skjer.",
+      "Som frisør lever du av tiden i stolen. Hver gang telefonen ringer med et «har du ledig time?», stopper du opp, og kunden foran deg merker det. Et bookingsystem lar kundene se kalenderen din og bestille selv, så du kan konsentrere deg om håndverket.",
+      "Med Bestilly legger du inn behandlingene dine, klipp, farge, striper, styling, med varighet og pris. Kundene velger behandling, ser ledige tider og booker. Du og kunden får bekreftelse på e-post, og kunden kan avbestille selv hvis noe skjer.",
     ],
     challengesHeading: "Dette løser Bestilly for frisører",
     challenges: [
       {
         title: "Telefonen midt i jobben",
-        text: "Kundene booker selv på nett — du slipper å avbryte klippet for å svare.",
+        text: "Kundene booker selv på nett, du slipper å avbryte klippet for å svare.",
       },
       {
         title: "Dobbeltbookinger",
@@ -57,11 +57,11 @@ export const NICHE_PAGES: NichePage[] = [
     faq: [
       {
         q: "Kan jeg legge inn ulike behandlinger med ulik varighet?",
-        a: "Ja. Du legger inn hver behandling — klipp, farge, striper, styling — med egen varighet og pris. Systemet regner ut ledige tider automatisk ut fra varigheten.",
+        a: "Ja. Du legger inn hver behandling, klipp, farge, striper, styling, med egen varighet og pris. Systemet regner ut ledige tider automatisk ut fra varigheten.",
       },
       {
         q: "Hva koster bookingsystemet for en frisør?",
-        a: "149 kr per måned, fakturert årlig som 1788 kr. Alt inkludert — ingen oppstartsavgift og ingen gebyr per booking.",
+        a: "149 kr per måned, fakturert årlig som 1788 kr. Alt inkludert, ingen oppstartsavgift og ingen gebyr per booking.",
       },
       {
         q: "Passer det for en frisør som jobber alene?",
@@ -84,19 +84,19 @@ export const NICHE_PAGES: NichePage[] = [
     h1: "Bookingsystem for neglsalong og skjønnhetssalong",
     metaTitle: "Bookingsystem for neglsalong & skjønnhetssalong | Bestilly",
     metaDescription:
-      "Bookingsystem for neglsalonger og skjønnhetssalonger. Kundene booker behandlinger selv, du får full oversikt. Egen nettside inkludert — 149 kr/mnd.",
+      "Bookingsystem for neglsalonger og skjønnhetssalonger. Kundene booker behandlinger selv, du får full oversikt. Egen nettside inkludert, 149 kr/mnd.",
     heroText:
-      "Negl, vipper, bryn eller hudpleie — la kundene bestille behandlingen sin selv, mens du jobber uforstyrret.",
+      "Negl, vipper, bryn eller hudpleie, la kundene bestille behandlingen sin selv, mens du jobber uforstyrret.",
     introHeading: "Fyll kalenderen uten å svare på meldinger hele dagen",
     introParagraphs: [
-      "Negl- og skjønnhetssalonger lever av et jevnt sig av bookinger. Men mye av tiden går til å svare på meldinger om ledige tider — ofte mens du står midt i en behandling. Et bookingsystem gir kundene svaret selv.",
-      "I Bestilly viser du fram behandlingene dine med bilde, varighet og pris. Kunden velger, ser ledige tider og booker. Du får en ryddig kalender, og kundene en proff opplevelse — uten at du må løfte en finger.",
+      "Negl- og skjønnhetssalonger lever av et jevnt sig av bookinger. Men mye av tiden går til å svare på meldinger om ledige tider, ofte mens du står midt i en behandling. Et bookingsystem gir kundene svaret selv.",
+      "I Bestilly viser du fram behandlingene dine med bilde, varighet og pris. Kunden velger, ser ledige tider og booker. Du får en ryddig kalender, og kundene en proff opplevelse, uten at du må løfte en finger.",
     ],
     challengesHeading: "Dette løser Bestilly for skjønnhetssalonger",
     challenges: [
       {
         title: "Meldinger i alle kanaler",
-        text: "Samle bookingene ett sted — slutt å jakte avtaler i DM, SMS og kommentarfelt.",
+        text: "Samle bookingene ett sted, slutt å jakte avtaler i DM, SMS og kommentarfelt.",
       },
       {
         title: "Vise fram behandlingene",
@@ -104,7 +104,7 @@ export const NICHE_PAGES: NichePage[] = [
       },
       {
         title: "Selge produkter",
-        text: "Innebygd nettbutikk — selg negl- eller hudpleieprodukter med betaling via Vipps.",
+        text: "Innebygd nettbutikk, selg negl- eller hudpleieprodukter med betaling via Vipps.",
       },
       {
         title: "Nye kunder tør å booke",
@@ -118,7 +118,7 @@ export const NICHE_PAGES: NichePage[] = [
       },
       {
         q: "Hva koster bookingsystemet?",
-        a: "149 kr per måned, fakturert årlig som 1788 kr. Alt inkludert — ingen oppstartsavgift og ingen gebyr per booking.",
+        a: "149 kr per måned, fakturert årlig som 1788 kr. Alt inkludert, ingen oppstartsavgift og ingen gebyr per booking.",
       },
       {
         q: "Kan jeg selge produkter i tillegg til behandlinger?",
@@ -126,7 +126,7 @@ export const NICHE_PAGES: NichePage[] = [
       },
       {
         q: "Kan kundene booke utenom åpningstid?",
-        a: "Kundene kan booke når som helst på døgnet — de ser bare ledige tider innenfor åpningstidene du har satt opp.",
+        a: "Kundene kan booke når som helst på døgnet, de ser bare ledige tider innenfor åpningstidene du har satt opp.",
       },
       {
         q: "Trenger jeg en egen nettside fra før?",
@@ -141,10 +141,10 @@ export const NICHE_PAGES: NichePage[] = [
     h1: "Timebestilling for massasje og terapeuter",
     metaTitle: "Timebestilling for massasje & terapeut | Bestilly",
     metaDescription:
-      "Enkelt timebestillingssystem for massører og terapeuter. Klientene booker behandling selv, du får ro til å jobbe. Egen nettside — 149 kr per måned.",
+      "Enkelt timebestillingssystem for massører og terapeuter. Klientene booker behandling selv, du får ro til å jobbe. Egen nettside, 149 kr per måned.",
     heroText:
-      "Gi klientene en rolig, enkel måte å finne ledig time på — så kan du konsentrere deg fullt om behandlingen.",
-    introHeading: "Ro i timeboka — for deg og klientene",
+      "Gi klientene en rolig, enkel måte å finne ledig time på, så kan du konsentrere deg fullt om behandlingen.",
+    introHeading: "Ro i timeboka, for deg og klientene",
     introParagraphs: [
       "Som massør eller terapeut trenger du å være til stede i behandlingen, ikke ved telefonen. Et timebestillingssystem lar klientene finne og booke ledig tid selv, så du beholder roen og flyten i arbeidsdagen.",
       "Med Bestilly legger du inn behandlingene dine med varighet og pris. Klienten booker, og begge får bekreftelse på e-post. Du styrer åpningstider og pauser selv, så kalenderen aldri blir overfylt.",
@@ -153,7 +153,7 @@ export const NICHE_PAGES: NichePage[] = [
     challenges: [
       {
         title: "Avbrutt under behandling",
-        text: "Klientene booker på nett — du slipper å ta telefonen midt i en behandling.",
+        text: "Klientene booker på nett, du slipper å ta telefonen midt i en behandling.",
       },
       {
         title: "Pauser mellom klienter",
@@ -171,15 +171,15 @@ export const NICHE_PAGES: NichePage[] = [
     faq: [
       {
         q: "Kan jeg sette ulik lengde på behandlingene?",
-        a: "Ja. Hver behandling får sin egen varighet, og systemet regner ut ledige tider ut fra det — så du alltid har nok tid.",
+        a: "Ja. Hver behandling får sin egen varighet, og systemet regner ut ledige tider ut fra det, så du alltid har nok tid.",
       },
       {
         q: "Hva koster timebestillingssystemet?",
-        a: "149 kr per måned, fakturert årlig som 1788 kr. Alt inkludert — ingen oppstartsavgift og ingen gebyr per booking.",
+        a: "149 kr per måned, fakturert årlig som 1788 kr. Alt inkludert, ingen oppstartsavgift og ingen gebyr per booking.",
       },
       {
         q: "Passer det for en terapeut som jobber alene?",
-        a: "Ja. Bestilly er laget for små bedrifter og enkeltpersonforetak — du trenger ingen ansatte eller IT-kunnskap.",
+        a: "Ja. Bestilly er laget for små bedrifter og enkeltpersonforetak, du trenger ingen ansatte eller IT-kunnskap.",
       },
       {
         q: "Får klienten bekreftelse på timen?",

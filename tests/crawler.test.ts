@@ -22,7 +22,7 @@ describe("normalizeUrl", () => {
   });
 });
 
-describe("isBlockedIp — SSRF-vern", () => {
+describe("isBlockedIp, SSRF-vern", () => {
   it("blokkerer loopback og private adresser", () => {
     expect(isBlockedIp("127.0.0.1")).toBe(true);
     expect(isBlockedIp("10.0.0.1")).toBe(true);

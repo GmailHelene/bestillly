@@ -6,7 +6,7 @@ export const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
-// Flux Schnell — rask og billig (~$0.003 per bilde).
+// Flux Schnell, rask og billig (~$0.003 per bilde).
 export const DEFAULT_IMAGE_MODEL = "black-forest-labs/flux-schnell";
 export const IMAGE_COST_USD = 0.003;
 

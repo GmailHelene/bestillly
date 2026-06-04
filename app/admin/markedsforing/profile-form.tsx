@@ -48,7 +48,7 @@ export function MarketingProfileForm({
           name="audience"
           rows={2}
           defaultValue={profile.audience ?? ""}
-          placeholder="Hvem er kundene dine? F.eks. kvinner 25–45 i Vikersund-området."
+          placeholder="Hvem er kundene dine? F.eks. kvinner 25-45 i Vikersund-området."
           className={inputClass}
         />
       </div>
@@ -90,7 +90,7 @@ export function MarketingProfileForm({
           name="websiteUrl"
           type="url"
           defaultValue={profile.websiteUrl ?? ""}
-          placeholder="https://… (valgfritt — brukes til analyse senere)"
+          placeholder="https://… (valgfritt, brukes til analyse senere)"
           className={inputClass}
         />
       </div>

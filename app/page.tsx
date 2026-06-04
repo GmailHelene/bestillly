@@ -13,7 +13,7 @@ const jsonLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
-    "Bookingsystem laget for enkeltpersonforetak — booking, kalender, regnskapseksport og markedsføringsverktøy. 149 kr per måned, alt inkludert.",
+    "Bookingsystem laget for enkeltpersonforetak, booking, kalender, regnskapseksport og markedsføringsverktøy. 149 kr per måned, alt inkludert.",
   offers: {
     "@type": "Offer",
     price: String(MONTHLY_PRICE_NOK),
@@ -32,7 +32,7 @@ const steps = [
   {
     number: "1",
     title: "Registrer bedriften",
-    description: "Opprett en konto på et par minutter — gratis å prøve.",
+    description: "Opprett en konto på et par minutter, gratis å prøve.",
   },
   {
     number: "2",
@@ -50,12 +50,12 @@ const features = [
   {
     title: "Kunder booker selv",
     description:
-      "Kundene bestiller time når det passer dem — uten at telefonen ringer.",
+      "Kundene bestiller time når det passer dem, uten at telefonen ringer.",
   },
   {
     title: "Regnskapsklar eksport",
     description:
-      "Last ned bookinger og salg som fil regnskapsføreren kan bruke — eller importere i regnskapsprogrammet ditt.",
+      "Last ned bookinger og salg som fil regnskapsføreren kan bruke, eller importere i regnskapsprogrammet ditt.",
   },
   {
     title: "Full oversikt",
@@ -99,7 +99,7 @@ const marketingTools = [
   {
     title: "Innlegg til sosiale medier",
     description:
-      "Ferdige innlegg tilpasset Facebook, Instagram, TikTok, Snapchat og YouTube — skreddersydd for hver kanal.",
+      "Ferdige innlegg tilpasset Facebook, Instagram, TikTok, Snapchat og YouTube, skreddersydd for hver kanal.",
   },
   {
     title: "Blogg og SEO-tekster",
@@ -119,26 +119,26 @@ const marketingTools = [
   {
     title: "Publiseringsplan",
     description:
-      "En ferdig plan for hva du bør poste, og når — på tvers av kanalene.",
+      "En ferdig plan for hva du bør poste, og når, på tvers av kanalene.",
   },
 ];
 
 const faq = [
   {
     q: "Hva koster Bestilly?",
-    a: "Bestilly koster 149 kroner i måneden — alt er inkludert. Faktureres årlig som 1788 kr. Ingen oppstartsavgift, ingen gebyr per booking. Prisen dekker bookingsystem, kalender, nettside, regnskapsklar eksport og AI-markedsføringshub.",
+    a: "Bestilly koster 149 kroner i måneden, alt er inkludert. Faktureres årlig som 1788 kr. Ingen oppstartsavgift, ingen gebyr per booking. Prisen dekker bookingsystem, kalender, nettside, regnskapsklar eksport og AI-markedsføringshub.",
   },
   {
     q: "Passer Bestilly for enkeltpersonforetak?",
-    a: "Ja — Bestilly er laget nettopp for enkeltpersonforetak og deg som driver alene. Frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Én person, én kalender, full kontroll. Du trenger ingen ansatte eller egen IT-kunnskap.",
+    a: "Ja, Bestilly er laget nettopp for enkeltpersonforetak og deg som driver alene. Frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Én person, én kalender, full kontroll. Du trenger ingen ansatte eller egen IT-kunnskap.",
   },
   {
     q: "Hjelper Bestilly med regnskapet?",
-    a: "Ja. Du kan når som helst laste ned en oversikt over bookinger og salg for en valgt periode, som en fil regnskapsføreren din kan ta imot — eller som du importerer i regnskapsprogrammet ditt. Time inn, kvittering ut, ferdig regnskapsgrunnlag.",
+    a: "Ja. Du kan når som helst laste ned en oversikt over bookinger og salg for en valgt periode, som en fil regnskapsføreren din kan ta imot, eller som du importerer i regnskapsprogrammet ditt. Time inn, kvittering ut, ferdig regnskapsgrunnlag.",
   },
   {
     q: "Kan kundene bestille time selv?",
-    a: "Ja. Kundene ser ledige tider og booker selv, døgnet rundt — uten at telefonen ringer. Du og kunden får automatisk bekreftelse på e-post, og kunden kan avbestille med ett klikk.",
+    a: "Ja. Kundene ser ledige tider og booker selv, døgnet rundt, uten at telefonen ringer. Du og kunden får automatisk bekreftelse på e-post, og kunden kan avbestille med ett klikk.",
   },
   {
     q: "Trenger jeg en egen nettside i tillegg?",
@@ -150,11 +150,11 @@ const faq = [
   },
   {
     q: "Hva er AI-markedsføringshuben?",
-    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag — tilpasset bedriften din. Hver konto har en kredittpott inkludert i prisen, som fornyes hver måned.",
+    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag, tilpasset bedriften din. Hver konto har en kredittpott inkludert i prisen, som fornyes hver måned.",
   },
   {
     q: "Er det bindingstid?",
-    a: "Du betaler 149 kr per måned, fakturert årlig (1788 kr). Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster.",
+    a: "Du betaler 149 kr per måned, fakturert årlig (1788 kr). Det er ingen lang bindingstid og ingen skjulte kostnader, du vet nøyaktig hva systemet koster.",
   },
 ];
 
@@ -220,7 +220,7 @@ export default function Home() {
                 <p className="mt-5 text-balance text-lg text-gray-600">
                   Time inn, kvittering ut, ferdig regnskapsgrunnlag. Bestilly
                   samler booking, kalender, regnskapseksport og markedsføring
-                  — laget for deg som driver alene. 149 kr per måned, alt
+                 , laget for deg som driver alene. 149 kr per måned, alt
                   inkludert, ingen skjulte gebyrer.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
@@ -255,7 +255,7 @@ export default function Home() {
           </h2>
           <div className="mt-4 space-y-4 text-gray-600">
             <p>
-              Driver du alene, går tiden til kundene — ikke til papirarbeid.
+              Driver du alene, går tiden til kundene, ikke til papirarbeid.
               Bestilly lar kundene se kalenderen din og bestille time selv, så
               du slipper å svare på telefon og meldinger om ledige tider hele
               dagen.
@@ -263,7 +263,7 @@ export default function Home() {
             <p>
               Og når året er omme, er halve regnskapsjobben gjort: hver
               booking og hvert salg samles, og du laster ned en oversikt
-              regnskapsføreren din kan ta imot — eller importerer den rett i
+              regnskapsføreren din kan ta imot, eller importerer den rett i
               regnskapsprogrammet ditt. Time inn, kvittering ut, ferdig
               grunnlag.
             </p>
@@ -279,7 +279,7 @@ export default function Home() {
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-gray-600">
                 Driver du alene, er markedsføring ofte det første som ryker.
-                Bestilly har en AI-markedsføringshub innebygd — så du slipper å
+                Bestilly har en AI-markedsføringshub innebygd, så du slipper å
                 stirre på et blankt felt.
               </p>
             </div>
@@ -329,7 +329,7 @@ export default function Home() {
               Prøv Bestilly selv
             </h2>
             <p className="mx-auto mt-3 max-w-md text-center text-gray-600">
-              Klikk deg gjennom et ekte eksempel — både slik kundene ser det,
+              Klikk deg gjennom et ekte eksempel, både slik kundene ser det,
               og slik du styrer bedriften.
             </p>
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -368,7 +368,7 @@ export default function Home() {
         <section className="bg-[#f5f3ff]">
           <div className="mx-auto max-w-4xl px-6 py-20">
             <h2 className="text-center text-3xl font-bold tracking-tight">
-              Alt du trenger — ingenting du ikke trenger
+              Alt du trenger, ingenting du ikke trenger
             </h2>
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {features.map((f) => (
@@ -390,7 +390,7 @@ export default function Home() {
             Velg et design som passer bedriften din
           </h2>
           <p className="mx-auto mt-3 max-w-md text-center text-gray-600">
-            Åtte ferdige design — bytt når du vil, med ett klikk.
+            Åtte ferdige design, bytt når du vil, med ett klikk.
           </p>
           <div className="mt-10 grid gap-4 sm:grid-cols-3">
             {Object.values(THEMES).map((theme) => (
@@ -439,7 +439,7 @@ export default function Home() {
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-balance text-gray-600">
               De store bookingsystemene er bygget for kjeder med mange
-              ansatte — og koster deretter. Bestilly gjør det motsatte: én
+              ansatte, og koster deretter. Bestilly gjør det motsatte: én
               person, én kalender, full kontroll. Ingen kompleksitet du ikke
               trenger, og en fast, forutsigbar månedspris.
             </p>
@@ -453,7 +453,7 @@ export default function Home() {
               Pris
             </p>
             <p className="mt-2 text-5xl font-bold">{MONTHLY_PRICE_NOK} kr</p>
-            <p className="mt-1 text-gray-600">per måned — det er alt</p>
+            <p className="mt-1 text-gray-600">per måned, det er alt</p>
             <p className="text-xs text-gray-400">
               Fakturert årlig som {ANNUAL_PRICE_NOK} kr
             </p>
@@ -528,7 +528,7 @@ export default function Home() {
               Bestilly ble til av en enkel tanke: Hver liten bedrift fortjener
               et enkelt og rimelig bookingverktøy. Gründer Helene Grønberg,
               utvikler fra Modum, så at de fleste bookingsystemene var
-              overdimensjonerte og for dyre for dem som driver alene —
+              overdimensjonerte og for dyre for dem som driver alene , 
               Frisører, terapeuter, konsulenter. Månedsgebyr på flere hundre
               kroner og kostnad per booking spiser fort opp marginene.
             </p>
@@ -536,15 +536,15 @@ export default function Home() {
               Resultatet ble Bestilly: Et rent, enkelt verktøy bygget fra
               bunnen av for de minste bedriftene. Du slipper å betale for
               funksjonalitet du ikke trenger, og prisen er forutsigbar. Alt er
-              utviklet i Norge, på norsk — Så support og veiledning alltid er
+              utviklet i Norge, på norsk, Så support og veiledning alltid er
               på ditt eget språk.
             </p>
             <p>
               Filosofien er like enkel som den er viktig: Teknologien skal
-              forenkle hverdagen for små tjenesteytere — Ikke være en ekstra
+              forenkle hverdagen for små tjenesteytere, Ikke være en ekstra
               belastning. Vi har stor respekt for gründere som satser på det de
               brenner for, og vil gjøre det lettere for dem å bruke tiden på
-              nettopp det. Fra én gründer til en annen — Velkommen til Bestilly.
+              nettopp det. Fra én gründer til en annen, Velkommen til Bestilly.
             </p>
           </div>
         </section>
@@ -563,7 +563,7 @@ export default function Home() {
               pilotbedrifter. Du får bruke hele Bestilly gratis i 3 måneder,
               en direkte linje til utvikleren, og reell mulighet til å forme
               produktet. Til gjengjeld ber vi om at du faktisk bruker det, gir
-              ærlig tilbakemelding — og lar oss bruke deg som referanse.
+              ærlig tilbakemelding, og lar oss bruke deg som referanse.
             </p>
             <Link
               href="/kontakt"

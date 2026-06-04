@@ -7,7 +7,7 @@ export default function Error({ reset }: { error: Error; reset: () => void }) {
     <main className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
       <h1 className="text-3xl font-bold tracking-tight">Noe gikk galt</h1>
       <p className="max-w-sm text-gray-600">
-        Beklager, det oppstod en uventet feil. Prøv igjen — vedvarer det, ta
+        Beklager, det oppstod en uventet feil. Prøv igjen, vedvarer det, ta
         gjerne kontakt.
       </p>
       <div className="flex flex-wrap justify-center gap-3">

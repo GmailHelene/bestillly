@@ -2,7 +2,7 @@ import "server-only";
 import { headers } from "next/headers";
 
 // Enkel rate-limiting i minnet. Holder for én app-instans (Railway kjører
-// typisk én) — beskytter mot brute-force og skjema-spam. Nullstilles ved
+// typisk én), beskytter mot brute-force og skjema-spam. Nullstilles ved
 // ny deploy, og deles ikke mellom flere instanser.
 
 const hits = new Map<string, number[]>();

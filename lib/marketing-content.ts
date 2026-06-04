@@ -1,7 +1,7 @@
-// F3.5 — Innholdsgenerator (SoMe). Lager komplette innlegg tilpasset HVER
+// F3.5, Innholdsgenerator (SoMe). Lager komplette innlegg tilpasset HVER
 // kanal: innleggstype, tittel, bildetekst, hashtags, oppfordring (CTA),
 // lenke/mål, bildeidé, beste tidspunkt og tips. Kanaltilpasning er
-// kjerneverdien — hvert innlegg genereres separat per kanal.
+// kjerneverdien, hvert innlegg genereres separat per kanal.
 
 import { generateJson } from "@/lib/anthropic";
 import {
@@ -72,7 +72,7 @@ function buildSystemPrompt(channelId: ChannelId): string {
   const s = getChannelStrategy(channelId);
   return `Du er en erfaren norsk content creator som lager innhold for sosiale medier for små, lokale bedrifter.
 
-Du skal lage ÉTT komplett, publiseringsklart innlegg spesielt tilpasset ${s.name}. Innholdet skal IKKE være generisk — det skal utnytte hvordan nettopp ${s.name} fungerer. Innholdet skal være SEO-bevisst: vev inn relevante søkeord naturlig.
+Du skal lage ÉTT komplett, publiseringsklart innlegg spesielt tilpasset ${s.name}. Innholdet skal IKKE være generisk, det skal utnytte hvordan nettopp ${s.name} fungerer. Innholdet skal være SEO-bevisst: vev inn relevante søkeord naturlig.
 
 # Om ${s.name}
 ${s.description}
@@ -92,14 +92,14 @@ ${s.avoid.map((a) => `- ${a}`).join("\n")}
 Svar KUN med gyldig JSON:
 {
   "postType": "Innleggstypen som passer ${s.name} for dette innholdet (f.eks. Innlegg, Reel, Story, Kort video, Short)",
-  "title": "Kort, fengende tittel — fyll ut der kanalen trenger det (særlig YouTube). Tom streng hvis ikke relevant.",
-  "caption": "Selve bildeteksten — klar til å lime inn, på norsk, tilpasset ${s.name}",
+  "title": "Kort, fengende tittel, fyll ut der kanalen trenger det (særlig YouTube). Tom streng hvis ikke relevant.",
+  "caption": "Selve bildeteksten, klar til å lime inn, på norsk, tilpasset ${s.name}",
   "hashtags": [${s.hashtagCount === 0 ? "" : '"relevante hashtags uten #-tegn"'}],
-  "callToAction": "Konkret oppfordring til handling — hva kunden skal gjøre nå",
+  "callToAction": "Konkret oppfordring til handling, hva kunden skal gjøre nå",
   "linkSuggestion": "Hvilken lenke eller mål innlegget skal peke mot (f.eks. bookingsiden, en bestemt behandling)",
   "goal": "Kort: hva dette innlegget skal oppnå for bedriften",
   "imageIdea": "Kort beskrivelse på norsk av hva bildet/videoen bør vise",
-  "imagePrompt": "Detaljert prompt på ENGELSK for AI-bildegenerering — beskriv motiv, stil, lys",
+  "imagePrompt": "Detaljert prompt på ENGELSK for AI-bildegenerering, beskriv motiv, stil, lys",
   "bestTime": "Konkret anbefalt tidspunkt å publisere",
   "tips": ["2-4 korte, konkrete tips for å lykkes med akkurat dette innlegget"]
 }
@@ -117,7 +117,7 @@ function buildUserPrompt(input: ContentInput): string {
     parts.push(`Relevante søkeord å veve inn: ${input.seoKeywords.join(", ")}`);
   if (input.publicUrl)
     parts.push(
-      `Bedriftens nettside (booking + butikk): ${input.publicUrl} — bruk denne som mål/lenke der det passer.`,
+      `Bedriftens nettside (booking + butikk): ${input.publicUrl}, bruk denne som mål/lenke der det passer.`,
     );
   parts.push(`\nTema for innlegget: ${input.topic}`);
   return parts.join("\n");

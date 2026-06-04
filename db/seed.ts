@@ -55,7 +55,7 @@ async function seed() {
     },
     footer: {
       orgNumber: "999 888 777",
-      note: "Drop-in når vi har ledig tid — eller book enkelt på nett.",
+      note: "Drop-in når vi har ledig tid, eller book enkelt på nett.",
     },
   };
 
@@ -145,7 +145,7 @@ async function seed() {
     {
       businessId: demo.id,
       name: "Gavekort",
-      description: "Perfekt gave — kan brukes på alle behandlinger.",
+      description: "Perfekt gave, kan brukes på alle behandlinger.",
       priceNok: 500,
     },
   ]);
@@ -242,7 +242,7 @@ async function seed() {
   );
 
   console.log(
-    `Demo-bedrift opprettet på /demo — admin-innlogging: ${DEMO_EMAIL}`,
+    `Demo-bedrift opprettet på /demo, admin-innlogging: ${DEMO_EMAIL}`,
   );
 }
 

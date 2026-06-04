@@ -98,7 +98,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
           name="description"
           rows={3}
           defaultValue={profile.description ?? ""}
-          placeholder="Kort om bedriften — vises øverst på siden din."
+          placeholder="Kort om bedriften, vises øverst på siden din."
           className={inputClass}
         />
       </div>
@@ -303,7 +303,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         <div>
           <span className="text-sm font-medium">Synlighet på nett (SEO)</span>
           <p className="text-xs text-gray-400">
-            Valgfritt — overstyrer hvordan siden vises i Google-søk.
+            Valgfritt, overstyrer hvordan siden vises i Google-søk.
           </p>
         </div>
         <div className="space-y-1">

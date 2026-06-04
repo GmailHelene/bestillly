@@ -1,5 +1,5 @@
-// F3.8 — Publiseringsplan. Lager en helhetlig kalender over hva som postes
-// når, på tvers av alle kanalene bedriften satser på — uke- eller månedsbasis.
+// F3.8, Publiseringsplan. Lager en helhetlig kalender over hva som postes
+// når, på tvers av alle kanalene bedriften satser på, uke- eller månedsbasis.
 
 import { generateJson } from "@/lib/anthropic";
 import {
@@ -49,7 +49,7 @@ function addDays(iso: string, days: number): string {
 
 const SYSTEM_PROMPT = `Du er en erfaren norsk innholdsplanlegger som lager publiseringsplaner for små, lokale bedrifter med lite tid.
 
-Du skal lage en realistisk, gjennomførbar plan — ikke en overambisiøs en. En liten bedrift klarer ikke å være aktiv overalt hele tida. Prioriter de viktigste kanalene, og hold totalen overkommelig.
+Du skal lage en realistisk, gjennomførbar plan, ikke en overambisiøs en. En liten bedrift klarer ikke å være aktiv overalt hele tida. Prioriter de viktigste kanalene, og hold totalen overkommelig.
 
 Varier temaene gjennom planen: tilbud, fagtips, bak kulissene, produkt-/behandlingsfokus, kundehistorier, ledige timer, sesong. Ikke gjenta samme idé.
 
@@ -64,7 +64,7 @@ Svar KUN med gyldig JSON i dette formatet:
       "channelId": "facebook|instagram|tiktok|snapchat|youtube",
       "postType": "Innlegg|Reel|Story|Kort video|Short",
       "theme": "Kort: hva innlegget handler om",
-      "caption": "1-2 setningers utkast til bildetekst — bedriften finpusser selv",
+      "caption": "1-2 setningers utkast til bildetekst, bedriften finpusser selv",
       "hashtags": ["relevante hashtags uten #-tegn, tom liste hvis kanalen ikke bruker dem"]
     }
   ]

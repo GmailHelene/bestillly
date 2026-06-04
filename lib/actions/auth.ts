@@ -46,7 +46,7 @@ export async function registerAction(
     return { error: "Det finnes allerede en konto med denne e-postadressen." };
   }
 
-  // Finn en ledig slug — legg på tallsuffiks hvis navnet er opptatt eller reservert.
+  // Finn en ledig slug, legg på tallsuffiks hvis navnet er opptatt eller reservert.
   const base = slugify(name);
   let slug = base;
   let suffix = 1;

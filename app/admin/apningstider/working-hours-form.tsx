@@ -64,7 +64,7 @@ export function WorkingHoursForm({ hours }: { hours: Hour[] }) {
                 defaultValue={h ? h.startTime.slice(0, 5) : "09:00"}
                 className={timeClass}
               />
-              <span className="text-gray-400">–</span>
+              <span className="text-gray-400">, </span>
               <input
                 type="time"
                 name={`end-${n}`}

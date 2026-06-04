@@ -94,7 +94,7 @@ export function BlogPanel() {
         </button>
         {genPending && (
           <p className="text-xs text-gray-500">
-            Et godt blogginnlegg tar 30–60 sekunder å skrive. Vent litt — du
+            Et godt blogginnlegg tar 30-60 sekunder å skrive. Vent litt, du
             trenger ikke oppdatere siden.
           </p>
         )}
@@ -104,7 +104,7 @@ export function BlogPanel() {
         <div className="space-y-3 rounded-lg bg-gray-50 p-3">
           <p className="text-xs text-gray-500">
             Du kan finpusse teksten før du lagrer. Innlegget lagres som
-            upublisert kladd — du publiserer det selv fra bloggen.
+            upublisert kladd, du publiserer det selv fra bloggen.
           </p>
 
           <div className="space-y-1">

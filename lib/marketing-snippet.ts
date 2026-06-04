@@ -1,6 +1,6 @@
-// F3.7b — SEO-tekstsnippets. Genererer korte, SEO-optimaliserte tekster til
+// F3.7b, SEO-tekstsnippets. Genererer korte, SEO-optimaliserte tekster til
 // ulike plasseringer (om-oss, ingress, meta, produkttekst, Google-profil,
-// annonsetekst) — i flere varianter bedriften kan velge mellom.
+// annonsetekst), i flere varianter bedriften kan velge mellom.
 
 import { generateJson } from "@/lib/anthropic";
 import { getSnippetType } from "@/lib/snippet-types";
@@ -20,16 +20,16 @@ export type SnippetInput = {
 
 const SYSTEM_PROMPT = `Du er en erfaren norsk SEO-tekstforfatter for små, lokale bedrifter (frisører, salonger, enkeltpersonforetak).
 
-Du skal skrive en kort tekst i ÉN bestemt sjanger. Teksten skal være naturlig og ekte — aldri stappfull av søkeord. Vev søkeordene inn der det glir fint. Treff tonen bedriften ønsker.
+Du skal skrive en kort tekst i ÉN bestemt sjanger. Teksten skal være naturlig og ekte, aldri stappfull av søkeord. Vev søkeordene inn der det glir fint. Treff tonen bedriften ønsker.
 
-Lag TRE ulike varianter så bedriften kan velge. Variér vinkling og ordvalg — ikke tre nesten like tekster.
+Lag TRE ulike varianter så bedriften kan velge. Variér vinkling og ordvalg, ikke tre nesten like tekster.
 
 Svar KUN med gyldig JSON:
 {
   "variants": ["Variant 1", "Variant 2", "Variant 3"]
 }
 
-Ren tekst i hver variant — ingen markdown. Returner KUN JSON.`;
+Ren tekst i hver variant, ingen markdown. Returner KUN JSON.`;
 
 function buildUserPrompt(input: SnippetInput): string {
   const type = getSnippetType(input.snippetTypeId);

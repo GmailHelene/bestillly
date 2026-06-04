@@ -3,7 +3,7 @@ import { BackLink } from "@/components/back-link";
 import { ContactForm } from "./contact-form";
 
 export const metadata: Metadata = {
-  title: "Kontakt oss — Bestilly",
+  title: "Kontakt oss: Bestilly",
   description: "Har du spørsmål om Bestilly? Send oss en melding.",
 };
 

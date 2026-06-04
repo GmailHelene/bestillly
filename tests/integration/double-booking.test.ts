@@ -71,7 +71,7 @@ describe("dobbeltbooking (integrasjon)", () => {
     await db
       .insert(bookings)
       .values({ ...base, customerName: "Kunde A", status: "cancelled" });
-    // Det partielle indekset dekker kun bekreftede bookinger — dette skal gå.
+    // Det partielle indekset dekker kun bekreftede bookinger, dette skal gå.
     await db.insert(bookings).values({ ...base, customerName: "Kunde B" });
     expect(true).toBe(true);
   });

@@ -119,7 +119,7 @@ export async function createOrder(
   const itemsHtml = orderItems
     .map(
       (i) =>
-        `<li>${i.qty} × ${escapeHtml(i.name)} — ${i.priceNok * i.qty} kr</li>`,
+        `<li>${i.qty} × ${escapeHtml(i.name)}, ${i.priceNok * i.qty} kr</li>`,
     )
     .join("");
   const vippsLine = business.vippsNumber
@@ -128,7 +128,7 @@ export async function createOrder(
 
   await sendEmail({
     to: customerEmail,
-    subject: `Ordrebekreftelse #${order.orderNumber} — ${business.name}`,
+    subject: `Ordrebekreftelse #${order.orderNumber}, ${business.name}`,
     html: `
       <h2>Takk for bestillingen!</h2>
       <p>Ordre #${order.orderNumber} hos ${escapeHtml(business.name)}:</p>

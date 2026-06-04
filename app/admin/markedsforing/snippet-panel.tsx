@@ -54,7 +54,7 @@ export function SnippetPanel() {
       <div>
         <h2 className="font-semibold">SEO-tekster</h2>
         <p className="text-sm text-gray-500">
-          Korte, SEO-optimaliserte tekster til ulike steder — om-oss,
+          Korte, SEO-optimaliserte tekster til ulike steder, om-oss,
           ingress, meta-beskrivelse, produkttekst, Google-profil og annonser.
         </p>
       </div>

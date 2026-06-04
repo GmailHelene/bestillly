@@ -65,7 +65,7 @@ export async function updatePost(
   if (!title) return { error: "Tittel er påkrevd." };
   if (!content) return { error: "Innhold er påkrevd." };
 
-  // Slug-en endres ikke ved redigering — så URL-en holder seg stabil.
+  // Slug-en endres ikke ved redigering, så URL-en holder seg stabil.
   await db
     .update(posts)
     .set({ title, content, imageUrl, published })

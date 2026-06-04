@@ -55,7 +55,7 @@ export default async function MarketingPage() {
       id: "analyse",
       label: "Analyse",
       intro:
-        "SEO-anbefaling og markedsanalyse — hva du bør satse på, og hvor.",
+        "SEO-anbefaling og markedsanalyse, hva du bør satse på, og hvor.",
       content: (
         <>
           <SeoPanel initialSeo={profile.seo} />
@@ -70,7 +70,7 @@ export default async function MarketingPage() {
       id: "innhold",
       label: "Innhold",
       intro:
-        "Lag innlegg, blogginnlegg og korte SEO-tekster — klart til å publisere.",
+        "Lag innlegg, blogginnlegg og korte SEO-tekster, klart til å publisere.",
       content: (
         <>
           <ContentPanel defaultChannels={profile.channels ?? []} />
@@ -94,7 +94,7 @@ export default async function MarketingPage() {
         <BackLink href="/admin" label="Tilbake til oversikt" />
         <h1 className="text-2xl font-bold">Markedsføring</h1>
         <p className="text-sm text-gray-500">
-          Verktøy for innhold, analyse og publiseringsplan — samlet på ett
+          Verktøy for innhold, analyse og publiseringsplan, samlet på ett
           sted. Gå gjennom fanene fra venstre til høyre.
         </p>
         <Link
@@ -108,7 +108,7 @@ export default async function MarketingPage() {
       {isDemo && (
         <div className="rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
           Dette er demomodus. Verktøyene viser ferdig eksempelinnhold, så du
-          ser hvordan markedsføringshuben fungerer — uten at noe lagres. Med
+          ser hvordan markedsføringshuben fungerer, uten at noe lagres. Med
           egen konto tilpasses alt din bedrift, og du kan lagre og bruke
           innholdet.
         </div>
@@ -140,7 +140,7 @@ export default async function MarketingPage() {
               <li>· SEO-anbefaling, markedsanalyse, publiseringsplan: 5 kreditter</li>
             </ul>
             <p className="rounded-md bg-amber-50 px-2 py-1 text-amber-800">
-              AI-bildegenerering er midlertidig av — du får i stedet et
+              AI-bildegenerering er midlertidig av, du får i stedet et
               ferdig bildeforslag og en beskrivelse du kan bruke til å
               finne et bilde i Unsplash, Pexels eller eget arkiv.
               Bildegenerering kommer tilbake i en senere oppdatering.

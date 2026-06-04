@@ -104,7 +104,7 @@ export function BookingWidget({
       <div className="space-y-3 rounded-lg bg-green-50 p-4">
         <p className="font-medium text-green-800">Timen din er booket!</p>
         <p className="text-sm text-green-800">
-          {confirmed.service} — {confirmed.date} kl. {confirmed.time}
+          {confirmed.service}, {confirmed.date} kl. {confirmed.time}
         </p>
         <p className="text-sm text-gray-600">
           Du får en bekreftelse på e-post.
@@ -186,7 +186,7 @@ export function BookingWidget({
           className="space-y-3 rounded-lg border border-gray-200 p-4"
         >
           <p className="text-sm font-medium">
-            Bestill {selectedTime} — {date}
+            Bestill {selectedTime}, {date}
           </p>
           {error && (
             <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
@@ -234,7 +234,7 @@ export function BookingWidget({
           <p className="text-xs text-gray-500">
             Ved å bestille godtar du at bedriften lagrer kontaktinfoen din for
             å håndtere timen. Avbestilling må skje senest 24 timer før avtalt
-            tid — timer som avbestilles senere, eller ikke benyttes,
+            tid, timer som avbestilles senere, eller ikke benyttes,
             faktureres med full pris.
           </p>
           <div className="flex items-center gap-3">

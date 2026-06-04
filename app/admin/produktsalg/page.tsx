@@ -21,7 +21,7 @@ export default async function ProduktsalgPage() {
         <h1 className="text-2xl font-bold">Produktsalg</h1>
         <p className="text-sm text-gray-500">
           Vil du selge produkter på den offentlige siden din? Slå på
-          nettbutikken her. Den er av som standard — mange enkeltpersonforetak
+          nettbutikken her. Den er av som standard, mange enkeltpersonforetak
           trenger den ikke.
         </p>
       </div>
@@ -36,7 +36,7 @@ export default async function ProduktsalgPage() {
           >
             <h2 className="font-semibold">Produkter</h2>
             <p className="mt-1 text-sm text-gray-500">
-              Varene du selger — navn, pris, bilde og lagerstatus.
+              Varene du selger, navn, pris, bilde og lagerstatus.
             </p>
           </Link>
           <Link
@@ -52,7 +52,7 @@ export default async function ProduktsalgPage() {
       ) : (
         <p className="rounded-xl border border-dashed border-gray-300 p-6 text-center text-sm text-gray-500">
           Når du slår på nettbutikken, dukker Produkter og Bestillinger opp
-          her — og kundene kan handle på siden din.
+          her, og kundene kan handle på siden din.
         </p>
       )}
     </div>

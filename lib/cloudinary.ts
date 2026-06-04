@@ -9,7 +9,7 @@ export async function uploadToCloudinary(file: File): Promise<string> {
     throw new Error("Bildet må være JPG, PNG eller WebP.");
   }
   if (file.size > MAX_IMAGE_BYTES) {
-    throw new Error("Bildet er for stort — maks 5 MB.");
+    throw new Error("Bildet er for stort, maks 5 MB.");
   }
 
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
@@ -59,7 +59,7 @@ export function hasCloudinary(): boolean {
   );
 }
 
-// Laster opp et bilde fra en ekstern URL — Cloudinary henter selv filen.
+// Laster opp et bilde fra en ekstern URL, Cloudinary henter selv filen.
 // Brukes til å lagre AI-genererte bilder permanent (Replicate-URL-er utløper).
 export async function uploadImageFromUrl(url: string): Promise<string> {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;

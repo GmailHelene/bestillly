@@ -7,7 +7,7 @@ import { ANNUAL_PRICE_NOK, MONTHLY_PRICE_NOK } from "@/lib/pricing";
 const title =
   "Bookingsystem for frisører, salonger og små bedrifter | Bestilly";
 const description =
-  "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv — 149 kr per måned, alt inkludert.";
+  "Bestilly er et enkelt og rimelig bookingsystem for frisører, salonger og enkeltpersonforetak. La kundene bestille time selv, 149 kr per måned, alt inkludert.";
 
 export const metadata: Metadata = {
   title,
@@ -21,19 +21,19 @@ export const metadata: Metadata = {
   },
 };
 
-// Spørsmål og svar — også lagt inn som FAQPage-strukturerte data nedenfor.
+// Spørsmål og svar, også lagt inn som FAQPage-strukturerte data nedenfor.
 const faq = [
   {
     q: "Hva koster et bookingsystem?",
-    a: "Bestilly koster 149 kroner i måneden — alt er inkludert. Faktureres årlig som 1788 kr. Ingen oppstartsavgift og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så Bestilly er langt rimeligere.",
+    a: "Bestilly koster 149 kroner i måneden, alt er inkludert. Faktureres årlig som 1788 kr. Ingen oppstartsavgift og ingen gebyr per booking. De fleste bookingsystemer tar flere hundre kroner i måneden, så Bestilly er langt rimeligere.",
   },
   {
     q: "Passer Bestilly for enkeltpersonforetak?",
-    a: "Ja. Bestilly er laget nettopp for små bedrifter og enkeltpersonforetak — frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Du trenger ingen ansatte eller egen IT-kunnskap for å komme i gang.",
+    a: "Ja. Bestilly er laget nettopp for små bedrifter og enkeltpersonforetak, frisører, neglteknikere, massører, terapeuter og andre som tar imot timeavtaler. Du trenger ingen ansatte eller egen IT-kunnskap for å komme i gang.",
   },
   {
     q: "Kan kundene bestille time selv?",
-    a: "Ja. Kundene ser ledige tider og booker selv, døgnet rundt — uten at telefonen ringer. Du og kunden får automatisk bekreftelse på e-post, og kunden kan avbestille med ett klikk.",
+    a: "Ja. Kundene ser ledige tider og booker selv, døgnet rundt, uten at telefonen ringer. Du og kunden får automatisk bekreftelse på e-post, og kunden kan avbestille med ett klikk.",
   },
   {
     q: "Trenger jeg en egen nettside i tillegg?",
@@ -45,15 +45,15 @@ const faq = [
   },
   {
     q: "Kan jeg ta imot betaling gjennom Bestilly?",
-    a: "Bestilly har en innebygd nettbutikk der kundene kan kjøpe produkter og betale med Vipps. Selve timebestillingen er gratis for kunden — betaling for behandlingen skjer som vanlig hos deg.",
+    a: "Bestilly har en innebygd nettbutikk der kundene kan kjøpe produkter og betale med Vipps. Selve timebestillingen er gratis for kunden, betaling for behandlingen skjer som vanlig hos deg.",
   },
   {
     q: "Er det bindingstid?",
-    a: "Du betaler 149 kr per måned, fakturert årlig (1788 kr). Det er ingen lang bindingstid og ingen skjulte kostnader — du vet nøyaktig hva systemet koster.",
+    a: "Du betaler 149 kr per måned, fakturert årlig (1788 kr). Det er ingen lang bindingstid og ingen skjulte kostnader, du vet nøyaktig hva systemet koster.",
   },
   {
     q: "Hva er AI-markedsføringshuben?",
-    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag — tilpasset bedriften din. Hver konto har en kredittpott inkludert i prisen, som fornyes hver måned.",
+    a: "I tillegg til bookingsystemet får du en markedsføringshub. Den lager innlegg til sosiale medier, SEO-tekster, blogginnlegg, markedsanalyser og bildeforslag, tilpasset bedriften din. Hver konto har en kredittpott inkludert i prisen, som fornyes hver måned.",
   },
 ];
 
@@ -82,7 +82,7 @@ const audience = [
   },
   {
     title: "Enkeltpersonforetak",
-    text: "Et profesjonelt bookingsystem og en egen nettside — uten dyre månedsabonnement.",
+    text: "Et profesjonelt bookingsystem og en egen nettside, uten dyre månedsabonnement.",
   },
 ];
 
@@ -135,7 +135,7 @@ export default function BookingsystemLanding() {
               Bookingsystem for frisører, salonger og små bedrifter
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
-              Bestilly lar kundene dine bestille time selv — døgnet rundt.
+              Bestilly lar kundene dine bestille time selv, døgnet rundt.
               Du får et komplett bookingsystem, en egen nettside og en
               AI-markedsføringshub for 149 kroner i måneden, helt uten
               oppstartsavgift eller gebyr per booking.
@@ -174,7 +174,7 @@ export default function BookingsystemLanding() {
               Du legger inn behandlingene dine, prisene, åpningstidene og
               eventuelle ferieavvik. Kundene finner fram til en ledig tid,
               booker, og får bekreftelse på e-post automatisk. Du beholder full
-              oversikt i en ryddig kalender — og slipper dobbeltbookinger.
+              oversikt i en ryddig kalender, og slipper dobbeltbookinger.
             </p>
           </div>
         </section>
@@ -244,7 +244,7 @@ export default function BookingsystemLanding() {
               Pris
             </p>
             <p className="mt-2 text-5xl font-bold">{MONTHLY_PRICE_NOK} kr</p>
-            <p className="mt-1 text-gray-600">per måned — alt inkludert</p>
+            <p className="mt-1 text-gray-600">per måned, alt inkludert</p>
             <p className="text-xs text-gray-400">
               Fakturert årlig som {ANNUAL_PRICE_NOK} kr
             </p>

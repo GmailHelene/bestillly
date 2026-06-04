@@ -121,7 +121,7 @@ export function BookingsCalendar({
                 {dayBookings.map((b, idx) => (
                   <div
                     key={idx}
-                    title={`${b.time} ${b.serviceName} — ${b.customerName}`}
+                    title={`${b.time} ${b.serviceName}: ${b.customerName}`}
                     className={`truncate rounded px-1 py-0.5 text-[11px] leading-tight ${
                       b.cancelled
                         ? "bg-gray-100 text-gray-400 line-through"

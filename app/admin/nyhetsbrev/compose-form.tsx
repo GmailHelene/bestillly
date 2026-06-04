@@ -191,7 +191,7 @@ export function ComposeForm({
         <p className="text-sm font-medium">Innhold</p>
         {blocks.length === 0 && (
           <p className="rounded-lg border border-dashed border-gray-300 p-4 text-center text-sm text-gray-500">
-            Ingen blokker ennå — legg til under, eller velg en mal.
+            Ingen blokker ennå, legg til under, eller velg en mal.
           </p>
         )}
         {blocks.map((block, index) => (

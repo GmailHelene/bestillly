@@ -7,7 +7,7 @@ import { requireBusinessId } from "@/lib/session";
 const sections = [
   {
     title: "Behandlinger",
-    description: "Tjenestene du tilbyr — navn, beskrivelse, varighet og pris.",
+    description: "Tjenestene du tilbyr, navn, beskrivelse, varighet og pris.",
     href: "/admin/behandlinger",
   },
   {
@@ -27,7 +27,7 @@ const sections = [
   },
   {
     title: "Blogg",
-    description: "Skriv innlegg og oppdateringer — bra for synlighet.",
+    description: "Skriv innlegg og oppdateringer, bra for synlighet.",
     href: "/admin/blogg",
   },
   {
@@ -43,7 +43,7 @@ const sections = [
   },
   {
     title: "Produktsalg",
-    description: "Valgfri nettbutikk — produkter og bestillinger.",
+    description: "Valgfri nettbutikk, produkter og bestillinger.",
     href: "/admin/produktsalg",
   },
 ];
@@ -90,7 +90,7 @@ export default async function AdminDashboard() {
 
       {allDone ? (
         <div className="rounded-xl bg-green-50 p-4 text-sm text-green-800">
-          Alt er klart — den offentlige siden din er klar til bruk. Del lenken
+          Alt er klart, den offentlige siden din er klar til bruk. Del lenken
           med kundene dine, så kan de booke selv.
         </div>
       ) : (

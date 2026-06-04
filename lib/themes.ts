@@ -41,7 +41,7 @@ export const THEMES: Record<ThemeId, Theme> = {
   eleganse: {
     id: "eleganse",
     name: "Eleganse",
-    tagline: "Varm og elegant — serif-skrift",
+    tagline: "Varm og elegant: serif-skrift",
     pageBg: "#fbf7f2",
     surface: "#ffffff",
     accent: "#a8654a",
@@ -67,7 +67,7 @@ export const THEMES: Record<ThemeId, Theme> = {
   rose: {
     id: "rose",
     name: "Rosé",
-    tagline: "Myk og innbydende — serif-skrift",
+    tagline: "Myk og innbydende: serif-skrift",
     pageBg: "#fdf5f4",
     surface: "#ffffff",
     accent: "#b06b76",
@@ -93,7 +93,7 @@ export const THEMES: Record<ThemeId, Theme> = {
   plomme: {
     id: "plomme",
     name: "Plomme",
-    tagline: "Dyp og elegant — serif-skrift",
+    tagline: "Dyp og elegant: serif-skrift",
     pageBg: "#faf6f8",
     surface: "#ffffff",
     accent: "#6d4360",
@@ -106,7 +106,7 @@ export const THEMES: Record<ThemeId, Theme> = {
   gull: {
     id: "gull",
     name: "Gull",
-    tagline: "Varm champagne — eksklusiv ro",
+    tagline: "Varm champagne: eksklusiv ro",
     pageBg: "#faf7f0",
     surface: "#ffffff",
     accent: "#9a7b3f",

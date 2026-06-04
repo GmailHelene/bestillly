@@ -37,7 +37,7 @@ export async function generateMetadata({
 
   const description = data.post.content.slice(0, 155);
   return {
-    title: `${data.post.title} — ${data.business.name}`,
+    title: `${data.post.title}: ${data.business.name}`,
     description,
     alternates: { canonical: `/${slug}/${postSlug}` },
     openGraph: {

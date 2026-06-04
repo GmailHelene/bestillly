@@ -11,7 +11,7 @@ const MARKETING_PAGES = [
   ...NICHE_PAGES.map((n) => n.slug),
 ];
 
-// Genereres ved forespørsel (ikke ved bygging) — så den slipper å nå
+// Genereres ved forespørsel (ikke ved bygging), så den slipper å nå
 // databasen under deploy, og alltid har ferske bedrifter/innlegg med.
 export const dynamic = "force-dynamic";
 

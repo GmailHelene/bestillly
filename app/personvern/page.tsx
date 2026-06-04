@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BackLink } from "@/components/back-link";
 
 export const metadata: Metadata = {
-  title: "Personvernerklæring — Bestilly",
+  title: "Personvernerklæring: Bestilly",
   description: "Hvordan Bestilly behandler personopplysninger.",
 };
 
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
           booking eller bestilling i nettbutikken, e-postadresse til
           nyhetsbrev-abonnenter, og innhold i meldinger sendt via
           kontaktskjema. Disse opplysningene behandler vi på vegne av bedriften
-          — se punkt 4.
+         , se punkt 4.
         </p>
       </section>
 
@@ -67,16 +67,16 @@ export default function PrivacyPage() {
           For å levere tjenesten bruker vi følgende underleverandører:
         </p>
         <ul className="ml-5 list-disc space-y-1 text-sm text-gray-700">
-          <li>Neon — database (lagring innenfor EU)</li>
-          <li>Railway — drift av applikasjonen</li>
-          <li>Cloudinary — lagring av bilder lastet opp av bedriften</li>
-          <li>Brevo — utsending av e-postvarsler</li>
+          <li>Neon, database (lagring innenfor EU)</li>
+          <li>Railway, drift av applikasjonen</li>
+          <li>Cloudinary, lagring av bilder lastet opp av bedriften</li>
+          <li>Brevo, utsending av e-postvarsler</li>
           <li>
-            Anthropic — AI-tekstgenerering i markedsføringsverktøyet (se
+            Anthropic, AI-tekstgenerering i markedsføringsverktøyet (se
             punkt 6)
           </li>
           <li>
-            Replicate — AI-bildegenerering i markedsføringsverktøyet (se
+            Replicate, AI-bildegenerering i markedsføringsverktøyet (se
             punkt 6)
           </li>
         </ul>
@@ -91,8 +91,8 @@ export default function PrivacyPage() {
         <p className="text-sm text-gray-700">
           Bestilly har et valgfritt markedsføringsverktøy som bruker
           AI-tjenester. Når bedriften bruker dette, sendes opplysninger
-          bedriften selv legger inn — bedriftsinfo, behandlinger, produkter og
-          tekst fra bedriftens egen nettside — til Anthropic for
+          bedriften selv legger inn, bedriftsinfo, behandlinger, produkter og
+          tekst fra bedriftens egen nettside, til Anthropic for
           tekstgenerering, og bildebeskrivelser til Replicate for
           bildegenerering. Det sendes ikke sluttkunders personopplysninger til
           disse tjenestene. Verktøyet er valgfritt å bruke.
@@ -123,7 +123,7 @@ export default function PrivacyPage() {
       <section className="space-y-2">
         <h2 className="font-semibold">9. Informasjonskapsler</h2>
         <p className="text-sm text-gray-700">
-          Bestilly bruker kun nødvendige informasjonskapsler — en
+          Bestilly bruker kun nødvendige informasjonskapsler, en
           innloggingskapsel som holder bedriften innlogget i adminpanelet. Vi
           bruker ikke informasjonskapsler til sporing eller markedsføring.
         </p>

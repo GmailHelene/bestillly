@@ -44,7 +44,7 @@ export default async function DriftPage() {
     <main className="mx-auto w-full max-w-3xl space-y-6 px-6 py-12">
       <BackLink href="/admin" label="Til admin" />
       <div className="space-y-1">
-        <h1 className="text-2xl font-bold">Drift — kontostatus</h1>
+        <h1 className="text-2xl font-bold">Drift: kontostatus</h1>
         <p className="text-sm text-gray-500">
           Oversikt over alle bedrifter. Registrer betaling, eller sett kontoer
           på pause ved manglende betaling.
@@ -75,7 +75,7 @@ export default async function DriftPage() {
                   <p className="text-sm text-gray-500">Org.nr {orgNumber}</p>
                 )}
                 <p className="text-sm text-gray-400">
-                  Betalt til: {business.activeUntil ?? "—"} · /{business.slug}
+                  Betalt til: {business.activeUntil ?? ", "} · /{business.slug}
                 </p>
               </div>
               <div className="mt-3 flex flex-wrap gap-2 border-t border-gray-100 pt-3">

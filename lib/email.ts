@@ -17,7 +17,7 @@ export async function sendEmail(params: {
 
   if (!host || !port || !user || !pass || !from) {
     console.warn(
-      `[e-post] Hopper over sending til ${params.to} — SMTP-konfigurasjon mangler.`,
+      `[e-post] Hopper over sending til ${params.to}, SMTP-konfigurasjon mangler.`,
     );
     return;
   }
@@ -28,7 +28,7 @@ export async function sendEmail(params: {
       port: Number(port),
       secure: false, // port 587 bruker STARTTLS
       auth: { user, pass },
-      // Eksplisitte timeouts — uten disse kan SMTP-kallet henge nesten
+      // Eksplisitte timeouts, uten disse kan SMTP-kallet henge nesten
       // ubegrenset hvis Brevo svarer tregt eller blokkerer. Det får
       // skjemaknappen til å stå fast på «Sender…». Med 10 sek per fase
       // feiler kallet kontrollert, og handlingen returnerer.
@@ -45,7 +45,7 @@ export async function sendEmail(params: {
       bcc: params.bcc,
     });
     console.log(
-      `[e-post] Sendt til ${params.to}${params.bcc ? ` (bcc ${params.bcc})` : ""} — messageId=${info.messageId}`,
+      `[e-post] Sendt til ${params.to}${params.bcc ? ` (bcc ${params.bcc})` : ""}, messageId=${info.messageId}`,
     );
   } catch (error) {
     // En feilet e-post skal ikke velte selve bookingen.

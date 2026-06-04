@@ -15,7 +15,7 @@ export function DeleteAccount() {
       <div>
         <h2 className="font-semibold text-red-700">Slett konto</h2>
         <p className="text-sm text-gray-600">
-          Sletter bedriften og alle data permanent — behandlinger, bookinger,
+          Sletter bedriften og alle data permanent, behandlinger, bookinger,
           produkter, ordrer, blogginnlegg og abonnenter. Dette kan ikke angres.
         </p>
       </div>
