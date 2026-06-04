@@ -43,9 +43,9 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
 });
 
-const siteTitle = "Bestilly — bookingsystem for enkeltpersonforetak";
+const siteTitle = "Bestilly, bookingsystem for enkeltpersonforetak";
 const siteDescription =
-  "Bookingsystem laget for enkeltpersonforetak: booking, kalender, regnskapseksport og markedsføringsverktøy. Time inn, kvittering ut, ferdig regnskapsgrunnlag — 149 kr per måned, alt inkludert.";
+  "Bookingsystem laget for enkeltpersonforetak: booking, kalender, regnskapseksport og markedsføringsverktøy. Time inn, kvittering ut, ferdig regnskapsgrunnlag, 149 kr per måned, alt inkludert.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(

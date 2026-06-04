@@ -40,7 +40,7 @@ describe("AI-kvote (integrasjon)", () => {
     expect((await consumeCredits(businessId, "text", 20)).ok).toBe(false);
     // Et trekk som akkurat fyller potten skal gå gjennom.
     expect((await consumeCredits(businessId, "text", 10)).ok).toBe(true);
-    // Potten er nå tom — alt videre avvises.
+    // Potten er nå tom, alt videre avvises.
     expect((await consumeCredits(businessId, "text", 1)).ok).toBe(false);
     // Refusjon frigjør kreditter igjen.
     await refundCredits(businessId, "text", 5);

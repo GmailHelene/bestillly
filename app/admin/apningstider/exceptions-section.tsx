@@ -120,10 +120,10 @@ export function ExceptionsSection({
             >
               <span>
                 <span className="font-medium">{formatDate(ex.date)}</span>
-                {" — "}
+                {", "}
                 {ex.type === "closed"
                   ? "Stengt"
-                  : `Åpent ${ex.startTime?.slice(0, 5)}–${ex.endTime?.slice(
+                  : `Åpent ${ex.startTime?.slice(0, 5)}, ${ex.endTime?.slice(
                       0,
                       5,
                     )}`}

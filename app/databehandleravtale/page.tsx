@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BackLink } from "@/components/back-link";
 
 export const metadata: Metadata = {
-  title: "Databehandleravtale — Bestilly",
+  title: "Databehandleravtale: Bestilly",
   description:
     "Databehandleravtale mellom Bestilly og bedrifter som bruker tjenesten, i tråd med personvernforordningen artikkel 28.",
 };
@@ -40,7 +40,7 @@ export default function DpaPage() {
         </h2>
         <p className="text-sm text-gray-700">
           <strong>Registrerte:</strong> Behandlingsansvarliges kunder og
-          kontakter — de som booker time, handler i nettbutikken, melder seg
+          kontakter, de som booker time, handler i nettbutikken, melder seg
           på nyhetsbrev eller sender melding via kontaktskjema.
         </p>
         <p className="text-sm text-gray-700">
@@ -94,16 +94,16 @@ export default function DpaPage() {
           underdatabehandlere:
         </p>
         <ul className="ml-5 list-disc space-y-1 text-sm text-gray-700">
-          <li>Neon — databaselagring (innenfor EU)</li>
-          <li>Railway — drift av applikasjonen</li>
-          <li>Cloudinary — lagring av opplastede bilder</li>
-          <li>Brevo — utsending av e-post</li>
+          <li>Neon, databaselagring (innenfor EU)</li>
+          <li>Railway, drift av applikasjonen</li>
+          <li>Cloudinary, lagring av opplastede bilder</li>
+          <li>Brevo, utsending av e-post</li>
           <li>
-            Anthropic — AI-tekstgenerering, kun ved bruk av
+            Anthropic, AI-tekstgenerering, kun ved bruk av
             markedsføringsverktøyet
           </li>
           <li>
-            Replicate — AI-bildegenerering, kun ved bruk av
+            Replicate, AI-bildegenerering, kun ved bruk av
             markedsføringsverktøyet
           </li>
         </ul>
@@ -119,7 +119,7 @@ export default function DpaPage() {
         <h2 className="font-semibold">6. De registrertes rettigheter</h2>
         <p className="text-sm text-gray-700">
           Databehandler stiller funksjonalitet til rådighet slik at
-          Behandlingsansvarlig kan oppfylle de registrertes rettigheter —
+          Behandlingsansvarlig kan oppfylle de registrertes rettigheter , 
           blant annet sletting av abonnenter, avbestilling av bookinger,
           avmelding av nyhetsbrev, og sletting av hele kontoen med tilhørende
           data.

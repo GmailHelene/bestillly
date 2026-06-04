@@ -51,7 +51,7 @@ export function CrawlPanel({
 
       {!websiteUrl && (
         <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
-          Legg inn nettsiden din i profilen over og lagre — så kan du
+          Legg inn nettsiden din i profilen over og lagre, så kan du
           analysere den her.
         </p>
       )}
@@ -80,7 +80,7 @@ export function CrawlPanel({
       {crawl && (
         <div className="space-y-3 rounded-lg bg-gray-50 p-3 text-sm">
           <p className="text-xs text-gray-500">
-            Analysert {formatDate(crawl.crawledAt)} — {crawl.pagesCrawled}{" "}
+            Analysert {formatDate(crawl.crawledAt)}, {crawl.pagesCrawled}{" "}
             side(r) lest fra{" "}
             <span className="break-all">{crawl.url}</span>
           </p>

@@ -74,7 +74,7 @@ export default async function OrdersPage() {
                 <ul className="mt-3 space-y-0.5 text-sm text-gray-600">
                   {order.items.map((item, i) => (
                     <li key={i}>
-                      {item.qty} × {item.name} — {item.priceNok * item.qty} kr
+                      {item.qty} × {item.name}, {item.priceNok * item.qty} kr
                     </li>
                   ))}
                 </ul>

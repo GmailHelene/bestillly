@@ -1,4 +1,4 @@
-// Slugs som ikke kan brukes av bedrifter — de kolliderer med appens egne ruter.
+// Slugs som ikke kan brukes av bedrifter, de kolliderer med appens egne ruter.
 export const RESERVED_SLUGS = new Set([
   "admin",
   "login",

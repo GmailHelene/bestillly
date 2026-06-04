@@ -15,7 +15,7 @@ function getDb(): Db {
     if (!url) {
       throw new Error(
         process.env.VITEST
-          ? "TEST_DATABASE_URL er ikke satt — integrasjonstester krever en test-database."
+          ? "TEST_DATABASE_URL er ikke satt, integrasjonstester krever en test-database."
           : "DATABASE_URL er ikke satt. Kopier .env.example til .env.local og fyll inn verdiene.",
       );
     }

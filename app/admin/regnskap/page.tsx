@@ -106,7 +106,7 @@ export default async function RegnskapPage({
         <BackLink href="/admin" label="Tilbake til oversikt" />
         <h1 className="text-2xl font-bold">Regnskap</h1>
         <p className="text-sm text-gray-500">
-          Last ned en oversikt over bookinger og salg for en valgt måned —
+          Last ned en oversikt over bookinger og salg for en valgt måned , 
           som en fil regnskapsføreren din kan ta imot, eller importere i
           regnskapsprogrammet ditt.
         </p>
@@ -172,7 +172,7 @@ export default async function RegnskapPage({
       </div>
 
       <p className="rounded-xl border border-dashed border-gray-300 p-4 text-xs text-gray-500">
-        Oversikten er et regnskapsgrunnlag — ikke et ferdig regnskap.
+        Oversikten er et regnskapsgrunnlag, ikke et ferdig regnskap.
         Booking-beløp bruker behandlingens gjeldende pris. Snakk med
         regnskapsføreren din om mva og bokføring.
       </p>

@@ -60,7 +60,7 @@ export default async function CancelBookingPage({
       <Shell>
         <h1 className="text-2xl font-bold">Timen er avbestilt</h1>
         <p className="text-gray-600">
-          {service?.name} hos {business?.name} —{" "}
+          {service?.name} hos {business?.name} , {" "}
           {formatDateTime(booking.startsAt)} er avbestilt.
         </p>
       </Shell>

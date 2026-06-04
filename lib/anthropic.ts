@@ -35,7 +35,7 @@ export function hasAnthropicKey(): boolean {
   return Boolean(process.env.ANTHROPIC_API_KEY);
 }
 
-// Henter JSON ut av et Claude-svar — tåler at svaret er pakket i ```json ... ```.
+// Henter JSON ut av et Claude-svar, tåler at svaret er pakket i ```json ... ```.
 export function extractJson<T>(text: string): T {
   const fenced = text.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/);
   const raw = (fenced ? fenced[1] : text).trim();

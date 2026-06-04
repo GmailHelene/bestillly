@@ -31,7 +31,7 @@ export function parseBlocks(raw: unknown): NewsletterBlock[] {
   return blocks;
 }
 
-// Flat tekstversjon — lagres som historikk-record.
+// Flat tekstversjon, lagres som historikk-record.
 export function blocksToPlainText(blocks: NewsletterBlock[]): string {
   return blocks
     .map((b) => {

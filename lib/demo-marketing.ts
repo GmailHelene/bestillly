@@ -44,7 +44,7 @@ function buildDemoPlan(): PostingPlan {
       postType: "Innlegg",
       theme: "Ledige timer denne uka",
       caption:
-        "Ny uke, nye muligheter for en frisk look! Vi har noen ledige timer igjen denne uka — book enkelt på nett.",
+        "Ny uke, nye muligheter for en frisk look! Vi har noen ledige timer igjen denne uka, book enkelt på nett.",
       hashtags: ["vikersund", "frisør"],
     },
     {
@@ -52,7 +52,7 @@ function buildDemoPlan(): PostingPlan {
       time: "10:00",
       channelId: "instagram",
       postType: "Reel",
-      theme: "Før og etter – farging",
+      theme: "Før og etter, farging",
       caption:
         "Liten forvandling, stor forskjell ✨ Sveip for å se før og etter.",
       hashtags: ["hårfarge", "vikersund", "frisørsalong"],
@@ -63,7 +63,7 @@ function buildDemoPlan(): PostingPlan {
       channelId: "tiktok",
       postType: "Kort video",
       theme: "Stylingtips på 20 sekunder",
-      caption: "Slik får du volum som varer hele dagen — tre raske triks.",
+      caption: "Slik får du volum som varer hele dagen, tre raske triks.",
       hashtags: ["hårtips", "styling"],
     },
     {
@@ -73,7 +73,7 @@ function buildDemoPlan(): PostingPlan {
       postType: "Innlegg",
       theme: "Produkt: hårpleiesett",
       caption:
-        "Favoritten vår til daglig pleie — nå i nettbutikken. Samme produkter som vi bruker i salongen.",
+        "Favoritten vår til daglig pleie, nå i nettbutikken. Samme produkter som vi bruker i salongen.",
       hashtags: ["hårpleie"],
     },
     {
@@ -82,7 +82,7 @@ function buildDemoPlan(): PostingPlan {
       channelId: "instagram",
       postType: "Story",
       theme: "Helgehilsen",
-      caption: "God helg fra oss! Vi er tilbake mandag — book gjerne time.",
+      caption: "God helg fra oss! Vi er tilbake mandag, book gjerne time.",
       hashtags: ["vikersund"],
     },
   ];
@@ -119,19 +119,19 @@ function buildDemoPlan(): PostingPlan {
   };
 }
 
-// Hele markedsføringsprofilen til demo-bedriften — ferdig utfylt.
+// Hele markedsføringsprofilen til demo-bedriften, ferdig utfylt.
 export function buildDemoMarketingProfile(): MarketingProfile {
   const now = new Date().toISOString();
   return {
     audience:
-      "Kvinner 25–55 i Vikersund og omegn som er opptatt av velstelt hår og litt egentid.",
+      "Kvinner 25-55 i Vikersund og omegn som er opptatt av velstelt hår og litt egentid.",
     tone: "Vennlig, varm og uformell",
     budgetNok: 12000,
     websiteUrl: "https://demo-frisor.no",
     channels: ["facebook", "instagram", "tiktok"],
     websiteCrawl: {
       url: "https://demo-frisor.no",
-      title: "Demo Frisør & Velvære — frisør i Vikersund",
+      title: "Demo Frisør & Velvære: frisør i Vikersund",
       description:
         "Frisørsalong i Vikersund. Klipp, farging og vippeforlengelse. Book time på nett.",
       text: "Demo Frisør & Velvære er en koselig frisørsalong midt i Vikersund. Vi tilbyr klipp, farging, vippeforlengelse og styling før fest. Hos oss tar vi oss tid til hver enkelt kunde. Velkommen innom for drop-in, eller book time på nett døgnet rundt.",
@@ -157,14 +157,14 @@ export function buildDemoMarketingProfile(): MarketingProfile {
         "frisør modum",
         "styling før fest",
       ],
-      metaTitle: "Frisør i Vikersund — klipp, farging & vipper | Demo Frisør",
+      metaTitle: "Frisør i Vikersund, klipp, farging & vipper | Demo Frisør",
       metaDescription:
-        "Frisørsalong i Vikersund. Klipp, farging, vippeforlengelse og festsstyling. Book time på nett døgnet rundt — velkommen innom!",
+        "Frisørsalong i Vikersund. Klipp, farging, vippeforlengelse og festsstyling. Book time på nett døgnet rundt, velkommen innom!",
       contentTips: [
-        "Skriv stedsnavnet «Vikersund» i overskrift og brødtekst — lokale søk er gull verdt.",
+        "Skriv stedsnavnet «Vikersund» i overskrift og brødtekst, lokale søk er gull verdt.",
         "Lag en egen side eller seksjon per hovedbehandling (klipp, farging, vipper).",
         "Legg ut før/etter-bilder med beskrivende alt-tekst.",
-        "Be fornøyde kunder om en Google-anmeldelse — det løfter lokal synlighet.",
+        "Be fornøyde kunder om en Google-anmeldelse, det løfter lokal synlighet.",
         "Hold åpningstidene oppdatert både her og på Google-bedriftsprofilen.",
       ],
       summary:
@@ -181,17 +181,17 @@ export function buildDemoMarketingProfile(): MarketingProfile {
           priority: 1,
           rationale:
             "De fleste lokale kundene dine i Vikersund-området er på Facebook. Ideelt for ledige timer, tilbud og nyheter.",
-          recommendedFrequency: "3–4 innlegg i uka",
-          bestTimes: ["Hverdager 11:00–15:00"],
+          recommendedFrequency: "3-4 innlegg i uka",
+          bestTimes: ["Hverdager 11:00-15:00"],
         },
         {
           channelId: "instagram",
           name: "Instagram",
           priority: 2,
           rationale:
-            "Frisørfaget er visuelt — før/etter-bilder og Reels viser fram håndverket og bygger tillit.",
+            "Frisørfaget er visuelt, før/etter-bilder og Reels viser fram håndverket og bygger tillit.",
           recommendedFrequency: "3 innlegg i uka + Stories",
-          bestTimes: ["Hverdager 09:00–11:00", "Hverdager 17:00–19:00"],
+          bestTimes: ["Hverdager 09:00-11:00", "Hverdager 17:00-19:00"],
         },
         {
           channelId: "tiktok",
@@ -199,14 +199,14 @@ export function buildDemoMarketingProfile(): MarketingProfile {
           priority: 3,
           rationale:
             "Korte stylingvideoer kan nå nye kunder gratis. Prioriter dette kun når du har overskudd.",
-          recommendedFrequency: "1–2 videoer i uka",
-          bestTimes: ["Hverdager 18:00–21:00"],
+          recommendedFrequency: "1-2 videoer i uka",
+          bestTimes: ["Hverdager 18:00-21:00"],
         },
       ],
       budgetStrategy:
-        "Med 12 000 kr i året anbefaler vi å bruke det meste organisk (gratis innhold), og sette av rundt 3 000–4 000 kr til å løfte de beste Facebook-innleggene rundt høytider og kampanjer.",
+        "Med 12 000 kr i året anbefaler vi å bruke det meste organisk (gratis innhold), og sette av rundt 3 000-4 000 kr til å løfte de beste Facebook-innleggene rundt høytider og kampanjer.",
       organicVsPaid:
-        "Legg hovedvekten på organisk innhold. Betalt annonsering brukes punktvis — til å nå litt lenger med et tilbud som allerede fungerer.",
+        "Legg hovedvekten på organisk innhold. Betalt annonsering brukes punktvis, til å nå litt lenger med et tilbud som allerede fungerer.",
       quickWins: [
         "Legg ut «ledige timer denne uka» hver mandag.",
         "Be de tre neste fornøyde kundene om en Google-anmeldelse.",
@@ -219,20 +219,20 @@ export function buildDemoMarketingProfile(): MarketingProfile {
   };
 }
 
-// Eksempel-innlegg per kanal — brukes av innholdsgeneratoren i demo.
+// Eksempel-innlegg per kanal, brukes av innholdsgeneratoren i demo.
 const DEMO_POSTS: Record<ChannelId, Omit<GeneratedPost, "channelName" | "pixelSize">> = {
   facebook: {
     channelId: "facebook",
     postType: "Innlegg",
     title: "",
     caption:
-      "Ny uke, ny mulighet for litt egentid 💆‍♀️ Vi har noen ledige timer igjen denne uka — til klipp, farge eller vipper. Book enkelt på nett, så er stolen klar til deg!",
+      "Ny uke, ny mulighet for litt egentid 💆‍♀️ Vi har noen ledige timer igjen denne uka, til klipp, farge eller vipper. Book enkelt på nett, så er stolen klar til deg!",
     hashtags: ["vikersund", "frisør"],
     callToAction: "Trykk «Book time» og finn en tid som passer deg.",
     linkSuggestion: "Lenk til bookingsiden din.",
     goal: "Fylle ledige timer tidlig i uka.",
     imageIdea:
-      "Lyst, innbydende bilde fra salongen — en stol klar til kunde.",
+      "Lyst, innbydende bilde fra salongen, en stol klar til kunde.",
     imagePrompt:
       "Cozy bright hair salon interior, empty styling chair, soft natural light, welcoming atmosphere, warm tones",
     bestTime: "Mandag kl. 12:00",
@@ -246,7 +246,7 @@ const DEMO_POSTS: Record<ChannelId, Omit<GeneratedPost, "channelName" | "pixelSi
     postType: "Reel",
     title: "",
     caption:
-      "Fra mørkt til solkysset ☀️ En av ukens favorittforvandlinger. Sveip for å se før og etter — og book din egen time hos oss i Vikersund!",
+      "Fra mørkt til solkysset ☀️ En av ukens favorittforvandlinger. Sveip for å se før og etter, og book din egen time hos oss i Vikersund!",
     hashtags: ["hårfarge", "vikersund", "frisørsalong", "beforeafter"],
     callToAction: "Book time via lenken i profilen.",
     linkSuggestion: "Lenk til bookingsiden i profilen.",
@@ -267,7 +267,7 @@ const DEMO_POSTS: Record<ChannelId, Omit<GeneratedPost, "channelName" | "pixelSi
     caption:
       "Tre raske triks for volum som varer hele dagen 💁‍♀️ Hvilket prøver du først?",
     hashtags: ["hårtips", "styling", "frisør"],
-    callToAction: "Følg for flere hårtips — og book time hos oss!",
+    callToAction: "Følg for flere hårtips, og book time hos oss!",
     linkSuggestion: "Legg bookinglenken i profilen.",
     goal: "Nå nye kunder med nyttig, delbart innhold.",
     imageIdea: "Kort video der du viser stylingtriksene steg for steg.",
@@ -276,7 +276,7 @@ const DEMO_POSTS: Record<ChannelId, Omit<GeneratedPost, "channelName" | "pixelSi
     bestTime: "Onsdag kl. 18:30",
     tips: [
       "De første 3 sekundene må fange oppmerksomheten.",
-      "Hold videoen på 15–30 sekunder.",
+      "Hold videoen på 15-30 sekunder.",
     ],
   },
   snapchat: {
@@ -292,7 +292,7 @@ const DEMO_POSTS: Record<ChannelId, Omit<GeneratedPost, "channelName" | "pixelSi
     imagePrompt:
       "Casual behind-the-scenes photo in a hair salon, vertical format, authentic and warm",
     bestTime: "Torsdag kl. 15:00",
-    tips: ["Hold det uformelt og spontant — det passer Snapchat."],
+    tips: ["Hold det uformelt og spontant, det passer Snapchat."],
   },
   youtube: {
     channelId: "youtube",
@@ -301,7 +301,7 @@ const DEMO_POSTS: Record<ChannelId, Omit<GeneratedPost, "channelName" | "pixelSi
     caption:
       "Fem enkle grep som får fargen til å vare. Spar dette til neste gang du farger håret!",
     hashtags: ["hårtips", "hårfarge"],
-    callToAction: "Abonner for flere tips — og book time hos oss i Vikersund.",
+    callToAction: "Abonner for flere tips, og book time hos oss i Vikersund.",
     linkSuggestion: "Legg bookinglenken i videobeskrivelsen.",
     goal: "Bli synlig i søk over tid med nyttig innhold.",
     imageIdea: "Kort, vertikal video der du forklarer tipsene.",
@@ -328,35 +328,35 @@ export function demoContentPosts(channelIds: string[]): GeneratedPost[] {
 export const DEMO_BLOG_POST: GeneratedBlogPost = {
   title: "Slik forbereder du håret til sommeren",
   metaDescription:
-    "Sol, salt og klor sliter på håret. Her er frisørens beste tips for å holde håret friskt gjennom sommeren — fra Demo Frisør i Vikersund.",
+    "Sol, salt og klor sliter på håret. Her er frisørens beste tips for å holde håret friskt gjennom sommeren, fra Demo Frisør i Vikersund.",
   content:
-    "Sommeren er herlig for oss — men ganske tøff for håret. Sol, salt og klor tørker ut og kan gjøre fargen matt. Den gode nyheten er at noen enkle vaner gjør stor forskjell.\n\nBeskytt mot sol\nAkkurat som huden trenger hår beskyttelse mot UV. Bruk en leave-in-balsam med solfilter, eller ta på deg en hatt på de varmeste dagene. Det bevarer både glans og farge.\n\nSkyll etter bading\nSalt og klor legger seg i håret og tørker det ut. Skyll alltid med ferskvann så raskt du kan etter bading — det enkleste trikset som finnes.\n\nKlipp før ferien\nEn frisk klipp før ferien fjerner tørre tupper, så håret tåler sommeren bedre. Det er også et godt tidspunkt for en pleiebehandling.\n\nVil du gi håret en god start på sommeren? Book en time hos oss i Vikersund — vi finner det som passer akkurat ditt hår. Velkommen innom!",
+    "Sommeren er herlig for oss, men ganske tøff for håret. Sol, salt og klor tørker ut og kan gjøre fargen matt. Den gode nyheten er at noen enkle vaner gjør stor forskjell.\n\nBeskytt mot sol\nAkkurat som huden trenger hår beskyttelse mot UV. Bruk en leave-in-balsam med solfilter, eller ta på deg en hatt på de varmeste dagene. Det bevarer både glans og farge.\n\nSkyll etter bading\nSalt og klor legger seg i håret og tørker det ut. Skyll alltid med ferskvann så raskt du kan etter bading, det enkleste trikset som finnes.\n\nKlipp før ferien\nEn frisk klipp før ferien fjerner tørre tupper, så håret tåler sommeren bedre. Det er også et godt tidspunkt for en pleiebehandling.\n\nVil du gi håret en god start på sommeren? Book en time hos oss i Vikersund, vi finner det som passer akkurat ditt hår. Velkommen innom!",
 };
 
 export const DEMO_SNIPPETS: Record<string, string[]> = {
   about: [
     "Demo Frisør & Velvære er en koselig salong midt i Vikersund. Vi tar oss tid til hver enkelt kunde, og målet vårt er enkelt: at du går herfra med et smil og hår du er glad i. Velkommen innom!",
-    "Hos Demo Frisør & Velvære møter du erfarne frisører i hjertet av Vikersund. Vi tilbyr alt fra klipp og farging til vippeforlengelse — alltid med god tid og personlig oppfølging.",
-    "Midt i Vikersund finner du Demo Frisør & Velvære. En liten, varm salong der du blir sett og hørt — enten du vil ha en frisk klipp, ny farge eller litt egentid før en stor anledning.",
+    "Hos Demo Frisør & Velvære møter du erfarne frisører i hjertet av Vikersund. Vi tilbyr alt fra klipp og farging til vippeforlengelse, alltid med god tid og personlig oppfølging.",
+    "Midt i Vikersund finner du Demo Frisør & Velvære. En liten, varm salong der du blir sett og hørt, enten du vil ha en frisk klipp, ny farge eller litt egentid før en stor anledning.",
   ],
   hero: [
-    "Velstelt hår og litt egentid — midt i Vikersund.",
+    "Velstelt hår og litt egentid, midt i Vikersund.",
     "Frisør i Vikersund. Book time på nett, døgnet rundt.",
-    "Klipp, farge og velvære — i trygge hender hos Demo Frisør.",
+    "Klipp, farge og velvære, i trygge hender hos Demo Frisør.",
   ],
 };
 
 export function demoSnippets(snippetTypeId: string): string[] {
   return (
     DEMO_SNIPPETS[snippetTypeId] ?? [
-      "Eksempeltekst 1 — slik kan en ferdig SEO-tekst se ut for bedriften din.",
-      "Eksempeltekst 2 — med egen konto tilpasses tekstene din bedrift og dine søkeord.",
-      "Eksempeltekst 3 — du får tre varianter hver gang, og velger den du liker best.",
+      "Eksempeltekst 1, slik kan en ferdig SEO-tekst se ut for bedriften din.",
+      "Eksempeltekst 2, med egen konto tilpasses tekstene din bedrift og dine søkeord.",
+      "Eksempeltekst 3, du får tre varianter hver gang, og velger den du liker best.",
     ]
   );
 }
 
-// Demo-bilde — et stabilt eksempelbilde (ingen ekte AI-generering i demo).
+// Demo-bilde, et stabilt eksempelbilde (ingen ekte AI-generering i demo).
 export function demoImageUrl(channelId: string): string {
   return `https://picsum.photos/seed/bestilly-${channelId}/1080/1350`;
 }

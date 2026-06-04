@@ -48,11 +48,11 @@ export const businesses = pgTable("businesses", {
   shippingFree: boolean("shipping_free").notNull().default(true),
   shippingFee: integer("shipping_fee").notNull().default(99),
   shippingLabel: text("shipping_label"),
-  // Nettbutikk av/på — standard av, slås på under Produktsalg.
+  // Nettbutikk av/på, standard av, slås på under Produktsalg.
   shopEnabled: boolean("shop_enabled").notNull().default(false),
   // Markedsføringsprofil (Fase 3).
   marketingProfile: jsonb("marketing_profile").$type<MarketingProfile>(),
-  // AI-kreditter (Fase 3) — månedlig pott, nullstilles ved månedsskifte.
+  // AI-kreditter (Fase 3), månedlig pott, nullstilles ved månedsskifte.
   aiPeriod: text("ai_period"),
   aiTextUsed: integer("ai_text_used").notNull().default(0),
   aiImagesUsed: integer("ai_images_used").notNull().default(0),
@@ -107,10 +107,10 @@ export const availabilityExceptions = pgTable("availability_exceptions", {
   endTime: time("end_time"),
 });
 
-// En booking. Ingen kundekonto — kundedata ligger på selve bookingen.
+// En booking. Ingen kundekonto, kundedata ligger på selve bookingen.
 // Avbestilling skjer via cancellationToken-lenke i bekreftelses-e-posten.
 // Et partielt unikt indeks (bookings_no_double_idx) hindrer at to bekreftede
-// bookinger havner på samme starttidspunkt — sikrer mot dobbeltbooking-race.
+// bookinger havner på samme starttidspunkt, sikrer mot dobbeltbooking-race.
 export const bookings = pgTable(
   "bookings",
   {
@@ -211,7 +211,7 @@ export const subscribers = pgTable(
   (t) => [index("subscribers_business_idx").on(t.businessId)],
 );
 
-// Sendte nyhetsbrev — historikk.
+// Sendte nyhetsbrev, historikk.
 export const newsletters = pgTable("newsletters", {
   id: uuid("id").primaryKey().defaultRandom(),
   businessId: uuid("business_id")

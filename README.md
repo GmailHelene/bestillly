@@ -1,6 +1,6 @@
 # Bestilly
 
-Bookingsystem laget for **enkeltpersonforetak** — én person, én kalender,
+Bookingsystem laget for **enkeltpersonforetak**, én person, én kalender,
 full kontroll. Time inn, faktura ut, ferdig regnskapsgrunnlag. Bygget som
 SaaS med fokus på lav terskel for ikke-tekniske brukere og forutsigbar
 prissetting: fast årsabonnement, ingen transaksjonsavgift.
@@ -9,19 +9,19 @@ prissetting: fast årsabonnement, ingen transaksjonsavgift.
 
 ## Kjernefunksjonalitet
 
-- **Booking** — kundene bestiller time selv, døgnet rundt. Bedriften ser alt
+- **Booking**, kundene bestiller time selv, døgnet rundt. Bedriften ser alt
   i en kalender, og begge får bekreftelse på e-post. Avbestilling via lenke.
-- **Egen nettside** — en enkel onepage per bedrift med valgbare design, logo
+- **Egen nettside**, en enkel onepage per bedrift med valgbare design, logo
   og bildegalleri, på `bestilly.no/[bedrift]`.
-- **Regnskapseksport** — last ned bookinger og salg for en valgt måned som
+- **Regnskapseksport**, last ned bookinger og salg for en valgt måned som
   CSV, klar for regnskapsfører eller import i regnskapsprogram.
-- **Nettbutikk** — selg produkter med betaling via Vipps.
-- **Blogg og nyhetsbrev** — innlegg med egne SEO-sider, og blokkbasert
+- **Nettbutikk**, selg produkter med betaling via Vipps.
+- **Blogg og nyhetsbrev**, innlegg med egne SEO-sider, og blokkbasert
   nyhetsbrev til abonnenter.
-- **AI-markedsføringshub** — SEO-analyse, markedsanalyse, innlegg til sosiale
+- **AI-markedsføringshub**, SEO-analyse, markedsanalyse, innlegg til sosiale
   medier, blogginnlegg, SEO-tekster, bildegenerering og publiseringsplan.
   Drevet av Anthropic Claude og Replicate, med en månedlig kredittpott.
-- **Automatisk lokal SEO** — server-rendrede sider, `LocalBusiness`-JSON-LD,
+- **Automatisk lokal SEO**, server-rendrede sider, `LocalBusiness`-JSON-LD,
   sitemap og meta per bedrift.
 
 ## Tech-stack
@@ -29,11 +29,11 @@ prissetting: fast årsabonnement, ingen transaksjonsavgift.
 | Lag | Valg | Hvorfor |
 |---|---|---|
 | Frontend | Next.js 16 (App Router) + React 19 + Tailwind CSS 4 | Server Components for rask render, lavt JS-fotavtrykk på offentlige sider |
-| Backend | Next.js Server Actions (TypeScript) | Hele stacken i ett kodebase — enklere drift for et soloprosjekt |
+| Backend | Next.js Server Actions (TypeScript) | Hele stacken i ett kodebase, enklere drift for et soloprosjekt |
 | Database | Neon Postgres + Drizzle ORM | Serverless Postgres; Drizzle gir typesikker SQL uten ORM-overhead |
 | Autentisering | next-auth v5 (Auth.js) + bcryptjs | JWT-sesjoner, full kontroll over datalagring i Postgres |
 | AI | Anthropic Claude + Replicate (Flux) | Tekst- og bildegenerering i markedsføringshuben |
-| E-post | Nodemailer (Brevo SMTP) | Transaksjonelle e-poster — bekreftelser, varsler, nyhetsbrev |
+| E-post | Nodemailer (Brevo SMTP) | Transaksjonelle e-poster, bekreftelser, varsler, nyhetsbrev |
 | Bilder | Cloudinary | Opplasting og levering av bilder |
 | Dato/tid | date-fns + date-fns-tz | Trygg håndtering av norsk tidssone og sommertid |
 | Hosting | Railway | Lav drifts-overhead, automatisk SSL |
@@ -46,7 +46,7 @@ runtime-overhead. For en booking-app med tids-tunge spørringer (overlappende
 intervaller, tilgjengelighet) er optimal SQL viktigere enn full abstraksjon.
 
 **next-auth v5 framfor Clerk/Auth0:** Lavere kostnad ved skalering og full
-kontroll over datalagring i Postgres — viktig for GDPR.
+kontroll over datalagring i Postgres, viktig for GDPR.
 
 **Én fast årlig pris (2490 kr) framfor transaksjonsavgift:** Målgruppen er
 enkeltpersonforetak som velger bort dyre månedsabonnement og per-booking-
@@ -92,4 +92,4 @@ Privateid. All rights reserved © Grønberg Tech Solutions (org.nr 927 889 404).
 
 ---
 
-*Bygget av [Helene Grønberg](https://helene.cloud) — full-stack-utvikler og gründer i Modum.*
+*Bygget av [Helene Grønberg](https://helene.cloud), full-stack-utvikler og gründer i Modum.*

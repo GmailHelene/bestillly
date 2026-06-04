@@ -26,7 +26,7 @@ const WEEKDAYS: [number, string][] = [
   [7, "Søndag"],
 ];
 
-// cache() dedupliserer kallet — generateMetadata og siden deler ett oppslag.
+// cache() dedupliserer kallet, generateMetadata og siden deler ett oppslag.
 const getBusiness = cache(async (slug: string) => {
   return db.query.businesses.findFirst({ where: eq(businesses.slug, slug) });
 });
@@ -54,7 +54,7 @@ export async function generateMetadata({
 
   const content = parseOnepageContent(business.onepageContent);
   const title =
-    content.seo?.metaTitle ?? `${business.name} — bestill time`;
+    content.seo?.metaTitle ?? `${business.name}, bestill time`;
   const description =
     content.seo?.metaDescription ??
     business.description ??
@@ -149,7 +149,7 @@ export default async function PublicBusinessPage({
     ...(socialLinks.length ? { sameAs: socialLinks } : {}),
     ...(prices.length
       ? {
-          priceRange: `${Math.min(...prices)}–${Math.max(...prices)} kr`,
+          priceRange: `${Math.min(...prices)}, ${Math.max(...prices)} kr`,
         }
       : {}),
     ...(business.address
@@ -290,7 +290,7 @@ export default async function PublicBusinessPage({
                       <span>{label}</span>
                       <span className="text-gray-500">
                         {wh
-                          ? `${wh.startTime.slice(0, 5)}–${wh.endTime.slice(0, 5)}`
+                          ? `${wh.startTime.slice(0, 5)}, ${wh.endTime.slice(0, 5)}`
                           : "Stengt"}
                       </span>
                     </li>

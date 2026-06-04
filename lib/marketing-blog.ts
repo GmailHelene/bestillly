@@ -1,4 +1,4 @@
-// F3.7 — SEO-blogginnlegg-generator. Lager et komplett, SEO-optimalisert
+// F3.7, SEO-blogginnlegg-generator. Lager et komplett, SEO-optimalisert
 // blogginnlegg som kan lagres rett inn i blogg-funksjonen (Fase 2).
 
 import { generateJson } from "@/lib/anthropic";
@@ -23,14 +23,14 @@ export type BlogInput = {
 
 const SYSTEM_PROMPT = `Du er en erfaren norsk innholdsskribent som skriver SEO-optimaliserte blogginnlegg for små, lokale bedrifter (frisører, salonger, enkeltpersonforetak).
 
-Skriv et blogginnlegg som er nyttig og ekte — ikke tynt «SEO-fyll». Det skal gi leseren konkret verdi og samtidig styrke bedriftens synlighet i Google.
+Skriv et blogginnlegg som er nyttig og ekte, ikke tynt «SEO-fyll». Det skal gi leseren konkret verdi og samtidig styrke bedriftens synlighet i Google.
 
 Krav til innlegget:
 - 400-700 ord, på norsk.
 - Naturlig, lett tone. Skriv som et menneske, ikke en robot.
-- Vev inn søkeordene naturlig — ikke proppfull.
+- Vev inn søkeordene naturlig, ikke proppfull.
 - Tydelig struktur: fengende innledning, noen avsnitt med konkret innhold, og en avslutning med en mild oppfordring til å booke time / ta kontakt.
-- Ren tekst — INGEN markdown, HTML eller spesialtegn. Avsnitt skilles med én blank linje. Eventuelle deloverskrifter skrives som en kort linje for seg selv.
+- Ren tekst, INGEN markdown, HTML eller spesialtegn. Avsnitt skilles med én blank linje. Eventuelle deloverskrifter skrives som en kort linje for seg selv.
 - Første setning bør fungere godt som meta-beskrivelse.
 
 Svar KUN med gyldig JSON:

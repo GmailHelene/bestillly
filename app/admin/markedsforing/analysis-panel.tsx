@@ -53,7 +53,7 @@ export function AnalysisPanel({
 
       {!hasChannels && (
         <p className="rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-800">
-          Velg hvilke kanaler du vil satse på i profilen over — da blir
+          Velg hvilke kanaler du vil satse på i profilen over, da blir
           analysen mer treffsikker.
         </p>
       )}
@@ -79,7 +79,7 @@ export function AnalysisPanel({
         </button>
         {pending && (
           <p className="text-xs text-gray-500">
-            Dette tar 20–40 sekunder — AI-en vurderer kanalmiks, budsjett og
+            Dette tar 20-40 sekunder, AI-en vurderer kanalmiks, budsjett og
             tidspunkter.
           </p>
         )}
@@ -98,7 +98,7 @@ export function AnalysisPanel({
           {analysis.channels.length > 0 && (
             <div className="space-y-2">
               <span className="font-medium text-gray-700">
-                Kanaler — prioritert rekkefølge
+                Kanaler, prioritert rekkefølge
               </span>
               {analysis.channels.map((ch) => (
                 <div

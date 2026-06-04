@@ -19,7 +19,7 @@ export default async function BlogPage() {
         <BackLink href="/admin" label="Tilbake til oversikt" />
         <h1 className="text-2xl font-bold">Blogg</h1>
         <p className="text-sm text-gray-500">
-          Skriv innlegg og oppdateringer. Hvert innlegg får sin egen side —
+          Skriv innlegg og oppdateringer. Hvert innlegg får sin egen side , 
           bra for synlighet i Google. Slå på «Vis blogg på siden» under Min
           side for å vise dem.
         </p>

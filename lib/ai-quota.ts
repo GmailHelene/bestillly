@@ -3,8 +3,8 @@ import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { businesses } from "@/db/schema";
 
-// F3.10 — AI-kreditter. Hver bedrift har en månedlig pott inkludert i
-// prisen. Bildegenerering er midlertidig av — kun tekst telles.
+// F3.10, AI-kreditter. Hver bedrift har en månedlig pott inkludert i
+// prisen. Bildegenerering er midlertidig av, kun tekst telles.
 // Potten nullstilles automatisk ved månedsskifte.
 //
 // Kalibrering av grensene (mai 2026):
@@ -45,7 +45,7 @@ type UsageRow = {
   aiImagesUsed: number;
 };
 
-// Leser av forbruket for visning — nullstiller ikke (gjøres ved neste trekk).
+// Leser av forbruket for visning, nullstiller ikke (gjøres ved neste trekk).
 export function readUsage(b: UsageRow): UsageSummary {
   const stale = b.aiPeriod !== currentPeriod();
   return {
@@ -59,7 +59,7 @@ export function readUsage(b: UsageRow): UsageSummary {
 export type ConsumeResult = { ok: true } | { ok: false; error: string };
 
 // Trekker kreditter før en AI-handling. Selve trekket gjøres som ÉN atomisk
-// UPDATE med tak-sjekk i WHERE — så samtidige kall ikke kan overskride potten.
+// UPDATE med tak-sjekk i WHERE, så samtidige kall ikke kan overskride potten.
 // Nullstiller begge tellere hvis måneden er ny.
 export async function consumeCredits(
   businessId: string,
@@ -79,7 +79,7 @@ export async function consumeCredits(
   }
 
   const period = currentPeriod();
-  // Telleverdi i denne perioden — 0 hvis lagret periode er utdatert.
+  // Telleverdi i denne perioden, 0 hvis lagret periode er utdatert.
   const textNow = sql`(CASE WHEN ${businesses.aiPeriod} = ${period} THEN ${businesses.aiTextUsed} ELSE 0 END)`;
   const imagesNow = sql`(CASE WHEN ${businesses.aiPeriod} = ${period} THEN ${businesses.aiImagesUsed} ELSE 0 END)`;
 

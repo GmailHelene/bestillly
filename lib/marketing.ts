@@ -1,5 +1,5 @@
 // Typer, konstanter og parsere for markedsføringshuben.
-// VIKTIG: denne fila importeres av klient-komponenter — den skal IKKE
+// VIKTIG: denne fila importeres av klient-komponenter, den skal IKKE
 // importere noe som drar inn AI-SDK-er (Anthropic/Replicate). Hold alle
 // importer her som `import type` (erasable).
 
@@ -20,7 +20,7 @@ export const MARKETING_CHANNELS = [
   { id: "youtube", label: "YouTube" },
 ] as const;
 
-// Markedsføringsprofil — input som mater analyser og innholdsgenerering (Fase 3).
+// Markedsføringsprofil, input som mater analyser og innholdsgenerering (Fase 3).
 export type MarketingProfile = {
   audience?: string;
   tone?: string;

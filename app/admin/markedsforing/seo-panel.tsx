@@ -58,7 +58,7 @@ export function SeoPanel({ initialSeo }: { initialSeo?: SeoResult }) {
         <h2 className="font-semibold">SEO-anbefaling</h2>
         <p className="text-sm text-gray-500">
           Få konkrete søkeord, forslag til meta-tittel og -beskrivelse, og råd
-          om innhold — basert på profilen din og nettside-analysen.
+          om innhold, basert på profilen din og nettside-analysen.
         </p>
       </div>
 
@@ -83,7 +83,7 @@ export function SeoPanel({ initialSeo }: { initialSeo?: SeoResult }) {
         </button>
         {pending && (
           <p className="text-xs text-gray-500">
-            Dette tar 15–30 sekunder — AI-en leser gjennom profilen og
+            Dette tar 15-30 sekunder, AI-en leser gjennom profilen og
             nettsiden din.
           </p>
         )}

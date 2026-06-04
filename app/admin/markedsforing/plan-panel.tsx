@@ -190,7 +190,7 @@ export function PlanPanel({
       <div>
         <h2 className="font-semibold">Publiseringsplan</h2>
         <p className="text-sm text-gray-500">
-          En helhetlig plan på tvers av kanalene dine — hva du bør poste når,
+          En helhetlig plan på tvers av kanalene dine, hva du bør poste når,
           fordelt utover perioden. Klar til å eksportere.
         </p>
       </div>

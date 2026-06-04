@@ -146,7 +146,7 @@ export async function createBooking(
       .returning();
   } catch (err) {
     // Unik-indeks (Postgres 23505) = noen rakk å booke samme tid akkurat nå.
-    // Drizzle pakker driver-feilen — koden ligger på err.cause.code.
+    // Drizzle pakker driver-feilen, koden ligger på err.cause.code.
     const e = err as {
       code?: string;
       cause?: { code?: string };
@@ -184,7 +184,7 @@ export async function createBooking(
 
   await sendEmail({
     to: business.email,
-    subject: `Ny booking: ${service.name} — ${when}`,
+    subject: `Ny booking: ${service.name}, ${when}`,
     html: `
       <h2>Ny booking</h2>
       <ul>
@@ -233,7 +233,7 @@ async function sendCancellationEmails(booking: BookingRow): Promise<void> {
 
   await sendEmail({
     to: business.email,
-    subject: `Avbestilling: ${service.name} — ${when}`,
+    subject: `Avbestilling: ${service.name}, ${when}`,
     html: `
       <h2>En booking er avbestilt</h2>
       <ul>

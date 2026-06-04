@@ -1,4 +1,4 @@
-// F3.3 — SEO-generator. Tar alt bestilly vet om bedriften (profil, behandlinger,
+// F3.3, SEO-generator. Tar alt bestilly vet om bedriften (profil, behandlinger,
 // produkter, beskrivelse) pluss nettside-crawlen, og foreslår nøkkelord,
 // meta-tittel/-beskrivelse og konkrete innholdsråd via Claude.
 
@@ -30,15 +30,15 @@ export type SeoInput = {
 
 const SYSTEM_PROMPT = `Du er en erfaren norsk SEO-rådgiver som hjelper små, lokale bedrifter (frisører, salonger, enkeltpersonforetak) med å bli mer synlige i Google-søk.
 
-Du skal lage en konkret, praktisk SEO-anbefaling. Vær spesifikk og lokal — tenk på hva ekte kunder faktisk søker etter. Unngå svada og generelle råd.
+Du skal lage en konkret, praktisk SEO-anbefaling. Vær spesifikk og lokal, tenk på hva ekte kunder faktisk søker etter. Unngå svada og generelle råd.
 
 Svar KUN med gyldig JSON i dette formatet:
 {
-  "keywords": ["8–12 konkrete søkeord/fraser kunden bør satse på, inkl. stedsnavn der det passer"],
+  "keywords": ["8-12 konkrete søkeord/fraser kunden bør satse på, inkl. stedsnavn der det passer"],
   "metaTitle": "Forslag til meta-tittel, maks 60 tegn, med viktigste søkeord",
-  "metaDescription": "Forslag til meta-beskrivelse, 120–155 tegn, lokkende og med søkeord",
-  "contentTips": ["4–6 konkrete råd om innhold på nettsiden/onepage som vil styrke synlighet"],
-  "summary": "2–3 setningers oppsummering av SEO-situasjonen og viktigste grep"
+  "metaDescription": "Forslag til meta-beskrivelse, 120-155 tegn, lokkende og med søkeord",
+  "contentTips": ["4-6 konkrete råd om innhold på nettsiden/onepage som vil styrke synlighet"],
+  "summary": "2-3 setningers oppsummering av SEO-situasjonen og viktigste grep"
 }
 
 Returner KUN JSON, ingen tekst rundt.`;
@@ -66,7 +66,7 @@ function buildUserPrompt(input: SeoInput): string {
       parts.push(`Utdrag av tekst:\n${input.websiteText.slice(0, 3000)}`);
   } else {
     parts.push(
-      "\n(Bedriften har ikke analysert en nettside ennå — baser deg på opplysningene over.)",
+      "\n(Bedriften har ikke analysert en nettside ennå, baser deg på opplysningene over.)",
     );
   }
   return parts.join("\n");

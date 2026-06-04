@@ -29,7 +29,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
           setCopied(true);
           setTimeout(() => setCopied(false), 1500);
         } catch {
-          // utelat — clipboard kan være blokkert
+          // utelat, clipboard kan være blokkert
         }
       }}
       className="rounded-md border border-gray-300 px-2 py-1 text-xs font-medium hover:bg-gray-50"
@@ -41,7 +41,7 @@ function CopyButton({ text, label }: { text: string; label: string }) {
 
 // Viser bildeforslaget som tekst som brukeren kan kopiere og bruke
 // til å lete fram et eget bilde (f.eks. i Unsplash, Pexels, eget arkiv).
-// AI-bildegenerering er midlertidig av — kommer tilbake senere.
+// AI-bildegenerering er midlertidig av, kommer tilbake senere.
 function PostImageSuggestion({
   idea,
   prompt,
@@ -260,7 +260,7 @@ export function ContentPanel({
       <div>
         <h2 className="font-semibold">Innholdsgenerator</h2>
         <p className="text-sm text-gray-500">
-          Skriv et tema, velg kanaler — så lager vi ett innlegg tilpasset hver
+          Skriv et tema, velg kanaler, så lager vi ett innlegg tilpasset hver
           kanal, med bildetekst og hashtags. Til hvert innlegg kan du generere
           et ekte AI-bilde med ett klikk.
         </p>
@@ -321,13 +321,13 @@ export function ContentPanel({
         </button>
         {pending && (
           <p className="text-xs text-gray-500">
-            Dette kan ta 20–40 sekunder — AI-en skriver ett innlegg per
+            Dette kan ta 20-40 sekunder, AI-en skriver ett innlegg per
             kanal du har valgt. Vent litt, vinduet trenger ikke oppdateres.
           </p>
         )}
         {!pending && posts.length === 0 && (
           <p className="text-xs text-gray-400">
-            Tar vanligvis 20–40 sekunder. AI-bilder lages etterpå med ett
+            Tar vanligvis 20-40 sekunder. AI-bilder lages etterpå med ett
             klikk per innlegg.
           </p>
         )}

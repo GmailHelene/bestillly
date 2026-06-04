@@ -113,7 +113,7 @@ export function dayBounds(date: string): { start: Date; end: Date } {
   return { start, end: new Date(start.getTime() + 24 * 60 * 60 * 1000) };
 }
 
-// Absolutt tidspunkt for en valgt slot — brukes når en booking skal lagres.
+// Absolutt tidspunkt for en valgt slot, brukes når en booking skal lagres.
 export function slotInstant(date: string, time: string): Date {
   return osloInstant(date, time);
 }

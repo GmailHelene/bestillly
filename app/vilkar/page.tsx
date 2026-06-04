@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BackLink } from "@/components/back-link";
 
 export const metadata: Metadata = {
-  title: "Vilkår — Bestilly",
+  title: "Vilkår: Bestilly",
   description: "Vilkår for bruk av Bestilly, inkludert pris og betaling.",
 };
 
@@ -51,7 +51,7 @@ export default function TermsPage() {
         </p>
         <p className="text-sm text-gray-700">
           Prisen inkluderer en månedlig pott med AI-kreditter til
-          markedsføringshuben — for tekstinnhold. Kredittpotten fornyes ved
+          markedsføringshuben, for tekstinnhold. Kredittpotten fornyes ved
           hvert månedsskifte og kan ikke spares opp. Behov ut over potten
           kan dekkes ved avtale. AI-genererte tekster er utkast bedriften
           selv er ansvarlig for å gjennomgå før publisering.

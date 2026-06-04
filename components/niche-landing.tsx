@@ -142,7 +142,7 @@ export function NicheLanding({ niche }: { niche: NichePage }) {
               Pris
             </p>
             <p className="mt-2 text-5xl font-bold">{MONTHLY_PRICE_NOK} kr</p>
-            <p className="mt-1 text-gray-600">per måned — alt inkludert</p>
+            <p className="mt-1 text-gray-600">per måned, alt inkludert</p>
             <p className="text-xs text-gray-400">
               Fakturert årlig som {ANNUAL_PRICE_NOK} kr
             </p>

@@ -5,7 +5,7 @@ import { ANNUAL_PRICE_NOK, MONTHLY_PRICE_NOK } from "@/lib/pricing";
 
 const title = "Hvorfor velge Bestilly? | Sammenligning av bookingsystem";
 const description =
-  "Hvorfor Bestilly fremfor andre bookingsystemer: 149 kr per måned (fakturert årlig som 1788 kr), ingen oppstartsavgift, ingen gebyr per booking — og nettside og markedsføring inkludert.";
+  "Hvorfor Bestilly fremfor andre bookingsystemer: 149 kr per måned (fakturert årlig som 1788 kr), ingen oppstartsavgift, ingen gebyr per booking, og nettside og markedsføring inkludert.";
 
 export const metadata: Metadata = {
   title,
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
 const rows = [
   {
     label: "Pris",
-    bestilly: "149 kr per måned (1788 kr/år) — fast",
-    others: "Ofte 300–600 kr i måneden",
+    bestilly: "149 kr per måned (1788 kr/år), fast",
+    others: "Ofte 300-600 kr i måneden",
   },
   {
     label: "Gebyr per booking",
@@ -33,7 +33,7 @@ const rows = [
   {
     label: "Egen nettside",
     bestilly: "Inkludert",
-    others: "Ofte tillegg — eller mangler helt",
+    others: "Ofte tillegg, eller mangler helt",
   },
   {
     label: "Nettbutikk, blogg og nyhetsbrev",
@@ -60,15 +60,15 @@ const rows = [
 const points = [
   {
     title: "Én pris, ingen overraskelser",
-    text: "Du betaler 149 kr per måned (1788 kr fakturert årlig) — uansett hvor mange bookinger du får. Ingen pris som vokser med bruk, ingen gebyrer som spiser av inntekten.",
+    text: "Du betaler 149 kr per måned (1788 kr fakturert årlig), uansett hvor mange bookinger du får. Ingen pris som vokser med bruk, ingen gebyrer som spiser av inntekten.",
   },
   {
     title: "Alt på ett sted",
-    text: "Bookingsystem, nettside, nettbutikk, blogg, nyhetsbrev og en AI-markedsføringshub — samlet, så du slipper å sette sammen og betale for flere verktøy.",
+    text: "Bookingsystem, nettside, nettbutikk, blogg, nyhetsbrev og en AI-markedsføringshub, samlet, så du slipper å sette sammen og betale for flere verktøy.",
   },
   {
     title: "Laget for de minste",
-    text: "Bestilly er bygget for frisøren, salongen og enkeltpersonforetaket — ikke for store kjeder. Enkelt å sette opp, enkelt å bruke.",
+    text: "Bestilly er bygget for frisøren, salongen og enkeltpersonforetaket, ikke for store kjeder. Enkelt å sette opp, enkelt å bruke.",
   },
 ];
 
@@ -107,7 +107,7 @@ export default function HvorforBestilly() {
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-balance text-lg text-gray-600">
               De fleste bookingsystemer er laget for større bedrifter og
-              koster deretter. Bestilly er laget for de minste — med én fast,
+              koster deretter. Bestilly er laget for de minste, med én fast,
               forutsigbar månedspris.
             </p>
           </div>
@@ -119,7 +119,7 @@ export default function HvorforBestilly() {
             Bestilly mot vanlige bookingsystemer
           </h2>
           <p className="mt-2 text-sm text-gray-500">
-            En grov sammenligning — tilbudene varierer, så sjekk alltid hva
+            En grov sammenligning, tilbudene varierer, så sjekk alltid hva
             som gjelder hos den enkelte leverandøren.
           </p>
           <div className="mt-6 overflow-x-auto rounded-2xl border border-gray-200">
@@ -179,7 +179,7 @@ export default function HvorforBestilly() {
               Pris
             </p>
             <p className="mt-2 text-5xl font-bold">{MONTHLY_PRICE_NOK} kr</p>
-            <p className="mt-1 text-gray-600">per måned — alt inkludert</p>
+            <p className="mt-1 text-gray-600">per måned, alt inkludert</p>
             <p className="text-xs text-gray-400">
               Fakturert årlig som {ANNUAL_PRICE_NOK} kr
             </p>

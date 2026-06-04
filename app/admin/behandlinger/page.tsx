@@ -19,7 +19,7 @@ export default async function ServicesPage() {
         <BackLink href="/admin" label="Tilbake til oversikt" />
         <h1 className="text-2xl font-bold">Behandlinger</h1>
         <p className="text-sm text-gray-500">
-          Tjenestene du tilbyr — navn, varighet og pris. Disse blir valgbare
+          Tjenestene du tilbyr, navn, varighet og pris. Disse blir valgbare
           når kunder booker time.
         </p>
       </div>

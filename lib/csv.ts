@@ -1,5 +1,5 @@
 // Bygger semikolon-separert CSV (norsk Excel-konvensjon) med UTF-8 BOM, så
-// norske tegn vises riktig. Ren funksjon — enkel å teste.
+// norske tegn vises riktig. Ren funksjon, enkel å teste.
 
 function csvCell(value: string | number): string {
   const s = String(value);

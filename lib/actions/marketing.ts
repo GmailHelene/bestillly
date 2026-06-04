@@ -149,7 +149,7 @@ export type SeoState =
   | { ok: true; seo: SeoResult }
   | undefined;
 
-// F3.3 — genererer SEO-anbefaling med Claude og lagrer den i profilen.
+// F3.3, genererer SEO-anbefaling med Claude og lagrer den i profilen.
 export async function generateSeoAction(): Promise<SeoState> {
   const businessId = await requireBusinessId();
   if (await isDemoBusiness(businessId)) {
@@ -213,7 +213,7 @@ export type ApplySeoState =
   | undefined;
 
 // Skriver SEO-forslaget (meta-tittel, -beskrivelse, søkeord) rett inn i
-// bedriftens onepage — så loopen fra forslag til faktisk side lukkes.
+// bedriftens onepage, så loopen fra forslag til faktisk side lukkes.
 export async function applySeoSuggestion(): Promise<ApplySeoState> {
   const businessId = await requireBusinessId();
   if (await isDemoBusiness(businessId)) return { error: DEMO_BLOCK_MESSAGE };
@@ -255,7 +255,7 @@ export type AnalysisState =
   | { ok: true; analysis: MarketAnalysis }
   | undefined;
 
-// F3.4 — genererer markedsanalyse med Claude og lagrer den i profilen.
+// F3.4, genererer markedsanalyse med Claude og lagrer den i profilen.
 export async function generateAnalysisAction(): Promise<AnalysisState> {
   const businessId = await requireBusinessId();
   if (await isDemoBusiness(businessId)) {
@@ -323,7 +323,7 @@ export type ContentState =
   | { ok: true; posts: GeneratedPost[]; failedChannels: string[] }
   | undefined;
 
-// F3.5 — genererer ett innlegg per valgt kanal, tilpasset hver kanal.
+// F3.5, genererer ett innlegg per valgt kanal, tilpasset hver kanal.
 export async function generateContentAction(
   topic: string,
   channelIds: string[],
@@ -411,7 +411,7 @@ export type ImageState =
   | { ok: true; imageUrl: string }
   | undefined;
 
-// F3.6 — genererer et AI-bilde fra en prompt, tilpasset kanalens format.
+// F3.6, genererer et AI-bilde fra en prompt, tilpasset kanalens format.
 export async function generateImageAction(
   prompt: string,
   channelId: string,
@@ -448,7 +448,7 @@ export async function generateImageAction(
       return { error: "Bildemotoren returnerte ingen bilde." };
     }
 
-    // Lagre permanent i Cloudinary — Replicate-URL-er utløper raskt.
+    // Lagre permanent i Cloudinary, Replicate-URL-er utløper raskt.
     if (hasCloudinary()) {
       try {
         const stored = await uploadImageFromUrl(replicateUrl);
@@ -473,7 +473,7 @@ export async function generateImageAction(
       (err as { statusCode?: number })?.statusCode;
 
     // Sjekk om Replicate-svaret peker på et billing- eller rate-limit-problem
-    // — da kan vi gi en konkret beskjed i stedet for generisk «prøv igjen».
+    //, da kan vi gi en konkret beskjed i stedet for generisk «prøv igjen».
     const lowMessage = message.toLowerCase();
     const isBilling =
       status === 402 ||
@@ -496,7 +496,7 @@ export async function generateImageAction(
     if (isRateLimit) {
       return {
         error:
-          "Replicate begrenser farten akkurat nå (gratisplan). Vent 30–60 sekunder og prøv igjen, eller legg til betalingsmetode på replicate.com/account/billing for å fjerne taket.",
+          "Replicate begrenser farten akkurat nå (gratisplan). Vent 30-60 sekunder og prøv igjen, eller legg til betalingsmetode på replicate.com/account/billing for å fjerne taket.",
       };
     }
     return {
@@ -523,7 +523,7 @@ function nextMonday(): string {
   return `${y}-${m}-${d}`;
 }
 
-// F3.8 — genererer en helhetlig publiseringsplan på tvers av kanalene.
+// F3.8, genererer en helhetlig publiseringsplan på tvers av kanalene.
 export async function generatePlanAction(
   periodWeeks: number,
 ): Promise<PlanState> {
@@ -592,7 +592,7 @@ export type BlogState =
   | { ok: true; post: GeneratedBlogPost }
   | undefined;
 
-// F3.7 — genererer et SEO-optimalisert blogginnlegg (lagres ikke ennå).
+// F3.7, genererer et SEO-optimalisert blogginnlegg (lagres ikke ennå).
 export async function generateBlogPostAction(
   topic: string,
 ): Promise<BlogState> {
@@ -696,7 +696,7 @@ export type SnippetState =
   | { ok: true; variants: string[] }
   | undefined;
 
-// F3.7b — genererer korte SEO-tekster i flere varianter.
+// F3.7b, genererer korte SEO-tekster i flere varianter.
 export async function generateSnippetAction(
   snippetTypeId: string,
   extraContext: string,

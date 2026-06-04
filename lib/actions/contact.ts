@@ -28,7 +28,7 @@ export async function sendContactMessage(
   if (!message) return { error: "Skriv en melding." };
 
   // Henvendelser fra forsidens kontaktskjema havner i CONTACT_INBOX hvis
-  // satt, ellers i EMAIL_FROM (support@codemedic.no — Brevo-verifisert).
+  // satt, ellers i EMAIL_FROM (support@codemedic.no, Brevo-verifisert).
   // OPERATOR_EMAIL er bare for /drift-tilgang, ikke for inngående post.
   const to = getContactInbox();
   if (!to) {

@@ -1,4 +1,4 @@
-// F3.4 — Markedsanalyse. Prioriterer kanaler, anbefaler postefrekvens og
+// F3.4, Markedsanalyse. Prioriterer kanaler, anbefaler postefrekvens og
 // -tidspunkt, og gir en budsjettstrategi (betalt vs. organisk) for bedriften.
 
 import { generateJson } from "@/lib/anthropic";
@@ -45,11 +45,11 @@ const SYSTEM_PROMPT = `Du er en erfaren norsk markedsrådgiver som hjelper små,
 
 Du får oppgitt en referanse med fakta om hver kanal (frekvens, tider, format). Bruk disse som utgangspunkt, men tilpass til DENNE bedriften, målgruppen og budsjettet.
 
-Vær konkret og realistisk. En liten bedrift klarer ikke å være aktiv overalt — prioriter hardt. Hvis budsjettet er lite eller null, legg vekt på organisk innhold.
+Vær konkret og realistisk. En liten bedrift klarer ikke å være aktiv overalt, prioriter hardt. Hvis budsjettet er lite eller null, legg vekt på organisk innhold.
 
 Svar KUN med gyldig JSON i dette formatet:
 {
-  "summary": "2–3 setningers oppsummering av markedsføringssituasjonen og hovedanbefalingen",
+  "summary": "2-3 setningers oppsummering av markedsføringssituasjonen og hovedanbefalingen",
   "channels": [
     {
       "channelId": "facebook|instagram|tiktok|snapchat|youtube",
@@ -60,9 +60,9 @@ Svar KUN med gyldig JSON i dette formatet:
       "bestTimes": ["Konkrete postetidspunkt"]
     }
   ],
-  "budgetStrategy": "Hvordan fordele budsjettet — betalt annonsering vs. organisk. Vær konkret med kroner hvis budsjett er oppgitt.",
+  "budgetStrategy": "Hvordan fordele budsjettet, betalt annonsering vs. organisk. Vær konkret med kroner hvis budsjett er oppgitt.",
   "organicVsPaid": "Kort råd om balansen mellom gratis (organisk) innhold og betalte annonser for denne bedriften",
-  "quickWins": ["3–5 raske grep bedriften kan gjøre denne uka"]
+  "quickWins": ["3-5 raske grep bedriften kan gjøre denne uka"]
 }
 
 Prioriter kanalene fra 1 (viktigst). Ta kun med kanalene bedriften har valgt. Returner KUN JSON.`;
@@ -94,7 +94,7 @@ function buildUserPrompt(input: AnalysisInput): string {
   parts.push(
     input.budgetNok
       ? `Markedsføringsbudsjett: ${input.budgetNok} kr (per år)`
-      : "Markedsføringsbudsjett: ikke oppgitt / svært lite — anta tilnærmet null",
+      : "Markedsføringsbudsjett: ikke oppgitt / svært lite, anta tilnærmet null",
   );
   if (input.seoSummary) parts.push(`SEO-oppsummering: ${input.seoSummary}`);
   if (input.seoKeywords?.length)

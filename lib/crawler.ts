@@ -1,4 +1,4 @@
-// Nettside-crawler — henter bedriftens EGEN nettside og trekker ut tekst,
+// Nettside-crawler, henter bedriftens EGEN nettside og trekker ut tekst,
 // tittel, beskrivelse og nøkkelord. Brukes som grunnlag for analyser i Fase 3.
 // Ingen API-nøkler nødvendig.
 
@@ -11,7 +11,7 @@ const MAX_TEXT_LENGTH = 12000;
 const MAX_REDIRECTS = 4;
 
 // Robust URL-normalisering. Streamlit-appen feilet på markdown-limte lenker
-// og adresser uten skjema — her håndterer vi begge deler.
+// og adresser uten skjema, her håndterer vi begge deler.
 export function normalizeUrl(input: string): string | null {
   if (!input || typeof input !== "string") return null;
   let s = input.trim();
@@ -20,8 +20,8 @@ export function normalizeUrl(input: string): string | null {
   const md = s.match(/\]\(([^)]+)\)/);
   if (md) s = md[1].trim();
 
-  // Fjern omsluttende tegn — anførselstegn, vinkelparenteser og etterfølgende
-  // skilletegn — gjentatte ganger til strengen er stabil. Håndterer også
+  // Fjern omsluttende tegn, anførselstegn, vinkelparenteser og etterfølgende
+  // skilletegn, gjentatte ganger til strengen er stabil. Håndterer også
   // sammensatte avslutninger som `."` eller `>.`.
   let prev = "";
   while (prev !== s) {
@@ -139,7 +139,7 @@ function extractInternalLinks(html: string, base: URL): string[] {
   return [...found];
 }
 
-// Norske og engelske stoppord — fjernes fra nøkkelord.
+// Norske og engelske stoppord, fjernes fra nøkkelord.
 const STOPWORDS = new Set([
   "også","ikke","skal","være","blir","denne","dette","disse","etter",
   "eller","over","under","mellom","fordi","slik","samt","med","som","for",
@@ -224,7 +224,7 @@ async function isHostAllowed(hostname: string): Promise<boolean> {
   }
 }
 
-// Henter HTML, men avviser interne adresser — også via redirects.
+// Henter HTML, men avviser interne adresser, også via redirects.
 async function fetchHtml(rawUrl: string): Promise<string | null> {
   let url = rawUrl;
   for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
@@ -248,7 +248,7 @@ async function fetchHtml(rawUrl: string): Promise<string | null> {
         headers: {
           // Bruker en ren Chrome-UA. Shopify/Cloudflare-bot-vern
           // returnerer en tom utfordringsside hvis UA-en inneholder
-          // ord som «bot», «crawler» eller «compatible» — selv om vi
+          // ord som «bot», «crawler» eller «compatible», selv om vi
           // i utgangspunktet bare leser bedriftens egen offentlige
           // forside på deres oppfordring.
           "User-Agent":

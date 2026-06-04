@@ -1,5 +1,5 @@
 // SEO-revisjon av bedriftens bestilly-side. Ren analyse av data bestilly
-// allerede har — ingen API-nøkler, ingen crawling. Gir en score og konkrete
+// allerede har, ingen API-nøkler, ingen crawling. Gir en score og konkrete
 // råd gruppert i kategorier.
 
 export type AuditStatus = "pass" | "warn" | "fail";
@@ -56,7 +56,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
       CAT_BASIC,
       "Egen meta-tittel",
       "warn",
-      "Bestilly lager en standard tittel, men en egen, søkeordrik tittel (30–60 tegn) gir bedre treff. Fyll inn under «Min side» → SEO.",
+      "Bestilly lager en standard tittel, men en egen, søkeordrik tittel (30-60 tegn) gir bedre treff. Fyll inn under «Min side» → SEO.",
     );
   } else if (metaTitle.length < 30 || metaTitle.length > 60) {
     add(
@@ -64,7 +64,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
       CAT_BASIC,
       "Egen meta-tittel",
       "warn",
-      `Meta-tittelen er ${metaTitle.length} tegn. Ideelt er 30–60 tegn — da vises hele i Google.`,
+      `Meta-tittelen er ${metaTitle.length} tegn. Ideelt er 30-60 tegn, da vises hele i Google.`,
     );
   } else {
     add("metaTitle", CAT_BASIC, "Egen meta-tittel", "pass", "Tittelen har god lengde.");
@@ -77,7 +77,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
       CAT_BASIC,
       "Meta-beskrivelse",
       "fail",
-      "Meta-beskrivelsen er teksten under tittelen i Google-treffet. Skriv 50–160 tegn som lokker til klikk. Fyll inn under «Min side» → SEO.",
+      "Meta-beskrivelsen er teksten under tittelen i Google-treffet. Skriv 50-160 tegn som lokker til klikk. Fyll inn under «Min side» → SEO.",
     );
   } else if (metaDesc.length < 50 || metaDesc.length > 160) {
     add(
@@ -85,7 +85,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
       CAT_BASIC,
       "Meta-beskrivelse",
       "warn",
-      `Meta-beskrivelsen er ${metaDesc.length} tegn. Sikt på 50–160 tegn.`,
+      `Meta-beskrivelsen er ${metaDesc.length} tegn. Sikt på 50-160 tegn.`,
     );
   } else {
     add(
@@ -104,7 +104,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
     input.keywords?.trim() ? "pass" : "warn",
     input.keywords?.trim()
       ? "Søkeord er fylt ut."
-      : "Legg inn relevante søkeord — gjerne med stedsnavn. SEO-generatoren i Markedsføring kan foreslå dem.",
+      : "Legg inn relevante søkeord, gjerne med stedsnavn. SEO-generatoren i Markedsføring kan foreslå dem.",
   );
 
   add(
@@ -145,7 +145,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
       CAT_CONTENT,
       "Behandlinger lagt inn",
       "fail",
-      "Legg inn behandlingene dine — hver behandling er innhold Google kan vise.",
+      "Legg inn behandlingene dine, hver behandling er innhold Google kan vise.",
     );
   } else if (input.serviceCount < 3) {
     add(
@@ -177,7 +177,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
     hasImages ? "pass" : "warn",
     hasImages
       ? "Siden har bilder."
-      : "Legg til logo og noen bilder — det løfter både inntrykk og synlighet.",
+      : "Legg til logo og noen bilder, det løfter både inntrykk og synlighet.",
   );
 
   add(
@@ -197,7 +197,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
     "Adresse fylt ut",
     input.address?.trim() ? "pass" : "fail",
     input.address?.trim()
-      ? "Adressen er på plass — viktig for lokale søk."
+      ? "Adressen er på plass, viktig for lokale søk."
       : "Adresse er avgjørende for å bli funnet i lokale søk og på kart. Fyll den inn.",
   );
 
@@ -218,7 +218,7 @@ export function auditSeo(input: SeoAuditInput): SeoAuditResult {
     input.hasOpeningHours ? "pass" : "warn",
     input.hasOpeningHours
       ? "Åpningstidene er satt opp."
-      : "Sett opp åpningstider — det vises på siden og er nyttig for lokale søk.",
+      : "Sett opp åpningstider, det vises på siden og er nyttig for lokale søk.",
   );
 
   // --- Teknisk (Bestilly ordner dette automatisk) ---
