@@ -336,8 +336,8 @@ export const DEMO_BLOG_POST: GeneratedBlogPost = {
 export const DEMO_SNIPPETS: Record<string, string[]> = {
   about: [
     "Demo Frisør & Velvære er en koselig salong midt i Vikersund. Vi tar oss tid til hver enkelt kunde, og målet vårt er enkelt: at du går herfra med et smil og hår du er glad i. Velkommen innom!",
-    "Hos Demo Frisør & Velvære møter du erfarne frisører i hjertet av Vikersund. Vi tilbyr alt fra klipp og farging til vippeforlengelse, alltid med god tid og personlig oppfølging.",
-    "Midt i Vikersund finner du Demo Frisør & Velvære. En liten, varm salong der du blir sett og hørt, enten du vil ha en frisk klipp, ny farge eller litt egentid før en stor anledning.",
+    "Hos Demo Frisør & Velvære møter du erfarne frisører i Vikersund sentrum. Vi tilbyr alt fra klipp og farging til vippeforlengelse, alltid med god tid og personlig oppfølging.",
+    "Midt i Vikersund finner du Demo Frisør & Velvære. En liten, varm salong der du blir sett og hørt, om du vil ha en frisk klipp, ny farge eller litt egentid før en stor anledning.",
   ],
   hero: [
     "Velstelt hår og litt egentid, midt i Vikersund.",
