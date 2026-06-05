@@ -7,6 +7,8 @@ import {
   Fraunces,
   Cormorant_Garamond,
 } from "next/font/google";
+import { CookieNotice } from "@/components/cookie-notice";
+import { Plausible } from "@/components/plausible";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -53,11 +55,20 @@ export const metadata: Metadata = {
   ),
   title: siteTitle,
   description: siteDescription,
+  alternates: { canonical: "/" },
+  // openGraph- og twitter-bilder samt favicon kommer fra
+  // app/opengraph-image.tsx og app/icon.tsx (Next.js fil-konvensjon).
   openGraph: {
     title: siteTitle,
     description: siteDescription,
     type: "website",
     locale: "nb_NO",
+    siteName: "Bestilly",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
   },
 };
 
@@ -71,7 +82,11 @@ export default function RootLayout({
       lang="nb"
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${poppins.variable} ${fraunces.variable} ${cormorant.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <CookieNotice />
+        <Plausible />
+      </body>
     </html>
   );
 }

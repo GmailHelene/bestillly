@@ -219,9 +219,9 @@ export default function Home() {
                 </h1>
                 <p className="mt-5 text-balance text-lg text-gray-600">
                   Time inn, kvittering ut, ferdig regnskapsgrunnlag. Bestilly
-                  samler booking, kalender, regnskapseksport og markedsføring
-                 , laget for deg som driver alene. 149 kr per måned, alt
-                  inkludert, ingen skjulte gebyrer.
+                  samler booking, kalender, regnskap og markedsføring i ett
+                  verktøy laget for deg som driver alene. 149 kr per måned,
+                  ingen skjulte gebyrer.
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
                   <Link
@@ -525,26 +525,23 @@ export default function Home() {
           <h2 className="text-2xl font-bold tracking-tight">Om oss</h2>
           <div className="mt-4 space-y-4 text-gray-600">
             <p>
-              Bestilly ble til av en enkel tanke: Hver liten bedrift fortjener
-              et enkelt og rimelig bookingverktøy. Gründer Helene Grønberg,
-              utvikler fra Modum, så at de fleste bookingsystemene var
-              overdimensjonerte og for dyre for dem som driver alene , 
-              Frisører, terapeuter, konsulenter. Månedsgebyr på flere hundre
-              kroner og kostnad per booking spiser fort opp marginene.
+              Jeg heter Helene, jobber som utvikler og bor på Modum. Bestilly
+              begynte fordi jeg kjenner for mange som driver alene, og som
+              har prøvd seg fram med bookingsystemer som tar 400, 500, 600 kr
+              i måneden, pluss gebyr per booking. For en frisør med tre
+              ledige stoler i uka spiser det opp halve fortjenesten.
             </p>
             <p>
-              Resultatet ble Bestilly: Et rent, enkelt verktøy bygget fra
-              bunnen av for de minste bedriftene. Du slipper å betale for
-              funksjonalitet du ikke trenger, og prisen er forutsigbar. Alt er
-              utviklet i Norge, på norsk, Så support og veiledning alltid er
-              på ditt eget språk.
+              Så jeg bygde det jeg savnet selv: Ett system. Én fast pris. Alt
+              du faktisk trenger, ingenting du ikke trenger. Booking,
+              kalender, kvittering rett ut til regnskapsføreren, en pen
+              nettside du kan dele på Facebook. Ferdig.
             </p>
             <p>
-              Filosofien er like enkel som den er viktig: Teknologien skal
-              forenkle hverdagen for små tjenesteytere, Ikke være en ekstra
-              belastning. Vi har stor respekt for gründere som satser på det de
-              brenner for, og vil gjøre det lettere for dem å bruke tiden på
-              nettopp det. Fra én gründer til en annen, Velkommen til Bestilly.
+              Det er kodet i Norge, på norsk. Hvis noe knirker, svarer jeg
+              selv på Messenger. Ingen ticket-system, ingen «vi tar kontakt
+              innen 5 virkedager». Det er litt av poenget. Fra én som driver
+              for seg selv til en annen.
             </p>
           </div>
         </section>
