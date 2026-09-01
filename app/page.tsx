@@ -621,6 +621,17 @@ export default function Home() {
           </Link>
         </div>
         <span>Bookingsystem for enkeltpersonforetak</span>
+        <span>
+          Laget av{" "}
+          <a
+            href="https://helene.cloud/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-gray-900"
+          >
+            Grønberg Tech Solutions
+          </a>
+        </span>
       </footer>
     </div>
   );
